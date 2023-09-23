@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Crystal">
+      <UniqueIdentifier>{873AF83B-F319-77D7-FC31-02AE6890DD38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crystal\Events">
+      <UniqueIdentifier>{8BE85F61-77B6-5367-604A-C48D4CB72FCC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Crystal.h" />
+    <ClInclude Include="src\Crystal\Application.h">
+      <Filter>Crystal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core.h">
+      <Filter>Crystal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\EntryPoint.h">
+      <Filter>Crystal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Events\ApplicationEvent.h">
+      <Filter>Crystal\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Events\Event.h">
+      <Filter>Crystal\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Events\KeyEvent.h">
+      <Filter>Crystal\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Events\MouseEvent.h">
+      <Filter>Crystal\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Log.h">
+      <Filter>Crystal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\crystalpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Crystal\Application.cpp">
+      <Filter>Crystal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Log.cpp">
+      <Filter>Crystal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\crystalpch.cpp" />
+  </ItemGroup>
+</Project>
