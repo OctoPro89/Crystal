@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Window.h"
 
 namespace Crystal {
 	class CRYSTAL_API Application
@@ -10,6 +11,8 @@ namespace Crystal {
 		Application();
 		virtual ~Application();
 		void Run();
+	private:
+		std::unique_ptr<Window> m_Window;
 	};
 
 	//To be defined in CLIENT

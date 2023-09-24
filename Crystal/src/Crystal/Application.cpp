@@ -7,7 +7,7 @@
 namespace Crystal {
 	Application::Application()
 	{
-
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -16,9 +16,6 @@ namespace Crystal {
 
 	void Application::Run() 
 	{
-		WindowResizeEvent e(1280, 720);
-		CRYSTAL_TRACE(e);
-
 		while (true);
 	}
 }
