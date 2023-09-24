@@ -65,14 +65,17 @@ project "Crystal"
 
 	filter "configurations:Debug"
 		defines "CRYSTAL_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CRYSTAL_Release"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CRYSTAL_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -112,12 +115,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "CRYSTAL_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CRYSTAL_Release"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CRYSTAL_DIST"
+		buildoptions "/MD"
 		optimize "On"

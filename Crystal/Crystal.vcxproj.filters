@@ -37,6 +37,12 @@
     <ClInclude Include="src\Crystal\Events\MouseEvent.h">
       <Filter>Crystal\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Layer.h">
+      <Filter>Crystal</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\LayerStack.h">
+      <Filter>Crystal</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Log.h">
       <Filter>Crystal</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Application.cpp">
+      <Filter>Crystal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Layer.cpp">
+      <Filter>Crystal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\LayerStack.cpp">
       <Filter>Crystal</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Log.cpp">

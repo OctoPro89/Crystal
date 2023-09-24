@@ -83,7 +83,8 @@
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -106,7 +107,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -130,7 +132,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -151,6 +154,8 @@
     <ClInclude Include="src\Crystal\Events\Event.h" />
     <ClInclude Include="src\Crystal\Events\KeyEvent.h" />
     <ClInclude Include="src\Crystal\Events\MouseEvent.h" />
+    <ClInclude Include="src\Crystal\Layer.h" />
+    <ClInclude Include="src\Crystal\LayerStack.h" />
     <ClInclude Include="src\Crystal\Log.h" />
     <ClInclude Include="src\Crystal\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -158,6 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Application.cpp" />
+    <ClCompile Include="src\Crystal\Layer.cpp" />
+    <ClCompile Include="src\Crystal\LayerStack.cpp" />
     <ClCompile Include="src\Crystal\Log.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\crystalpch.cpp">
