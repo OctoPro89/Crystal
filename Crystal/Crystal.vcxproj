@@ -151,18 +151,18 @@
     <ClInclude Include="src\Crystal\Events\Event.h" />
     <ClInclude Include="src\Crystal\Events\KeyEvent.h" />
     <ClInclude Include="src\Crystal\Events\MouseEvent.h" />
-    <ClInclude Include="src\Crystal\Window.h" />
     <ClInclude Include="src\Crystal\Log.h" />
-    <ClInclude Include="src\crystalpch.h" />
+    <ClInclude Include="src\Crystal\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\crystalpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Application.cpp" />
     <ClCompile Include="src\Crystal\Log.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\crystalpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

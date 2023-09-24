@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Crystal.h"
+#include "Log.h"
+#include "crystalpch.h"
 
 #include "Crystal/Core.h"
 #include "Crystal/Events/Event.h"

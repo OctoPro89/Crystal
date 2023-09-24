@@ -1,37 +1,8 @@
 ﻿  Application.cpp
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(18,42): warning C4251: 'Crystal::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Crystal::Log'
-D:\GithubProjects\Crystal\Crystal\vendor\spdlog\include\spdlog\details\registry.h(34,31): message : see declaration of 'std::shared_ptr<spdlog::logger>'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(19,42): warning C4251: 'Crystal::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Crystal::Log'
-D:\GithubProjects\Crystal\Crystal\vendor\spdlog\include\spdlog\details\registry.h(34,31): message : see declaration of 'std::shared_ptr<spdlog::logger>'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(5,17): error C2039: 'Application': is not a member of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(8,12): message : see declaration of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(5,28): error C2143: syntax error: missing ';' before '*'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(5,28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(5,39): error C2039: 'CreateApplication': is not a member of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(8,12): message : see declaration of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(5,58): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(13,11): error C2039: 'Application': is not a member of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(8,12): message : see declaration of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(13,24): error C2065: 'app': undeclared identifier
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(13,39): error C2039: 'CreateApplication': is not a member of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(8,12): message : see declaration of 'Crystal'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(14,2): error C2065: 'app': undeclared identifier
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(15,9): error C2065: 'app': undeclared identifier
-D:\GithubProjects\Crystal\Crystal\src\Crystal\EntryPoint.h(15,2): error C2541: 'delete': cannot delete objects that are not pointers
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,27): warning C4251: 'Crystal::Application::m_Window': class 'std::unique_ptr<Crystal::Window,std::default_delete<Crystal::Window>>' needs to have dll-interface to be used by clients of class 'Crystal::Application'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,8): message : see declaration of 'std::unique_ptr<Crystal::Window,std::default_delete<Crystal::Window>>'
-  WindowsWindow.cpp
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(18,42): warning C4251: 'Crystal::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Crystal::Log'
-D:\GithubProjects\Crystal\Crystal\vendor\spdlog\include\spdlog\details\registry.h(34,31): message : see declaration of 'std::shared_ptr<spdlog::logger>'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.h(19,42): warning C4251: 'Crystal::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Crystal::Log'
-D:\GithubProjects\Crystal\Crystal\vendor\spdlog\include\spdlog\details\registry.h(34,31): message : see declaration of 'std::shared_ptr<spdlog::logger>'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,19): error C2065: 'Window': undeclared identifier
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,8): error C2923: 'std::unique_ptr': 'Window' is not a valid template type argument for parameter '_Ty'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,19): message : see declaration of 'Window'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,8): error C2976: 'std::unique_ptr': too few template arguments
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(3213,18): message : see declaration of 'std::unique_ptr'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,27): error C2955: 'std::unique_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(3213,18): message : see declaration of 'std::unique_ptr'
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.h(15,27): warning C4251: 'Crystal::Application::m_Window': class 'std::unique_ptr' needs to have dll-interface to be used by clients of class 'Crystal::Application'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(3213,18): message : see declaration of 'std::unique_ptr'
-  Generating Code...
+D:\Programming\C++\Crystal\Crystal\src\Crystal\Log.h(18,42): warning C4251: 'Crystal::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Crystal::Log'
+D:\Programming\C++\Crystal\Crystal\vendor\spdlog\include\spdlog\details\registry.h(34,31): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+D:\Programming\C++\Crystal\Crystal\src\Crystal\Log.h(19,42): warning C4251: 'Crystal::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'Crystal::Log'
+D:\Programming\C++\Crystal\Crystal\vendor\spdlog\include\spdlog\details\registry.h(34,31): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+D:\Programming\C++\Crystal\Crystal\src\Crystal\Application.h(22,27): warning C4251: 'Crystal::Application::m_Window': class 'std::unique_ptr<Crystal::Window,std::default_delete<Crystal::Window>>' needs to have dll-interface to be used by clients of class 'Crystal::Application'
+D:\Programming\C++\Crystal\Crystal\src\Crystal\Application.h(22,8): message : see declaration of 'std::unique_ptr<Crystal::Window,std::default_delete<Crystal::Window>>'
+  Crystal.vcxproj -> D:\Programming\C++\Crystal\bin\Debug-windows-x86_64\Crystal\Crystal.dll
