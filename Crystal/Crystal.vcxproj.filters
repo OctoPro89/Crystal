@@ -35,6 +35,7 @@
       <Filter>Crystal</Filter>
     </ClInclude>
     <ClInclude Include="src\crystalpch.h" />
+    <ClInclude Include="src\Crystal\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Application.cpp">

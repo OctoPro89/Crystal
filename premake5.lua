@@ -11,6 +11,12 @@ workspace "Crystal"
 
 outputdir="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+--Include Directories relative root folder (Solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Crystal/vendor/GLFW/include"
+
+include "Crystal/vendor/GLFW"
+
 project "Crystal"
 	location "Crystal"
 	kind "SharedLib"
@@ -31,7 +37,14 @@ project "Crystal"
 	includedirs
 	{
 		"Crystal/src",
-		"Crystal/vendor/spdlog/include"
+		"Crystal/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	postbuildcommands
