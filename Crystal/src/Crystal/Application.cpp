@@ -8,6 +8,7 @@ namespace Crystal {
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		bool m_Running = true;
 	}
 
 	Application::~Application()
