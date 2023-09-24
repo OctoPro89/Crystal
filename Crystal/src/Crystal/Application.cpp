@@ -8,7 +8,6 @@ namespace Crystal {
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		bool m_Running = true;
 	}
 
 	Application::~Application()
@@ -17,6 +16,9 @@ namespace Crystal {
 
 	void Application::Run() 
 	{
-		while (true);
+		while (m_Running) 
+		{
+			m_Window->OnUpdate();
+		}
 	}
 }
