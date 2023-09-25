@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Crystal/Window.h"
-
 #include <GLFW/glfw3.h>
+
 
 namespace Crystal {
 	class WindowsWindow : public Window {

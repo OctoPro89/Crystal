@@ -10,6 +10,10 @@
 	#error OS not supported by Crystal!
 #endif
 
+#ifdef CRYSTAL_DEBUG
+	#define CRYSTAL_ENABLE_ASSERTS
+#endif
+
 #ifdef CRYSTAL_ENABLE_ASSERTS
 	#define CRYSTAL_ASSERT(x, ...) { if(!(x)) { CRYSTAL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define CRYSTAL_CORE_ASSERT(x, ...) { if(!(x)) { CRYSTAL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
@@ -19,3 +23,5 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+#define CRYSTAL_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
