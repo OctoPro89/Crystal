@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace Crystal {
-	class CRYSTAL_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

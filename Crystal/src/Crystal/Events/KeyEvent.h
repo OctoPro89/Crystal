@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Crystal {
-	class CRYSTAL_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -16,7 +16,7 @@ namespace Crystal {
 		int m_KeyCode;
 	};
 
-	class CRYSTAL_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -35,7 +35,7 @@ namespace Crystal {
 		int m_RepeatCount;
 	};
 
-	class CRYSTAL_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -51,7 +51,7 @@ namespace Crystal {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class CRYSTAL_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)

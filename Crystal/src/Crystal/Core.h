@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef CRYSTAL_PLATFORM_WINDOWS
+#if CRYSTAL_DYNAMIC_LINK
 	#ifdef CRYSTAL_BUILD_DLL
-		#define CRYSTAL_API __declspec(dllexport)
+		#define __declspec(dllexport)
 	#else
-		#define CRYSTAL_API __declspec(dllimport)
+		#define __declspec(dllimport)
 	#endif
+#else
+#define CRSTAL_API
+#endif
 #else
 	#error OS not supported by Crystal!
 #endif

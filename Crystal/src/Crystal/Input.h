@@ -3,7 +3,7 @@
 #include <Crystal/Core.h>
 
 namespace Crystal {
-	class CRYSTAL_API Input
+	class Input
 	{
 	public: 
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }

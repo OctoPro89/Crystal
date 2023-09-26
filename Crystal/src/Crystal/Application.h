@@ -7,7 +7,7 @@
 #include "Events/ApplicationEvent.h"
 
 namespace Crystal {
-	class CRYSTAL_API Application
+	class Application
 	{
 	public:
 		Application();

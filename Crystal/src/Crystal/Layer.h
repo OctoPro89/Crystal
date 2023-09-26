@@ -4,7 +4,7 @@
 #include "Crystal/Events/Event.h"
 
 namespace Crystal {
-	class CRYSTAL_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");
