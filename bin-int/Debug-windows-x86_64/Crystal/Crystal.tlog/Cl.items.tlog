@@ -1,9 +1,0 @@
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Application.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\Application.obj
-D:\GithubProjects\Crystal\Crystal\src\Crystal\ImGui\ImGuiLayer.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\ImGuiLayer.obj
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Layer.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\Layer.obj
-D:\GithubProjects\Crystal\Crystal\src\Crystal\LayerStack.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\LayerStack.obj
-D:\GithubProjects\Crystal\Crystal\src\Crystal\Log.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\Log.obj
-D:\GithubProjects\Crystal\Crystal\src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\ImGuiOpenGLRenderer.obj
-D:\GithubProjects\Crystal\Crystal\src\Platform\Windows\WindowsInput.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\WindowsInput.obj
-D:\GithubProjects\Crystal\Crystal\src\Platform\Windows\WindowsWindow.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\WindowsWindow.obj
-D:\GithubProjects\Crystal\Crystal\src\crystalpch.cpp;D:\GithubProjects\Crystal\bin-int\Debug-windows-x86_64\Crystal\crystalpch.obj

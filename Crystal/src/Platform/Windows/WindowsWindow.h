@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Crystal/Window.h"
+#include "Crystal/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 
 
@@ -26,6 +27,7 @@ namespace Crystal {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

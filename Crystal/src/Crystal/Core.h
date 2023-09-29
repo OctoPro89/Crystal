@@ -3,12 +3,12 @@
 #ifdef CRYSTAL_PLATFORM_WINDOWS
 #if CRYSTAL_DYNAMIC_LINK
 	#ifdef CRYSTAL_BUILD_DLL
-		#define __declspec(dllexport)
+		#define CRYSTAL_API __declspec(dllexport)
 	#else
-		#define __declspec(dllimport)
+		#define CRYSTAL_API __declspec(dllimport)
 	#endif
 #else
-#define CRSTAL_API
+	#define CRSTAL_API 
 #endif
 #else
 	#error OS not supported by Crystal!

@@ -9,9 +9,9 @@ workspace "Crystal"
 		"Dist"
 	}
 
-outputdir="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
---Include Directories relative root folder (Solution directory)
+-- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Crystal/vendor/GLFW/include"
 IncludeDir["Glad"] = "Crystal/vendor/Glad/include"
@@ -40,21 +40,26 @@ project "Crystal"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
+		"%{prj.name}/vendor/glm/glm/**.inl",
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
 	{
-		"Crystal/src",
-		"Crystal/vendor/spdlog/include",
+		"%{prj.name}/src",
+		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}"
 	}
 
-	links
-	{
+	links 
+	{ 
 		"GLFW",
 		"Glad",
 		"ImGui",
@@ -62,7 +67,6 @@ project "Crystal"
 	}
 
 	filter "system:windows"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -76,26 +80,23 @@ project "Crystal"
 		defines "CRYSTAL_DEBUG"
 		runtime "Debug"
 		symbols "on"
-		buildoptions "/MTd"
 
 	filter "configurations:Release"
-		defines "CRYSTAL_Release"
+		defines "CRYSTAL_RELEASE"
 		runtime "Release"
 		optimize "on"
-		buildoptions "/MT"
 
 	filter "configurations:Dist"
 		defines "CRYSTAL_DIST"
 		runtime "Release"
 		optimize "on"
-		buildoptions "/MT"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,6 +111,7 @@ project "Sandbox"
 	{
 		"Crystal/vendor/spdlog/include",
 		"Crystal/src",
+		"Crystal/vendor",
 		"%{IncludeDir.glm}"
 	}
 
@@ -130,16 +132,13 @@ project "Sandbox"
 		defines "CRYSTAL_DEBUG"
 		runtime "Debug"
 		symbols "on"
-		buildoptions "/MTd"
 
 	filter "configurations:Release"
-		defines "CRYSTAL_Release"
+		defines "CRYSTAL_RELEASE"
 		runtime "Release"
 		optimize "on"
-		buildoptions "/MT"
 
 	filter "configurations:Dist"
 		defines "CRYSTAL_DIST"
 		runtime "Release"
 		optimize "on"
-		buildoptions "/MT"
