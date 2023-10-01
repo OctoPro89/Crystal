@@ -10,8 +10,8 @@ namespace Crystal
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLShader(vertexSource, fragmentSrc);
+		case RendererAPI::API::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
+		case RendererAPI::API::OpenGL:	return new OpenGLShader(vertexSource, fragmentSrc);
 		}
 	}
 }

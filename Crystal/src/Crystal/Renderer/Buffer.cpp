@@ -9,8 +9,8 @@ namespace Crystal {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLVertexBuffer(vertices, size);
+		case RendererAPI::API::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
+		case RendererAPI::API::OpenGL:	return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		CRYSTAL_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -20,8 +20,8 @@ namespace Crystal {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLIndexBuffer(indices, size);
+		case RendererAPI::API::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
+		case RendererAPI::API::OpenGL:	return new OpenGLIndexBuffer(indices, size);
 		}
 
 		CRYSTAL_CORE_ASSERT(false, "Unknown RendererAPI!");
