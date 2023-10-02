@@ -143,6 +143,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Crystal\Core\Timestep.h" />
+    <ClInclude Include="src\Crystal\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Crystal\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Crystal\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Crystal.h" />
     <ClInclude Include="src\Crystal\Application.h" />
     <ClInclude Include="src\Crystal\Core.h" />
@@ -589,6 +594,10 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Crystal\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Crystal\Application.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp" />
