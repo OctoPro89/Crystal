@@ -60,7 +60,7 @@ namespace Crystal {
 	{
 		while (m_Running)
 		{
-			float time = glfwGetTime();
+			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 			for (Layer* layer : m_LayerStack)

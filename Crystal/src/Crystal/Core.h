@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #ifdef CRYSTAL_PLATFORM_WINDOWS
 #if CRYSTAL_DYNAMIC_LINK
 	#ifdef CRYSTAL_BUILD_DLL
@@ -29,3 +31,12 @@
 #define BIT(x) (1 << x)
 
 #define CRYSTAL_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace Crystal 
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

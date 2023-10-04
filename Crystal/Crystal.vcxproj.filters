@@ -1385,6 +1385,8 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Crystal\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Crystal\Core\Timestep.h" />
+    <ClInclude Include="src\Crystal\Renderer\Texture.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Application.cpp">
@@ -1442,5 +1444,7 @@
     <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Crystal\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
   </ItemGroup>
 </Project>
