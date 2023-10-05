@@ -2,27 +2,30 @@
 #include "OpenGLShader.h"
 
 #include <fstream>
-#include <Glad/glad.h>
+#include <glad/glad.h>
+
 #include <glm/gtc/type_ptr.hpp>
 
-namespace Crystal
-{
+namespace Crystal {
+
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{
-		if (type == "vertex") 
+		if (type == "vertex")
 			return GL_VERTEX_SHADER;
-		if (type == "fragment" || type == "pixel") 
+		if (type == "fragment" || type == "pixel")
 			return GL_FRAGMENT_SHADER;
 
 		CRYSTAL_CORE_ASSERT(false, "Unknown shader type!");
 		return 0;
 	}
+
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
-		std::string shaderSource = ReadFile(filepath);
-		std::unordered_map<GLenum, std::string> shaderSources = PreProcess(filepath);
+		std::string source = ReadFile(filepath);
+		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
 	}
+
 	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		std::unordered_map<GLenum, std::string> sources;
@@ -30,6 +33,7 @@ namespace Crystal
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
 		Compile(sources);
 	}
+
 	OpenGLShader::~OpenGLShader()
 	{
 		glDeleteProgram(m_RendererID);
@@ -46,6 +50,7 @@ namespace Crystal
 			in.seekg(0, std::ios::beg);
 			in.read(&result[0], result.size());
 			in.close();
+			;
 		}
 		else
 		{
@@ -54,6 +59,7 @@ namespace Crystal
 
 		return result;
 	}
+
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
@@ -64,10 +70,10 @@ namespace Crystal
 		while (pos != std::string::npos)
 		{
 			size_t eol = source.find_first_of("\r\n", pos);
-			CRYSTAL_CORE_ASSERT(eol != std::string::npos, "Syntax Error");
+			CRYSTAL_CORE_ASSERT(eol != std::string::npos, "Syntax error");
 			size_t begin = pos + typeTokenLength + 1;
 			std::string type = source.substr(begin, eol - begin);
-			CRYSTAL_CORE_ASSERT(ShaderTypeFromString(type), "Invalid Shader type specified");
+			CRYSTAL_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(typeToken, nextLinePos);
@@ -76,11 +82,11 @@ namespace Crystal
 
 		return shaderSources;
 	}
-	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string> shaderSources)
-	{
-		GLuint program = m_RendererID;
-		std::vector<GLenum> glShaderIDs(shaderSources.size());
 
+	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
+	{
+		GLuint program = glCreateProgram();
+		std::vector<GLenum> glShaderIDs(shaderSources.size());
 		for (auto& kv : shaderSources)
 		{
 			GLenum type = kv.first;
@@ -91,7 +97,6 @@ namespace Crystal
 			const GLchar* sourceCStr = source.c_str();
 			glShaderSource(shader, 1, &sourceCStr, 0);
 
-			// Compile the vertex shader
 			glCompileShader(shader);
 
 			GLint isCompiled = 0;
@@ -101,23 +106,21 @@ namespace Crystal
 				GLint maxLength = 0;
 				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
 
-				// The maxLength includes the NULL character
 				std::vector<GLchar> infoLog(maxLength);
 				glGetShaderInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
 
-				// We don't need the shader anymore.
 				glDeleteShader(shader);
 
-				// Use the infoLog as you see fit.
-
-				// In this simple program, we'll just leave
 				CRYSTAL_CORE_ERROR("{0}", infoLog.data());
-				CRYSTAL_CORE_ASSERT(false, "{0} Shader Compilation Failure!", type);
+				CRYSTAL_CORE_ASSERT(false, "Shader compilation failure!");
 				break;
 			}
+
 			glAttachShader(program, shader);
 			glShaderIDs.push_back(shader);
 		}
+
+		m_RendererID = program;
 
 		// Link our program
 		glLinkProgram(program);
@@ -137,61 +140,67 @@ namespace Crystal
 			// We don't need the program anymore.
 			glDeleteProgram(program);
 
-			for (GLenum id : glShaderIDs)
+			for (auto id : glShaderIDs)
 				glDeleteShader(id);
 
 			CRYSTAL_CORE_ERROR("{0}", infoLog.data());
-			CRYSTAL_CORE_ASSERT(false, "Shader Link Failure!");
+			CRYSTAL_CORE_ASSERT(false, "Shader link failure!");
 			return;
 		}
 
-		// Always detach shaders after a successful link.
-		for (GLenum id : glShaderIDs)
+		for (auto id : glShaderIDs)
 			glDetachShader(program, id);
-
-		m_RendererID = program;
 	}
+
 	void OpenGLShader::Bind() const
 	{
 		glUseProgram(m_RendererID);
 	}
+
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
 	}
+
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, value);
 	}
-	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& values)
-	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform4f(location, values.x, values.y, values.z, values.w);
-	}
-	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& values)
-	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform3f(location, values.x, values.y, values.z);
-	}
-	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& values)
-	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniform2f(location, values.x, values.y);
-	}
+
 	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1f(location, value);
 	}
-	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+
+	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glUniform2f(location, value.x, value.y);
 	}
+
+	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform3f(location, value.x, value.y, value.z);
+	}
+
+	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform4f(location, value.x, value.y, value.z, value.w);
+	}
+
 	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }

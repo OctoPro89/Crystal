@@ -30,4 +30,3 @@ namespace Crystal
 		return nullptr;
 	}
 }
-}
