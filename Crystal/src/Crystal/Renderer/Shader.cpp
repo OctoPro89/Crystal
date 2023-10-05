@@ -18,15 +18,33 @@ namespace Crystal
 		return nullptr;
 	}
 
-	Shader* Shader::Create(const std::string& vertexSource, const std::string& fragmentSrc)
+	Shader* Shader::Create(const std::string& name, const std::string& vertexSource, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
-		case RendererAPI::API::OpenGL:	return new OpenGLShader(vertexSource, fragmentSrc);
+		case RendererAPI::API::OpenGL:	return new OpenGLShader(name, vertexSource, fragmentSrc);
 		}
 
 		CRYSTAL_CORE_ASSERT(false, "Unkown RendererAPI");
 		return nullptr;
+	}
+	void ShaderLibrary::Add(const Ref<Shader>& shader)
+	{
+		std::string name = shader->GetName();
+		m_Shaders[name] = shader;
+
+	}
+	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
+	{
+		return Ref<Shader>();
+	}
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
+	{
+		return Ref<Shader>();
+	}
+	Ref<Shader> ShaderLibrary::Get(const std::string& name)
+	{
+		return Ref<Shader>();
 	}
 }
