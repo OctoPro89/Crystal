@@ -86,7 +86,9 @@ namespace Crystal {
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(shaderSources.size());
+		CRYSTAL_CORE_ASSERT(shaderSources.size() <= 2, "Shaders supported: 2!");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources)
 		{
 			GLenum type = kv.first;
@@ -117,7 +119,7 @@ namespace Crystal {
 			}
 
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = (shader);
 		}
 
 		m_RendererID = program;
