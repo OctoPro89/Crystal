@@ -124,40 +124,13 @@ public:
 
 		m_Shader2.reset(Crystal::Shader::Create(flatShaderVertexSrc, flatShaderFragmentSrc));
 
-		std::string textureShaderVertexSrc = R"(
-			#version 330 core
+		m_TextureShader.reset(Crystal::Shader::Create("assets/Shaders/Texture.glsl"));
 
-			layout(location=0) in vec3 a_Position;
-			layout(location=1) in vec2 a_TexCoord;
+		m_Texture = Crystal::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_CrystalLogo = Crystal::Texture2D::Create("assets/textures/crystal.png");
 
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-			
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string textureShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location=0) out vec4 color;
-
-			in vec2 v_TexCoord;
-
-			uniform vec4 u_Color;
-			
-			void main()
-			{
-				color = vec4(v_TexCoord, 0.0, 1.0);
-			}
-		)";
-
-		m_TextureShader.reset(Crystal::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		std::dynamic_pointer_cast<Crystal::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Crystal::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Crystal::Timestep ts) override
@@ -225,8 +198,10 @@ public:
 
 		//Triangle
 		//Crystal::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Texture->Bind();
 		Crystal::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-
+		m_CrystalLogo->Bind();
+		Crystal::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Crystal::Renderer::EndScene();
 	}
@@ -248,6 +223,8 @@ private:
 
 	Crystal::Ref<Crystal::Shader> m_Shader2, m_TextureShader;
 	Crystal::Ref<Crystal::VertexArray> m_SquareVA;
+
+	Crystal::Ref<Crystal::Texture2D> m_Texture, m_CrystalLogo;
 
 	Crystal::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

@@ -8,6 +8,8 @@ namespace Crystal {
 	class Renderer 
 	{
 	public:
+		static void Init();
+
 		static void BeginScene(OrthographicCamera& camera); //TODO: Take in scene
 		static void EndScene();
 
