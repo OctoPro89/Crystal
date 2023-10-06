@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Crystal\OrthographicCameraController.h" />
     <ClInclude Include="src\Crystal.h" />
     <ClInclude Include="src\Crystal\Application.h" />
     <ClInclude Include="src\Crystal\Core.h" />
@@ -597,6 +598,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Crystal\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Crystal\Application.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp" />
