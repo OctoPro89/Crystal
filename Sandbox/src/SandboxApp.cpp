@@ -88,7 +88,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Crystal::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = (Crystal::Shader::Create("RGBTriangle", vertexSrc, fragmentSrc));
 
 		std::string flatShaderVertexSrc = R"(
 			#version 330 core
@@ -122,15 +122,15 @@ public:
 			}
 		)";
 
-		m_Shader2.reset(Crystal::Shader::Create(flatShaderVertexSrc, flatShaderFragmentSrc));
+		m_Shader2 = (Crystal::Shader::Create("FlatColor", flatShaderVertexSrc, flatShaderFragmentSrc));
 
-		m_TextureShader.reset(Crystal::Shader::Create("assets/Shaders/Texture.glsl"));
+		Crystal::Ref<Crystal::Shader> textureShader = m_ShaderLibrary.Load("assets/Shaders/Texture.glsl");
 
 		m_Texture = Crystal::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_CrystalLogo = Crystal::Texture2D::Create("assets/textures/crystal.png");
 
-		std::dynamic_pointer_cast<Crystal::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Crystal::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Crystal::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Crystal::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Crystal::Timestep ts) override
@@ -196,12 +196,14 @@ public:
 			}
 		}
 
+		Crystal::Ref<Crystal::Shader> textureShader = m_ShaderLibrary.Get("Texture");
+
 		//Triangle
 		//Crystal::Renderer::Submit(m_Shader, m_VertexArray);
 		m_Texture->Bind();
-		Crystal::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Crystal::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_CrystalLogo->Bind();
-		Crystal::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Crystal::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Crystal::Renderer::EndScene();
 	}
@@ -218,10 +220,11 @@ public:
 		ImGui::End();
 	}
 private:
+	Crystal::ShaderLibrary m_ShaderLibrary;
 	Crystal::Ref<Crystal::Shader> m_Shader;
 	Crystal::Ref<Crystal::VertexArray> m_VertexArray;
 
-	Crystal::Ref<Crystal::Shader> m_Shader2, m_TextureShader;
+	Crystal::Ref<Crystal::Shader> m_Shader2;
 	Crystal::Ref<Crystal::VertexArray> m_SquareVA;
 
 	Crystal::Ref<Crystal::Texture2D> m_Texture, m_CrystalLogo;
