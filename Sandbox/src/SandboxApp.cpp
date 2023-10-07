@@ -1,15 +1,16 @@
 #include <Crystal.h>
-
+#include <Crystal/Core/EntryPoint.h>
 #include "imgui/imgui.h"
 #include <glm/ext/matrix_transform.hpp>
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Crystal::Layer 
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_VertexArray.reset(Crystal::VertexArray::Create());
+		m_VertexArray = (Crystal::VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
@@ -37,7 +38,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		m_SquareVA.reset(Crystal::VertexArray::Create());
+		m_SquareVA = (Crystal::VertexArray::Create());
 		Crystal::Ref<Crystal::VertexBuffer> squareVB;
 		squareVB.reset((Crystal::VertexBuffer::Create(squarevertices, sizeof(squarevertices))));
 		squareVB->SetLayout(
@@ -153,7 +154,8 @@ class Sandbox : public Crystal::Application
 public:
 	Sandbox() 
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox()

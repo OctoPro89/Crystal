@@ -32,5 +32,5 @@
 // -- OpenGL ----------
 
 // --Entry Point------------------
-#include "Crystal/Core/EntryPoint.h"
+//#include "Crystal/Core/EntryPoint.h"
 // --Entry Point------------------
