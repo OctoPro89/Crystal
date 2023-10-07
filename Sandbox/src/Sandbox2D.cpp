@@ -30,7 +30,7 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 	Crystal::RenderCommand::SetClearColor(glm::vec4(0, 0, 0, 1));
 	Crystal::RenderCommand::Clear();
 	Crystal::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	Crystal::Renderer2D::DrawQuad({ squareTransform[0], squareTransform[1] }, { size3[0], size3[1] }, {color[0], color[1], color[2], color[3]});
+	Crystal::Renderer2D::DrawQuad({ squareTransform[0], squareTransform[1] }, { size3[0], size3[1] }, { color[0], color[1], color[2], color[3] });
 	Crystal::Renderer2D::DrawRotatedQuad({ squareTransform2[0], squareTransform2[1] }, rot, { size2[0], size2[1] }, { color2[0], color2[1], color2[2], color2[3] });
 	Crystal::Renderer2D::DrawRotatedQuad({ squareTransform3[0], squareTransform3[1], -0.1f }, rot2, { size[0], size[1] }, m_Texture);
 	Crystal::Renderer2D::EndScene();
@@ -57,8 +57,8 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::End();
 	ImGui::Begin("Materials");
 	ImGui::Text("Pick a color for the squares");
-	ImGui::ColorEdit4("Material Selection", color);
-	ImGui::ColorEdit4("Material Selection", color2);
+	ImGui::ColorEdit4("Square Material", color);
+	ImGui::ColorEdit4("Rotatable Square Material", color2);
 	ImGui::Begin("Textures");
 	ImGui::InputText("Texture", crntTex, sizeof(crntTex));
 	ok = ImGui::Button("Okay", { 50.0f, 30.0f });

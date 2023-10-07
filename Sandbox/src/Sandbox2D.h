@@ -27,7 +27,7 @@ private:
 	float color2[4] = { 0.2f,0.3f,0.8f,1.0f };
 
 
-	char crntTex[sizeof("assets/textures/Checkerboard.png")] = {"assets/textures/Checkerboard.png"};
+	char crntTex[1000] = {"assets/textures/Checkerboard.png"};
 	bool ok = false;
 
 	float rot = 0.0f;
