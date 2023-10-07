@@ -9,32 +9,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
-	m_VertexArray = (Crystal::VertexArray::Create());
 
-	float squarevertices[5 * 4] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f
-	};
-
-	m_VertexArray = (Crystal::VertexArray::Create());
-	Crystal::Ref<Crystal::VertexBuffer> squareVB;
-	squareVB.reset((Crystal::VertexBuffer::Create(squarevertices, sizeof(squarevertices))));
-	squareVB->SetLayout(
-	{
-	{ Crystal::ShaderDataType::Float3, "a_Position" }
-	});
-	m_VertexArray->AddVertexBuffer(squareVB);
-
-	uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-	Crystal::Ref<Crystal::IndexBuffer> squareIB;
-	squareIB.reset(Crystal::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-	m_VertexArray->SetIndexBuffer(squareIB);
-
-	m_Shader = Crystal::Shader::Create("assets/Shaders/FlatColor.glsl");
-
-	m_Texture = Crystal::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -49,20 +24,28 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 	//Render
 	Crystal::RenderCommand::SetClearColor(glm::vec4(0, 0, 0, 1));
 	Crystal::RenderCommand::Clear();
-	Crystal::Renderer::BeginScene(m_CameraController.GetCamera());
-	glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-	std::dynamic_pointer_cast<Crystal::OpenGLShader>(m_Shader)->Bind();
-	std::dynamic_pointer_cast<Crystal::OpenGLShader>(m_Shader)->UploadUniformFloat4("u_Color", glm::vec4(color[0], color[1], color[2], color[3]));
-	Crystal::Renderer::Submit(m_Shader, m_VertexArray);
-	Crystal::Renderer::EndScene();
+	Crystal::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	Crystal::Renderer2D::DrawQuad({ squareTransform[0], squareTransform[1] }, { 1.0f,1.0f }, { color[0], color[1], color[2], color[3] });
+	Crystal::Renderer2D::DrawRotatedQuad({ squareTransform2[0], squareTransform2[1] }, rot, { 1.0f,1.0f }, { color[0], color[1], color[2], color[3] });
+	Crystal::Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender()
 {
 	ImGui::Begin("Inspector");
+	ImGui::Begin("Transforms");
+	ImGui::Begin("Square");
+	ImGui::Text("Square Transform");
+	ImGui::DragFloat2("Position", squareTransform, 0.05f);
+	ImGui::End();
+	ImGui::Begin("Rotatable Square");
+	ImGui::DragFloat2("Position", squareTransform2, 0.05f);
+	ImGui::DragFloat("Rotation", &rot, 0.0005f);
+	ImGui::End();
 	ImGui::Begin("Materials");
 	ImGui::Text("Pick a color for the squares");
 	ImGui::ColorEdit3("Material Selection", color);
+	ImGui::End();
 	ImGui::End();
 	ImGui::End();
 }

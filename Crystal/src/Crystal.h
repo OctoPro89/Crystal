@@ -18,6 +18,7 @@
 // -- Renderer --------
 #include "Crystal/Renderer/Buffer.h"
 #include "Crystal/Renderer/Renderer.h"
+#include "Crystal/Renderer/Renderer2D.h"
 #include "Crystal/Renderer/Shader.h"
 #include "Crystal/Renderer/VertexArray.h"
 #include "Crystal/Renderer/OrthographicCamera.h"
