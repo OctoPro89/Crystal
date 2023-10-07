@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crystal/Input.h"
+#include "Crystal/Core/Input.h"
 
 namespace Crystal {
 	class WindowsInput : public Input

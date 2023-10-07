@@ -57,17 +57,38 @@
     <ClInclude Include="src\Crystal.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Application.h">
-      <Filter>src\Crystal</Filter>
+    <ClInclude Include="src\Crystal\Core\Application.h">
+      <Filter>src\Crystal\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Core.h">
-      <Filter>src\Crystal</Filter>
+    <ClInclude Include="src\Crystal\Core\Core.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\EntryPoint.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\Input.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\Keycodes.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\Layer.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\LayerStack.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\Log.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Core\MouseButtonCodes.h">
+      <Filter>src\Crystal\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Core\Timestep.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\EntryPoint.h">
-      <Filter>src\Crystal</Filter>
+    <ClInclude Include="src\Crystal\Core\Window.h">
+      <Filter>src\Crystal\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Events\ApplicationEvent.h">
       <Filter>src\Crystal\Events</Filter>
@@ -84,27 +105,6 @@
     <ClInclude Include="src\Crystal\ImGui\ImGuiLayer.h">
       <Filter>src\Crystal\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Input.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\Keycodes.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\Layer.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\LayerStack.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\Log.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\MouseButtonCodes.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\OrthographicCameraController.h">
-      <Filter>src\Crystal</Filter>
-    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Buffer.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
@@ -112,6 +112,9 @@
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\OrthographicCamera.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\OrthographicCameraController.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\RenderCommand.h">
@@ -131,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\VertexArray.h">
       <Filter>src\Crystal\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Crystal\Window.h">
-      <Filter>src\Crystal</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1415,8 +1415,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Crystal\Application.cpp">
-      <Filter>src\Crystal</Filter>
+    <ClCompile Include="src\Crystal\Core\Application.cpp">
+      <Filter>src\Crystal\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Core\Layer.cpp">
+      <Filter>src\Crystal\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Core\LayerStack.cpp">
+      <Filter>src\Crystal\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Core\Log.cpp">
+      <Filter>src\Crystal\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp">
       <Filter>src\Crystal\ImGui</Filter>
@@ -1424,22 +1433,13 @@
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp">
       <Filter>src\Crystal\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Crystal\Layer.cpp">
-      <Filter>src\Crystal</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Crystal\LayerStack.cpp">
-      <Filter>src\Crystal</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Crystal\Log.cpp">
-      <Filter>src\Crystal</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Crystal\OrthographicCameraController.cpp">
-      <Filter>src\Crystal</Filter>
-    </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\Buffer.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\OrthographicCameraController.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp">

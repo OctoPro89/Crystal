@@ -1,5 +1,5 @@
 #pragma once
-#include "Crystal/Core.h"
+#include "Crystal/Core/Core.h"
 #include <string>
 
 namespace Crystal

@@ -1,5 +1,5 @@
 #pragma once
-#include "Crystal/Core.h"
+#include "Crystal/Core/Core.h"
 
 namespace Crystal {
 	//Events in Crystal are currently blocking, similair to and interupt in asm
