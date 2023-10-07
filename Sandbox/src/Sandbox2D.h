@@ -26,6 +26,10 @@ private:
 	float color[4] = { 0.8f,0.2f,0.3f,1.0f };
 	float color2[4] = { 0.2f,0.3f,0.8f,1.0f };
 
+
+	char crntTex[sizeof("assets/textures/Checkerboard.png")] = {"assets/textures/Checkerboard.png"};
+	bool ok = false;
+
 	float rot = 0.0f;
 	float rot2 = 0.0f;
 

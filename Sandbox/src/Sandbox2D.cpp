@@ -21,6 +21,11 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 {
 	m_CameraController.OnUpdate(ts);
 
+	if (ok)
+	{
+		m_Texture = Crystal::Texture2D::Create(crntTex);
+	}
+
 	//Render
 	Crystal::RenderCommand::SetClearColor(glm::vec4(0, 0, 0, 1));
 	Crystal::RenderCommand::Clear();
@@ -54,6 +59,10 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Text("Pick a color for the squares");
 	ImGui::ColorEdit4("Material Selection", color);
 	ImGui::ColorEdit4("Material Selection", color2);
+	ImGui::Begin("Textures");
+	ImGui::InputText("Texture", crntTex, sizeof(crntTex));
+	ok = ImGui::Button("Okay", { 50.0f, 30.0f });
+	ImGui::End();
 	ImGui::End();
 	ImGui::End();
 	ImGui::End();
