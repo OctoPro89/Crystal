@@ -102,6 +102,9 @@
     <ClInclude Include="src\Crystal\MouseButtonCodes.h">
       <Filter>src\Crystal</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\OrthographicCameraController.h">
+      <Filter>src\Crystal</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Buffer.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
@@ -1410,7 +1413,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Application.cpp">
@@ -1429,6 +1431,9 @@
       <Filter>src\Crystal</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Log.cpp">
+      <Filter>src\Crystal</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\OrthographicCameraController.cpp">
       <Filter>src\Crystal</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\Buffer.cpp">
@@ -1485,6 +1490,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Crystal\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

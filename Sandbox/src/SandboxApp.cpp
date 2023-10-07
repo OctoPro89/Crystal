@@ -137,7 +137,6 @@ private:
 
 	 // Textures
 	Crystal::Ref<Crystal::Texture2D> m_Texture, m_CrystalLogo;
-
 	// Camera Controller
 	Crystal::OrthographicCameraController m_CameraController;
 
