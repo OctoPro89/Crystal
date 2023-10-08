@@ -40,5 +40,13 @@ private:
 	float squareTransform[2] = { 0.0f,0.0f };
 	float squareTransform2[2] = { 1.5f,0.0f };
 	float squareTransform3[2] = { -1.5f,0.0f };
+
+	struct ProfileResult
+	{
+		const char* Name;
+		float Time;
+	};
+
+	std::vector<ProfileResult> m_ProfileResults;
 };
 

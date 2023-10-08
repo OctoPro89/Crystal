@@ -74,8 +74,4 @@ namespace Crystal {
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
-
-	void ImGuiLayer::OnImGuiRender()
-	{
-	}
 }

@@ -12,7 +12,6 @@ namespace Crystal
 	}
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
-		CRYSTAL_TRACE("Delta Time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
 		if (Input::IsKeyPressed(CRYSTAL_KEY_D))
 		{
 			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
