@@ -20,6 +20,7 @@ namespace Crystal
 
 	void Renderer2D::Init()
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		s_Data = new Renderer2DStorage();
 		s_Data->QuadVertexArray = VertexArray::Create();
 
@@ -54,17 +55,20 @@ namespace Crystal
 
 	void Renderer2D::Shutdown()
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(OrthographicCamera& camera)
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 
 	}
 
@@ -75,6 +79,7 @@ namespace Crystal
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -90,6 +95,7 @@ namespace Crystal
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		texture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -106,6 +112,7 @@ namespace Crystal
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const float rot, const glm::vec2& size, const glm::vec4& color)
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), rot, glm::vec3(0.0f, 0.0f, 1.0f)) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -121,6 +128,7 @@ namespace Crystal
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const float rot, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		CRYSTAL_PROFILE_FUNCTION();
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		texture->Bind();
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), rot, glm::vec3(0.0f, 0.0f, 1.0f)) * glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });

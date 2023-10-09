@@ -607,6 +607,7 @@
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Crystal\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Crystal\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Crystal\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp" />

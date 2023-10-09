@@ -9,12 +9,13 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	CRYSTAL_PROFILE_FUNCTION();
 	m_Texture = Crystal::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
 {
-
+	CRYSTAL_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(Crystal::Timestep ts)
@@ -22,10 +23,7 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 	CRYSTAL_PROFILE_FUNCTION();
 
 	//Update
-	{
-		CRYSTAL_PROFILE_SCOPE("CameraController Update");
-		m_CameraController.OnUpdate(ts);
-	}
+	m_CameraController.OnUpdate(ts);
 
 	//Render
 	{

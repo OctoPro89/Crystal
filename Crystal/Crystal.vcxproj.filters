@@ -1493,5 +1493,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>
