@@ -75,7 +75,7 @@ project "Crystal"
 
 		defines
 		{
-			"CRYSTAL_PLATFORM_WINDOWS",
+			-- "CRYSTAL_PLATFORM_WINDOWS",
 			"CRYSTAL_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
