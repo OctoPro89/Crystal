@@ -37,7 +37,7 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 		Crystal::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		Crystal::Renderer2D::DrawQuad({ squareTransform[0], squareTransform[1] }, { size3[0], size3[1] }, { color[0], color[1], color[2], color[3] });
 		Crystal::Renderer2D::DrawRotatedQuad({ squareTransform2[0], squareTransform2[1] }, rot, { size2[0], size2[1] }, { color2[0], color2[1], color2[2], color2[3] });
-		Crystal::Renderer2D::DrawRotatedQuad({ squareTransform3[0], squareTransform3[1], -0.1f }, rot2, { size[0], size[1] }, m_Texture);
+		Crystal::Renderer2D::DrawRotatedQuad({ squareTransform3[0], squareTransform3[1], -0.1f }, rot2, { size[0], size[1] }, m_Texture, 10.0f);
 		Crystal::Renderer2D::EndScene();
 	}
 
