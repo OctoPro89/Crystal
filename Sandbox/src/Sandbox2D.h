@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Crystal.h"
+#include "Crystal/Renderer/ParticleSystem.h"
 #include <glm/ext/matrix_transform.hpp>
 
 class Sandbox2D : public Crystal::Layer
@@ -22,5 +23,8 @@ private:
 	Crystal::Ref<Crystal::VertexArray> m_VertexArray;
 	Crystal::Ref<Crystal::Shader> m_Shader;
 	Crystal::Ref<Crystal::Texture2D> m_Texture;
+
+	ParticleProps m_Particle;
+	ParticleSystem m_ParticleSystem = ParticleSystem(100000);
 };
 

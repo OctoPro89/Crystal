@@ -145,6 +145,15 @@
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\FlatColor.glsl" />
+    <None Include="assets\shaders\RGBTriangle.glsl" />
+    <None Include="assets\shaders\Texture.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\Checkerboard.png" />
+    <Image Include="assets\textures\Crystal.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
