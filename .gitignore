@@ -2,3 +2,5 @@
 .vs
 bin-int
 Batchfiles
+Sandbox/*.json
+*.json

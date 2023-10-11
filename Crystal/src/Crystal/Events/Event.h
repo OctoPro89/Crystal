@@ -2,9 +2,6 @@
 #include "Crystal/Core/Core.h"
 
 namespace Crystal {
-	//Events in Crystal are currently blocking, similair to and interupt in asm
-	//Add an event buffer later
-
 	enum class EventType
 	{
 		None = 0,

@@ -11,17 +11,17 @@ namespace Crystal {
 	{
 		switch (type)
 		{
-		case ShaderDataType::Float:		return 4;
-		case ShaderDataType::Float2:	return 8;
-		case ShaderDataType::Float3:	return 12;
-		case ShaderDataType::Float4:	return 16;
-		case ShaderDataType::Mat3:		return 36;
-		case ShaderDataType::Mat4:		return 64;
-		case ShaderDataType::Int:		return 4;
-		case ShaderDataType::Int2:		return 8;
-		case ShaderDataType::Int3:		return 12;
-		case ShaderDataType::Int4:		return 16;
-		case ShaderDataType::Bool:		return 1;
+			case ShaderDataType::Float:		return 4;
+			case ShaderDataType::Float2:	return 8;
+			case ShaderDataType::Float3:	return 12;
+			case ShaderDataType::Float4:	return 16;
+			case ShaderDataType::Mat3:		return 36;
+			case ShaderDataType::Mat4:		return 64;
+			case ShaderDataType::Int:		return 4;
+			case ShaderDataType::Int2:		return 8;
+			case ShaderDataType::Int3:		return 12;
+			case ShaderDataType::Int4:		return 16;
+			case ShaderDataType::Bool:		return 1;
 		}
 
 		CRYSTAL_CORE_ASSERT(false, "Unknown ShaderDataType!");
@@ -111,7 +111,10 @@ namespace Crystal {
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		virtual void SetData(const void* data, uint32_t size) = 0;
+
+		static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
+		static Ref<VertexBuffer> Create(uint32_t size);
 	};
 
 	class IndexBuffer 
@@ -124,6 +127,6 @@ namespace Crystal {
 
 		virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
+		static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
 	};
 }
