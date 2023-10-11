@@ -1,6 +1,6 @@
 #directories
 .vs
 bin-int
-Batchfiles
+Scripts
 Sandbox/*.json
 *.json
