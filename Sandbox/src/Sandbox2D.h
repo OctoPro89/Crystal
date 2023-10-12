@@ -23,6 +23,7 @@ private:
 	Crystal::Ref<Crystal::VertexArray> m_VertexArray;
 	Crystal::Ref<Crystal::Shader> m_Shader;
 	Crystal::Ref<Crystal::Texture2D> m_Texture;
+	Crystal::Ref<Crystal::Texture2D> m_SpriteSheet;
 
 	ParticleProps m_Particle;
 	ParticleSystem m_ParticleSystem = ParticleSystem(100000);

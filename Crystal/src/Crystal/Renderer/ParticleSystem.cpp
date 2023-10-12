@@ -71,8 +71,8 @@ void ParticleSystem::OnRender(Crystal::OrthographicCamera& camera)
 		glm::vec4 color = glm::lerp(particle.ColorEnd, particle.ColorBegin, life);
 
 		float size = glm::lerp(particle.SizeEnd, particle.SizeBegin, life);
-		glm::vec3 position = { particle.Position.x,particle.Position.y,0.2f };
-		Crystal::Renderer2D::DrawRotatedQuad(particle.Position, { size, size }, particle.Rotation, color);	
+		glm::vec3 position = { particle.Position.x,particle.Position.y,0.2f};
+		Crystal::Renderer2D::DrawRotatedQuad(position, { size, size }, particle.Rotation, color);	
 	}
 	Crystal::Renderer2D::EndScene();
 }
