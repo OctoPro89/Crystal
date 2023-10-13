@@ -10,6 +10,9 @@
     <Filter Include="src\Crystal\Core">
       <UniqueIdentifier>{B6B1AE13-A2AA-CD65-CBDC-B2EAB734AD71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Crystal\Debug">
+      <UniqueIdentifier>{94439189-005A-8F1F-49D1-1A41B52660A7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Crystal\Events">
       <UniqueIdentifier>{C20844BF-AEEC-0415-174D-FF670350EF96}</UniqueIdentifier>
     </Filter>
@@ -90,6 +93,9 @@
     <ClInclude Include="src\Crystal\Core\Window.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Debug\Instrumentor.h">
+      <Filter>src\Crystal\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Events\ApplicationEvent.h">
       <Filter>src\Crystal\Events</Filter>
     </ClInclude>
@@ -108,6 +114,9 @@
     <ClInclude Include="src\Crystal\Renderer\Buffer.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\FrameBuffer.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\GraphicsContext.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
@@ -117,16 +126,25 @@
     <ClInclude Include="src\Crystal\Renderer\OrthographicCameraController.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\RenderCommand.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Renderer.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\Renderer2D.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\RendererAPI.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Shader.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\SubTexture2D.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Texture.h">
@@ -139,6 +157,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1413,12 +1434,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\Crystal\Debug\Instrumentor.h" />
-    <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h" />
-    <ClInclude Include="src\Crystal\Renderer\SubTexture2D.h" />
-    <ClInclude Include="src\Crystal\Renderer\FrameBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1442,10 +1457,19 @@
     <ClCompile Include="src\Crystal\Renderer\Buffer.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\OrthographicCamera.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\OrthographicCameraController.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp">
@@ -1454,10 +1478,16 @@
     <ClCompile Include="src\Crystal\Renderer\Renderer.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\Renderer2D.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\RendererAPI.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\Shader.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\SubTexture2D.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\Texture.cpp">
@@ -1470,6 +1500,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1496,11 +1529,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Crystal\Renderer\Renderer2D.cpp" />
-    <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp" />
-    <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp" />
-    <ClCompile Include="src\Crystal\Renderer\SubTexture2D.cpp" />
-    <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

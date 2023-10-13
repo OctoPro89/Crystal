@@ -16,7 +16,7 @@ namespace Crystal {
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name);
 		virtual ~Application();
 
 		void Run();

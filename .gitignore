@@ -1,6 +1,7 @@
 #directories
 .vs
 bin-int
+bin
 Scripts
 Sandbox/*.json
 *.json

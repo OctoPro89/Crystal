@@ -13,7 +13,7 @@ namespace Crystal {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 

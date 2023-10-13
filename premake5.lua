@@ -146,3 +146,56 @@ project "Sandbox"
 		defines "CRYSTAL_DIST"
 		runtime "Release"
 		optimize "on"
+
+
+project "Crystal-Editor"
+	location "Crystal-Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Crystal/vendor/spdlog/include",
+		"Crystal/src",
+		"Crystal/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Crystal"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"CRYSTAL_PLATFORM_WINDOWS"
+		}
+
+	filter "configurations:Debug"
+		defines "CRYSTAL_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "CRYSTAL_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "CRYSTAL_DIST"
+		runtime "Release"
+		optimize "on"
