@@ -1416,6 +1416,7 @@
     <ClInclude Include="src\Crystal\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Crystal\Debug\Instrumentor.h" />
     <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h" />
+    <ClInclude Include="src\Crystal\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1496,5 +1497,6 @@
     <ClCompile Include="src\Crystal\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

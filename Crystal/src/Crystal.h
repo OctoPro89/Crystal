@@ -23,6 +23,7 @@
 #include "Crystal/Renderer/VertexArray.h"
 #include "Crystal/Renderer/OrthographicCamera.h"
 #include "Crystal/Renderer/Texture.h"
+#include "Crystal/Renderer/SubTexture2D.h"
 // -- Renderer --------
 
 

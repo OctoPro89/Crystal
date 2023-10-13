@@ -153,6 +153,7 @@
   <ItemGroup>
     <Image Include="assets\textures\Checkerboard.png" />
     <Image Include="assets\textures\Crystal.png" />
+    <Image Include="assets\textures\ErrorTexture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

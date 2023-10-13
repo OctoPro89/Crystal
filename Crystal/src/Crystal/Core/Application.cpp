@@ -50,6 +50,11 @@ namespace Crystal {
 		layer->OnAttach();
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		CRYSTAL_PROFILE_FUNCTION();
