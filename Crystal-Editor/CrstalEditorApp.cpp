@@ -9,8 +9,8 @@ namespace Crystal {
 	{
 	public:
 		CrystalEditor()
+			: Application("Crystal Editor")
 		{
-			//PushLayer(new ExampleLayer());
 			PushLayer(new EditorLayer());
 		}
 

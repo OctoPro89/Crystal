@@ -101,7 +101,7 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION();
 
 		// Note: Switch this to true to enable dock space
-		static bool dockingEnabled = false;
+		static bool dockingEnabled = true;
 		if (dockingEnabled)
 		{
 			static bool dockspaceOpen = true;
