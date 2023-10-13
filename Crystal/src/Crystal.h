@@ -24,6 +24,7 @@
 #include "Crystal/Renderer/OrthographicCamera.h"
 #include "Crystal/Renderer/Texture.h"
 #include "Crystal/Renderer/SubTexture2D.h"
+#include "Crystal/Renderer/Framebuffer.h"
 // -- Renderer --------
 
 

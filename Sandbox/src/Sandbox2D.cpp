@@ -24,6 +24,11 @@ void Sandbox2D::OnAttach()
 	m_Particle.Velocity = { 0.0f, 0.0f };
 	m_Particle.VelocityVariation = { 3.0f, 1.0f };
 	m_Particle.Position = { 0.0f, 0.0f };
+
+	Crystal::FrameBufferSpecification spec;
+	spec.Width = 1280;
+	spec.Height = 720;
+	m_FrameBuffer = Crystal::FrameBuffer::Create(spec);
 }
 
 void Sandbox2D::OnDetach()
@@ -42,6 +47,7 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 	Crystal::Renderer2D::ResetStats();
 	{
 		CRYSTAL_PROFILE_SCOPE("Renderer Prep");
+		m_FrameBuffer->Bind();
 		Crystal::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Crystal::RenderCommand::Clear();
 	}
@@ -67,6 +73,7 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 			}
 		}
 		Crystal::Renderer2D::EndScene();
+		m_FrameBuffer->Unbind();
 	}
 
 	if (Crystal::Input::IsMouseButtonPressed(CRYSTAL_MOUSE_BUTTON_LEFT))
@@ -93,7 +100,7 @@ void Sandbox2D::OnImGuiRender()
 	CRYSTAL_PROFILE_FUNCTION();
 
 	// Note: Switch this to true to enable dock space
-	static bool dockingEnabled = true;
+	static bool dockingEnabled = false;
 	if (dockingEnabled)
 	{
 		static bool dockspaceOpen = true;
@@ -164,8 +171,8 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		uint32_t textureID = m_Texture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2{ 1280, 720 }, ImVec2{0,1}, ImVec2{1,0});
 		ImGui::End();
 
 		ImGui::End();
@@ -181,8 +188,8 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		uint32_t textureID = m_Texture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		uint32_t textureID = m_FrameBuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2{ 1280, 720 }, ImVec2{ 0,1 }, ImVec2{ 1,0 });
 		ImGui::End();
 	}
 }

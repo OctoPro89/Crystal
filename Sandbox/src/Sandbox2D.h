@@ -26,6 +26,8 @@ private:
 	Crystal::Ref<Crystal::Texture2D> m_SpriteSheet;
 	Crystal::Ref<Crystal::SubTexture2D> m_SpriteGrass;
 
+	Crystal::Ref<Crystal::FrameBuffer> m_FrameBuffer;
+
 	ParticleProps m_Particle;
 	ParticleSystem m_ParticleSystem = ParticleSystem(100000);
 };

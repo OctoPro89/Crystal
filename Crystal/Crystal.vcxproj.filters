@@ -1417,6 +1417,8 @@
     <ClInclude Include="src\Crystal\Debug\Instrumentor.h" />
     <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h" />
     <ClInclude Include="src\Crystal\Renderer\SubTexture2D.h" />
+    <ClInclude Include="src\Crystal\Renderer\FrameBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1498,5 +1500,7 @@
     <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp" />
     <ClCompile Include="src\Crystal\Renderer\SubTexture2D.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

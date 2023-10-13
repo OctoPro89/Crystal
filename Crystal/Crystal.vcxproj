@@ -143,6 +143,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
+    <ClInclude Include="src\Crystal\Renderer\FrameBuffer.h" />
     <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h" />
     <ClInclude Include="src\Crystal.h" />
     <ClInclude Include="src\Crystal\Core\Application.h" />
@@ -602,6 +604,8 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp" />
     <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp" />
     <ClCompile Include="src\Crystal\Core\Application.cpp" />
     <ClCompile Include="src\Crystal\Core\Layer.cpp" />
