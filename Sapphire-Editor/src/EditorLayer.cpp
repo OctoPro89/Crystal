@@ -144,6 +144,15 @@ namespace Crystal {
 				if (ImGui::MenuItem("Exit")) Crystal::Application::Get().Close();
 				ImGui::EndMenu();
 			}
+			if (ImGui::BeginMenu("Edit"))
+			{
+				// Disabling full screen would allow the window to be moved to the front of other windows, 
+				// which we can't undo at the moment without finer window depth/z control.
+				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
+
+				if (ImGui::MenuItem("Preferences")) preferencesWindow = true;;
+				ImGui::EndMenu();
+			}
 
 			ImGui::EndMenuBar();
 		}

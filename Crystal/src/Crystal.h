@@ -1,39 +1,32 @@
 #pragma once
 
-// For use by Crystal Applications
+// For use by Crystal applications
 
-#include "Crystal/Core/Log.h"
+#include "Crystal/Core/Core.h"
+
+#include "Crystal/Core/Application.h"
 #include "Crystal/Core/Layer.h"
+#include "Crystal/Core/Log.h"
 
 #include "Crystal/Core/Timestep.h"
 
 #include "Crystal/Core/Input.h"
-#include "Crystal/Core/Keycodes.h"
-#include "Crystal/Core/MouseButtonCodes.h"
+#include "Crystal/Core/KeyCodes.h"
+#include "Crystal/Core/MouseCodes.h"
 #include "Crystal/Renderer/OrthographicCameraController.h"
 
-#include "Crystal/Core/Application.h"
 #include "Crystal/ImGui/ImGuiLayer.h"
 
-// -- Renderer --------
-#include "Crystal/Renderer/Buffer.h"
+// ---Renderer------------------------
 #include "Crystal/Renderer/Renderer.h"
 #include "Crystal/Renderer/Renderer2D.h"
+#include "Crystal/Renderer/RenderCommand.h"
+
+#include "Crystal/Renderer/Buffer.h"
 #include "Crystal/Renderer/Shader.h"
-#include "Crystal/Renderer/VertexArray.h"
-#include "Crystal/Renderer/OrthographicCamera.h"
-#include "Crystal/Renderer/Texture.h"
-#include "Crystal/Renderer/SubTexture2D.h"
 #include "Crystal/Renderer/Framebuffer.h"
-// -- Renderer --------
+#include "Crystal/Renderer/Texture.h"
+#include "Crystal/Renderer/VertexArray.h"
 
-
-// -- OpenGL ----------
-#include "Platform/OpenGL/OpenGLBuffer.h"
-#include "Platform/OpenGL/OpenGLVertexArray.h"
-#include "Platform/OpenGL/OpenGLShader.h"
-// -- OpenGL ----------
-
-// --Entry Point------------------
-//#include "Crystal/Core/EntryPoint.h"
-// --Entry Point------------------
+#include "Crystal/Renderer/OrthographicCamera.h"
+// -----------------------------------

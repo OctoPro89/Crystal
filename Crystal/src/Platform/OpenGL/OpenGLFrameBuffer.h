@@ -8,7 +8,7 @@ namespace Crystal
 	{
 	public:
 		OpenGLFrameBuffer(const FrameBufferSpecification spec);
-		virtual ~OpenGLFrameBuffer();
+		virtual ~OpenGLFrameBuffer() override;
 
 		void Invalidate();
 

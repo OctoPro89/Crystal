@@ -35,6 +35,7 @@ namespace Crystal {
 		float m_ParticlePos[2] = {0.0f,0.0f};
 
 		bool useParticles = false;
+		bool preferencesWindow = false;
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
