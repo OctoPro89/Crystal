@@ -1448,6 +1448,9 @@
     <ClCompile Include="src\Crystal\Core\Log.cpp">
       <Filter>src\Crystal\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Core\Window.cpp">
+      <Filter>src\Crystal\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp">
       <Filter>src\Crystal\ImGui</Filter>
     </ClCompile>
@@ -1529,6 +1532,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Crystal\Core\Window.cpp" />
   </ItemGroup>
 </Project>

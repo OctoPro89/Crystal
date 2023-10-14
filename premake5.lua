@@ -1,6 +1,6 @@
 workspace "Crystal"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Sapphire-Editor"
 
 	configurations
 	{
@@ -19,9 +19,11 @@ IncludeDir["ImGui"] = "Crystal/vendor/imgui"
 IncludeDir["glm"] = "Crystal/vendor/glm"
 IncludeDir["stb_image"] = "Crystal/vendor/stb_image"
 
-include "Crystal/vendor/GLFW"
-include "Crystal/vendor/Glad"
-include "Crystal/vendor/imgui"
+group "Dependencies"
+	include "Crystal/vendor/GLFW"
+	include "Crystal/vendor/Glad"
+	include "Crystal/vendor/imgui"
+group ""
 
 project "Crystal"
 	location "Crystal"
@@ -148,8 +150,8 @@ project "Sandbox"
 		optimize "on"
 
 
-project "Crystal-Editor"
-	location "Crystal-Editor"
+project "Sapphire-Editor"
+	location "Sapphire-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"

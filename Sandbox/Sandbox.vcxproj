@@ -134,21 +134,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Crystal\Crystal.vcxproj">
-      <Project>{873AF83B-F319-77D7-FC31-02AE6890DD38}</Project>
-    </ProjectReference>
+    <ClInclude Include="src\Sandbox2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Sandbox2D.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Sandbox2D.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="assets\textures\Checkerboard.png" />
-    <Image Include="assets\textures\Crystal.png" />
-    <Image Include="assets\textures\ErrorTexture.png" />
+    <ProjectReference Include="..\Crystal\Crystal.vcxproj">
+      <Project>{873AF83B-F319-77D7-FC31-02AE6890DD38}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
