@@ -146,6 +146,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\Shaders\FlatColor.glsl" />
+    <None Include="assets\Shaders\RGBTriangle.glsl" />
+    <None Include="assets\Shaders\Texture.glsl" />
     <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

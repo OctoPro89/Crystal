@@ -72,7 +72,7 @@
     <ClInclude Include="src\Crystal\Core\Input.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Core\Keycodes.h">
+    <ClInclude Include="src\Crystal\Core\KeyCodes.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Core\Layer.h">
@@ -84,7 +84,7 @@
     <ClInclude Include="src\Crystal\Core\Log.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Core\MouseButtonCodes.h">
+    <ClInclude Include="src\Crystal\Core\MouseCodes.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Core\Timestep.h">
@@ -173,9 +173,6 @@
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
       <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
-      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>src\Platform\Windows</Filter>

@@ -145,128 +145,128 @@ namespace Crystal
 }
 
 // From glfw3.h
-#define CRYSTAL_KEY_SPACE           ::Hazel::Key::Space
-#define CRYSTAL_KEY_APOSTROPHE      ::Hazel::Key::Apostrophe    /* ' */
-#define CRYSTAL_KEY_COMMA           ::Hazel::Key::Comma         /* , */
-#define CRYSTAL_KEY_MINUS           ::Hazel::Key::Minus         /* - */
-#define CRYSTAL_KEY_PERIOD          ::Hazel::Key::Period        /* . */
-#define CRYSTAL_KEY_SLASH           ::Hazel::Key::Slash         /* / */
-#define CRYSTAL_KEY_0               ::Hazel::Key::D0
-#define CRYSTAL_KEY_1               ::Hazel::Key::D1
-#define CRYSTAL_KEY_2               ::Hazel::Key::D2
-#define CRYSTAL_KEY_3               ::Hazel::Key::D3
-#define CRYSTAL_KEY_4               ::Hazel::Key::D4
-#define CRYSTAL_KEY_5               ::Hazel::Key::D5
-#define CRYSTAL_KEY_6               ::Hazel::Key::D6
-#define CRYSTAL_KEY_7               ::Hazel::Key::D7
-#define CRYSTAL_KEY_8               ::Hazel::Key::D8
-#define CRYSTAL_KEY_9               ::Hazel::Key::D9
-#define CRYSTAL_KEY_SEMICOLON       ::Hazel::Key::Semicolon     /* ; */
-#define CRYSTAL_KEY_EQUAL           ::Hazel::Key::Equal         /* = */
-#define CRYSTAL_KEY_A               ::Hazel::Key::A
-#define CRYSTAL_KEY_B               ::Hazel::Key::B
-#define CRYSTAL_KEY_C               ::Hazel::Key::C
-#define CRYSTAL_KEY_D               ::Hazel::Key::D
-#define CRYSTAL_KEY_E               ::Hazel::Key::E
-#define CRYSTAL_KEY_F               ::Hazel::Key::F
-#define CRYSTAL_KEY_G               ::Hazel::Key::G
-#define CRYSTAL_KEY_H               ::Hazel::Key::H
-#define CRYSTAL_KEY_I               ::Hazel::Key::I
-#define CRYSTAL_KEY_J               ::Hazel::Key::J
-#define CRYSTAL_KEY_K               ::Hazel::Key::K
-#define CRYSTAL_KEY_L               ::Hazel::Key::L
-#define CRYSTAL_KEY_M               ::Hazel::Key::M
-#define CRYSTAL_KEY_N               ::Hazel::Key::N
-#define CRYSTAL_KEY_O               ::Hazel::Key::O
-#define CRYSTAL_KEY_P               ::Hazel::Key::P
-#define CRYSTAL_KEY_Q               ::Hazel::Key::Q
-#define CRYSTAL_KEY_R               ::Hazel::Key::R
-#define CRYSTAL_KEY_S               ::Hazel::Key::S
-#define CRYSTAL_KEY_T               ::Hazel::Key::T
-#define CRYSTAL_KEY_U               ::Hazel::Key::U
-#define CRYSTAL_KEY_V               ::Hazel::Key::V
-#define CRYSTAL_KEY_W               ::Hazel::Key::W
-#define CRYSTAL_KEY_X               ::Hazel::Key::X
-#define CRYSTAL_KEY_Y               ::Hazel::Key::Y
-#define CRYSTAL_KEY_Z               ::Hazel::Key::Z
-#define CRYSTAL_KEY_LEFT_BRACKET    ::Hazel::Key::LeftBracket   /* [ */
-#define CRYSTAL_KEY_BACKSLASH       ::Hazel::Key::Backslash     /* \ */
-#define CRYSTAL_KEY_RIGHT_BRACKET   ::Hazel::Key::RightBracket  /* ] */
-#define CRYSTAL_KEY_GRAVE_ACCENT    ::Hazel::Key::GraveAccent   /* ` */
-#define CRYSTAL_KEY_WORLD_1         ::Hazel::Key::World1        /* non-US #1 */
-#define CRYSTAL_KEY_WORLD_2         ::Hazel::Key::World2        /* non-US #2 */
+#define CRYSTAL_KEY_SPACE           ::Crystal::Key::Space
+#define CRYSTAL_KEY_APOSTROPHE      ::Crystal::Key::Apostrophe    /* ' */
+#define CRYSTAL_KEY_COMMA           ::Crystal::Key::Comma         /* , */
+#define CRYSTAL_KEY_MINUS           ::Crystal::Key::Minus         /* - */
+#define CRYSTAL_KEY_PERIOD          ::Crystal::Key::Period        /* . */
+#define CRYSTAL_KEY_SLASH           ::Crystal::Key::Slash         /* / */
+#define CRYSTAL_KEY_0               ::Crystal::Key::D0
+#define CRYSTAL_KEY_1               ::Crystal::Key::D1
+#define CRYSTAL_KEY_2               ::Crystal::Key::D2
+#define CRYSTAL_KEY_3               ::Crystal::Key::D3
+#define CRYSTAL_KEY_4               ::Crystal::Key::D4
+#define CRYSTAL_KEY_5               ::Crystal::Key::D5
+#define CRYSTAL_KEY_6               ::Crystal::Key::D6
+#define CRYSTAL_KEY_7               ::Crystal::Key::D7
+#define CRYSTAL_KEY_8               ::Crystal::Key::D8
+#define CRYSTAL_KEY_9               ::Crystal::Key::D9
+#define CRYSTAL_KEY_SEMICOLON       ::Crystal::Key::Semicolon     /* ; */
+#define CRYSTAL_KEY_EQUAL           ::Crystal::Key::Equal         /* = */
+#define CRYSTAL_KEY_A               ::Crystal::Key::A
+#define CRYSTAL_KEY_B               ::Crystal::Key::B
+#define CRYSTAL_KEY_C               ::Crystal::Key::C
+#define CRYSTAL_KEY_D               ::Crystal::Key::D
+#define CRYSTAL_KEY_E               ::Crystal::Key::E
+#define CRYSTAL_KEY_F               ::Crystal::Key::F
+#define CRYSTAL_KEY_G               ::Crystal::Key::G
+#define CRYSTAL_KEY_H               ::Crystal::Key::H
+#define CRYSTAL_KEY_I               ::Crystal::Key::I
+#define CRYSTAL_KEY_J               ::Crystal::Key::J
+#define CRYSTAL_KEY_K               ::Crystal::Key::K
+#define CRYSTAL_KEY_L               ::Crystal::Key::L
+#define CRYSTAL_KEY_M               ::Crystal::Key::M
+#define CRYSTAL_KEY_N               ::Crystal::Key::N
+#define CRYSTAL_KEY_O               ::Crystal::Key::O
+#define CRYSTAL_KEY_P               ::Crystal::Key::P
+#define CRYSTAL_KEY_Q               ::Crystal::Key::Q
+#define CRYSTAL_KEY_R               ::Crystal::Key::R
+#define CRYSTAL_KEY_S               ::Crystal::Key::S
+#define CRYSTAL_KEY_T               ::Crystal::Key::T
+#define CRYSTAL_KEY_U               ::Crystal::Key::U
+#define CRYSTAL_KEY_V               ::Crystal::Key::V
+#define CRYSTAL_KEY_W               ::Crystal::Key::W
+#define CRYSTAL_KEY_X               ::Crystal::Key::X
+#define CRYSTAL_KEY_Y               ::Crystal::Key::Y
+#define CRYSTAL_KEY_Z               ::Crystal::Key::Z
+#define CRYSTAL_KEY_LEFT_BRACKET    ::Crystal::Key::LeftBracket   /* [ */
+#define CRYSTAL_KEY_BACKSLASH       ::Crystal::Key::Backslash     /* \ */
+#define CRYSTAL_KEY_RIGHT_BRACKET   ::Crystal::Key::RightBracket  /* ] */
+#define CRYSTAL_KEY_GRAVE_ACCENT    ::Crystal::Key::GraveAccent   /* ` */
+#define CRYSTAL_KEY_WORLD_1         ::Crystal::Key::World1        /* non-US #1 */
+#define CRYSTAL_KEY_WORLD_2         ::Crystal::Key::World2        /* non-US #2 */
 
 /* Function keys */
-#define CRYSTAL_KEY_ESCAPE          ::Hazel::Key::Escape
-#define CRYSTAL_KEY_ENTER           ::Hazel::Key::Enter
-#define CRYSTAL_KEY_TAB             ::Hazel::Key::Tab
-#define CRYSTAL_KEY_BACKSPACE       ::Hazel::Key::Backspace
-#define CRYSTAL_KEY_INSERT          ::Hazel::Key::Insert
-#define CRYSTAL_KEY_DELETE          ::Hazel::Key::Delete
-#define CRYSTAL_KEY_RIGHT           ::Hazel::Key::Right
-#define CRYSTAL_KEY_LEFT            ::Hazel::Key::Left
-#define CRYSTAL_KEY_DOWN            ::Hazel::Key::Down
-#define CRYSTAL_KEY_UP              ::Hazel::Key::Up
-#define CRYSTAL_KEY_PAGE_UP         ::Hazel::Key::PageUp
-#define CRYSTAL_KEY_PAGE_DOWN       ::Hazel::Key::PageDown
-#define CRYSTAL_KEY_HOME            ::Hazel::Key::Home
-#define CRYSTAL_KEY_END             ::Hazel::Key::End
-#define CRYSTAL_KEY_CAPS_LOCK       ::Hazel::Key::CapsLock
-#define CRYSTAL_KEY_SCROLL_LOCK     ::Hazel::Key::ScrollLock
-#define CRYSTAL_KEY_NUM_LOCK        ::Hazel::Key::NumLock
-#define CRYSTAL_KEY_PRINT_SCREEN    ::Hazel::Key::PrintScreen
-#define CRYSTAL_KEY_PAUSE           ::Hazel::Key::Pause
-#define CRYSTAL_KEY_F1              ::Hazel::Key::F1
-#define CRYSTAL_KEY_F2              ::Hazel::Key::F2
-#define CRYSTAL_KEY_F3              ::Hazel::Key::F3
-#define CRYSTAL_KEY_F4              ::Hazel::Key::F4
-#define CRYSTAL_KEY_F5              ::Hazel::Key::F5
-#define CRYSTAL_KEY_F6              ::Hazel::Key::F6
-#define CRYSTAL_KEY_F7              ::Hazel::Key::F7
-#define CRYSTAL_KEY_F8              ::Hazel::Key::F8
-#define CRYSTAL_KEY_F9              ::Hazel::Key::F9
-#define CRYSTAL_KEY_F10             ::Hazel::Key::F10
-#define CRYSTAL_KEY_F11             ::Hazel::Key::F11
-#define CRYSTAL_KEY_F12             ::Hazel::Key::F12
-#define CRYSTAL_KEY_F13             ::Hazel::Key::F13
-#define CRYSTAL_KEY_F14             ::Hazel::Key::F14
-#define CRYSTAL_KEY_F15             ::Hazel::Key::F15
-#define CRYSTAL_KEY_F16             ::Hazel::Key::F16
-#define CRYSTAL_KEY_F17             ::Hazel::Key::F17
-#define CRYSTAL_KEY_F18             ::Hazel::Key::F18
-#define CRYSTAL_KEY_F19             ::Hazel::Key::F19
-#define CRYSTAL_KEY_F20             ::Hazel::Key::F20
-#define CRYSTAL_KEY_F21             ::Hazel::Key::F21
-#define CRYSTAL_KEY_F22             ::Hazel::Key::F22
-#define CRYSTAL_KEY_F23             ::Hazel::Key::F23
-#define CRYSTAL_KEY_F24             ::Hazel::Key::F24
-#define CRYSTAL_KEY_F25             ::Hazel::Key::F25
+#define CRYSTAL_KEY_ESCAPE          ::Crystal::Key::Escape
+#define CRYSTAL_KEY_ENTER           ::Crystal::Key::Enter
+#define CRYSTAL_KEY_TAB             ::Crystal::Key::Tab
+#define CRYSTAL_KEY_BACKSPACE       ::Crystal::Key::Backspace
+#define CRYSTAL_KEY_INSERT          ::Crystal::Key::Insert
+#define CRYSTAL_KEY_DELETE          ::Crystal::Key::Delete
+#define CRYSTAL_KEY_RIGHT           ::Crystal::Key::Right
+#define CRYSTAL_KEY_LEFT            ::Crystal::Key::Left
+#define CRYSTAL_KEY_DOWN            ::Crystal::Key::Down
+#define CRYSTAL_KEY_UP              ::Crystal::Key::Up
+#define CRYSTAL_KEY_PAGE_UP         ::Crystal::Key::PageUp
+#define CRYSTAL_KEY_PAGE_DOWN       ::Crystal::Key::PageDown
+#define CRYSTAL_KEY_HOME            ::Crystal::Key::Home
+#define CRYSTAL_KEY_END             ::Crystal::Key::End
+#define CRYSTAL_KEY_CAPS_LOCK       ::Crystal::Key::CapsLock
+#define CRYSTAL_KEY_SCROLL_LOCK     ::Crystal::Key::ScrollLock
+#define CRYSTAL_KEY_NUM_LOCK        ::Crystal::Key::NumLock
+#define CRYSTAL_KEY_PRINT_SCREEN    ::Crystal::Key::PrintScreen
+#define CRYSTAL_KEY_PAUSE           ::Crystal::Key::Pause
+#define CRYSTAL_KEY_F1              ::Crystal::Key::F1
+#define CRYSTAL_KEY_F2              ::Crystal::Key::F2
+#define CRYSTAL_KEY_F3              ::Crystal::Key::F3
+#define CRYSTAL_KEY_F4              ::Crystal::Key::F4
+#define CRYSTAL_KEY_F5              ::Crystal::Key::F5
+#define CRYSTAL_KEY_F6              ::Crystal::Key::F6
+#define CRYSTAL_KEY_F7              ::Crystal::Key::F7
+#define CRYSTAL_KEY_F8              ::Crystal::Key::F8
+#define CRYSTAL_KEY_F9              ::Crystal::Key::F9
+#define CRYSTAL_KEY_F10             ::Crystal::Key::F10
+#define CRYSTAL_KEY_F11             ::Crystal::Key::F11
+#define CRYSTAL_KEY_F12             ::Crystal::Key::F12
+#define CRYSTAL_KEY_F13             ::Crystal::Key::F13
+#define CRYSTAL_KEY_F14             ::Crystal::Key::F14
+#define CRYSTAL_KEY_F15             ::Crystal::Key::F15
+#define CRYSTAL_KEY_F16             ::Crystal::Key::F16
+#define CRYSTAL_KEY_F17             ::Crystal::Key::F17
+#define CRYSTAL_KEY_F18             ::Crystal::Key::F18
+#define CRYSTAL_KEY_F19             ::Crystal::Key::F19
+#define CRYSTAL_KEY_F20             ::Crystal::Key::F20
+#define CRYSTAL_KEY_F21             ::Crystal::Key::F21
+#define CRYSTAL_KEY_F22             ::Crystal::Key::F22
+#define CRYSTAL_KEY_F23             ::Crystal::Key::F23
+#define CRYSTAL_KEY_F24             ::Crystal::Key::F24
+#define CRYSTAL_KEY_F25             ::Crystal::Key::F25
 
 /* Keypad */
-#define CRYSTAL_KEY_KP_0            ::Hazel::Key::KP0
-#define CRYSTAL_KEY_KP_1            ::Hazel::Key::KP1
-#define CRYSTAL_KEY_KP_2            ::Hazel::Key::KP2
-#define CRYSTAL_KEY_KP_3            ::Hazel::Key::KP3
-#define CRYSTAL_KEY_KP_4            ::Hazel::Key::KP4
-#define CRYSTAL_KEY_KP_5            ::Hazel::Key::KP5
-#define CRYSTAL_KEY_KP_6            ::Hazel::Key::KP6
-#define CRYSTAL_KEY_KP_7            ::Hazel::Key::KP7
-#define CRYSTAL_KEY_KP_8            ::Hazel::Key::KP8
-#define CRYSTAL_KEY_KP_9            ::Hazel::Key::KP9
-#define CRYSTAL_KEY_KP_DECIMAL      ::Hazel::Key::KPDecimal
-#define CRYSTAL_KEY_KP_DIVIDE       ::Hazel::Key::KPDivide
-#define CRYSTAL_KEY_KP_MULTIPLY     ::Hazel::Key::KPMultiply
-#define CRYSTAL_KEY_KP_SUBTRACT     ::Hazel::Key::KPSubtract
-#define CRYSTAL_KEY_KP_ADD          ::Hazel::Key::KPAdd
-#define CRYSTAL_KEY_KP_ENTER        ::Hazel::Key::KPEnter
-#define CRYSTAL_KEY_KP_EQUAL        ::Hazel::Key::KPEqual
+#define CRYSTAL_KEY_KP_0            ::Crystal::Key::KP0
+#define CRYSTAL_KEY_KP_1            ::Crystal::Key::KP1
+#define CRYSTAL_KEY_KP_2            ::Crystal::Key::KP2
+#define CRYSTAL_KEY_KP_3            ::Crystal::Key::KP3
+#define CRYSTAL_KEY_KP_4            ::Crystal::Key::KP4
+#define CRYSTAL_KEY_KP_5            ::Crystal::Key::KP5
+#define CRYSTAL_KEY_KP_6            ::Crystal::Key::KP6
+#define CRYSTAL_KEY_KP_7            ::Crystal::Key::KP7
+#define CRYSTAL_KEY_KP_8            ::Crystal::Key::KP8
+#define CRYSTAL_KEY_KP_9            ::Crystal::Key::KP9
+#define CRYSTAL_KEY_KP_DECIMAL      ::Crystal::Key::KPDecimal
+#define CRYSTAL_KEY_KP_DIVIDE       ::Crystal::Key::KPDivide
+#define CRYSTAL_KEY_KP_MULTIPLY     ::Crystal::Key::KPMultiply
+#define CRYSTAL_KEY_KP_SUBTRACT     ::Crystal::Key::KPSubtract
+#define CRYSTAL_KEY_KP_ADD          ::Crystal::Key::KPAdd
+#define CRYSTAL_KEY_KP_ENTER        ::Crystal::Key::KPEnter
+#define CRYSTAL_KEY_KP_EQUAL        ::Crystal::Key::KPEqual
 
-#define CRYSTAL_KEY_LEFT_SHIFT      ::Hazel::Key::LeftShift
-#define CRYSTAL_KEY_LEFT_CONTROL    ::Hazel::Key::LeftControl
-#define CRYSTAL_KEY_LEFT_ALT        ::Hazel::Key::LeftAlt
-#define CRYSTAL_KEY_LEFT_SUPER      ::Hazel::Key::LeftSuper
-#define CRYSTAL_KEY_RIGHT_SHIFT     ::Hazel::Key::RightShift
-#define CRYSTAL_KEY_RIGHT_CONTROL   ::Hazel::Key::RightControl
-#define CRYSTAL_KEY_RIGHT_ALT       ::Hazel::Key::RightAlt
-#define CRYSTAL_KEY_RIGHT_SUPER     ::Hazel::Key::RightSuper
-#define CRYSTAL_KEY_MENU            ::Hazel::Key::Menu
+#define CRYSTAL_KEY_LEFT_SHIFT      ::Crystal::Key::LeftShift
+#define CRYSTAL_KEY_LEFT_CONTROL    ::Crystal::Key::LeftControl
+#define CRYSTAL_KEY_LEFT_ALT        ::Crystal::Key::LeftAlt
+#define CRYSTAL_KEY_LEFT_SUPER      ::Crystal::Key::LeftSuper
+#define CRYSTAL_KEY_RIGHT_SHIFT     ::Crystal::Key::RightShift
+#define CRYSTAL_KEY_RIGHT_CONTROL   ::Crystal::Key::RightControl
+#define CRYSTAL_KEY_RIGHT_ALT       ::Crystal::Key::RightAlt
+#define CRYSTAL_KEY_RIGHT_SUPER     ::Crystal::Key::RightSuper
+#define CRYSTAL_KEY_MENU            ::Crystal::Key::Menu

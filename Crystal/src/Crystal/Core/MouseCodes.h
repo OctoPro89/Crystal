@@ -27,15 +27,15 @@ namespace Crystal
 	}
 }
 
-#define CRYSTAL_MOUSE_BUTTON_0      ::Hazel::Mouse::Button0
-#define CRYSTAL_MOUSE_BUTTON_1      ::Hazel::Mouse::Button1
-#define CRYSTAL_MOUSE_BUTTON_2      ::Hazel::Mouse::Button2
-#define CRYSTAL_MOUSE_BUTTON_3      ::Hazel::Mouse::Button3
-#define CRYSTAL_MOUSE_BUTTON_4      ::Hazel::Mouse::Button4
-#define CRYSTAL_MOUSE_BUTTON_5      ::Hazel::Mouse::Button5
-#define CRYSTAL_MOUSE_BUTTON_6      ::Hazel::Mouse::Button6
-#define CRYSTAL_MOUSE_BUTTON_7      ::Hazel::Mouse::Button7
-#define CRYSTAL_MOUSE_BUTTON_LAST   ::Hazel::Mouse::ButtonLast
-#define CRYSTAL_MOUSE_BUTTON_LEFT   ::Hazel::Mouse::ButtonLeft
-#define CRYSTAL_MOUSE_BUTTON_RIGHT  ::Hazel::Mouse::ButtonRight
-#define CRYSTAL_MOUSE_BUTTON_MIDDLE ::Hazel::Mouse::ButtonMiddle
+#define CRYSTAL_MOUSE_BUTTON_0      ::Crystal::Mouse::Button0
+#define CRYSTAL_MOUSE_BUTTON_1      ::Crystal::Mouse::Button1
+#define CRYSTAL_MOUSE_BUTTON_2      ::Crystal::Mouse::Button2
+#define CRYSTAL_MOUSE_BUTTON_3      ::Crystal::Mouse::Button3
+#define CRYSTAL_MOUSE_BUTTON_4      ::Crystal::Mouse::Button4
+#define CRYSTAL_MOUSE_BUTTON_5      ::Crystal::Mouse::Button5
+#define CRYSTAL_MOUSE_BUTTON_6      ::Crystal::Mouse::Button6
+#define CRYSTAL_MOUSE_BUTTON_7      ::Crystal::Mouse::Button7
+#define CRYSTAL_MOUSE_BUTTON_LAST   ::Crystal::Mouse::ButtonLast
+#define CRYSTAL_MOUSE_BUTTON_LEFT   ::Crystal::Mouse::ButtonLeft
+#define CRYSTAL_MOUSE_BUTTON_RIGHT  ::Crystal::Mouse::ButtonRight
+#define CRYSTAL_MOUSE_BUTTON_MIDDLE ::Crystal::Mouse::ButtonMiddle

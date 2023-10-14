@@ -1,4 +1,5 @@
 #pragma once
+#include "crystalpch.h"
 #include "Crystal/Core/Core.h"
 
 namespace Crystal {
@@ -29,20 +30,20 @@ namespace Crystal {
 
 	class Event
 	{
-		friend class EventDispatcher;
 	public:
-		virtual ~Event();
+		virtual ~Event() = default;
+
+		bool Handled = false;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
-		virtual int GetCategoryFlags () const = 0;
+		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsIsCategory(EventCategory category)
+		bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
-		bool Handled = false;
-	protected:
 	};
 
 	class EventDispatcher
@@ -53,12 +54,13 @@ namespace Crystal {
 		{
 		}
 
+		// F will be deduced by the compiler
 		template<typename T, typename F>
 		bool Dispatch(const F& func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;
@@ -71,4 +73,5 @@ namespace Crystal {
 	{
 		return os << e.ToString();
 	}
+
 }
