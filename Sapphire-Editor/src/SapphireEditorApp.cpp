@@ -5,21 +5,21 @@
 #include "EditorLayer.h"
 
 namespace Crystal {
-	class CrystalEditor : public Crystal::Application
+	class SapphireEditor : public Crystal::Application
 	{
 	public:
-		CrystalEditor()
+		SapphireEditor()
 			: Application("Crystal Editor")
 		{
 			PushLayer(new EditorLayer());
 		}
 
-		~CrystalEditor()
+		~SapphireEditor()
 		{
 		}
 	};
 
 	Application* Crystal::CreateApplication() {
-		return new CrystalEditor();
+		return new SapphireEditor();
 	}
 }

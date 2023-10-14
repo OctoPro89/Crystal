@@ -30,6 +30,12 @@ namespace Crystal {
 
 		Crystal::Ref<Crystal::FrameBuffer> m_FrameBuffer;
 
+		glm::vec2 m_ViewportSize = { 0.0f,0.0f };
+
+		float m_ParticlePos[2] = {0.0f,0.0f};
+
+		bool useParticles = false;
+
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
 	};
