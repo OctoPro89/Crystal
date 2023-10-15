@@ -170,6 +170,13 @@ namespace Crystal {
 					m_CameraEntity.GetComponent<CameraComponent>().Primary = m_CamSwitch;
 					m_CameraEntity2.GetComponent<CameraComponent>().Primary = !m_CamSwitch;
 				}
+
+				{
+					auto& camera =  m_CameraEntity2.GetComponent<CameraComponent>().Camera;
+					float orthoSize = camera.GetOrthographicSize();
+					if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
+						camera.SetOrthographicSize(orthoSize);
+				}
 			}
 			ImGui::End();
 		}
