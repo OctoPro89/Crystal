@@ -11,27 +11,29 @@
 #include "Crystal/Renderer/VertexArray.h"
 #include "Crystal/Renderer/OrthographicCamera.h"
 
+int main(int argc, char** argv);
 
 namespace Crystal {
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Crystal App");
+		Application(const std::string& name = "Hazel App");
 		virtual ~Application();
-
-		void Run();
 
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
-		inline Window& GetWindow(){ return *m_Window; }
+		Window& GetWindow() { return *m_Window; }
 
 		void Close();
 
-		inline static Application& Get() { return *s_Instance; }
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+
+		static Application& Get() { return *s_Instance; }
 	private:
+		void Run();
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 	private:
@@ -43,8 +45,9 @@ namespace Crystal {
 		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
-	//To be defined in CLIENT
+	// To be defined in CLIENT
 	Application* CreateApplication();
 }

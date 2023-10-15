@@ -35,9 +35,18 @@ namespace Crystal {
 		float m_ParticlePos[2] = {0.0f,0.0f};
 
 		bool useParticles = false;
-		bool preferencesWindow = false;
+		bool performanceWindow = false;
+		bool settingsWindow = false;
+		bool inspectorWindow = true;
+		bool m_ViewportFocused = false;
+		bool m_ViewportHovered = false;
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
+
+		float transform1[2] = { 0.0f,0.0f };
+		float transform2[2] = { 0.0f,0.0f };
+		float transform3[2] = { 0.0f,0.0f };
+		float transform4[2] = { 0.0f,0.0f };
 	};
 }

@@ -42,7 +42,8 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION();
 
 		// Update
-		m_CameraController.OnUpdate(ts);
+		if(m_ViewportFocused)
+			m_CameraController.OnUpdate(ts);
 
 		// Render
 		Crystal::Renderer2D::ResetStats();
@@ -58,10 +59,10 @@ namespace Crystal {
 			rotation += ts * 20.0f;
 			CRYSTAL_PROFILE_SCOPE("Renderer Draw");
 			Crystal::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			Crystal::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-			Crystal::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-			Crystal::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_Texture, 10.0f);
-			Crystal::Renderer2D::DrawRotatedQuad({ -2.0f, -0.5f, 0.0f }, { 1.0f, 1.0f }, glm::radians(rotation), m_Texture, 10.0f);
+			Crystal::Renderer2D::DrawQuad({ transform1[0], transform1[1] }, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f});
+			Crystal::Renderer2D::DrawQuad({ transform2[0], transform2[1] }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+			Crystal::Renderer2D::DrawQuad({ transform3[0], transform3[1], -0.1f }, { 20.0f, 20.0f }, m_Texture, 10.0f);
+			Crystal::Renderer2D::DrawRotatedQuad({ transform4[0], transform4[1] }, { 1.0f, 1.0f }, glm::radians(rotation), m_Texture, 10.0f);
 			if(useParticles)
 				m_ParticleSystem.Emit(m_Particle);
 			Crystal::Renderer2D::EndScene();
@@ -144,37 +145,61 @@ namespace Crystal {
 				if (ImGui::MenuItem("Exit")) Crystal::Application::Get().Close();
 				ImGui::EndMenu();
 			}
-			if (ImGui::BeginMenu("Edit"))
+			if (ImGui::BeginMenu("View"))
 			{
 				// Disabling full screen would allow the window to be moved to the front of other windows, 
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Preferences")) preferencesWindow = true;;
+				if (ImGui::MenuItem("Settings")) settingsWindow = true;
+				if (ImGui::MenuItem("Performance")) performanceWindow = true;
+				if (ImGui::MenuItem("Inspector")) inspectorWindow = true;
 				ImGui::EndMenu();
 			}
 
 			ImGui::EndMenuBar();
 		}
 
-		ImGui::Begin("Settings");
-		ImGui::Checkbox("Use Particles", &useParticles);
-		ImGui::DragFloat2("Particle System Position",m_ParticlePos,0.01f);
-		ImGui::End();
 
-		ImGui::Begin("Performance");
+		if (settingsWindow)
+		{
+			ImGui::Begin("Settings");
+			ImGui::Checkbox("Use Particles", &useParticles);
+			ImGui::DragFloat2("Particle System Position", m_ParticlePos, 0.01f);
+			ImGui::End();
+		}
+		if (inspectorWindow)
+		{
+			ImGui::Begin("Inspector");
+			if (ImGui::CollapsingHeader("Transforms"))
+			{
+				ImGui::DragFloat2("Transform 1", transform1, 0.01f);
+				ImGui::DragFloat2("Transform 2", transform2, 0.01f);
+				ImGui::DragFloat2("Transform 3", transform3, 0.01f);
+				ImGui::DragFloat2("Transform 4", transform4, 0.01f);
+			}
+			ImGui::End();
+		}
+		if (performanceWindow) {
+			ImGui::Begin("Performance");
 
-		auto stats = Crystal::Renderer2D::GetStats();
-		ImGui::Text("Renderer2D Stats:");
-		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-		ImGui::Text("Quads: %d", stats.QuadCount);
-		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+			auto stats = Crystal::Renderer2D::GetStats();
+			ImGui::Text("Renderer2D Stats:");
+			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+			ImGui::Text("Quads: %d", stats.QuadCount);
+			ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+			ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		ImGui::End();
+			ImGui::End();
+		}
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0,0});
 		ImGui::Begin("Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
 		{
