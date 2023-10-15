@@ -14,9 +14,9 @@ namespace Crystal {
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 
-		m_Texture = Crystal::Texture2D::Create("assets/textures/Checkerboard.png");
-		m_SpriteSheet = Crystal::Texture2D::Create("assets/game/OutdoorSet.png");
-		m_SpriteGrass = Crystal::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1,1 }, { 32,32 });
+		m_Texture = Texture2D::Create("assets/textures/Checkerboard.png");
+		m_SpriteSheet = Texture2D::Create("assets/game/OutdoorSet.png");
+		m_SpriteGrass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1,1 }, { 32,32 });
 
 		m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -26,10 +26,17 @@ namespace Crystal {
 		m_Particle.VelocityVariation = { 3.0f, 1.0f };
 		m_Particle.Position = { 0.0f, 0.0f };
 
-		Crystal::FrameBufferSpecification spec;
+		FrameBufferSpecification spec;
 		spec.Width = 1280;
 		spec.Height = 720;
-		m_FrameBuffer = Crystal::FrameBuffer::Create(spec);
+		m_FrameBuffer = FrameBuffer::Create(spec);
+
+		m_ActiveScene = CreateRef<Scene>();
+
+		m_SquareEntity = m_ActiveScene->CreateEntity();
+
+		m_ActiveScene->Reg().emplace<TransformComponent>(m_SquareEntity);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(m_SquareEntity, glm::vec4{ 0.8f, 0.2f, 0.3f, 1.0f });
 	}
 
 	void EditorLayer::OnDetach()
@@ -37,7 +44,7 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION();
 	}
 
-	void EditorLayer::OnUpdate(Crystal::Timestep ts)
+	void EditorLayer::OnUpdate(Timestep ts)
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 
@@ -46,39 +53,20 @@ namespace Crystal {
 			m_CameraController.OnUpdate(ts);
 
 		// Render
-		Crystal::Renderer2D::ResetStats();
-		{
-			CRYSTAL_PROFILE_SCOPE("Renderer Prep");
-			m_FrameBuffer->Bind();
-			Crystal::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-			Crystal::RenderCommand::Clear();
-		}
+		Renderer2D::ResetStats();
+		m_FrameBuffer->Bind();
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
 
-		{
-			static float rotation = 0.0f;
-			rotation += ts * 20.0f;
-			CRYSTAL_PROFILE_SCOPE("Renderer Draw");
-			Crystal::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			Crystal::Renderer2D::DrawQuad({ transform1[0], transform1[1] }, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f});
-			Crystal::Renderer2D::DrawQuad({ transform2[0], transform2[1] }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-			Crystal::Renderer2D::DrawQuad({ transform3[0], transform3[1], -0.1f }, { 20.0f, 20.0f }, m_Texture, 10.0f);
-			Crystal::Renderer2D::DrawRotatedQuad({ transform4[0], transform4[1] }, { 1.0f, 1.0f }, glm::radians(rotation), m_Texture, 10.0f);
-			if(useParticles)
-				m_ParticleSystem.Emit(m_Particle);
-			Crystal::Renderer2D::EndScene();
-
-			Crystal::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			for (float y = -5.0f; y < 5.0f; y += .5f)
-			{
-				for (float x = -5.0f; x < 5.0f; x += 0.5f)
-				{
-					glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
-					Crystal::Renderer2D::DrawQuad({ x,y }, { 0.45f,0.45f }, color);
-				}
-			}
-			Crystal::Renderer2D::EndScene();
-			m_FrameBuffer->Unbind();
-		}
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		static float rotation = 0.0f;
+		rotation += ts * 20.0f;
+		// Update Scene
+		m_ActiveScene->OnUpdate();
+		if(useParticles)
+			m_ParticleSystem.Emit(m_Particle);
+		Renderer2D::EndScene();
+		m_FrameBuffer->Unbind();
 
 		m_Particle.Position = { m_ParticlePos[0], m_ParticlePos[1] };
 
@@ -142,7 +130,7 @@ namespace Crystal {
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Exit")) Crystal::Application::Get().Close();
+				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("View"))
@@ -173,17 +161,18 @@ namespace Crystal {
 			ImGui::Begin("Inspector");
 			if (ImGui::CollapsingHeader("Transforms"))
 			{
-				ImGui::DragFloat2("Transform 1", transform1, 0.01f);
-				ImGui::DragFloat2("Transform 2", transform2, 0.01f);
-				ImGui::DragFloat2("Transform 3", transform3, 0.01f);
-				ImGui::DragFloat2("Transform 4", transform4, 0.01f);
+			}
+			if (ImGui::CollapsingHeader("Materials"))
+			{
+				auto& squareColor = m_ActiveScene->Reg().get<SpriteRendererComponent>(m_SquareEntity).Color;
+				ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 			}
 			ImGui::End();
 		}
 		if (performanceWindow) {
 			ImGui::Begin("Performance");
 
-			auto stats = Crystal::Renderer2D::GetStats();
+			auto stats = Renderer2D::GetStats();
 			ImGui::Text("Renderer2D Stats:");
 			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 			ImGui::Text("Quads: %d", stats.QuadCount);
@@ -215,7 +204,7 @@ namespace Crystal {
 		ImGui::End();
 	}
 
-	void EditorLayer::OnEvent(Crystal::Event& e)
+	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
 	}

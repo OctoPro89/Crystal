@@ -27,8 +27,10 @@ namespace Crystal {
 		Crystal::Ref<Crystal::Texture2D> m_Texture;
 		Crystal::Ref<Crystal::Texture2D> m_SpriteSheet;
 		Crystal::Ref<Crystal::SubTexture2D> m_SpriteGrass;
-
+		Ref<Scene> m_ActiveScene;
 		Crystal::Ref<Crystal::FrameBuffer> m_FrameBuffer;
+
+		entt::entity m_SquareEntity;
 
 		glm::vec2 m_ViewportSize = { 0.0f,0.0f };
 
@@ -43,10 +45,5 @@ namespace Crystal {
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
-
-		float transform1[2] = { 0.0f,0.0f };
-		float transform2[2] = { 0.0f,0.0f };
-		float transform3[2] = { 0.0f,0.0f };
-		float transform4[2] = { 0.0f,0.0f };
 	};
 }
