@@ -151,9 +151,9 @@ namespace Crystal {
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Settings")) settingsWindow = true;
-				if (ImGui::MenuItem("Performance")) performanceWindow = true;
-				if (ImGui::MenuItem("Inspector")) inspectorWindow = true;
+				if (ImGui::MenuItem("Settings")) settingsWindow = !settingsWindow;
+				if (ImGui::MenuItem("Performance")) performanceWindow = !performanceWindow;
+				if (ImGui::MenuItem("Inspector")) inspectorWindow = !inspectorWindow;
 				ImGui::EndMenu();
 			}
 
@@ -201,7 +201,7 @@ namespace Crystal {
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
+		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y)
 		{
 			m_FrameBuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };

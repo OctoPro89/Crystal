@@ -18,6 +18,7 @@ IncludeDir["Glad"] = "Crystal/vendor/Glad/include"
 IncludeDir["ImGui"] = "Crystal/vendor/imgui"
 IncludeDir["glm"] = "Crystal/vendor/glm"
 IncludeDir["stb_image"] = "Crystal/vendor/stb_image"
+IncludeDir["entt"] = "Crystal/vendor/entt"
 
 group "Dependencies"
 	include "Crystal/vendor/GLFW"
@@ -61,7 +62,8 @@ project "Crystal"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -118,7 +120,8 @@ project "Sandbox"
 		"Crystal/vendor/spdlog/include",
 		"Crystal/src",
 		"Crystal/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -171,7 +174,8 @@ project "Sapphire-Editor"
 		"Crystal/vendor/spdlog/include",
 		"Crystal/src",
 		"Crystal/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
