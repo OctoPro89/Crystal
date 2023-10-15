@@ -34,10 +34,11 @@ namespace Crystal {
 		m_SquareEntity = square;
 
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
-		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)).Primary = true;
+		m_CameraEntity.AddComponent<CameraComponent>().Primary = true;
+		m_CameraEntity.GetComponent<CameraComponent>().FixedAspectRatio = false;
 
 		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera Entity 2");
-		m_CameraEntity2.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f)).Primary = false;
+		m_CameraEntity2.AddComponent<CameraComponent>().Primary = false;
 	}
 
 	void EditorLayer::OnDetach()
@@ -68,11 +69,14 @@ namespace Crystal {
 		m_FrameBuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
+
 		// Update Scene
 		m_ActiveScene->OnUpdate(ts);
 		Renderer2D::BeginScene(m_CameraController.GetCamera());
+
 		if(useParticles)
 			m_ParticleSystem.Emit(m_Particle);
+
 		Renderer2D::EndScene();
 		m_FrameBuffer->Unbind();
 		m_Particle.Position = { m_ParticlePos[0], m_ParticlePos[1] };
@@ -211,6 +215,7 @@ namespace Crystal {
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y)
 		{
 			m_FrameBuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);

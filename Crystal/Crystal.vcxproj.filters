@@ -1440,6 +1440,7 @@
     <ClInclude Include="src\Crystal\Scene\Components.h" />
     <ClInclude Include="src\Crystal\Scene\Entity.h" />
     <ClInclude Include="src\Crystal\Renderer\Camera.h" />
+    <ClInclude Include="src\Crystal\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1542,5 +1543,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Scene\Entity.cpp" />
+    <ClCompile Include="src\Crystal\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>
