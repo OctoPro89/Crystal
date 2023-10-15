@@ -1438,6 +1438,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Scene\Components.h" />
+    <ClInclude Include="src\Crystal\Scene\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1539,5 +1540,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Scene\Entity.cpp" />
   </ItemGroup>
 </Project>

@@ -33,10 +33,10 @@ namespace Crystal {
 
 		m_ActiveScene = CreateRef<Scene>();
 
-		m_SquareEntity = m_ActiveScene->CreateEntity();
+		Entity square = m_ActiveScene->CreateEntity("Square");
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f,1.0f,0.0f,1.0f });
 
-		m_ActiveScene->Reg().emplace<TransformComponent>(m_SquareEntity);
-		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(m_SquareEntity, glm::vec4{ 0.8f, 0.2f, 0.3f, 1.0f });
+		m_SquareEntity = square;
 	}
 
 	void EditorLayer::OnDetach()
@@ -62,7 +62,7 @@ namespace Crystal {
 		static float rotation = 0.0f;
 		rotation += ts * 20.0f;
 		// Update Scene
-		m_ActiveScene->OnUpdate();
+		m_ActiveScene->OnUpdate(ts);
 		if(useParticles)
 			m_ParticleSystem.Emit(m_Particle);
 		Renderer2D::EndScene();
@@ -164,8 +164,15 @@ namespace Crystal {
 			}
 			if (ImGui::CollapsingHeader("Materials"))
 			{
-				auto& squareColor = m_ActiveScene->Reg().get<SpriteRendererComponent>(m_SquareEntity).Color;
-				ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+				if (m_SquareEntity)
+				{
+					auto& tag = m_SquareEntity.GetComponent<TagComponent>().Tag;
+					ImGui::Separator();
+					ImGui::Text("%s", tag.c_str());
+					auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
+					ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+					ImGui::Separator();
+				}
 			}
 			ImGui::End();
 		}

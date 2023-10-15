@@ -176,6 +176,7 @@
     <ClInclude Include="src\Crystal\Renderer\Texture.h" />
     <ClInclude Include="src\Crystal\Renderer\VertexArray.h" />
     <ClInclude Include="src\Crystal\Scene\Components.h" />
+    <ClInclude Include="src\Crystal\Scene\Entity.h" />
     <ClInclude Include="src\Crystal\Scene\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -626,6 +627,7 @@
     <ClCompile Include="src\Crystal\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Crystal\Renderer\Texture.cpp" />
     <ClCompile Include="src\Crystal\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Crystal\Scene\Entity.cpp" />
     <ClCompile Include="src\Crystal\Scene\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />

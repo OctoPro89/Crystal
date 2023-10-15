@@ -30,7 +30,7 @@ namespace Crystal {
 		Ref<Scene> m_ActiveScene;
 		Crystal::Ref<Crystal::FrameBuffer> m_FrameBuffer;
 
-		entt::entity m_SquareEntity;
+		Entity m_SquareEntity;
 
 		glm::vec2 m_ViewportSize = { 0.0f,0.0f };
 

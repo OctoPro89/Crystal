@@ -2,21 +2,22 @@
 
 #include <entt.hpp>
 
+#include "Crystal/Core/Timestep.h"
+
 namespace Crystal
 {
+	class Entity;
 	class Scene
 	{
 	public:
 		Scene();
 		~Scene();
 
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name = std::string());
 
-		// TEMP
-		entt::registry& Reg() { return m_Registry; }
-
-		void OnUpdate();
+		void OnUpdate(Timestep ts);
 	private:
 		entt::registry m_Registry;
+		friend class Entity;
 	};
 }

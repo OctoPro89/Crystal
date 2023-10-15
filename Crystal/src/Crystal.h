@@ -19,6 +19,7 @@
 
 #include "Crystal/Scene/Scene.h"
 #include "Crystal/Scene/Components.h"
+#include "Crystal/Scene/Entity.h"
 
 // ---Renderer------------------------
 #include "Crystal/Renderer/Renderer.h"
