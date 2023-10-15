@@ -6,7 +6,7 @@
 
 namespace Crystal {
 
-	class EditorLayer : public Crystal::Layer
+	class EditorLayer : public Layer
 	{
 	public:
 		EditorLayer();
@@ -15,21 +15,18 @@ namespace Crystal {
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
 
-		virtual void OnUpdate(Crystal::Timestep ts) override;
+		virtual void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
-		virtual void OnEvent(Crystal::Event& e) override;
+		virtual void OnEvent(Event& e) override;
 	private:
-		Crystal::OrthographicCameraController m_CameraController;
+		OrthographicCameraController m_CameraController;
 
 		//temp
-		Crystal::Ref<Crystal::VertexArray> m_VertexArray;
-		Crystal::Ref<Crystal::Shader> m_Shader;
-		Crystal::Ref<Crystal::Texture2D> m_Texture;
-		Crystal::Ref<Crystal::Texture2D> m_SpriteSheet;
-		Crystal::Ref<Crystal::SubTexture2D> m_SpriteGrass;
+		Ref<VertexArray> m_VertexArray;
+		Ref<Shader> m_Shader;
 		Ref<Scene> m_ActiveScene;
-		Crystal::Ref<Crystal::FrameBuffer> m_FrameBuffer;
-
+		Ref<FrameBuffer> m_FrameBuffer;
+		Entity m_CameraEntity;
 		Entity m_SquareEntity;
 
 		glm::vec2 m_ViewportSize = { 0.0f,0.0f };

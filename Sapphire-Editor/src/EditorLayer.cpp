@@ -13,11 +13,6 @@ namespace Crystal {
 	void EditorLayer::OnAttach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
-
-		m_Texture = Texture2D::Create("assets/textures/Checkerboard.png");
-		m_SpriteSheet = Texture2D::Create("assets/game/OutdoorSet.png");
-		m_SpriteGrass = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 1,1 }, { 32,32 });
-
 		m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 		m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
@@ -34,9 +29,12 @@ namespace Crystal {
 		m_ActiveScene = CreateRef<Scene>();
 
 		Entity square = m_ActiveScene->CreateEntity("Square");
-		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f,1.0f,0.0f,1.0f });
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f,1.0f,1.0f,1.0f });
 
 		m_SquareEntity = square;
+
+		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
+		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)).Primary = true;
 	}
 
 	void EditorLayer::OnDetach()

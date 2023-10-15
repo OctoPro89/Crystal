@@ -5,6 +5,8 @@
 #include "Crystal/Renderer/Texture.h"
 #include "Crystal/Renderer/SubTexture2D.h"
 
+#include "Crystal/Renderer/Camera.h"
+
 namespace Crystal
 {
 	class Renderer2D
@@ -13,6 +15,7 @@ namespace Crystal
 		static void Init();
 		static void Shutdown();
 
+		static void BeginScene(const Camera& camera);
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
 		static void Flush();
