@@ -35,6 +35,9 @@ namespace Crystal {
 
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
 		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f)).Primary = true;
+
+		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera Entity 2");
+		m_CameraEntity2.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f)).Primary = false;
 	}
 
 	void EditorLayer::OnDetach()
@@ -46,6 +49,16 @@ namespace Crystal {
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 
+		if (FrameBufferSpecification spec = m_FrameBuffer->GetSpecification();
+			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&
+			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
+		{
+			m_FrameBuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		}
+
 		// Update
 		if(m_ViewportFocused)
 			m_CameraController.OnUpdate(ts);
@@ -55,19 +68,14 @@ namespace Crystal {
 		m_FrameBuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
-
-		Renderer2D::BeginScene(m_CameraController.GetCamera());
-		static float rotation = 0.0f;
-		rotation += ts * 20.0f;
 		// Update Scene
 		m_ActiveScene->OnUpdate(ts);
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
 		if(useParticles)
 			m_ParticleSystem.Emit(m_Particle);
 		Renderer2D::EndScene();
 		m_FrameBuffer->Unbind();
-
 		m_Particle.Position = { m_ParticlePos[0], m_ParticlePos[1] };
-
 		m_ParticleSystem.OnUpdate(ts);
 		m_ParticleSystem.OnRender(m_CameraController.GetCamera());
 	}
@@ -152,6 +160,13 @@ namespace Crystal {
 			ImGui::Begin("Settings");
 			ImGui::Checkbox("Use Particles", &useParticles);
 			ImGui::DragFloat2("Particle System Position", m_ParticlePos, 0.01f);
+			if (ImGui::CollapsingHeader("Camera")) {
+				if (ImGui::Checkbox("Camera A", &m_CamSwitch))
+				{
+					m_CameraEntity.GetComponent<CameraComponent>().Primary = m_CamSwitch;
+					m_CameraEntity2.GetComponent<CameraComponent>().Primary = !m_CamSwitch;
+				}
+			}
 			ImGui::End();
 		}
 		if (inspectorWindow)
@@ -159,6 +174,7 @@ namespace Crystal {
 			ImGui::Begin("Inspector");
 			if (ImGui::CollapsingHeader("Transforms"))
 			{
+				ImGui::DragFloat2("Camera Transform", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]), 0.01f);
 			}
 			if (ImGui::CollapsingHeader("Materials"))
 			{

@@ -27,6 +27,7 @@ namespace Crystal {
 		Ref<Scene> m_ActiveScene;
 		Ref<FrameBuffer> m_FrameBuffer;
 		Entity m_CameraEntity;
+		Entity m_CameraEntity2;
 		Entity m_SquareEntity;
 
 		glm::vec2 m_ViewportSize = { 0.0f,0.0f };
@@ -39,6 +40,8 @@ namespace Crystal {
 		bool inspectorWindow = true;
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
+
+		bool m_CamSwitch = false;
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);

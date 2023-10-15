@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Crystal.h" />
+    <ClInclude Include="src\Crystal\Renderer\Camera.h" />
     <ClInclude Include="src\Crystal\Core\Application.h" />
     <ClInclude Include="src\Crystal\Core\Core.h" />
     <ClInclude Include="src\Crystal\Core\EntryPoint.h" />

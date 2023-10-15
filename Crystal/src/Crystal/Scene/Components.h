@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Crystal/Renderer/Camera.h"
+#include "Crystal/Scene/SceneCamera.h"
 
 namespace Crystal
 {
@@ -39,12 +39,11 @@ namespace Crystal
 
 	struct CameraComponent
 	{
-		Crystal::Camera Camera;
+		Crystal::SceneCamera Camera;
 		bool Primary = true;
+		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
-		CameraComponent(const glm::mat4 projection)
-			: Camera(projection) {}
 	};
 }

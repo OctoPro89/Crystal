@@ -1439,6 +1439,7 @@
     </ClInclude>
     <ClInclude Include="src\Crystal\Scene\Components.h" />
     <ClInclude Include="src\Crystal\Scene\Entity.h" />
+    <ClInclude Include="src\Crystal\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
