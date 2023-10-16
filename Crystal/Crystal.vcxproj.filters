@@ -1441,6 +1441,7 @@
     <ClInclude Include="src\Crystal\Scene\Entity.h" />
     <ClInclude Include="src\Crystal\Renderer\Camera.h" />
     <ClInclude Include="src\Crystal\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Crystal\Scene\ScriptableEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
