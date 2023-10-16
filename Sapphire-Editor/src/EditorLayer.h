@@ -41,7 +41,7 @@ namespace Crystal {
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
 
-		bool m_CamSwitch = false;
+		bool m_CamSwitch = true;
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);

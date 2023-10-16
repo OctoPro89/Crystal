@@ -45,6 +45,8 @@ namespace Crystal {
 		public:
 			void OnCreate()
 			{
+				glm::mat4& transform = GetComponent<TransformComponent>().Transform;
+				transform[3][0] = rand() % 10 - 5.0f;
 			}
 
 			void OnDestroy()
@@ -54,7 +56,7 @@ namespace Crystal {
 
 			void OnUpdate(Timestep ts)
 			{
-				auto& transform = GetComponent<TransformComponent>().Transform;
+				glm::mat4& transform = GetComponent<TransformComponent>().Transform;
 				float speed = 5.0f;
 				if (Input::IsKeyPressed(KeyCode::A))
 					transform[3][0] -= speed * ts;
@@ -67,6 +69,7 @@ namespace Crystal {
 			}
 		};
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		m_CameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 	}
 
 	void EditorLayer::OnDetach()
