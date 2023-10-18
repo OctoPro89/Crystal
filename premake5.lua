@@ -19,11 +19,13 @@ IncludeDir["ImGui"] = "Crystal/vendor/imgui"
 IncludeDir["glm"] = "Crystal/vendor/glm"
 IncludeDir["stb_image"] = "Crystal/vendor/stb_image"
 IncludeDir["entt"] = "Crystal/vendor/entt"
+IncludeDir["yaml"] = "Crystal/vendor/yaml/include"
 
 group "Dependencies"
 	include "Crystal/vendor/GLFW"
 	include "Crystal/vendor/Glad"
 	include "Crystal/vendor/imgui"
+	include "Crystal/vendor/yaml"
 group ""
 
 project "Crystal"
@@ -63,7 +65,8 @@ project "Crystal"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml}"
 	}
 
 	links 
@@ -71,7 +74,8 @@ project "Crystal"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"yaml"
 	}
 
 	filter "system:windows"
