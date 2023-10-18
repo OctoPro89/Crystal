@@ -56,7 +56,7 @@ namespace Crystal {
 		m_Context->Init();
 		// ^
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
+		SetVSync(false);
 
 		// Set GLFW Callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -166,6 +166,34 @@ namespace Crystal {
 			glfwSwapInterval(0);
 
 		m_Data.VSync = enabled;
+	}
+
+
+	void WindowsWindow::SetFullScreen(bool enabled)
+	{
+		if (enabled)
+		{
+			// backup window position and window size
+			glfwGetWindowPos(m_Window, &windowPos[0], &windowPos[1]);
+			glfwGetWindowSize(m_Window, &windowSize[0], &windowSize[1]);
+
+			// get resolution of monitor
+			const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+			// switch to full screen
+			glfwSetWindowMonitor(m_Window, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, 0);
+		}
+		else
+		{
+			// restore last window size and position
+			glfwSetWindowMonitor(m_Window, nullptr, windowPos[0], windowPos[1], windowSize[0], windowSize[1], GLFW_DONT_CARE);
+		}
+	}
+
+
+	bool WindowsWindow::IsFullScreen()
+	{
+		return glfwGetWindowMonitor(m_Window) != nullptr;
 	}
 
 	bool WindowsWindow::IsVSync() const

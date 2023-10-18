@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Crystal/Core/Layer.h"
-
 #include "Crystal/Events/MouseEvent.h"
 #include "Crystal/Events/KeyEvent.h"
 #include "Crystal/Events/ApplicationEvent.h"
@@ -21,6 +20,11 @@ namespace Crystal {
 
 		void Begin();
 		void End();
+		void SetDarkThemeColors();
+		void SetMonochromeTheme();
+		void SetDefaultThemeColors();
+		void SetDefaultLightColors();
+		void SetDefaultDarkColors();
 	private:
 		bool m_BlockEvents = true;
 		float m_Time = 0.0f;

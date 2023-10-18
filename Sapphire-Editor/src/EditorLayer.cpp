@@ -13,6 +13,7 @@ namespace Crystal {
 	void EditorLayer::OnAttach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
+
 		m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 		m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
@@ -31,41 +32,43 @@ namespace Crystal {
 		Entity square = m_ActiveScene->CreateEntity("Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f,1.0f,1.0f,1.0f });
 
+		Entity square2 = m_ActiveScene->CreateEntity("Square2");
+		square2.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f,1.0f,1.0f,1.0f });
+
 		m_SquareEntity = square;
 
-		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
+		m_CameraEntity = m_ActiveScene->CreateEntity("Camera A");
 		m_CameraEntity.AddComponent<CameraComponent>().Primary = true;
 		m_CameraEntity.GetComponent<CameraComponent>().FixedAspectRatio = false;
 
-		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera Entity 2");
+		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera B");
 		m_CameraEntity2.AddComponent<CameraComponent>().Primary = false;
+
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
 		class CameraController : public ScriptableEntity
 		{
 		public:
 			void OnCreate()
 			{
-				glm::mat4& transform = GetComponent<TransformComponent>().Transform;
-				transform[3][0] = rand() % 10 - 5.0f;
 			}
 
 			void OnDestroy()
 			{
-
 			}
 
 			void OnUpdate(Timestep ts)
 			{
-				glm::mat4& transform = GetComponent<TransformComponent>().Transform;
+				glm::vec3& transform = GetComponent<TransformComponent>().Translation;
 				float speed = 5.0f;
 				if (Input::IsKeyPressed(KeyCode::A))
-					transform[3][0] -= speed * ts;
+					transform.x -= speed * ts;
 				if (Input::IsKeyPressed(KeyCode::D))
-					transform[3][0] += speed * ts;
+					transform.x += speed * ts;
 				if (Input::IsKeyPressed(KeyCode::W))
-					transform[3][1] += speed * ts;
+					transform.y += speed * ts;
 				if (Input::IsKeyPressed(KeyCode::S))
-					transform[3][1] -= speed * ts;
+					transform.y -= speed * ts;
 			}
 		};
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
@@ -127,7 +130,7 @@ namespace Crystal {
 		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 		// because it would be confusing to have two docking targets within each others.
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		if (opt_fullscreen)
+		if (!m_Fullscreen)
 		{
 			ImGuiViewport* viewport = ImGui::GetMainViewport();
 			ImGui::SetNextWindowPos(viewport->Pos);
@@ -157,11 +160,16 @@ namespace Crystal {
 
 		// DockSpace
 		ImGuiIO& io = ImGui::GetIO();
+		ImGuiStyle& style = ImGui::GetStyle();
+		float minWinSize = style.WindowMinSize.x;
+		style.WindowMinSize.x = 370;
 		if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 		{
 			ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 			ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
 		}
+
+		style.WindowMinSize.x = minWinSize;
 
 		if (ImGui::BeginMenuBar())
 		{
@@ -182,7 +190,11 @@ namespace Crystal {
 
 				if (ImGui::MenuItem("Settings")) settingsWindow = !settingsWindow;
 				if (ImGui::MenuItem("Performance")) performanceWindow = !performanceWindow;
-				if (ImGui::MenuItem("Inspector")) inspectorWindow = !inspectorWindow;
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Edit"))
+			{
+				if (ImGui::MenuItem("Preferences")) preferencesWindow = !preferencesWindow;
 				ImGui::EndMenu();
 			}
 
@@ -195,43 +207,69 @@ namespace Crystal {
 			ImGui::Begin("Settings");
 			ImGui::Checkbox("Use Particles", &useParticles);
 			ImGui::DragFloat2("Particle System Position", m_ParticlePos, 0.01f);
-			if (ImGui::CollapsingHeader("Camera")) {
-				if (ImGui::Checkbox("Camera A", &m_CamSwitch))
-				{
-					m_CameraEntity.GetComponent<CameraComponent>().Primary = m_CamSwitch;
-					m_CameraEntity2.GetComponent<CameraComponent>().Primary = !m_CamSwitch;
-				}
+			ImGui::End();
+		}
 
-				{
-					auto& camera =  m_CameraEntity2.GetComponent<CameraComponent>().Camera;
-					float orthoSize = camera.GetOrthographicSize();
-					if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
-						camera.SetOrthographicSize(orthoSize);
-				}
-			}
-			ImGui::End();
-		}
-		if (inspectorWindow)
+		if (preferencesWindow)
 		{
-			ImGui::Begin("Inspector");
-			if (ImGui::CollapsingHeader("Transforms"))
+			ImGui::Begin("Preferences");
+			if (ImGui::TreeNodeEx("Fonts"))
 			{
-				ImGui::DragFloat2("Camera Transform", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]), 0.01f);
-			}
-			if (ImGui::CollapsingHeader("Materials"))
-			{
-				if (m_SquareEntity)
+				if (ImGui::MenuItem("Open Sans"))
 				{
-					auto& tag = m_SquareEntity.GetComponent<TagComponent>().Tag;
-					ImGui::Separator();
-					ImGui::Text("%s", tag.c_str());
-					auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
-					ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
-					ImGui::Separator();
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[5];
 				}
+				if (ImGui::MenuItem("Open Sans Bold"))
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[4];
+				}
+				if (ImGui::MenuItem("Roboto"))
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[3];
+				}
+				if (ImGui::MenuItem("Roboto Bold"))
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[2];
+				}
+				if (ImGui::MenuItem("Kalam"))
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[1];
+				}
+				if (ImGui::MenuItem("Kalam Bold"))
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[0];
+				}
+				ImGui::TreePop();
+			}
+			if (ImGui::TreeNodeEx("Themes & Colors"))
+			{
+				if (ImGui::MenuItem("Default"))
+				{
+					Application::Get().GetImGuiLayer()->SetDefaultThemeColors();
+				}
+				if (ImGui::MenuItem("Default Light"))
+				{
+					Application::Get().GetImGuiLayer()->SetDefaultLightColors();
+				}				
+				if (ImGui::MenuItem("Default Dark"))
+				{
+					Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
+				}
+				if (ImGui::MenuItem("Dark Blue"))
+				{
+					Application::Get().GetImGuiLayer()->SetDarkThemeColors();
+				}
+				if (ImGui::MenuItem("Monochrome"))
+				{
+					Application::Get().GetImGuiLayer()->SetMonochromeTheme();
+				}
+				ImGui::TreePop();
 			}
 			ImGui::End();
 		}
+
+		m_SceneHierarchyPanel.OnImGuiRender();
+
 		if (performanceWindow) {
 			ImGui::Begin("Performance");
 

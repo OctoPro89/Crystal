@@ -2,7 +2,9 @@
 
 #include "Crystal.h"
 #include "Crystal/Renderer/ParticleSystem.h"
+#include <imgui/imgui.h>
 #include <glm/ext/matrix_transform.hpp>
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace Crystal {
 
@@ -37,13 +39,16 @@ namespace Crystal {
 		bool useParticles = false;
 		bool performanceWindow = false;
 		bool settingsWindow = false;
-		bool inspectorWindow = true;
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
-
+		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
+		bool m_Fullscreen = false;
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
+
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }

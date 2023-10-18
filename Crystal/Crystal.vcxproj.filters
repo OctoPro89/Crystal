@@ -1442,6 +1442,7 @@
     <ClInclude Include="src\Crystal\Renderer\Camera.h" />
     <ClInclude Include="src\Crystal\Scene\SceneCamera.h" />
     <ClInclude Include="src\Crystal\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Platform\DirectX\DirectXBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1545,5 +1546,6 @@
     </ClCompile>
     <ClCompile Include="src\Crystal\Scene\Entity.cpp" />
     <ClCompile Include="src\Crystal\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Platform\DirectX\DirectXBuffer.cpp" />
   </ItemGroup>
 </Project>

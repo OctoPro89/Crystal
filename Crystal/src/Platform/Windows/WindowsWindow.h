@@ -19,6 +19,8 @@ namespace Crystal {
 		//Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
+		void SetFullScreen(bool enabled) override;
+		bool IsFullScreen() override;
 		bool IsVSync() const override;
 
 		inline virtual void* GetNativeWindow() const { return m_Window; }
@@ -33,10 +35,14 @@ namespace Crystal {
 		{
 			std::string Title;
 			unsigned int Width, Height;
+			
 			bool VSync;
 
 			EventCallbackFn EventCallback;
 		};
+
+		int windowPos[2] = { 0, 0 };
+		int windowSize[2] = { 0, 0 };
 
 		WindowData m_Data;
 	};
