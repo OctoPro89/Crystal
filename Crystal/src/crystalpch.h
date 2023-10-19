@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Crystal/Core/Core.h"
 #include "Crystal/Core/Log.h"
 #include "Crystal/Debug/Instrumentor.h"
 

@@ -13,13 +13,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"] = "Crystal/vendor/GLFW/include"
-IncludeDir["Glad"] = "Crystal/vendor/Glad/include"
-IncludeDir["ImGui"] = "Crystal/vendor/imgui"
-IncludeDir["glm"] = "Crystal/vendor/glm"
-IncludeDir["stb_image"] = "Crystal/vendor/stb_image"
-IncludeDir["entt"] = "Crystal/vendor/entt"
-IncludeDir["yaml"] = "Crystal/vendor/yaml/include"
+IncludeDir["GLFW"] = "%{wks.location}/Crystal/vendor/GLFW/include"
+IncludeDir["Glad"] = "%{wks.location}/Crystal/vendor/Glad/include"
+IncludeDir["ImGui"] = "%{wks.location}/Crystal/vendor/imgui"
+IncludeDir["glm"] = "%{wks.location}/Crystal/vendor/glm"
+IncludeDir["stb_image"] = "%{wks.location}/Crystal/vendor/stb_image"
+IncludeDir["entt"] = "%{wks.location}/Crystal/vendor/entt"
+IncludeDir["yaml"] = "%{wks.location}/Crystal/vendor/yaml/include"
 
 group "Dependencies"
 	include "Crystal/vendor/GLFW"
@@ -74,8 +74,8 @@ project "Crystal"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib",
-		"yaml"
+		"yaml-cpp",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

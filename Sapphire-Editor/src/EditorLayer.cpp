@@ -3,6 +3,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Crystal/Scene/SceneSerializer.h"
+#include "Crystal/Utils/PlatformUtils.h"
 
 namespace Crystal {
 	EditorLayer::EditorLayer()
@@ -44,7 +46,6 @@ namespace Crystal {
 		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera B");
 		m_CameraEntity2.AddComponent<CameraComponent>().Primary = false;
 
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 
 		class CameraController : public ScriptableEntity
 		{
@@ -61,18 +62,19 @@ namespace Crystal {
 			{
 				glm::vec3& transform = GetComponent<TransformComponent>().Translation;
 				float speed = 5.0f;
-				if (Input::IsKeyPressed(KeyCode::A))
+				if (Input::IsKeyPressed(Key::A))
 					transform.x -= speed * ts;
-				if (Input::IsKeyPressed(KeyCode::D))
+				if (Input::IsKeyPressed(Key::D))
 					transform.x += speed * ts;
-				if (Input::IsKeyPressed(KeyCode::W))
+				if (Input::IsKeyPressed(Key::W))
 					transform.y += speed * ts;
-				if (Input::IsKeyPressed(KeyCode::S))
+				if (Input::IsKeyPressed(Key::S))
 					transform.y -= speed * ts;
 			}
 		};
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_CameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnDetach()
@@ -130,7 +132,7 @@ namespace Crystal {
 		// We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
 		// because it would be confusing to have two docking targets within each others.
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
-		if (!m_Fullscreen)
+		if (opt_fullscreen)
 		{
 			ImGuiViewport* viewport = ImGui::GetMainViewport();
 			ImGui::SetNextWindowPos(viewport->Pos);
@@ -180,6 +182,18 @@ namespace Crystal {
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
+				if (ImGui::MenuItem("Open...", "Ctrl+O")) 
+				{
+					OpenScene();
+				}
+				if (ImGui::MenuItem("Save", "Ctrl+S")) {
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Serialize("assets/scenes/Untitled.crystal");
+				}
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) 
+					SaveSceneAs();
+				if (ImGui::MenuItem("New Scene", "Ctrl+N")) 
+					NewScene();
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("View"))
@@ -309,5 +323,82 @@ namespace Crystal {
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
+
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 	}
+
+	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+	{
+		//Shortcuts
+		if (e.GetRepeatCount() > 0)
+			return false;
+
+		bool control = (Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl));
+		bool shift = (Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift));
+		switch (e.GetKeyCode())
+		{
+		case Key::S:
+		{
+			if (control && shift)
+			{
+				SaveSceneAs();
+			}
+			break;
+		}
+		case Key::O:
+		{
+			if (control && shift)
+			{
+				OpenScene();
+			}
+			break;
+		}
+		case Key::N:
+		{
+			if (control)
+			{
+				NewScene();
+			}
+			break;
+		}
+			break;
+		}
+	}
+
+
+	void EditorLayer::NewScene()
+	{
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+	void EditorLayer::OpenScene()
+	{
+		std::string filepath = FileDialogs::OpenFile("Crystal Scene(*.crystal)\0*.crystal\0");
+
+		if (!filepath.empty())
+		{
+			m_ActiveScene = CreateRef<Scene>();
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(filepath);
+		}
+	}
+
+
+	void EditorLayer::SaveSceneAs()
+	{
+		std::string filepath = FileDialogs::SaveFile("Crystal Scene(*.crystal)\0*.crystal\0");
+
+		if (!filepath.empty())
+		{
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(filepath);
+		}
+	}
+
 }

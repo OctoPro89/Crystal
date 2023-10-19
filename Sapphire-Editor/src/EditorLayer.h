@@ -21,6 +21,11 @@ namespace Crystal {
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+	private:
 		OrthographicCameraController m_CameraController;
 
 		//temp
@@ -43,7 +48,8 @@ namespace Crystal {
 		bool m_ViewportHovered = false;
 		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
-		bool m_Fullscreen = false;
+
+		std::string fp = "";
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
