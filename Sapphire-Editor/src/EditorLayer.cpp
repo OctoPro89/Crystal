@@ -97,7 +97,7 @@ namespace Crystal {
 		}
 
 		// Update
-		if(m_ViewportFocused)
+		if (m_ViewportFocused)
 			m_CameraController.OnUpdate(ts);
 
 		// Render
@@ -110,7 +110,7 @@ namespace Crystal {
 		m_ActiveScene->OnUpdate(ts);
 		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		if(useParticles)
+		if (useParticles)
 			m_ParticleSystem.Emit(m_Particle);
 
 		Renderer2D::EndScene();
@@ -182,7 +182,7 @@ namespace Crystal {
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
-				if (ImGui::MenuItem("Open...", "Ctrl+O")) 
+				if (ImGui::MenuItem("Open...", "Ctrl+O"))
 				{
 					OpenScene();
 				}
@@ -190,9 +190,9 @@ namespace Crystal {
 					SceneSerializer serializer(m_ActiveScene);
 					serializer.Serialize("assets/scenes/Untitled.crystal");
 				}
-				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) 
+				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
 					SaveSceneAs();
-				if (ImGui::MenuItem("New Scene", "Ctrl+N")) 
+				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
 					NewScene();
 				ImGui::EndMenu();
 			}
@@ -264,7 +264,7 @@ namespace Crystal {
 				if (ImGui::MenuItem("Default Light"))
 				{
 					Application::Get().GetImGuiLayer()->SetDefaultLightColors();
-				}				
+				}
 				if (ImGui::MenuItem("Default Dark"))
 				{
 					Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
@@ -297,7 +297,7 @@ namespace Crystal {
 			ImGui::End();
 		}
 
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0,0});
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
 		ImGui::Begin("Viewport");
 
 		m_ViewportFocused = ImGui::IsWindowFocused();
@@ -338,22 +338,6 @@ namespace Crystal {
 		bool shift = (Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift));
 		switch (e.GetKeyCode())
 		{
-		case Key::S:
-		{
-			if (control && shift)
-			{
-				SaveSceneAs();
-			}
-			break;
-		}
-		case Key::O:
-		{
-			if (control && shift)
-			{
-				OpenScene();
-			}
-			break;
-		}
 		case Key::N:
 		{
 			if (control)
@@ -362,7 +346,26 @@ namespace Crystal {
 			}
 			break;
 		}
+		case Key::O:
+		{
+			if (control)
+			{
+				OpenScene();
+			}
 			break;
+		}
+		case Key::S:
+		{
+			if (control && shift)
+			{
+				SaveSceneAs();
+			}
+			else if (control)
+			{
+				SaveScene();
+			}
+			break;
+		}
 		}
 	}
 
@@ -372,7 +375,10 @@ namespace Crystal {
 		m_ActiveScene = CreateRef<Scene>();
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		Application::Get().GetWindow().SetWindowTitle(std::string("Crystal - Untitled*"));
 	}
+
+
 
 	void EditorLayer::OpenScene()
 	{
@@ -390,6 +396,21 @@ namespace Crystal {
 	}
 
 
+	void EditorLayer::SaveScene()
+	{
+		CRYSTAL_INFO("Saving Scene {0}", fp);
+		if (!fp.empty())
+		{
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize(fp);
+			Application::Get().GetWindow().SetWindowTitle("Crystal - " + fp);
+		}
+		else
+		{
+			SaveSceneAs();
+		}
+	}
+
 	void EditorLayer::SaveSceneAs()
 	{
 		std::string filepath = FileDialogs::SaveFile("Crystal Scene(*.crystal)\0*.crystal\0");
@@ -398,7 +419,8 @@ namespace Crystal {
 		{
 			SceneSerializer serializer(m_ActiveScene);
 			serializer.Serialize(filepath);
+			fp = filepath;
 		}
+		Application::Get().GetWindow().SetWindowTitle("Crystal - " + filepath);
 	}
-
 }

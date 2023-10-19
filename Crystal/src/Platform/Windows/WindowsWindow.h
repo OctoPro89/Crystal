@@ -19,9 +19,8 @@ namespace Crystal {
 		//Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
-		void SetFullScreen(bool enabled) override;
-		bool IsFullScreen() override;
 		bool IsVSync() const override;
+		void SetWindowTitle(std::string& title) override;
 
 		inline virtual void* GetNativeWindow() const { return m_Window; }
 	private:

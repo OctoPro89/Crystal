@@ -21,5 +21,7 @@
   <ItemGroup>
     <None Include="assets\Scenes\Untitled.crystal" />
     <None Include="imgui.ini" />
+    <None Include="assets\Scenes\SampleScene.crystal" />
+    <None Include="assets\Scenes\3DCube.crystal" />
   </ItemGroup>
 </Project>

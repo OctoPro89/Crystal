@@ -20,6 +20,7 @@ IncludeDir["glm"] = "%{wks.location}/Crystal/vendor/glm"
 IncludeDir["stb_image"] = "%{wks.location}/Crystal/vendor/stb_image"
 IncludeDir["entt"] = "%{wks.location}/Crystal/vendor/entt"
 IncludeDir["yaml"] = "%{wks.location}/Crystal/vendor/yaml/include"
+IncludeDir["ImGuizmo"] = "%{wks.location}/Crystal/vendor/ImGuizmo"
 
 group "Dependencies"
 	include "Crystal/vendor/GLFW"
@@ -49,6 +50,8 @@ project "Crystal"
 		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp",
 	}
 
 	defines
@@ -66,7 +69,8 @@ project "Crystal"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.yaml}"
+		"%{IncludeDir.yaml}",
+		"%{IncludeDir.}"
 	}
 
 	links 
@@ -77,6 +81,9 @@ project "Crystal"
 		"yaml-cpp",
 		"opengl32.lib"
 	}
+
+	filter "files:vendor/ImGuizmo/*.cpp"
+	flags{ "NoPCH" }
 
 	filter "system:windows"
 		systemversion "latest"

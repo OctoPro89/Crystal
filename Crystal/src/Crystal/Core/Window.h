@@ -35,10 +35,9 @@ namespace Crystal {
 
 		// Window Attributes
 		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
-		virtual void SetFullScreen(bool enabled) = 0;
-		virtual bool IsFullScreen() = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
+		virtual void SetWindowTitle(std::string& title) = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 
