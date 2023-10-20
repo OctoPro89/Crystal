@@ -38,7 +38,8 @@ namespace Crystal {
 		Entity m_CameraEntity2;
 		Entity m_SquareEntity;
 
-		glm::vec2 m_ViewportSize = { 0.0f,0.0f };
+		glm::vec2 m_ViewportSize[2];
+		glm::vec2 m_ViewportBounds[2];
 
 		float m_ParticlePos[2] = {0.0f,0.0f};
 
