@@ -25,6 +25,9 @@
     <Filter Include="src\Crystal\Scene">
       <UniqueIdentifier>{3BA69F8A-A7BC-9D20-F033-29425C896EA8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Crystal\Utils">
+      <UniqueIdentifier>{7E3ACD8A-EA50-CB20-33C8-56429F1D9CA8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -39,6 +42,9 @@
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\ImGuizmo">
+      <UniqueIdentifier>{73BF7F4C-DF4A-ED10-E85B-700554664911}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor\glm">
       <UniqueIdentifier>{829FC5A8-6E57-07F6-D75E-E051C335A2E6}</UniqueIdentifier>
@@ -180,6 +186,9 @@
     <ClInclude Include="src\Crystal\Scene\ScriptableEntity.h">
       <Filter>src\Crystal\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Utils\PlatformUtils.h">
+      <Filter>src\Crystal\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\DirectX\DirectXBuffer.h">
       <Filter>src\Platform\DirectX</Filter>
     </ClInclude>
@@ -209,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="src\crystalpch.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\ImGuizmo\ImGuizmo.h">
+      <Filter>vendor\ImGuizmo</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
       <Filter>vendor\glm\glm</Filter>
@@ -1461,7 +1473,8 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Utils\PlatformUtils.h" />
+    <ClInclude Include="src\Crystal\Math\Math.h" />
+    <ClInclude Include="src\Crystal\Renderer\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1566,15 +1579,22 @@
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\crystalpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="vendor\ImGuizmo\ImGuizmo.cpp">
+      <Filter>vendor\ImGuizmo</Filter>
+    </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp" />
+    <ClCompile Include="src\Crystal\Math\Math.cpp" />
+    <ClCompile Include="src\Crystal\Renderer\EditorCamera.cpp" />
   </ItemGroup>
 </Project>

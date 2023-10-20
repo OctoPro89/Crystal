@@ -70,7 +70,7 @@ project "Crystal"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml}",
-		"%{IncludeDir.}"
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links 
@@ -82,8 +82,8 @@ project "Crystal"
 		"opengl32.lib"
 	}
 
-	filter "files:vendor/ImGuizmo/*.cpp"
-	flags{ "NoPCH" }
+	filter "files:vendor/ImGuizmo/**.cpp"
+		flags { "NoPCH" }
 
 	filter "system:windows"
 		systemversion "latest"
@@ -92,7 +92,8 @@ project "Crystal"
 		{
 			-- "CRYSTAL_PLATFORM_WINDOWS",
 			"CRYSTAL_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
+			"GLFW_INCLUDE_NONE",
+			"YAML_CPP_STATIC_DEFINE"
 		}
 
 	filter "configurations:Debug"
@@ -186,7 +187,8 @@ project "Sapphire-Editor"
 		"Crystal/src",
 		"Crystal/vendor",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links

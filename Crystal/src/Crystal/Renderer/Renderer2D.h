@@ -6,6 +6,7 @@
 #include "Crystal/Renderer/SubTexture2D.h"
 
 #include "Crystal/Renderer/Camera.h"
+#include "Crystal/Renderer/EditorCamera.h"
 
 namespace Crystal
 {
@@ -16,6 +17,7 @@ namespace Crystal
 		static void Shutdown();
 
 		static void BeginScene(const Camera& camera, const glm::mat4& transform);
+		static void BeginScene(const EditorCamera& camera);
 		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
 		static void Flush();
@@ -52,6 +54,7 @@ namespace Crystal
 		static Statistics GetStats();
 		static void ResetStats();
 	private:
-		static void FlushAndReset();
+		static void StartBatch();
+		static void NextBatch();
 	};
 }
