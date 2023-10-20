@@ -50,6 +50,8 @@ namespace Crystal {
 		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
 
+		EditorCamera m_EditorCamera;
+
 		std::string fp = "";
 
 		ParticleProps m_Particle;
