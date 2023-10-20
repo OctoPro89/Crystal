@@ -4,11 +4,43 @@
 
 namespace Crystal {
 
+	enum class FramebufferTextureFormat
+	{
+		None = 0,
+
+		// Color
+		RGBA8,
+
+		// Depth/Stencil
+		DEPTH24STENCIL8,
+
+		// Default
+		Depth = DEPTH24STENCIL8
+	};
+
+	struct FramebufferTextureSpecification
+	{
+		FramebufferTextureSpecification() = default;
+		FramebufferTextureSpecification(FramebufferTextureFormat format)
+			: TextureFormat(format) {}
+
+		FramebufferTextureFormat TextureFormat = FramebufferTextureFormat::None;
+		// Todo
+	};
+
+	struct FramebufferAttachmentSpecification
+	{
+		FramebufferAttachmentSpecification() = default;
+		FramebufferAttachmentSpecification(const std::initializer_list<FramebufferTextureSpecification> attachments)
+			: Attachments(attachments) {}
+		std::vector<FramebufferTextureSpecification> Attachments;
+	};
+
 	struct FrameBufferSpecification
 	{
 		uint32_t Width, Height;
 		uint32_t Samples = 1;
-
+		FramebufferAttachmentSpecification Attachments;
 		bool SwapChainTarget = false;
 	};
 

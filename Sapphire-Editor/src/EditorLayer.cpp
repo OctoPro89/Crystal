@@ -28,6 +28,7 @@ namespace Crystal {
 		m_Particle.Position = { 0.0f, 0.0f };
 
 		FrameBufferSpecification spec;
+		spec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::Depth };
 		spec.Width = 1280;
 		spec.Height = 720;
 		m_FrameBuffer = FrameBuffer::Create(spec);

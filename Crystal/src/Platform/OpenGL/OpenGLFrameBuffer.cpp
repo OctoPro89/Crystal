@@ -7,9 +7,63 @@ namespace Crystal
 {
 	static const uint32_t s_MaxFrameBufferSize = 8192;
 
+	namespace Utils {
+		static GLenum TextureTarget(bool multisampled)
+		{
+			return multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
+		}
+
+		static void CreateTextures(bool multisampled, uint32_t* outID, uint32_t count)
+		{
+			glCreateTextures(TextureTarget(multisampled), count, outID);
+		}
+
+		static void BindTexture(bool multisampled, uint32_t id)
+		{
+			glBindTexture(TextureTarget(multisampled), id);
+		}
+
+		static void AttachColorTexture(uint32_t id, int samples, GLenum format, uint32_t width, uint32_t height, int index)
+		{
+			bool multisampled = samples > 1;
+			if (multisampled)
+			{
+				glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, format, width, height, GL_FALSE);
+			}
+			else
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+
+
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			}
+		}
+
+		static bool IsDepthFormat(FramebufferTextureFormat format)
+		{
+			switch (format)
+			{
+			case Crystal::FramebufferTextureFormat::DEPTH24STENCIL8:
+				return true;
+			}
+			return false;
+		}
+	}
+
 	OpenGLFrameBuffer::OpenGLFrameBuffer(const FrameBufferSpecification spec)
 		: m_Specification(spec)
 	{
+		for (auto format : m_Specification.Attachments.Attachments)
+		{
+			if (!Utils::IsDepthFormat(format.TextureFormat))
+				m_ColorAttachmentSpecifications.emplace_back(format);
+			else
+				m_DepthAttachmentSpecification = format.TextureFormat;
+		}
 		Invalidate();
 	}
 
@@ -31,6 +85,26 @@ namespace Crystal
 
 		glCreateFramebuffers(1, &m_RendererID);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
+
+		bool multisample = m_Specification.Samples > 1;
+
+		if (m_ColorAttachmentSpecifications.size())
+		{
+			m_ColorAttachments.resize(m_ColorAttachmentSpecifications.size());
+			Utils::CreateTextures(multisample, m_ColorAttachments.data(), m_ColorAttachments.size());
+
+			// Attachments
+			for (size_t i = 0; i < m_ColorAttachments.size(); i++)
+			{
+				Utils::BindTexture(multisample, m_ColorAttachments[i]);
+				switch (m_ColorAttachmentSpecifications[i].TextureFormat)
+				{
+				case FramebufferTextureFormat::RGBA8:
+					Utils::AttachColorTexture(m_ColorAttachments[i], m_Specification.Samples, GL_RGBA8, m_Specification.Width, m_Specification.Height);
+					break;
+				}
+			}
+		}
 		
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_ColorAttachment);
 		glBindTexture(GL_TEXTURE_2D, m_ColorAttachment);

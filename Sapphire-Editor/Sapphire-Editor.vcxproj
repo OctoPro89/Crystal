@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="assets\Scripts\CameraController.h" />
     <ClInclude Include="src\EditorLayer.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
@@ -146,6 +147,12 @@
     <ProjectReference Include="..\Crystal\Crystal.vcxproj">
       <Project>{873AF83B-F319-77D7-FC31-02AE6890DD38}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Scenes\3DCube.crystal" />
+    <None Include="assets\Scenes\SampleScene.crystal" />
+    <None Include="assets\Scenes\Untitled.crystal" />
+    <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
