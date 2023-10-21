@@ -22,6 +22,7 @@ namespace Crystal {
 		virtual void OnEvent(Event& e) override;
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
+		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		void NewScene();
 		void OpenScene();
 		void SaveScene();
@@ -37,8 +38,9 @@ namespace Crystal {
 		Entity m_CameraEntity;
 		Entity m_CameraEntity2;
 		Entity m_SquareEntity;
+		Entity m_HoveredEntity;
 
-		glm::vec2 m_ViewportSize[2];
+		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 		glm::vec2 m_ViewportBounds[2];
 
 		float m_ParticlePos[2] = {0.0f,0.0f};

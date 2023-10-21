@@ -88,6 +88,9 @@ namespace Crystal {
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
+		//Clear entity id attachment to -1
+		m_FrameBuffer->ClearAttachment(1, -1);
+
 		// Update Scene
 		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 		Renderer2D::BeginScene(m_CameraController.GetCamera());
@@ -108,7 +111,7 @@ namespace Crystal {
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)(viewportSize.x) && mouseY < (int)viewportSize.y)
 		{
 			int pixelData = m_FrameBuffer->ReadPixel(1, mouseX, mouseY);
-			CRYSTAL_CORE_INFO("{0},{1},{2}",mouseX,mouseY,pixelData);
+			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 		}
 
 		m_FrameBuffer->Unbind();
@@ -282,8 +285,12 @@ namespace Crystal {
 		m_SceneHierarchyPanel.OnImGuiRender();
 
 		if (performanceWindow) {
-			ImGui::Begin("Performance");
+			ImGui::Begin("Performance & Stats");
 
+			std::string name = "None";
+			if (m_HoveredEntity)
+				name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+			ImGui::Text("Hovered Entity: %s", name.c_str());
 			auto stats = Renderer2D::GetStats();
 			ImGui::Text("Renderer2D Stats:");
 			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
@@ -296,7 +303,11 @@ namespace Crystal {
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
 		ImGui::Begin("Viewport");
-		auto viewportOffset = ImGui::GetCursorPos(); // Includes tab bar
+		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();
+		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax();
+		auto viewportOffset = ImGui::GetWindowPos();
+		m_ViewportBounds[0] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
+		m_ViewportBounds[1] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 
 		m_ViewportFocused = ImGui::IsWindowFocused();
 		m_ViewportHovered = ImGui::IsWindowHovered();
@@ -313,15 +324,6 @@ namespace Crystal {
 		uint64_t textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0,1 }, ImVec2{ 1,0 });
 
-		auto windowSize = ImGui::GetWindowSize();
-		ImVec2 minBound = ImGui::GetWindowPos();
-		minBound.x += viewportOffset.x;
-		minBound.y += viewportOffset.y;
-
-		ImVec2 maxBound = { minBound.x + windowSize.x, minBound.y + windowSize.y };
-		m_ViewportBounds[0] = { minBound.x, minBound.y };
-		m_ViewportBounds[1] = { maxBound.x, maxBound.y };
-
 		// Gizmo's
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
 		if (selectedEntity && m_GizmoType != -1)
@@ -330,7 +332,7 @@ namespace Crystal {
 			ImGuizmo::SetDrawlist();
 			float windowWidth = ImGui::GetWindowWidth();
 			float windowHeight = ImGui::GetWindowHeight();
-			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+			ImGuizmo::SetRect(m_ViewportBounds[0].x, m_ViewportBounds[0].y, m_ViewportBounds[1].x - m_ViewportBounds[0].x, m_ViewportBounds[1].y - m_ViewportBounds[0].y);
 			
 			//Camera 
 			// Runtime Camera
@@ -381,6 +383,7 @@ namespace Crystal {
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
 	}
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
@@ -438,6 +441,15 @@ namespace Crystal {
 		}
 	}
 
+	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+	{
+		if (e.GetMouseButton() == MouseButton::ButtonLeft)
+		{
+			if (m_ViewportHovered && !ImGuizmo::IsOver())
+				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+		}
+		return false;
+	}
 
 	void EditorLayer::NewScene()
 	{
@@ -446,8 +458,6 @@ namespace Crystal {
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 		Application::Get().GetWindow().SetWindowTitle(std::string("Crystal - Untitled*"));
 	}
-
-
 
 	void EditorLayer::OpenScene()
 	{
@@ -463,7 +473,6 @@ namespace Crystal {
 			serializer.Deserialize(filepath);
 		}
 	}
-
 
 	void EditorLayer::SaveScene()
 	{

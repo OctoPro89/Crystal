@@ -152,6 +152,9 @@
     <None Include="assets\Scenes\3DCube.crystal" />
     <None Include="assets\Scenes\SampleScene.crystal" />
     <None Include="assets\Scenes\Untitled.crystal" />
+    <None Include="assets\shaders\FlatColor.glsl" />
+    <None Include="assets\shaders\RGBTriangle.glsl" />
+    <None Include="assets\shaders\Texture.glsl" />
     <None Include="imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

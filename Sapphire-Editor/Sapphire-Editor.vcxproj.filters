@@ -24,5 +24,8 @@
     <None Include="assets\Scenes\SampleScene.crystal" />
     <None Include="assets\Scenes\3DCube.crystal" />
     <None Include="imgui.ini" />
+    <None Include="assets\shaders\Texture.glsl" />
+    <None Include="assets\shaders\RGBTriangle.glsl" />
+    <None Include="assets\shaders\FlatColor.glsl" />
   </ItemGroup>
 </Project>
