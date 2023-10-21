@@ -1,3 +1,5 @@
+include "./vendor/premake/premake_customization/solution_items.lua"
+include "Dependencies.lua"
 workspace "Crystal"
 	architecture "x64"
 	startproject "Sapphire-Editor"
@@ -7,6 +9,16 @@ workspace "Crystal"
 		"Debug",
 		"Release",
 		"Dist"
+	}
+
+	solution_items
+	{
+		".editorconfig"
+	}
+
+	flags
+	{
+		"MultiProcessorCompile"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
