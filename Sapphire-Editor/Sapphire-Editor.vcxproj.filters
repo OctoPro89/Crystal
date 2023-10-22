@@ -13,6 +13,7 @@
     <ClInclude Include="assets\Scripts\CameraController.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\ConsolePanel.h" />
+    <ClInclude Include="assets\Scripts\CharacterController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -25,9 +26,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Icons\ContentBrowser\FileIcon.png" />
+    <Image Include="Resources\Icons\Stop.png" />
+    <Image Include="Resources\Icons\Play.png" />
+    <Image Include="Resources\Icons\ContentBrowser\FolderIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icons\ContentBrowser\FolderImg.svg" />
     <None Include="premake5.lua" />
     <None Include="imgui.ini" />
   </ItemGroup>

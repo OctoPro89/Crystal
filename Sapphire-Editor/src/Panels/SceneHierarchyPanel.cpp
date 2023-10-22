@@ -1,11 +1,13 @@
 #include "SceneHierarchyPanel.h"
 #include "Crystal/Scene/Components.h"
+#include <filesystem>
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Crystal
 {
+	const std::filesystem::path g_AssetPath = "assets";
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
@@ -257,10 +259,26 @@ namespace Crystal
 				component.Rotation = glm::radians(rotation);
 				DrawVec3Control("Scale", component.Scale, 1.0f);
 		});
+
 		DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](auto& component) {
 			auto flags = ImGuiColorEditFlags_NoSmallPreview & ImGuiColorEditFlags_DisplayHex & ImGuiColorEditFlags_AlphaBar & ImGuiColorEditFlags_AlphaPreviewHalf;
 			ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
+			// Texture
+			ImGui::Button("Texture", ImVec2(100.0f, 0.0f));
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					const wchar_t* path = (const wchar_t*)payload->Data;
+					std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
+					component.Texture = Texture2D::Create(texturePath.string());
+				}
+				ImGui::EndDragDropTarget();
+			}
+
+			ImGui::DragFloat("Tiling", &component.TilingFactor, 0.1f, 0.0f, 10000.0f);
 			});
+
 		DrawComponent<CameraComponent>("Camera", entity, [](auto& component)
 		{
 			auto& camera = component.Camera;

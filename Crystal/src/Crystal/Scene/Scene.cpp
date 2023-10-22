@@ -36,6 +36,7 @@ namespace Crystal {
 	{
 		// Update scripts
 		{
+			//FIX THIS
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
 				{
 					// TODO: Move to Scene::OnScenePlay

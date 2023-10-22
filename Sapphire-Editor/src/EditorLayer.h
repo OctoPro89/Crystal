@@ -30,9 +30,13 @@ namespace Crystal {
 		void OpenScene(const std::filesystem::path path);
 		void SaveScene();
 		void SaveSceneAs();
-	private:
-		OrthographicCameraController m_CameraController;
 
+		void OnScenePlay();
+		void OnSceneStop();
+
+		// Ui Panels
+		void UI_Toolbar();
+	private:
 		//temp
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_Shader;
@@ -65,9 +69,19 @@ namespace Crystal {
 
 		int m_GizmoType = 0;
 
+		enum class SceneState
+		{
+			Edit = 0, Play = 1
+		};
+
+		SceneState m_SceneState = SceneState::Edit;
+
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
 		ConsolePanel Console;
+
+		// Editor Resources
+		Ref<Texture2D> m_IconPlay, m_IconStop;
 	};
 }

@@ -5,6 +5,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 #include "Crystal/Scene/SceneCamera.h"
+#include "Crystal/Renderer/Texture.h"
 #include "Crystal/Scene/ScriptableEntity.h"
 
 namespace Crystal
@@ -41,6 +42,7 @@ namespace Crystal
 	{
 		glm::vec4 Color = { 1.0f,1.0f,1.0f,1.0f };
 		Ref<Texture2D> Texture;
+		float TilingFactor = 1.0f;
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;

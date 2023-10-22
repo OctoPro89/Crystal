@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="assets\Scripts\CameraController.h" />
+    <ClInclude Include="assets\Scripts\CharacterController.h" />
     <ClInclude Include="src\Panels\ConsolePanel.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\EditorLayer.h" />
@@ -158,11 +159,13 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Icons\ContentBrowser\FileIcon.png" />
+    <Image Include="Resources\Icons\ContentBrowser\FolderIcon.png" />
+    <Image Include="Resources\Icons\Play.png" />
+    <Image Include="Resources\Icons\Stop.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="premake5.lua" />
-    <None Include="Resources\Icons\ContentBrowser\FolderImg.svg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

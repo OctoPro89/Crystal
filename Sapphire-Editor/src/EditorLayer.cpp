@@ -7,19 +7,23 @@
 #include "Crystal/Scene/SceneSerializer.h"
 #include "Crystal/Utils/PlatformUtils.h"
 #include "../assets/Scripts/CameraController.h"
+#include "../assets/Scripts/CharacterController.h"
 #include "Crystal/Math/Math.h"
 
 namespace Crystal {
-	extern const std::filesystem::path g_AssetPath = "assets";
+	const std::filesystem::path g_AssetPath = "assets";
 
 	EditorLayer::EditorLayer()
-		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
+		: Layer("EditorLayer")
 	{
 	}
 
 	void EditorLayer::OnAttach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
+
+		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
+		m_IconStop = Texture2D::Create("Resources/Icons/Stop.png");
 
 		m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -53,8 +57,7 @@ namespace Crystal {
 
 		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera B");
 		m_CameraEntity2.AddComponent<CameraComponent>().Primary = false;
-		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-		m_CameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+		m_CameraEntity2.AddComponent<NativeScriptComponent>().Bind<CharacterController>();
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 		Console.Log("Editor Setup");
 	}
@@ -73,17 +76,9 @@ namespace Crystal {
 			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
 		{
 			m_FrameBuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
 			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
-
-		// Update
-		if (m_ViewportFocused) {
-			m_CameraController.OnUpdate(ts);
-			m_EditorCamera.OnUpdate(ts);
-		}
-
 
 		// Render
 		Renderer2D::ResetStats();
@@ -94,9 +89,21 @@ namespace Crystal {
 		//Clear entity id attachment to -1
 		m_FrameBuffer->ClearAttachment(1, -1);
 
-		// Update Scene
-		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		switch (m_SceneState) {
+			case SceneState::Edit:
+			{		
+				m_EditorCamera.OnUpdate(ts);
+				// Update Scene
+				m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+				break;
+			}
+			case SceneState::Play:
+			{
+				// Update Scene
+				m_ActiveScene->OnUpdateRuntime(ts);
+				break;
+			}
+		}
 
 		if (useParticles)
 			m_ParticleSystem.Emit(m_Particle);
@@ -118,9 +125,6 @@ namespace Crystal {
 		}
 
 		m_FrameBuffer->Unbind();
-		m_Particle.Position = { m_ParticlePos[0], m_ParticlePos[1] };
-		m_ParticleSystem.OnUpdate(ts);
-		m_ParticleSystem.OnRender(m_CameraController.GetCamera());
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -324,7 +328,6 @@ namespace Crystal {
 		{
 			m_FrameBuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-			m_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
 		}
 		uint64_t textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0,1 }, ImVec2{ 1,0 });
@@ -389,12 +392,13 @@ namespace Crystal {
 		ImGui::End();
 		ImGui::PopStyleVar();
 
+		UI_Toolbar();
+
 		ImGui::End();
 	}
 
 	void EditorLayer::OnEvent(Event& e)
 	{
-		m_CameraController.OnEvent(e);
 		m_EditorCamera.OnEvent(e);
 
 		EventDispatcher dispatcher(e);
@@ -521,5 +525,41 @@ namespace Crystal {
 			fp = filepath;
 		}
 		Application::Get().GetWindow().SetWindowTitle("Crystal - " + filepath);
+	}
+
+	void EditorLayer::OnScenePlay()
+	{
+		m_SceneState = SceneState::Play;
+	}
+
+	void EditorLayer::OnSceneStop()
+	{
+		m_SceneState = SceneState::Edit;
+	}
+
+	void EditorLayer::UI_Toolbar()
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0,1 });
+		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, { 0,0 });
+		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+		float size = ImGui::GetWindowHeight() - 4;
+		Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
+		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * .5f));
+		ImGui::PushStyleColor(ImGuiCol_Button, { 0.0f,0.0f,0.0f,0.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.0f,0.0f,0.0f,0.0f });
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.5f,0.5f,0.5f,0.5f });
+		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), {0,0},{1,1}, 0))
+		{
+			if (m_SceneState == SceneState::Edit)
+				OnScenePlay();
+			else if (m_SceneState == SceneState::Play)
+				OnSceneStop();
+		}
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
+		ImGui::PopStyleVar();
+		ImGui::PopStyleVar();
+		ImGui::End();
 	}
 }
