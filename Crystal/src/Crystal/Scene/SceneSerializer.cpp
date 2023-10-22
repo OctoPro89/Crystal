@@ -1,13 +1,15 @@
 #include "crystalpch.h"
 #include "SceneSerializer.h"
-#define YAML_CPP_STATIC_DEFINE
-#include <yaml-cpp/yaml.h>
+
 #include "Entity.h"
 #include "Components.h"
-#include "Crystal/Core/Core.h"
 
-namespace YAML
-{
+#include <fstream>
+
+#include <yaml-cpp/yaml.h>
+
+namespace YAML {
+
 	template<>
 	struct convert<glm::vec3>
 	{
@@ -17,6 +19,7 @@ namespace YAML
 			node.push_back(rhs.x);
 			node.push_back(rhs.y);
 			node.push_back(rhs.z);
+			node.SetStyle(EmitterStyle::Flow);
 			return node;
 		}
 
@@ -42,6 +45,7 @@ namespace YAML
 			node.push_back(rhs.y);
 			node.push_back(rhs.z);
 			node.push_back(rhs.w);
+			node.SetStyle(EmitterStyle::Flow);
 			return node;
 		}
 
@@ -57,10 +61,10 @@ namespace YAML
 			return true;
 		}
 	};
-}
 
-namespace Crystal
-{
+}
+namespace Crystal {
+
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v)
 	{
 		out << YAML::Flow;
@@ -78,30 +82,28 @@ namespace Crystal
 	SceneSerializer::SceneSerializer(const Ref<Scene>& scene)
 		: m_Scene(scene)
 	{
-
 	}
 
 	static void SerializeEntity(YAML::Emitter& out, Entity entity)
 	{
-		out << YAML::BeginMap;
-		out << YAML::Key << "Entity" << YAML::Value << "12847575855";
-
+		out << YAML::BeginMap; // Entity
+		out << YAML::Key << "Entity" << YAML::Value << "12837192831273"; // TODO: Entity ID goes here
 
 		if (entity.HasComponent<TagComponent>())
 		{
 			out << YAML::Key << "TagComponent";
-			out << YAML::BeginMap;
+			out << YAML::BeginMap; // TagComponent
 
 			auto& tag = entity.GetComponent<TagComponent>().Tag;
 			out << YAML::Key << "Tag" << YAML::Value << tag;
 
-			out << YAML::EndMap; //Tag component
+			out << YAML::EndMap; // TagComponent
 		}
 
 		if (entity.HasComponent<TransformComponent>())
 		{
 			out << YAML::Key << "TransformComponent";
-			out << YAML::BeginMap;
+			out << YAML::BeginMap; // TransformComponent
 
 			auto& tc = entity.GetComponent<TransformComponent>();
 			out << YAML::Key << "Translation" << YAML::Value << tc.Translation;
@@ -114,13 +116,13 @@ namespace Crystal
 		if (entity.HasComponent<CameraComponent>())
 		{
 			out << YAML::Key << "CameraComponent";
-			out << YAML::BeginMap;
+			out << YAML::BeginMap; // CameraComponent
 
 			auto& cameraComponent = entity.GetComponent<CameraComponent>();
-			auto& camera = entity.GetComponent<CameraComponent>().Camera;
-			
+			auto& camera = cameraComponent.Camera;
+
 			out << YAML::Key << "Camera" << YAML::Value;
-			out << YAML::BeginMap; //Camera
+			out << YAML::BeginMap; // Camera
 			out << YAML::Key << "ProjectionType" << YAML::Value << (int)camera.GetProjectionType();
 			out << YAML::Key << "PerspectiveFOV" << YAML::Value << camera.GetPerspectiveVerticalFOV();
 			out << YAML::Key << "PerspectiveNear" << YAML::Value << camera.GetPerspectiveNearClip();
@@ -133,28 +135,28 @@ namespace Crystal
 			out << YAML::Key << "Primary" << YAML::Value << cameraComponent.Primary;
 			out << YAML::Key << "FixedAspectRatio" << YAML::Value << cameraComponent.FixedAspectRatio;
 
-			out << YAML::EndMap;
+			out << YAML::EndMap; // CameraComponent
 		}
 
 		if (entity.HasComponent<SpriteRendererComponent>())
 		{
 			out << YAML::Key << "SpriteRendererComponent";
-			out << YAML::BeginMap;
+			out << YAML::BeginMap; // SpriteRendererComponent
 
 			auto& spriteRendererComponent = entity.GetComponent<SpriteRendererComponent>();
 			out << YAML::Key << "Color" << YAML::Value << spriteRendererComponent.Color;
 
-			out << YAML::EndMap;
+			out << YAML::EndMap; // SpriteRendererComponent
 		}
 
-		out << YAML::EndMap;
+		out << YAML::EndMap; // Entity
 	}
 
 	void SceneSerializer::Serialize(const std::string& filepath)
 	{
 		YAML::Emitter out;
 		out << YAML::BeginMap;
-		out << YAML::Key << "Scene" << YAML::Value << "Untitled Scene";
+		out << YAML::Key << "Scene" << YAML::Value << "Untitled";
 		out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
 		m_Scene->m_Registry.each([&](auto entityID)
 			{
@@ -170,17 +172,16 @@ namespace Crystal
 		std::ofstream fout(filepath);
 		fout << out.c_str();
 	}
-	void SceneSerializer::SerializeBinary(const std::string& filepath)
+
+	void SceneSerializer::SerializeRuntime(const std::string& filepath)
 	{
+		// Not implemented
+		CRYSTAL_CORE_ASSERT(false, "broke");
 	}
 
 	bool SceneSerializer::Deserialize(const std::string& filepath)
 	{
-		std::ifstream stream(filepath);
-		std::stringstream strStream;
-		strStream << stream.rdbuf();
-
-		YAML::Node data = YAML::Load(strStream.str());
+		YAML::Node data = YAML::LoadFile(filepath);
 		if (!data["Scene"])
 			return false;
 
@@ -192,7 +193,7 @@ namespace Crystal
 		{
 			for (auto entity : entities)
 			{
-				uint64_t uuid = entity["Entity"].as<uint64_t>(); // todo uuid
+				uint64_t uuid = entity["Entity"].as<uint64_t>(); // TODO
 
 				std::string name;
 				auto tagComponent = entity["TagComponent"];
@@ -212,11 +213,12 @@ namespace Crystal
 					tc.Rotation = transformComponent["Rotation"].as<glm::vec3>();
 					tc.Scale = transformComponent["Scale"].as<glm::vec3>();
 				}
-				
+
 				auto cameraComponent = entity["CameraComponent"];
 				if (cameraComponent)
 				{
 					auto& cc = deserializedEntity.AddComponent<CameraComponent>();
+
 					auto& cameraProps = cameraComponent["Camera"];
 					cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
 
@@ -235,7 +237,6 @@ namespace Crystal
 				auto spriteRendererComponent = entity["SpriteRendererComponent"];
 				if (spriteRendererComponent)
 				{
-					// Entities always contain transforms
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 				}
@@ -245,8 +246,11 @@ namespace Crystal
 		return true;
 	}
 
-	bool SceneSerializer::DeserializeBinary(const std::string& filepath)
+	bool SceneSerializer::DeserializeRuntime(const std::string& filepath)
 	{
+		// Not implemented
+		CRYSTAL_CORE_ASSERT(false, "broke");
 		return false;
 	}
+
 }

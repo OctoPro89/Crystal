@@ -1,6 +1,6 @@
 #include "Sandbox2D.h"
 #include <imgui/imgui.h>
-
+#include "Crystal/Core/MouseCodes.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -66,8 +66,7 @@ void Sandbox2D::OnUpdate(Crystal::Timestep ts)
 		}
 		Crystal::Renderer2D::EndScene();
 	}
-
-	if (Crystal::Input::IsMouseButtonPressed(CRYSTAL_MOUSE_BUTTON_LEFT))
+	if (Crystal::Input::IsMouseButtonPressed(Crystal::MouseButton::ButtonLeft))
 	{
 		auto [x, y] = Crystal::Input::GetMousePosition();
 		auto width = Crystal::Application::Get().GetWindow().GetWidth();

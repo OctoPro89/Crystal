@@ -3,7 +3,7 @@
 #include "Crystal/Core/Timestep.h"
 #include "Crystal/Renderer/EditorCamera.h"
 
-#include "entt.hpp"
+#include <entt.hpp>
 
 namespace Crystal {
 

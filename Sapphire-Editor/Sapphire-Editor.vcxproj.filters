@@ -11,6 +11,8 @@
       <Filter>Panels</Filter>
     </ClInclude>
     <ClInclude Include="assets\Scripts\CameraController.h" />
+    <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
+    <ClInclude Include="src\Panels\ConsolePanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -18,14 +20,15 @@
       <Filter>Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
+    <ClCompile Include="src\Panels\ContentBrowserPanel.cpp" />
+    <ClCompile Include="src\Panels\ConsolePanel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\Scenes\Untitled.crystal" />
-    <None Include="assets\Scenes\SampleScene.crystal" />
-    <None Include="assets\Scenes\3DCube.crystal" />
+    <Image Include="Resources\Icons\ContentBrowser\FileIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\ContentBrowser\FolderImg.svg" />
+    <None Include="premake5.lua" />
     <None Include="imgui.ini" />
-    <None Include="assets\shaders\Texture.glsl" />
-    <None Include="assets\shaders\RGBTriangle.glsl" />
-    <None Include="assets\shaders\FlatColor.glsl" />
   </ItemGroup>
 </Project>

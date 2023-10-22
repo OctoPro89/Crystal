@@ -5,6 +5,8 @@
 #include <imgui/imgui.h>
 #include <glm/ext/matrix_transform.hpp>
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
+#include "Panels/ConsolePanel.h"
 
 namespace Crystal {
 
@@ -25,6 +27,7 @@ namespace Crystal {
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		void NewScene();
 		void OpenScene();
+		void OpenScene(const std::filesystem::path path);
 		void SaveScene();
 		void SaveSceneAs();
 	private:
@@ -60,9 +63,11 @@ namespace Crystal {
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
 
-		int m_GizmoType = -1;
+		int m_GizmoType = 0;
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
+		ConsolePanel Console;
 	};
 }

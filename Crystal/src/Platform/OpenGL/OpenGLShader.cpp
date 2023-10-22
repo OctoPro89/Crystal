@@ -2,6 +2,7 @@
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include <fstream>
+#include <filesystem>
 #include <glad/glad.h>
 
 #include <glm/gtc/type_ptr.hpp>
@@ -227,7 +228,7 @@ namespace Crystal {
 				if (module.GetCompilationStatus() != shaderc_compilation_status_success)
 				{
 					CRYSTAL_CORE_ERROR(module.GetErrorMessage());
-					CRYSTAL_CORE_ASSERT(false);
+					CRYSTAL_CORE_ASSERT(false, "Shader compilation failed");
 				}
 
 				shaderData[stage] = std::vector<uint32_t>(module.cbegin(), module.cend());
@@ -288,7 +289,7 @@ namespace Crystal {
 				if (module.GetCompilationStatus() != shaderc_compilation_status_success)
 				{
 					CRYSTAL_CORE_ERROR(module.GetErrorMessage());
-					CRYSTAL_CORE_ASSERT(false);
+					CRYSTAL_CORE_ASSERT(false, "Shader Compilation failed");
 				}
 
 				shaderData[stage] = std::vector<uint32_t>(module.cbegin(), module.cend());
@@ -429,6 +430,14 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION();
 
 		UploadUniformMat4(name, value);
+	}
+
+
+	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value)
+	{
+		CRYSTAL_PROFILE_FUNCTION();
+
+		UploadUniformMat3(name, value);
 	}
 
 	void OpenGLShader::UploadUniformInt(const std::string& name, int value)

@@ -31,13 +31,15 @@ namespace Crystal {
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+		float fontSize = 18.0f;
 		
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Kalam/Kalam-Bold.ttf", 21.0f);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Kalam/Kalam-Regular.ttf", 21.0f);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", 18.0f);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", 18.0f);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/OpenSans-Bold.ttf", 18.0f);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/OpenSans-Regular.ttf", 18.0f);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/Kalam/Kalam-Bold.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/Kalam/Kalam-Regular.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/OpenSans-Bold.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/OpenSans-Regular.ttf", fontSize);
 		io.FontDefault = io.Fonts->Fonts[5];
 
 		ImGuiStyle& style = ImGui::GetStyle();

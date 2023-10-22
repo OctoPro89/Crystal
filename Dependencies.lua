@@ -4,13 +4,13 @@ VULKAN_SDK = os.getenv("VULKAN_SDK")
 
 IncludeDir = {}
 IncludeDir["stb_image"] = "%{wks.location}/Crystal/vendor/stb_image"
-IncludeDir["yaml_cpp"] = "%{wks.location}/Crystal/vendor/yaml-cpp/include"
+IncludeDir["yaml_cpp"] = "%{wks.location}/Crystal/vendor/yaml/include"
 IncludeDir["GLFW"] = "%{wks.location}/Crystal/vendor/GLFW/include"
 IncludeDir["Glad"] = "%{wks.location}/Crystal/vendor/Glad/include"
 IncludeDir["ImGui"] = "%{wks.location}/Crystal/vendor/ImGui"
 IncludeDir["ImGuizmo"] = "%{wks.location}/Crystal/vendor/ImGuizmo"
 IncludeDir["glm"] = "%{wks.location}/Crystal/vendor/glm"
-IncludeDir["entt"] = "%{wks.location}/Crystal/vendor/entt/include"
+IncludeDir["entt"] = "%{wks.location}/Crystal/vendor/entt"
 IncludeDir["shaderc"] = "%{wks.location}/Crystal/vendor/shaderc/include"
 IncludeDir["SPIRV_Cross"] = "%{wks.location}/Crystal/vendor/SPIRV-Cross"
 IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"

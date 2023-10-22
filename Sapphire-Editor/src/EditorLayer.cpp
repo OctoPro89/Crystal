@@ -10,6 +10,8 @@
 #include "Crystal/Math/Math.h"
 
 namespace Crystal {
+	extern const std::filesystem::path g_AssetPath = "assets";
+
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer"), m_CameraController(1280.0f / 720.0f)
 	{
@@ -54,6 +56,7 @@ namespace Crystal {
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_CameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		Console.Log("Editor Setup");
 	}
 
 	void EditorLayer::OnDetach()
@@ -283,6 +286,8 @@ namespace Crystal {
 		}
 
 		m_SceneHierarchyPanel.OnImGuiRender();
+		m_ContentBrowserPanel.OnImGuiRender();
+		Console.OnImGuiRender();
 
 		if (performanceWindow) {
 			ImGui::Begin("Performance & Stats");
@@ -323,6 +328,17 @@ namespace Crystal {
 		}
 		uint64_t textureID = m_FrameBuffer->GetColorAttachmentRendererID(0);
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0,1 }, ImVec2{ 1,0 });
+
+		// Drag & Drop
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+			{
+				const wchar_t* path = (const wchar_t*)payload->Data;
+				OpenScene(std::filesystem::path(g_AssetPath) / path);
+			}
+			ImGui::EndDragDropTarget();
+		}
 
 		// Gizmo's
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
@@ -465,13 +481,18 @@ namespace Crystal {
 
 		if (!filepath.empty())
 		{
-			m_ActiveScene = CreateRef<Scene>();
-			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
-
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Deserialize(filepath);
+			OpenScene(filepath);
 		}
+	}
+
+	void EditorLayer::OpenScene(const std::filesystem::path path)
+	{
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+		SceneSerializer serializer(m_ActiveScene);
+		serializer.Deserialize(path.string());
 	}
 
 	void EditorLayer::SaveScene()

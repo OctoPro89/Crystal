@@ -1,56 +1,61 @@
 #include "crystalpch.h"
-#include "Shader.h"
-#include "Renderer.h"
+#include "Crystal/Renderer/Shader.h"
+
+#include "Crystal/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
+namespace Crystal {
 
-namespace Crystal
-{
 	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
-		case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(filepath);
+		case RendererAPI::API::None:    CRYSTAL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
 		}
 
-		CRYSTAL_CORE_ASSERT(false, "Unkown RendererAPI");
+		CRYSTAL_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSource, const std::string& fragmentSrc)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:		CRYSTAL_CORE_ASSERT(false, "RendererAPI::NONE is curerntly not supported"); return nullptr;
-		case RendererAPI::API::OpenGL:	return std::make_shared<OpenGLShader>(name, vertexSource, fragmentSrc);
+		case RendererAPI::API::None:    CRYSTAL_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
-		CRYSTAL_CORE_ASSERT(false, "Unkown RendererAPI");
+		CRYSTAL_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
+
 	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
 	{
 		CRYSTAL_CORE_ASSERT(!Exists(name), "Shader already exists!");
 		m_Shaders[name] = shader;
 	}
+
 	void ShaderLibrary::Add(const Ref<Shader>& shader)
 	{
-		std::string name = shader->GetName();
+		auto& name = shader->GetName();
 		Add(name, shader);
 	}
+
 	Ref<Shader> ShaderLibrary::Load(const std::string& filepath)
 	{
-		Ref<Shader> shader = Shader::Create(filepath);
+		auto shader = Shader::Create(filepath);
 		Add(shader);
 		return shader;
 	}
+
 	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
-		Ref<Shader> shader = Shader::Create(filepath);
+		auto shader = Shader::Create(filepath);
 		Add(name, shader);
 		return shader;
 	}
+
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
 		CRYSTAL_CORE_ASSERT(Exists(name), "Shader not found!");
@@ -61,6 +66,4 @@ namespace Crystal
 	{
 		return m_Shaders.find(name) != m_Shaders.end();
 	}
-
-
 }

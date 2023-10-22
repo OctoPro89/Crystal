@@ -19,6 +19,9 @@
     <Filter Include="src\Crystal\ImGui">
       <UniqueIdentifier>{48AEEF89-B4C4-ED1F-FD3B-79416991BEA7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Crystal\Math">
+      <UniqueIdentifier>{37F2B313-23EB-D265-4C1D-B8EA3875B271}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Crystal\Renderer">
       <UniqueIdentifier>{04506497-F0DE-ED60-99FD-015C856BFE06}</UniqueIdentifier>
     </Filter>
@@ -99,6 +102,9 @@
     <ClInclude Include="src\Crystal\Core\MouseCodes.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Core\Timer.h">
+      <Filter>src\Crystal\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Core\Timestep.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
@@ -123,10 +129,16 @@
     <ClInclude Include="src\Crystal\ImGui\ImGuiLayer.h">
       <Filter>src\Crystal\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Math\Math.h">
+      <Filter>src\Crystal\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Buffer.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Camera.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\EditorCamera.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\FrameBuffer.h">
@@ -163,6 +175,9 @@
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\Texture.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\UniformBuffer.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\VertexArray.h">
@@ -208,6 +223,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -1473,8 +1491,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Math\Math.h" />
-    <ClInclude Include="src\Crystal\Renderer\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1498,7 +1514,13 @@
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp">
       <Filter>src\Crystal\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Math\Math.cpp">
+      <Filter>src\Crystal\Math</Filter>
+    </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\Buffer.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\EditorCamera.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp">
@@ -1537,6 +1559,9 @@
     <ClCompile Include="src\Crystal\Renderer\Texture.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\UniformBuffer.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\VertexArray.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
@@ -1573,6 +1598,9 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1594,7 +1622,8 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Crystal\Math\Math.cpp" />
-    <ClCompile Include="src\Crystal\Renderer\EditorCamera.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="premake5.lua" />
   </ItemGroup>
 </Project>

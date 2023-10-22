@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{61705900-4DFC-870B-B6AA-880BA255880B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal">
+      <UniqueIdentifier>{D2F33E76-BEAB-80C3-27B3-591F138A1BB4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal\vendor">
+      <UniqueIdentifier>{EFC923CC-5BE0-2162-A457-AD8310ADF2E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal\vendor\GLFW">
+      <UniqueIdentifier>{8E12E5E7-7A0C-0E3A-6379-A44A4F1274A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal\vendor\Glad">
+      <UniqueIdentifier>{369EE5E7-2298-0E3A-0B05-A54AF79D74A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal\vendor\imgui">
+      <UniqueIdentifier>{994E01E7-0586-497E-0E90-ADA17A467077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal\vendor\yaml">
+      <UniqueIdentifier>{F1DB00E8-DDD5-293A-C642-C04AB2DB8FA6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Sandbox">
+      <UniqueIdentifier>{3F7B6B1D-2B33-AD6A-943A-86C68011485B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Sapphire-Editor">
+      <UniqueIdentifier>{00B1B56A-EC94-76C0-55F5-701341F86042}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Crystal\premake5.lua">
+      <Filter>..\Crystal</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\GLFW\premake5.lua">
+      <Filter>..\Crystal\vendor\GLFW</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\Glad\premake5.lua">
+      <Filter>..\Crystal\vendor\Glad</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\imgui\premake5.lua">
+      <Filter>..\Crystal\vendor\imgui</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\yaml\premake5.lua">
+      <Filter>..\Crystal\vendor\yaml</Filter>
+    </None>
+    <None Include="..\..\Sandbox\premake5.lua">
+      <Filter>..\Sandbox</Filter>
+    </None>
+    <None Include="..\..\Sapphire-Editor\premake5.lua">
+      <Filter>..\Sapphire-Editor</Filter>
+    </None>
+    <None Include="..\..\premake5.lua">
+      <Filter>..</Filter>
+    </None>
+    <None Include="premake5.lua" />
+  </ItemGroup>
+</Project>

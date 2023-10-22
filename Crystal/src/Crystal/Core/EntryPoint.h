@@ -1,7 +1,4 @@
 #pragma once
-
-#ifdef CRYSTAL_PLATFORM_WINDOWS
-
 extern Crystal::Application* Crystal::CreateApplication();
 
 int main(int argc, char** argv)
@@ -20,5 +17,3 @@ int main(int argc, char** argv)
 	delete app;
 	CRYSTAL_PROFILE_END_SESSION();
 }
-
-#endif
