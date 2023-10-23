@@ -61,8 +61,27 @@ namespace Crystal {
 			
 			b2BodyDef bodyDef;
 			bodyDef.type = Rigidbody2DTypeToBox2DType(rb2d.Type);
+			bodyDef.position.Set(transform.Translation.x, transform.Translation.y);
+			bodyDef.angle = transform.Rotation.z;
+			b2Body* body = m_PhysicsWorld->CreateBody(&bodyDef);
+			body->SetFixedRotation(rb2d.FixedRotation);
+			rb2d.RuntimeBody = body;
 
-			m_PhysicsWorld->CreateBody(&bodyDef);
+			if (entity.HasComponent<BoxCollider2DComponent>())
+			{
+				auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+
+				b2PolygonShape boxShape;
+				boxShape.SetAsBox(bc2d.Size.x * transform.Scale.x, bc2d.Size.y * transform.Scale.y);
+
+				b2FixtureDef fixureDef;
+				fixureDef.shape = &boxShape;
+				fixureDef.density = bc2d.Density;
+				fixureDef.friction = bc2d.Friction;
+				fixureDef.restitution = bc2d.Restitution;
+				fixureDef.restitutionThreshold = bc2d.RestitutionThreshold;
+				body->CreateFixture(&fixureDef);
+			}
 		}
 	}
 
@@ -89,6 +108,29 @@ namespace Crystal {
 
 					nsc.Instance->OnUpdate(ts);
 				});
+		}
+
+		// Physics
+		{
+			const int32_t velocityIterations = 6;
+			const int32_t positionIterations = 2;
+			m_PhysicsWorld->Step(ts, velocityIterations, positionIterations);
+
+
+			// Get transform from box2d
+			auto view = m_Registry.view<Rigidbody2DComponent>();
+			for(auto e : view)
+			{
+				Entity entity = { e, this };
+				auto& transform = entity.GetComponent<TransformComponent>();
+				auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+
+				b2Body* body = (b2Body*)rb2d.RuntimeBody;
+				const auto& position = body->GetPosition();
+				transform.Translation.x = position.x;
+				transform.Translation.y = position.y;
+				transform.Rotation.z = body->GetAngle();
+			}
 		}
 
 		// Render 2D
@@ -198,6 +240,16 @@ namespace Crystal {
 
 	template<>
 	void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<Rigidbody2DComponent>(Entity entity, Rigidbody2DComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<BoxCollider2DComponent>(Entity entity, BoxCollider2DComponent& component)
 	{
 	}
 }
