@@ -87,7 +87,7 @@
     <ClInclude Include="src\Crystal\Core\Input.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Core\KeyCodes.h">
+    <ClInclude Include="src\Crystal\Core\Keycodes.h">
       <Filter>src\Crystal\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Core\Layer.h">
@@ -1622,8 +1622,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="premake5.lua" />
   </ItemGroup>
 </Project>

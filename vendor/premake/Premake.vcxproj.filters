@@ -10,6 +10,9 @@
     <Filter Include="..\Crystal\vendor">
       <UniqueIdentifier>{EFC923CC-5BE0-2162-A457-AD8310ADF2E9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\Crystal\vendor\Box2D">
+      <UniqueIdentifier>{3DEB40E4-A922-897B-B22C-ED9E1EE3AF74}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\Crystal\vendor\GLFW">
       <UniqueIdentifier>{8E12E5E7-7A0C-0E3A-6379-A44A4F1274A6}</UniqueIdentifier>
     </Filter>
@@ -32,6 +35,9 @@
   <ItemGroup>
     <None Include="..\..\Crystal\premake5.lua">
       <Filter>..\Crystal</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\Box2D\premake5.lua">
+      <Filter>..\Crystal\vendor\Box2D</Filter>
     </None>
     <None Include="..\..\Crystal\vendor\GLFW\premake5.lua">
       <Filter>..\Crystal\vendor\GLFW</Filter>

@@ -7,8 +7,25 @@
 #include <glm/glm.hpp>
 
 #include "Entity.h"
+#include <box2d/b2_world.h>
+#include <box2d/b2_body.h>
+#include <box2d/b2_fixture.h>
+#include <box2d/b2_polygon_shape.h>
 
 namespace Crystal {
+
+	static b2BodyType Rigidbody2DTypeToBox2DType(Rigidbody2DComponent::BodyType bodyType)
+	{
+		switch (bodyType)
+		{
+		case Rigidbody2DComponent::BodyType::Static: return b2_staticBody;
+		case Rigidbody2DComponent::BodyType::Dynamic: return b2_dynamicBody;
+		case Rigidbody2DComponent::BodyType::Kinematic: return b2_kinematicBody;
+		}
+
+		CRYSTAL_CORE_ASSERT(false, "Unknown body type!");
+		return b2_staticBody;
+	}
 
 	Scene::Scene()
 	{
@@ -30,6 +47,29 @@ namespace Crystal {
 	void Scene::DestroyEntity(Entity entity)
 	{
 		m_Registry.destroy(entity);
+	}
+
+	void Scene::OnRuntimeStart()
+	{
+		m_PhysicsWorld = new b2World({0.0f, -9.8f});
+		auto view = m_Registry.view<Rigidbody2DComponent>();
+		for (auto e : view)
+		{
+			Entity entity = { e, this };
+			auto& transform = entity.GetComponent<TransformComponent>();
+			auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+			
+			b2BodyDef bodyDef;
+			bodyDef.type = Rigidbody2DTypeToBox2DType(rb2d.Type);
+
+			m_PhysicsWorld->CreateBody(&bodyDef);
+		}
+	}
+
+	void Scene::OnRuntimeStop()
+	{
+		delete m_PhysicsWorld;
+		m_PhysicsWorld = nullptr;
 	}
 
 	void Scene::OnUpdateRuntime(Timestep ts)
