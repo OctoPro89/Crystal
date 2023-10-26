@@ -72,19 +72,19 @@ namespace Crystal {
 		m_FrameBuffer->ClearAttachment(1, -1);
 
 		switch (m_SceneState) {
-		case SceneState::Edit:
-		{
-			m_EditorCamera.OnUpdate(ts);
-			// Update Scene
-			m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-			break;
-		}
-		case SceneState::Play:
-		{
-			// Update Scene
-			m_ActiveScene->OnUpdateRuntime(ts);
-			break;
-		}
+			case SceneState::Edit:
+			{
+				m_EditorCamera.OnUpdate(ts);
+				// Update Scene
+				m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+				break;
+			}
+			case SceneState::Play:
+			{
+				// Update Scene
+				m_ActiveScene->OnUpdateRuntime(ts);
+				break;
+			}
 		}
 
 		auto[mx, my] = ImGui::GetMousePos();
@@ -414,14 +414,12 @@ namespace Crystal {
 		{
 			if (control)
 			{
-				SaveScene();
-				break;
+				if (shift)
+					SaveSceneAs();
+				else
+					SaveScene();
 			}
-			else if (control && shift)
-			{
-				SaveSceneAs();
-				break;
-			}
+			break;
 		}
 		case Key::D:
 		{
@@ -466,6 +464,7 @@ namespace Crystal {
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 		Application::Get().GetWindow().SetWindowTitle(std::string("Crystal - Untitled*"));
+		m_ScenePath = std::string();
 	}
 
 	void EditorLayer::OpenScene()
@@ -473,9 +472,7 @@ namespace Crystal {
 		std::string filepath = FileDialogs::OpenFile("Crystal Scene(*.crystal)\0*.crystal\0");
 
 		if (!filepath.empty())
-		{
 			OpenScene(filepath);
-		}
 	}
 
 	void EditorLayer::OpenScene(const std::filesystem::path path)
@@ -499,35 +496,29 @@ namespace Crystal {
 
 			m_ActiveScene = m_EditorScene;
 
-			fp = path.string();
+			m_ScenePath = path.string();
 		}
 	}
 
 	void EditorLayer::SaveScene()
 	{
-		CRYSTAL_INFO("Saving Scene {0}", fp);
+		CRYSTAL_INFO("Saving Scene {0}", m_ScenePath);
 		Console.Log("Saving Scene");
-		if (!fp.empty())
+		if (!m_ScenePath.empty())
 		{
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Serialize(fp);
-			Console.Log("Scene Saved Successfully!");
+			SerializeScene(m_ActiveScene, m_ScenePath);
 		}
 		else
-		{
 			SaveSceneAs();
-		}
 	}
 
 	void EditorLayer::SaveSceneAs()
 	{
 		std::string filepath = FileDialogs::SaveFile("Crystal Scene(*.crystal)\0*.crystal\0");
-
 		if (!filepath.empty())
 		{
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Serialize(filepath);
-			fp = filepath;
+			SerializeScene(m_ActiveScene, filepath);
+			m_ScenePath = filepath;
 		}
 		Application::Get().GetWindow().SetWindowTitle("Crystal - " + filepath);
 		Console.Log("Scene Saved Successfully!");
@@ -536,7 +527,7 @@ namespace Crystal {
 	void EditorLayer::OnScenePlay()
 	{
 		m_SceneState = SceneState::Play;
-		m_RuntimeScene = Scene::Copy(m_EditorScene);
+		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
@@ -545,7 +536,6 @@ namespace Crystal {
 	{
 		m_SceneState = SceneState::Edit;
 		m_ActiveScene->OnRuntimeStop();
-		m_RuntimeScene = nullptr;
 		m_ActiveScene = m_EditorScene;
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
@@ -558,6 +548,12 @@ namespace Crystal {
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
 		if (m_SceneHierarchyPanel.GetSelectedEntity())
 			m_EditorScene->DuplicateEntity(selectedEntity);
+	}
+
+	void EditorLayer::SerializeScene(Ref<Scene> scene, const std::string& path)
+	{
+		SceneSerializer serializer(scene);
+		serializer.Serialize(path);
 	}
 
 	void EditorLayer::UI_Toolbar()

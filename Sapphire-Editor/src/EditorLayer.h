@@ -32,7 +32,10 @@ namespace Crystal {
 
 		void OnScenePlay();
 		void OnSceneStop();
+
 		void OnDuplicateEntity();
+
+		void SerializeScene(Ref<Scene> scene, const std::string& path);
 
 		// Ui Panels
 		void UI_Toolbar();
@@ -44,7 +47,7 @@ namespace Crystal {
 		Ref<FrameBuffer> m_FrameBuffer;
 
 		Ref<Scene> m_ActiveScene;
-		Ref<Scene> m_EditorScene, m_RuntimeScene;
+		Ref<Scene> m_EditorScene;
 		Entity m_CameraEntity;
 		Entity m_CameraEntity2;
 		Entity m_SquareEntity;
@@ -66,7 +69,7 @@ namespace Crystal {
 
 		EditorCamera m_EditorCamera;
 
-		std::string fp = "";
+		std::string m_ScenePath;
 
 		ParticleProps m_Particle;
 		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
