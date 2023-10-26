@@ -13,20 +13,19 @@ namespace Crystal {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::string& name)
+	Application::Application(const std::string& name, ApplicationCommandLineArgs args)
+		: m_CommandLineArgs(args)
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 
 		CRYSTAL_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-
 		m_Window = Window::Create(WindowProps(name));
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-		m_Window->SetVSync(false);
+		m_Window->SetEventCallback(CRYSTAL_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
 
-		m_ImGuiLayer = new ImGuiLayer();;
+		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
 

@@ -8,15 +8,6 @@ namespace Crystal {
 		RecalculateProjection();
 	}
 
-	void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
-	{
-		m_ProjectionType = ProjectionType::Orthographic;
-		m_OrthographicSize = size;
-		m_OrthographicNear = nearClip;
-		m_OrthographicFar = farClip;
-		RecalculateProjection();
-	}
-
 	void SceneCamera::SetPerspective(float fov, float nearClip, float farClip)
 	{
 		m_ProjectionType = ProjectionType::Perspective;
@@ -26,8 +17,18 @@ namespace Crystal {
 		RecalculateProjection();
 	}
 
+	void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
+	{
+		m_ProjectionType = ProjectionType::Orthographic;
+		m_OrthographicSize = size;
+		m_OrthographicNear = nearClip;
+		m_OrthographicFar = farClip;
+		RecalculateProjection();
+	}
+
 	void SceneCamera::SetViewportSize(uint32_t width, uint32_t height)
 	{
+		CRYSTAL_CORE_ASSERT(width > 0 && height > 0, "Width or height are not bigger than 0!");
 		m_AspectRatio = (float)width / (float)height;
 		RecalculateProjection();
 	}

@@ -23,31 +23,34 @@ namespace Crystal
 	void SceneHierarchyPanel::OnImGuiRender()
 	{
 		ImGui::Begin("Hierarchy");
-		m_Context->m_Registry.each([&](auto entityID)
-		{
-			Entity entity{ entityID, m_Context.get() };
-			DrawEntityNode(entity);
-		});
-
 		
-		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-			m_SelectionContext = {};
-
-		// Right click on blank
-		if (ImGui::BeginPopupContextWindow(0, 1, false))
+		if (m_Context)
 		{
-			if (ImGui::MenuItem("Create Empty Entity"))
-				m_Context->CreateEntity("Empty");
-			if (ImGui::MenuItem("Create Camera")) {
-				Entity newEntity = m_Context->CreateEntity("Camera");
-				newEntity.AddComponent<CameraComponent>();
-			}
-			if (ImGui::MenuItem("Create Sprite"))
+			m_Context->m_Registry.each([&](auto entityID)
+				{
+					Entity entity{ entityID , m_Context.get() };
+					DrawEntityNode(entity);
+				});
+
+			if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+				m_SelectionContext = {};
+
+			// Right click on blank
+			if (ImGui::BeginPopupContextWindow(0, 1, false))
 			{
-				Entity newEntity = m_Context->CreateEntity("Sprite");
-				newEntity.AddComponent<SpriteRendererComponent>();
+				if (ImGui::MenuItem("Create Empty Entity"))
+					m_Context->CreateEntity("Empty");
+				if (ImGui::MenuItem("Create Camera")) {
+					Entity newEntity = m_Context->CreateEntity("Camera");
+					newEntity.AddComponent<CameraComponent>();
+				}
+				if (ImGui::MenuItem("Create Sprite"))
+				{
+					Entity newEntity = m_Context->CreateEntity("Sprite");
+					newEntity.AddComponent<SpriteRendererComponent>();
+				}
+				ImGui::EndPopup();
 			}
-			ImGui::EndPopup();
 		}
 
 		ImGui::End();
@@ -213,58 +216,6 @@ namespace Crystal
 		ImGui::PopID();
 	}
 
-	static void DrawVec2Control(const std::string& label, glm::vec2& values, float resetValue = 0.0f, float columnWidth = 100.0f)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		auto boldFont = io.Fonts->Fonts[4];
-
-		ImGui::PushID(label.c_str());
-
-		ImGui::Columns(1);
-		ImGui::SetColumnWidth(0, columnWidth);
-		ImGui::Text(label.c_str());
-		ImGui::NextColumn();
-
-		ImGui::PushMultiItemsWidths(2, ImGui::CalcItemWidth());
-		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
-
-		float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
-		ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.1f, 0.15f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.2f, 0.2f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.1f, 0.15f, 1.0f));
-		ImGui::PushFont(boldFont);
-		if (ImGui::Button("X", buttonSize))
-			values.x = resetValue;
-		ImGui::PopFont();
-
-		ImGui::PopStyleColor(3);
-
-		ImGui::SameLine();
-		ImGui::DragFloat("##X", &values.x, 0.1f);
-		ImGui::PopItemWidth();
-		ImGui::SameLine();
-
-		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.7f, 0.02f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.3f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.2f, 0.7f, 0.2f, 1.0f));
-
-		ImGui::PushFont(boldFont);
-		if (ImGui::Button("Y", buttonSize))
-			values.y = resetValue;
-		ImGui::PopFont();
-
-		ImGui::PopStyleColor(3);
-
-		ImGui::SameLine();
-		ImGui::DragFloat("##Y", &values.y, 0.1f);
-		ImGui::PopItemWidth();
-		ImGui::SameLine();
-		ImGui::Columns(1);
-		ImGui::PopID();
-	}
-
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
 	{
 		if (entity.HasComponent<TagComponent>())
@@ -393,8 +344,8 @@ namespace Crystal
 					camera.SetPerspectiveNearClip(perspectiveNear);
 
 				float perspectiveFar = camera.GetPerspectiveFarClip();
-				if (ImGui::DragFloat("Far Clip", &perspectiveNear))
-					camera.SetPerspectiveFarClip(perspectiveNear);
+				if (ImGui::DragFloat("Far Clip", &perspectiveFar))
+					camera.SetPerspectiveFarClip(perspectiveFar);
 			}
 			if (component.Camera.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
 			{
@@ -440,8 +391,8 @@ namespace Crystal
 
 		DrawComponent<BoxCollider2DComponent>("BoxCollider 2D", entity, [](auto& component)
 			{
-				DrawVec2Control("Offset", component.Offset);
-				DrawVec2Control("Size", component.Size);
+				ImGui::DragFloat2("Offset", glm::value_ptr(component.Offset));
+				ImGui::DragFloat2("Size", glm::value_ptr(component.Size));
 				ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution",&component.Restitution, 0.01f, 0.0f, 1.0f);

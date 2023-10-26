@@ -1,15 +1,24 @@
 #pragma once
 
+#include "Crystal/Scene/SceneCamera.h"
+#include "Crystal/Renderer/Texture.h"
+#include "Crystal/Core/UUID.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
-#include "Crystal/Scene/SceneCamera.h"
-#include "Crystal/Renderer/Texture.h"
-#include "Crystal/Scene/ScriptableEntity.h"
+
 
 namespace Crystal
 {
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+	};
+
 	struct TagComponent
 	{
 		std::string Tag;
@@ -60,6 +69,8 @@ namespace Crystal
 		CameraComponent(const CameraComponent&) = default;
 	};
 
+	//Forward decl
+	class ScriptableEntity;
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;

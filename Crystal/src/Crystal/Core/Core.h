@@ -36,6 +36,8 @@
 	#define CRYSTAL_ENABLE_ASSERTS
 #endif
 
+#define CRYSTAL_ENABLE_ASSERTS
+
 #ifdef CRYSTAL_ENABLE_ASSERTS
 	#define CRYSTAL_ASSERT(x, ...) { if(!(x)) { CRYSTAL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define CRYSTAL_CORE_ASSERT(x, ...) { if(!(x)) { CRYSTAL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }

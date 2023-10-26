@@ -2,8 +2,6 @@
 
 #include "Crystal.h"
 #include "Crystal/Renderer/ParticleSystem.h"
-#include <imgui/imgui.h>
-#include <glm/ext/matrix_transform.hpp>
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/ConsolePanel.h"
@@ -14,6 +12,7 @@ namespace Crystal {
 	{
 	public:
 		EditorLayer();
+		inline ConsolePanel GetConsole() { return Console; }
 		virtual ~EditorLayer() = default;
 
 		virtual void OnAttach() override;
@@ -33,18 +32,23 @@ namespace Crystal {
 
 		void OnScenePlay();
 		void OnSceneStop();
+		void OnDuplicateEntity();
 
 		// Ui Panels
 		void UI_Toolbar();
+		void UI_Consolebar();
 	private:
 		//temp
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_Shader;
-		Ref<Scene> m_ActiveScene;
 		Ref<FrameBuffer> m_FrameBuffer;
+
+		Ref<Scene> m_ActiveScene;
+		Ref<Scene> m_EditorScene, m_RuntimeScene;
 		Entity m_CameraEntity;
 		Entity m_CameraEntity2;
 		Entity m_SquareEntity;
+
 		Entity m_HoveredEntity;
 
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };

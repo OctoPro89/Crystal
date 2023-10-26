@@ -159,6 +159,7 @@
     <ClInclude Include="src\Crystal\Core\MouseCodes.h" />
     <ClInclude Include="src\Crystal\Core\Timer.h" />
     <ClInclude Include="src\Crystal\Core\Timestep.h" />
+    <ClInclude Include="src\Crystal\Core\UUID.h" />
     <ClInclude Include="src\Crystal\Core\Window.h" />
     <ClInclude Include="src\Crystal\Debug\Instrumentor.h" />
     <ClInclude Include="src\Crystal\Events\ApplicationEvent.h" />
@@ -626,6 +627,7 @@
     <ClCompile Include="src\Crystal\Core\Layer.cpp" />
     <ClCompile Include="src\Crystal\Core\LayerStack.cpp" />
     <ClCompile Include="src\Crystal\Core\Log.cpp" />
+    <ClCompile Include="src\Crystal\Core\UUID.cpp" />
     <ClCompile Include="src\Crystal\Core\Window.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp" />

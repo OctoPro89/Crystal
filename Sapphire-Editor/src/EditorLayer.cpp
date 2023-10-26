@@ -6,8 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Crystal/Scene/SceneSerializer.h"
 #include "Crystal/Utils/PlatformUtils.h"
-#include "../assets/Scripts/CameraController.h"
-#include "../assets/Scripts/CharacterController.h"
+#include "../assets/Scripts/CharacterController.hpp"
 #include "Crystal/Math/Math.h"
 
 namespace Crystal {
@@ -25,40 +24,23 @@ namespace Crystal {
 		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
 		m_IconStop = Texture2D::Create("Resources/Icons/Stop.png");
 
-		m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
-		m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
-		m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
-		m_Particle.LifeTime = 0.5f;
-		m_Particle.Velocity = { 0.0f, 0.0f };
-		m_Particle.VelocityVariation = { 3.0f, 1.0f };
-		m_Particle.Position = { 0.0f, 0.0f };
-
-		FrameBufferSpecification spec;
-		spec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
-		spec.Width = 1280;
-		spec.Height = 720;
-		m_FrameBuffer = FrameBuffer::Create(spec);
+		FrameBufferSpecification fbSpec;
+		fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };
+		fbSpec.Width = 1280;
+		fbSpec.Height = 720;
+		m_FrameBuffer = FrameBuffer::Create(fbSpec);
 
 		m_ActiveScene = CreateRef<Scene>();
 
+		auto commandLineArgs = Application::Get().GetCommandLineArgs();
+		if (commandLineArgs.Count > 1)
+		{
+			auto sceneFilePath = commandLineArgs[1];
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize(sceneFilePath);
+		}
+
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
-
-		Entity square = m_ActiveScene->CreateEntity("Square");
-		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f,1.0f,1.0f,1.0f });
-
-		Entity square2 = m_ActiveScene->CreateEntity("Square2");
-		square2.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f,1.0f,1.0f,1.0f });
-
-		m_SquareEntity = square;
-
-		m_CameraEntity = m_ActiveScene->CreateEntity("Camera A");
-		m_CameraEntity.AddComponent<CameraComponent>().Primary = true;
-		m_CameraEntity.GetComponent<CameraComponent>().FixedAspectRatio = false;
-
-		m_CameraEntity2 = m_ActiveScene->CreateEntity("Camera B");
-		m_CameraEntity2.AddComponent<CameraComponent>().Primary = false;
-		m_CameraEntity2.AddComponent<NativeScriptComponent>().Bind<CharacterController>();
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 		Console.Log("Editor Setup");
 	}
 
@@ -90,25 +72,20 @@ namespace Crystal {
 		m_FrameBuffer->ClearAttachment(1, -1);
 
 		switch (m_SceneState) {
-			case SceneState::Edit:
-			{		
-				m_EditorCamera.OnUpdate(ts);
-				// Update Scene
-				m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
-				break;
-			}
-			case SceneState::Play:
-			{
-				// Update Scene
-				m_ActiveScene->OnUpdateRuntime(ts);
-				break;
-			}
+		case SceneState::Edit:
+		{
+			m_EditorCamera.OnUpdate(ts);
+			// Update Scene
+			m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+			break;
 		}
-
-		if (useParticles)
-			m_ParticleSystem.Emit(m_Particle);
-
-		Renderer2D::EndScene();
+		case SceneState::Play:
+		{
+			// Update Scene
+			m_ActiveScene->OnUpdateRuntime(ts);
+			break;
+		}
+		}
 
 		auto[mx, my] = ImGui::GetMousePos();
 		mx -= m_ViewportBounds[0].x;
@@ -393,6 +370,7 @@ namespace Crystal {
 		ImGui::PopStyleVar();
 
 		UI_Toolbar();
+		UI_Consolebar();
 
 		ImGui::End();
 	}
@@ -434,17 +412,25 @@ namespace Crystal {
 		}
 		case Key::S:
 		{
-			if (control && shift)
-			{
-				SaveSceneAs();
-			}
-			else if (control)
+			if (control)
 			{
 				SaveScene();
+				break;
 			}
-			break;
+			else if (control && shift)
+			{
+				SaveSceneAs();
+				break;
+			}
 		}
-
+		case Key::D:
+		{
+			if (control)
+			{
+				OnDuplicateEntity();
+				break;
+			}
+		}
 		//Gizmo's
 		case Key::Q:
 			m_GizmoType = -1;
@@ -457,6 +443,9 @@ namespace Crystal {
 			break;
 		case Key::R:
 			m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+			break;
+		case Key::T:
+			m_GizmoType = ImGuizmo::OPERATION::ROTATE | ImGuizmo::OPERATION::SCALE | ImGuizmo::OPERATION::TRANSLATE;
 			break;
 		}
 	}
@@ -491,22 +480,38 @@ namespace Crystal {
 
 	void EditorLayer::OpenScene(const std::filesystem::path path)
 	{
-		m_ActiveScene = CreateRef<Scene>();
-		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		if (m_SceneState != SceneState::Edit)
+			OnSceneStop();
+		if (path.extension().string() != ".crystal")
+		{
+			Console.Error("Could not load Scene - not a scene file");
+			return;
+		}
 
-		SceneSerializer serializer(m_ActiveScene);
-		serializer.Deserialize(path.string());
+		Ref<Scene> newScene = CreateRef<Scene>();
+		SceneSerializer serializer(newScene);
+		if (serializer.Deserialize(path.string()))
+		{
+			m_EditorScene = newScene;
+			m_EditorScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_SceneHierarchyPanel.SetContext(m_EditorScene);
+			Application::Get().GetWindow().SetWindowTitle("Crystal - " + path.string());
+
+			m_ActiveScene = m_EditorScene;
+
+			fp = path.string();
+		}
 	}
 
 	void EditorLayer::SaveScene()
 	{
 		CRYSTAL_INFO("Saving Scene {0}", fp);
+		Console.Log("Saving Scene");
 		if (!fp.empty())
 		{
 			SceneSerializer serializer(m_ActiveScene);
 			serializer.Serialize(fp);
-			Application::Get().GetWindow().SetWindowTitle("Crystal - " + fp);
+			Console.Log("Scene Saved Successfully!");
 		}
 		else
 		{
@@ -525,18 +530,34 @@ namespace Crystal {
 			fp = filepath;
 		}
 		Application::Get().GetWindow().SetWindowTitle("Crystal - " + filepath);
+		Console.Log("Scene Saved Successfully!");
 	}
 
 	void EditorLayer::OnScenePlay()
 	{
-		m_ActiveScene->OnRuntimeStart();
 		m_SceneState = SceneState::Play;
+		m_RuntimeScene = Scene::Copy(m_EditorScene);
+		m_ActiveScene->OnRuntimeStart();
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnSceneStop()
 	{
-		m_ActiveScene->OnRuntimeStop();
 		m_SceneState = SceneState::Edit;
+		m_ActiveScene->OnRuntimeStop();
+		m_RuntimeScene = nullptr;
+		m_ActiveScene = m_EditorScene;
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+	void EditorLayer::OnDuplicateEntity()
+	{
+		if (m_SceneState != SceneState::Edit)
+			return;
+
+		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
+		if (m_SceneHierarchyPanel.GetSelectedEntity())
+			m_EditorScene->DuplicateEntity(selectedEntity);
 	}
 
 	void EditorLayer::UI_Toolbar()
@@ -562,6 +583,12 @@ namespace Crystal {
 		ImGui::PopStyleColor();
 		ImGui::PopStyleVar();
 		ImGui::PopStyleVar();
+		ImGui::End();
+	}
+
+	void EditorLayer::UI_Consolebar()
+	{
+		ImGui::Begin("Consolebar");
 		ImGui::End();
 	}
 }
