@@ -32,4 +32,11 @@
     <ClCompile Include="src\SapphireEditorApp.cpp" />
     <ClCompile Include="assets\Scripts\CharacterController.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\Renderer2D_Circle.glsl" />
+    <None Include="assets\shaders\Renderer2D_Quad.glsl" />
+    <None Include="assets\shaders\RGBTriangle.glsl" />
+    <None Include="assets\shaders\Texture.glsl" />
+    <None Include="assets\shaders\Renderer2D_Line.glsl" />
+  </ItemGroup>
 </Project>

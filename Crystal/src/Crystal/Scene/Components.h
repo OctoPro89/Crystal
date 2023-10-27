@@ -59,6 +59,17 @@ namespace Crystal
 			: Color(color) {}
 	};
 
+	struct CircleRendererComponent
+	{
+		glm::vec4 Color = { 1.0f,1.0f,1.0f,1.0f };
+		float Radius = 0.5f; // 1 meter
+		float Thickness = 1.0f;
+		float Fade = 0.0f;
+
+		CircleRendererComponent() = default;
+		CircleRendererComponent(const CircleRendererComponent&) = default;
+	};
+
 	struct CameraComponent
 	{
 		Crystal::SceneCamera Camera;
@@ -69,7 +80,7 @@ namespace Crystal
 		CameraComponent(const CameraComponent&) = default;
 	};
 
-	//Forward decl
+	//Forward declaration
 	class ScriptableEntity;
 	struct NativeScriptComponent
 	{

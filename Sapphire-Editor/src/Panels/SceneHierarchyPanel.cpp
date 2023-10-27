@@ -49,6 +49,11 @@ namespace Crystal
 					Entity newEntity = m_Context->CreateEntity("Sprite");
 					newEntity.AddComponent<SpriteRendererComponent>();
 				}
+				if (ImGui::MenuItem("Create Circle"))
+				{
+					Entity newEntity = m_Context->CreateEntity("Circle");
+					newEntity.AddComponent<CircleRendererComponent>();
+				}
 				ImGui::EndPopup();
 			}
 		}
@@ -253,7 +258,14 @@ namespace Crystal
 					m_SelectionContext.AddComponent<SpriteRendererComponent>();
 					ImGui::CloseCurrentPopup();
 				}
+			}
+			if (!m_SelectionContext.HasComponent<CircleRendererComponent>()) {
 
+				if (ImGui::MenuItem("Circle Renderer") && !m_SelectionContext.HasComponent<CircleRendererComponent>())
+				{
+					m_SelectionContext.AddComponent<CircleRendererComponent>();
+					ImGui::CloseCurrentPopup();
+				}
 			}
 			if (!m_SelectionContext.HasComponent<Rigidbody2DComponent>()) {
 
@@ -304,7 +316,14 @@ namespace Crystal
 			}
 
 			ImGui::DragFloat("Tiling", &component.TilingFactor, 0.1f, 0.0f, 10000.0f);
-			});
+		});
+
+		DrawComponent<CircleRendererComponent>("Circle Renderer", entity, [](auto& component) {
+			auto flags = ImGuiColorEditFlags_NoSmallPreview & ImGuiColorEditFlags_DisplayHex & ImGuiColorEditFlags_AlphaBar & ImGuiColorEditFlags_AlphaPreviewHalf;
+			ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
+			ImGui::DragFloat("Thickness", &component.Thickness, 0.01f, 0.0f, 1.0f);
+			ImGui::DragFloat("Fade", &component.Fade, 0.0001f, 0.0f, 1.0f);
+		});
 
 		DrawComponent<CameraComponent>("Camera", entity, [](auto& component)
 		{
