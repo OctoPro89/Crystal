@@ -101,6 +101,8 @@ namespace Crystal {
 			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 		}
 
+		OnOverlayRender();
+
 		m_FrameBuffer->Unbind();
 	}
 
@@ -208,64 +210,6 @@ namespace Crystal {
 			ImGui::End();
 		}
 
-		if (preferencesWindow)
-		{
-			ImGui::Begin("Preferences");
-			if (ImGui::TreeNodeEx("Fonts"))
-			{
-				if (ImGui::MenuItem("Open Sans"))
-				{
-					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[5];
-				}
-				if (ImGui::MenuItem("Open Sans Bold"))
-				{
-					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[4];
-				}
-				if (ImGui::MenuItem("Roboto"))
-				{
-					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[3];
-				}
-				if (ImGui::MenuItem("Roboto Bold"))
-				{
-					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[2];
-				}
-				if (ImGui::MenuItem("Kalam"))
-				{
-					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[1];
-				}
-				if (ImGui::MenuItem("Kalam Bold"))
-				{
-					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[0];
-				}
-				ImGui::TreePop();
-			}
-			if (ImGui::TreeNodeEx("Themes & Colors"))
-			{
-				if (ImGui::MenuItem("Default"))
-				{
-					Application::Get().GetImGuiLayer()->SetDefaultThemeColors();
-				}
-				if (ImGui::MenuItem("Default Light"))
-				{
-					Application::Get().GetImGuiLayer()->SetDefaultLightColors();
-				}
-				if (ImGui::MenuItem("Default Dark"))
-				{
-					Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
-				}
-				if (ImGui::MenuItem("Dark Blue"))
-				{
-					Application::Get().GetImGuiLayer()->SetDarkThemeColors();
-				}
-				if (ImGui::MenuItem("Monochrome"))
-				{
-					Application::Get().GetImGuiLayer()->SetMonochromeTheme();
-				}
-				ImGui::TreePop();
-			}
-			ImGui::End();
-		}
-
 		m_SceneHierarchyPanel.OnImGuiRender();
 		m_ContentBrowserPanel.OnImGuiRender();
 		Console.OnImGuiRender();
@@ -370,6 +314,7 @@ namespace Crystal {
 		ImGui::PopStyleVar();
 
 		UI_Toolbar();
+		if (preferencesWindow) { UI_Preferences(); }
 
 		ImGui::End();
 	}
@@ -455,6 +400,55 @@ namespace Crystal {
 				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
 		}
 		return false;
+	}
+
+	void EditorLayer::OnOverlayRender()
+	{
+		if (m_ShowPhysicsColliders) {
+			if (m_SceneState == SceneState::Play)
+			{
+				Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
+				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
+			}
+			else
+				Renderer2D::BeginScene(m_EditorCamera);
+
+			// Circle Collider
+			{
+				auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
+				for (auto entity : view)
+				{
+					auto [tc, cc2d] = view.get<TransformComponent, CircleCollider2DComponent>(entity);
+
+					glm::vec3 translation = tc.Translation + glm::vec3(cc2d.Offset, 0.001f);
+					glm::vec3 scale = tc.Scale * glm::vec3(cc2d.Radius * 2.0f);
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
+						* glm::scale(glm::mat4(1.0f), scale);
+
+					Renderer2D::DrawCircle(transform, SphereColliderColor, 0.01f);
+				}
+			}
+
+			// Box Collider
+			{
+				auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, BoxCollider2DComponent>();
+				for (auto entity : view)
+				{
+					auto [tc, bc2d] = view.get<TransformComponent, BoxCollider2DComponent>(entity);
+
+					glm::vec3 translation = tc.Translation + glm::vec3(bc2d.Offset, 0.001f);
+					float rotation = tc.Rotation.z;
+					glm::vec3 scale = tc.Scale * glm::vec3(bc2d.Size * 2.0f, 1.0f);
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
+						* glm::rotate(glm::mat4(1.0f), tc.Rotation.z, glm::vec3(0, 0, 1))
+						* glm::scale(glm::mat4(1.0f), scale);
+
+					Renderer2D::DrawRect(transform, QuadColliderColor);
+				}
+			}
+
+			Renderer2D::EndScene();
+		}
 	}
 
 	void EditorLayer::NewScene()
@@ -578,6 +572,75 @@ namespace Crystal {
 		ImGui::PopStyleColor();
 		ImGui::PopStyleVar();
 		ImGui::PopStyleVar();
+		ImGui::End();
+	}
+
+	void EditorLayer::UI_Preferences()
+	{
+		ImGui::Begin("Preferences");
+		if (ImGui::TreeNodeEx("Fonts"))
+		{
+			if (ImGui::MenuItem("Open Sans"))
+			{
+				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[5];
+			}
+			if (ImGui::MenuItem("Open Sans Bold"))
+			{
+				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[4];
+			}
+			if (ImGui::MenuItem("Roboto"))
+			{
+				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[3];
+			}
+			if (ImGui::MenuItem("Roboto Bold"))
+			{
+				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[2];
+			}
+			if (ImGui::MenuItem("Kalam"))
+			{
+				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[1];
+			}
+			if (ImGui::MenuItem("Kalam Bold"))
+			{
+				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[0];
+			}
+			ImGui::TreePop();
+		}
+		if (ImGui::TreeNodeEx("Themes"))
+		{
+			if (ImGui::MenuItem("Default"))
+			{
+				Application::Get().GetImGuiLayer()->SetDefaultThemeColors();
+			}
+			if (ImGui::MenuItem("Default Light"))
+			{
+				Application::Get().GetImGuiLayer()->SetDefaultLightColors();
+			}
+			if (ImGui::MenuItem("Default Dark"))
+			{
+				Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
+			}
+			if (ImGui::MenuItem("Dark Blue"))
+			{
+				Application::Get().GetImGuiLayer()->SetDarkThemeColors();
+			}
+			if (ImGui::MenuItem("Monochrome"))
+			{
+				Application::Get().GetImGuiLayer()->SetMonochromeTheme();
+			}
+			ImGui::TreePop();
+		}
+		if (ImGui::TreeNodeEx("Components"))
+		{
+			if (ImGui::TreeNodeEx("Physics Colliders"))
+			{
+				ImGui::ColorEdit4("Sphere Collider Outline", glm::value_ptr(SphereColliderColor));
+				ImGui::ColorEdit4("Box Collider Outline", glm::value_ptr(QuadColliderColor));
+				ImGui::Checkbox("Show Physics Colliders", &m_ShowPhysicsColliders);
+				ImGui::TreePop();
+			}
+			ImGui::TreePop();
+		}
 		ImGui::End();
 	}
 }

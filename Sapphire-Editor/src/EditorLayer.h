@@ -24,6 +24,8 @@ namespace Crystal {
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
+		void OnOverlayRender();
+
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path path);
@@ -39,6 +41,7 @@ namespace Crystal {
 
 		// Ui Panels
 		void UI_Toolbar();
+		void UI_Preferences();
 	private:
 		//temp
 		Ref<VertexArray> m_VertexArray;
@@ -89,5 +92,10 @@ namespace Crystal {
 
 		// Editor Resources
 		Ref<Texture2D> m_IconPlay, m_IconStop;
+
+		// Preferences
+		glm::vec4 SphereColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+		glm::vec4 QuadColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+		bool m_ShowPhysicsColliders = true;
 	};
 }
