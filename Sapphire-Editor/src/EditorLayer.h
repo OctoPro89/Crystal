@@ -39,7 +39,6 @@ namespace Crystal {
 
 		// Ui Panels
 		void UI_Toolbar();
-		void UI_Consolebar();
 	private:
 		//temp
 		Ref<VertexArray> m_VertexArray;

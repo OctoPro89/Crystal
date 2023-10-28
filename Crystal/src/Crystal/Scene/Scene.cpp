@@ -12,6 +12,7 @@
 #include <box2d/b2_body.h>
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
+#include <box2d/b2_circle_shape.h>
 
 namespace Crystal {
 
@@ -89,6 +90,7 @@ namespace Crystal {
 		CopyComponent<NativeScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		CopyComponent<CircleCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
 		return newScene;
 	}
@@ -146,6 +148,23 @@ namespace Crystal {
 				fixureDef.restitutionThreshold = bc2d.RestitutionThreshold;
 				body->CreateFixture(&fixureDef);
 			}
+
+			if (entity.HasComponent<CircleCollider2DComponent>())
+			{
+				auto& cc2d = entity.GetComponent<CircleCollider2DComponent>();
+
+				b2CircleShape circleShape;
+				circleShape.m_p.Set(cc2d.Offset.x, cc2d.Offset.y);
+				circleShape.m_radius = cc2d.Radius * transform.Scale.x;
+
+				b2FixtureDef fixureDef;
+				fixureDef.shape = &circleShape;
+				fixureDef.density = cc2d.Density;
+				fixureDef.friction = cc2d.Friction;
+				fixureDef.restitution = cc2d.Restitution;
+				fixureDef.restitutionThreshold = cc2d.RestitutionThreshold;
+				body->CreateFixture(&fixureDef);
+			}
 		}
 	}
 
@@ -161,17 +180,17 @@ namespace Crystal {
 		{
 			//FIX THIS
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+			{
+				// TODO: Move to Scene::OnScenePlay
+				if (!nsc.Instance)
 				{
-					// TODO: Move to Scene::OnScenePlay
-					if (!nsc.Instance)
-					{
-						nsc.Instance = nsc.InstantiateScript();
-						nsc.Instance->m_Entity = Entity{ entity, this };
-						nsc.Instance->OnCreate();
-					}
+					nsc.Instance = nsc.InstantiateScript();
+					nsc.Instance->m_Entity = Entity{ entity, this };
+					nsc.Instance->OnCreate();
+				}
 
-					nsc.Instance->OnUpdate(ts);
-				});
+				nsc.Instance->OnUpdate(ts);
+			});
 		}
 
 		// Physics
@@ -241,9 +260,6 @@ namespace Crystal {
 				}
 			}
 
-			//Draw Lines
-			Renderer2D::DrawLine(glm::vec3(0.0f), glm::vec3(5.0f), glm::vec4(1,0,1,1));
-
 			Renderer2D::EndScene();
 		}
 
@@ -305,6 +321,7 @@ namespace Crystal {
 		CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
 		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
 		CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
+		CopyComponentIfExists<CircleCollider2DComponent>(newEntity, entity);
 	}
 
 	Entity Scene::GetPrimaryCameraEntity()
@@ -369,6 +386,11 @@ namespace Crystal {
 
 	template<>
 	void Scene::OnComponentAdded<CircleRendererComponent>(Entity entity, CircleRendererComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
 	{
 	}
 }

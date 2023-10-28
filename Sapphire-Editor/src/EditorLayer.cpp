@@ -370,7 +370,6 @@ namespace Crystal {
 		ImGui::PopStyleVar();
 
 		UI_Toolbar();
-		UI_Consolebar();
 
 		ImGui::End();
 	}
@@ -579,12 +578,6 @@ namespace Crystal {
 		ImGui::PopStyleColor();
 		ImGui::PopStyleVar();
 		ImGui::PopStyleVar();
-		ImGui::End();
-	}
-
-	void EditorLayer::UI_Consolebar()
-	{
-		ImGui::Begin("Consolebar");
 		ImGui::End();
 	}
 }
