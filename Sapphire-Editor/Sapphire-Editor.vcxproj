@@ -138,14 +138,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="assets\Scripts\CharacterController.hpp" />
     <ClInclude Include="src\EditorLayer.h" />
     <ClInclude Include="src\Panels\ConsolePanel.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="assets\Scripts\CharacterController.cpp" />
     <ClCompile Include="src\EditorLayer.cpp" />
     <ClCompile Include="src\Panels\ConsolePanel.cpp" />
     <ClCompile Include="src\Panels\ContentBrowserPanel.cpp" />
@@ -156,13 +154,6 @@
     <ProjectReference Include="..\Crystal\Crystal.vcxproj">
       <Project>{873AF83B-F319-77D7-FC31-02AE6890DD38}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\Renderer2D_Circle.glsl" />
-    <None Include="assets\shaders\Renderer2D_Line.glsl" />
-    <None Include="assets\shaders\Renderer2D_Quad.glsl" />
-    <None Include="assets\shaders\RGBTriangle.glsl" />
-    <None Include="assets\shaders\Texture.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

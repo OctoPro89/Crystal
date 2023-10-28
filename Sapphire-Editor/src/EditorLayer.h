@@ -35,6 +35,9 @@ namespace Crystal {
 		void OnScenePlay();
 		void OnSceneStop();
 
+		void OnSimulationPlay();
+		void OnSimulationStop();
+
 		void OnDuplicateEntity();
 
 		void SerializeScene(Ref<Scene> scene, const std::string& path);
@@ -80,7 +83,7 @@ namespace Crystal {
 
 		enum class SceneState
 		{
-			Edit = 0, Play = 1
+			Edit = 0, Play = 1, Simulate = 2
 		};
 
 		SceneState m_SceneState = SceneState::Edit;
@@ -91,7 +94,7 @@ namespace Crystal {
 		ConsolePanel Console;
 
 		// Editor Resources
-		Ref<Texture2D> m_IconPlay, m_IconStop;
+		Ref<Texture2D> m_IconPlay, m_IconStop, m_IconSimulate;
 
 		// Preferences
 		glm::vec4 SphereColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);

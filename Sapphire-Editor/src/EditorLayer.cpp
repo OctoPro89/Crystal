@@ -22,6 +22,7 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION();
 
 		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
+		m_IconSimulate = Texture2D::Create("Resources/Icons/PhysicsPlay.png");
 		m_IconStop = Texture2D::Create("Resources/Icons/Stop.png");
 
 		FrameBufferSpecification fbSpec;
@@ -533,6 +534,32 @@ namespace Crystal {
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 
+	void EditorLayer::OnSimulationPlay()
+	{
+		switch (m_SceneState)
+		{
+		case SceneState::Play: 
+		{
+			m_ActiveScene->OnRuntimeStop();
+			break;
+		}
+		case SceneState::Simulate:
+			m_ActiveScene->OnSimulationStop();
+		}
+		m_SceneState = SceneState::Simulate;
+		m_ActiveScene = Scene::Copy(m_EditorScene);
+		m_ActiveScene->OnSimulationStart();
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+	void EditorLayer::OnSimulationStop()
+	{
+		m_SceneState = SceneState::Edit;
+		m_ActiveScene->OnSimulationStop();
+		m_ActiveScene = m_EditorScene;
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
 	void EditorLayer::OnDuplicateEntity()
 	{
 		if (m_SceneState != SceneState::Edit)
@@ -553,25 +580,36 @@ namespace Crystal {
 	{
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0,1 });
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemInnerSpacing, { 0,0 });
-		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-		float size = ImGui::GetWindowHeight() - 4;
-		Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
-		ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * .5f));
 		ImGui::PushStyleColor(ImGuiCol_Button, { 0.0f,0.0f,0.0f,0.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.0f,0.0f,0.0f,0.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.5f,0.5f,0.5f,0.5f });
-		if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), {0,0},{1,1}, 0))
+		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+		float size = ImGui::GetWindowHeight() - 4;
 		{
-			if (m_SceneState == SceneState::Edit)
-				OnScenePlay();
-			else if (m_SceneState == SceneState::Play)
-				OnSceneStop();
+			Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
+			ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * .5f));
+
+			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0))
+			{
+				if (m_SceneState == SceneState::Edit)
+					OnScenePlay();
+				else if (m_SceneState == SceneState::Play)
+					OnSceneStop();
+			}
 		}
-		ImGui::PopStyleColor();
-		ImGui::PopStyleColor();
-		ImGui::PopStyleColor();
-		ImGui::PopStyleVar();
-		ImGui::PopStyleVar();
+		ImGui::SameLine();
+		{
+			Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconSimulate : m_IconStop;
+			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0))
+			{
+				if (m_SceneState == SceneState::Edit)
+					OnSimulationPlay();
+				else if (m_SceneState == SceneState::Play)
+					OnSimulationStop();
+			}
+		}
+		ImGui::PopStyleColor(3);
+		ImGui::PopStyleVar(2);
 		ImGui::End();
 	}
 
