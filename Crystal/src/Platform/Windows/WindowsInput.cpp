@@ -10,7 +10,7 @@ namespace Crystal {
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		int state = glfwGetKey(window,(int)keycode);
-		return state == GLFW_PRESS || state == GLFW_REPEAT;
+		return state == GLFW_PRESS;
 	}
 	bool Input::IsMouseButtonPressed(MouseCode button)
 	{

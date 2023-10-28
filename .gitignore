@@ -2,6 +2,7 @@
 .vs
 bin-int
 bin
+bin\Debug-windows-x86_64
 Scripts
 Crystal/vendor/VulkanSDK
 Sandbox/*.json

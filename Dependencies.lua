@@ -12,23 +12,22 @@ IncludeDir["ImGui"] = "%{wks.location}/Crystal/vendor/ImGui"
 IncludeDir["ImGuizmo"] = "%{wks.location}/Crystal/vendor/ImGuizmo"
 IncludeDir["glm"] = "%{wks.location}/Crystal/vendor/glm"
 IncludeDir["entt"] = "%{wks.location}/Crystal/vendor/entt"
-IncludeDir["shaderc"] = "%{wks.location}/Crystal/vendor/shaderc/include"
-IncludeDir["SPIRV_Cross"] = "%{wks.location}/Crystal/vendor/SPIRV-Cross"
+IncludeDir["shaderc"] = "%{VULKAN_SDK}/Include/shaderc"
+IncludeDir["SPIRV_Cross"] = "%{VULKAN_SDK}/Include/spirv-cross"
 IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
 
 LibraryDir = {}
 
 LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
-LibraryDir["VulkanSDK_Debug"] = "%{wks.location}/Crystal/vendor/VulkanSDK/Lib"
 
 Library = {}
 Library["Vulkan"] = "%{LibraryDir.VulkanSDK}/vulkan-1.lib"
 Library["VulkanUtils"] = "%{LibraryDir.VulkanSDK}/VkLayer_utils.lib"
 
-Library["ShaderC_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/shaderc_sharedd.lib"
-Library["SPIRV_Cross_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/spirv-cross-cored.lib"
-Library["SPIRV_Cross_GLSL_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/spirv-cross-glsld.lib"
-Library["SPIRV_Tools_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/SPIRV-Toolsd.lib"
+Library["ShaderC_Debug"] = "%{LibraryDir.VulkanSDK}/shaderc_sharedd.lib"
+Library["SPIRV_Cross_Debug"] = "%{LibraryDir.VulkanSDK}/spirv-cross-cored.lib"
+Library["SPIRV_Cross_GLSL_Debug"] = "%{LibraryDir.VulkanSDK}/spirv-cross-glsld.lib"
+Library["SPIRV_Tools_Debug"] = "%{LibraryDir.VulkanSDK}/SPIRV-Toolsd.lib"
 
 Library["ShaderC_Release"] = "%{LibraryDir.VulkanSDK}/shaderc_shared.lib"
 Library["SPIRV_Cross_Release"] = "%{LibraryDir.VulkanSDK}/spirv-cross-core.lib"

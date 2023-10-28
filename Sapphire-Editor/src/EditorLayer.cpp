@@ -31,7 +31,8 @@ namespace Crystal {
 		fbSpec.Height = 720;
 		m_FrameBuffer = FrameBuffer::Create(fbSpec);
 
-		m_ActiveScene = CreateRef<Scene>();
+		m_EditorScene = CreateRef<Scene>();
+		m_ActiveScene = m_EditorScene;
 
 		auto commandLineArgs = Application::Get().GetCommandLineArgs();
 		if (commandLineArgs.Count > 1)
@@ -78,6 +79,13 @@ namespace Crystal {
 				m_EditorCamera.OnUpdate(ts);
 				// Update Scene
 				m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
+				break;
+			}
+			case SceneState::Simulate:
+			{
+				m_EditorCamera.OnUpdate(ts);
+				// Update Scene
+				m_ActiveScene->OnUpdateSimulation(ts, m_EditorCamera);
 				break;
 			}
 			case SceneState::Play:
@@ -332,7 +340,7 @@ namespace Crystal {
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
 	{
 		//Shortcuts
-		if (e.GetRepeatCount() > 0)
+		if (e.IsRepeat())
 			return false;
 
 		bool control = (Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl));
@@ -409,6 +417,8 @@ namespace Crystal {
 			if (m_SceneState == SceneState::Play)
 			{
 				Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
+				if (!camera)
+					return;
 				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
 			}
 			else
@@ -520,6 +530,8 @@ namespace Crystal {
 
 	void EditorLayer::OnScenePlay()
 	{
+		if (m_SceneState == SceneState::Simulate)
+			OnSceneStop();
 		m_SceneState = SceneState::Play;
 		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
@@ -536,16 +548,8 @@ namespace Crystal {
 
 	void EditorLayer::OnSimulationPlay()
 	{
-		switch (m_SceneState)
-		{
-		case SceneState::Play: 
-		{
-			m_ActiveScene->OnRuntimeStop();
-			break;
-		}
-		case SceneState::Simulate:
-			m_ActiveScene->OnSimulationStop();
-		}
+		if (m_SceneState == SceneState::Play)
+			OnSceneStop();
 		m_SceneState = SceneState::Simulate;
 		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnSimulationStart();
@@ -584,14 +588,18 @@ namespace Crystal {
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, { 0.0f,0.0f,0.0f,0.0f });
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, { 0.5f,0.5f,0.5f,0.5f });
 		ImGui::Begin("##toolbar", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+
+		bool toolbarEnabled = (bool)m_ActiveScene;
+
+		ImVec4 tintColor = toolbarEnabled ? ImVec4{ 1, 1, 1, 1 } : ImVec4{ 1, 1, 1, 1 };
+		
 		float size = ImGui::GetWindowHeight() - 4;
 		{
-			Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconPlay : m_IconStop;
+			Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate) ? m_IconPlay : m_IconStop;
 			ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * .5f));
-
-			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0))
+			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 			{
-				if (m_SceneState == SceneState::Edit)
+				if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate)
 					OnScenePlay();
 				else if (m_SceneState == SceneState::Play)
 					OnSceneStop();
@@ -599,13 +607,13 @@ namespace Crystal {
 		}
 		ImGui::SameLine();
 		{
-			Ref<Texture2D> icon = m_SceneState == SceneState::Edit ? m_IconSimulate : m_IconStop;
-			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0))
+			Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
+			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 			{
-				if (m_SceneState == SceneState::Edit)
+				if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play)
 					OnSimulationPlay();
-				else if (m_SceneState == SceneState::Play)
-					OnSimulationStop();
+				else if (m_SceneState == SceneState::Simulate)
+					OnSceneStop();
 			}
 		}
 		ImGui::PopStyleColor(3);
