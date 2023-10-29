@@ -26,6 +26,11 @@ namespace Crystal {
 		}
 	};
 
+	struct ApplicationSpecification
+	{
+
+	};
+
 	class Application
 	{
 	public:

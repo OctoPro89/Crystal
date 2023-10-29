@@ -43,6 +43,7 @@ namespace Crystal {
 		}
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
+		Renderer2D::SetLineWidth(3.0f);
 		Console.Log("Editor Setup");
 	}
 
@@ -331,7 +332,10 @@ namespace Crystal {
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_EditorCamera.OnEvent(e);
-
+		if (m_SceneState == SceneState::Edit)
+		{
+			m_EditorCamera.OnEvent(e);
+		}
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 		dispatcher.Dispatch<MouseButtonPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
@@ -456,6 +460,12 @@ namespace Crystal {
 
 					Renderer2D::DrawRect(transform, QuadColliderColor);
 				}
+			}
+
+			// Draw outline
+			if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) {
+				const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
+				Renderer2D::DrawRect(transform.GetTransform(), EntityOutlineColor);
 			}
 
 			Renderer2D::EndScene();
@@ -685,6 +695,11 @@ namespace Crystal {
 				ImGui::Checkbox("Show Physics Colliders", &m_ShowPhysicsColliders);
 				ImGui::TreePop();
 			}
+			ImGui::TreePop();
+		}
+		if (ImGui::TreeNodeEx("Entities"))
+		{
+			ImGui::ColorEdit4("Entity outline color", glm::value_ptr(EntityOutlineColor));
 			ImGui::TreePop();
 		}
 		ImGui::End();

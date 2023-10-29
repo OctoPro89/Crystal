@@ -8,6 +8,7 @@ class Sandbox : public Crystal::Application
 {
 public:
 	Sandbox() 
+		: Application("Sandbox app")
 	{
 		//PushLayer(new ExampleLayer());
 		PushLayer(new Sandbox2D());

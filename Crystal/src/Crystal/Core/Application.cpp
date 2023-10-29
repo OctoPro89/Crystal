@@ -20,6 +20,10 @@ namespace Crystal {
 
 		CRYSTAL_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
+
+		// Set working directory
+		std::filesystem::current_path();
+
 		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(CRYSTAL_BIND_EVENT_FN(Application::OnEvent));
 

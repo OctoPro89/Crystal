@@ -34,12 +34,12 @@ namespace Crystal {
 
 		float fontSize = 18.0f;
 		
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Kalam/Kalam-Bold.ttf", fontSize);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Kalam/Kalam-Regular.ttf", fontSize);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Bold.ttf", fontSize);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/Roboto/Roboto-Medium.ttf", fontSize);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/OpenSans-Bold.ttf", fontSize);
-		io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans/OpenSans-Regular.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/Kalam/Kalam-Bold.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/Kalam/Kalam-Regular.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/Roboto/Roboto-Bold.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/Roboto/Roboto-Medium.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/OpenSans/OpenSans-Bold.ttf", fontSize);
+		io.Fonts->AddFontFromFileTTF("Resources/Fonts/OpenSans/OpenSans-Regular.ttf", fontSize);
 		io.FontDefault = io.Fonts->Fonts[5];
 
 		ImGuiStyle& style = ImGui::GetStyle();

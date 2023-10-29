@@ -8,4 +8,4 @@ Crystal/vendor/VulkanSDK
 Sandbox/*.json
 *.json
 *.lib
-*.pdb
+*.idb
