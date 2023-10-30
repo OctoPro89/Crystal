@@ -417,7 +417,7 @@ namespace Crystal {
 
 	void EditorLayer::OnOverlayRender()
 	{
-		if (m_ShowPhysicsColliders) {
+		if (CrntPreferences.ShowPhysicsColliders) {
 			if (m_SceneState == SceneState::Play)
 			{
 				Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
@@ -440,7 +440,7 @@ namespace Crystal {
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
 						* glm::scale(glm::mat4(1.0f), scale);
 
-					Renderer2D::DrawCircle(transform, SphereColliderColor, 0.01f);
+					Renderer2D::DrawCircle(transform, CrntPreferences.SphereColliderColor, 0.01f);
 				}
 			}
 
@@ -455,17 +455,18 @@ namespace Crystal {
 					float rotation = tc.Rotation.z;
 					glm::vec3 scale = tc.Scale * glm::vec3(bc2d.Size * 2.0f, 1.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
+						* glm::translate(glm::mat4(1.0f), glm::vec3(bc2d.Offset, 0.001f))
 						* glm::rotate(glm::mat4(1.0f), tc.Rotation.z, glm::vec3(0, 0, 1))
 						* glm::scale(glm::mat4(1.0f), scale);
 
-					Renderer2D::DrawRect(transform, QuadColliderColor);
+					Renderer2D::DrawRect(transform, CrntPreferences.QuadColliderColor);
 				}
 			}
 
 			// Draw outline
 			if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) {
 				const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
-				Renderer2D::DrawRect(transform.GetTransform(), EntityOutlineColor);
+				Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences.EntityOutlineColor);
 			}
 
 			Renderer2D::EndScene();
@@ -667,22 +668,27 @@ namespace Crystal {
 			if (ImGui::MenuItem("Default"))
 			{
 				Application::Get().GetImGuiLayer()->SetDefaultThemeColors();
+				CrntPreferences.Font::Default;
 			}
 			if (ImGui::MenuItem("Default Light"))
 			{
 				Application::Get().GetImGuiLayer()->SetDefaultLightColors();
+				CrntPreferences.Font::DefaultLight;
 			}
 			if (ImGui::MenuItem("Default Dark"))
 			{
 				Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
+				CrntPreferences.Font::DefaultDark;
 			}
 			if (ImGui::MenuItem("Dark Blue"))
 			{
 				Application::Get().GetImGuiLayer()->SetDarkThemeColors();
+				CrntPreferences.Font::Dark;
 			}
 			if (ImGui::MenuItem("Monochrome"))
 			{
 				Application::Get().GetImGuiLayer()->SetMonochromeTheme();
+				CrntPreferences.Font::Monochrome;
 			}
 			ImGui::TreePop();
 		}
@@ -690,16 +696,16 @@ namespace Crystal {
 		{
 			if (ImGui::TreeNodeEx("Physics Colliders"))
 			{
-				ImGui::ColorEdit4("Sphere Collider Outline", glm::value_ptr(SphereColliderColor));
-				ImGui::ColorEdit4("Box Collider Outline", glm::value_ptr(QuadColliderColor));
-				ImGui::Checkbox("Show Physics Colliders", &m_ShowPhysicsColliders);
+				ImGui::ColorEdit4("Sphere Collider Outline", glm::value_ptr(CrntPreferences.SphereColliderColor));
+				ImGui::ColorEdit4("Box Collider Outline", glm::value_ptr(CrntPreferences.QuadColliderColor));
+				ImGui::Checkbox("Show Physics Colliders", &CrntPreferences.ShowPhysicsColliders);
 				ImGui::TreePop();
 			}
 			ImGui::TreePop();
 		}
 		if (ImGui::TreeNodeEx("Entities"))
 		{
-			ImGui::ColorEdit4("Entity outline color", glm::value_ptr(EntityOutlineColor));
+			ImGui::ColorEdit4("Entity outline color", glm::value_ptr(CrntPreferences.EntityOutlineColor));
 			ImGui::TreePop();
 		}
 		ImGui::End();

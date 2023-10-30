@@ -97,9 +97,19 @@ namespace Crystal {
 		Ref<Texture2D> m_IconPlay, m_IconStop, m_IconSimulate;
 
 		// Preferences
-		glm::vec4 SphereColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-		glm::vec4 QuadColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-		glm::vec4 EntityOutlineColor = glm::vec4(1, 0, 0, 1);
-		bool m_ShowPhysicsColliders = true;
+		struct Preferences
+		{
+			enum Font
+			{
+				Default, DefaultLight, DefaultDark, Dark, Monochrome
+			};
+
+			glm::vec4 SphereColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+			glm::vec4 QuadColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+			glm::vec4 EntityOutlineColor = glm::vec4(1, 0, 0, 1);
+			bool ShowPhysicsColliders = true;
+		};
+
+		Preferences CrntPreferences;
 	};
 }

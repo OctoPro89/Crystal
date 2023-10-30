@@ -28,6 +28,9 @@
     <Filter Include="src\Crystal\Scene">
       <UniqueIdentifier>{3BA69F8A-A7BC-9D20-F033-29425C896EA8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Crystal\Scripting">
+      <UniqueIdentifier>{200D4260-8C79-FD5A-556D-95B8C1981FC3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Crystal\Utils">
       <UniqueIdentifier>{7E3ACD8A-EA50-CB20-33C8-56429F1D9CA8}</UniqueIdentifier>
     </Filter>
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="src\Crystal\Scene\ScriptableEntity.h">
       <Filter>src\Crystal\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Scripting\ScriptEngine.h">
+      <Filter>src\Crystal\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Utils\PlatformUtils.h">
       <Filter>src\Crystal\Utils</Filter>
@@ -1582,6 +1588,9 @@
     </ClCompile>
     <ClCompile Include="src\Crystal\Scene\SceneSerializer.cpp">
       <Filter>src\Crystal\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Scripting\ScriptEngine.cpp">
+      <Filter>src\Crystal\Scripting</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\DirectX\DirectXBuffer.cpp">
       <Filter>src\Platform\DirectX</Filter>

@@ -77,6 +77,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\Crystal-ScriptCore\premake5.lua" />
     <None Include="..\..\Crystal\premake5.lua" />
     <None Include="..\..\Crystal\vendor\Box2D\premake5.lua" />
     <None Include="..\..\Crystal\vendor\GLFW\premake5.lua" />

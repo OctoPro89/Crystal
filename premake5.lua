@@ -33,6 +33,15 @@ group "Dependencies"
 	include "Crystal/vendor/yaml"
 group ""
 
-include "Crystal"
-include "Sandbox"
+group "Core"
+	include "Crystal"
+	include "Crystal-ScriptCore"
+group ""
+
+group "Tools"
 include "Sapphire-Editor"
+group ""
+
+group "Misc"
+	include "Sandbox"
+group ""

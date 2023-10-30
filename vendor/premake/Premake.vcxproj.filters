@@ -25,6 +25,9 @@
     <Filter Include="..\Crystal\vendor\yaml">
       <UniqueIdentifier>{F1DB00E8-DDD5-293A-C642-C04AB2DB8FA6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\Crystal-ScriptCore">
+      <UniqueIdentifier>{FD862B1F-69F3-E619-32E7-7E779E120982}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\Sandbox">
       <UniqueIdentifier>{3F7B6B1D-2B33-AD6A-943A-86C68011485B}</UniqueIdentifier>
     </Filter>
@@ -33,6 +36,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Crystal-ScriptCore\premake5.lua">
+      <Filter>..\Crystal-ScriptCore</Filter>
+    </None>
     <None Include="..\..\Crystal\premake5.lua">
       <Filter>..\Crystal</Filter>
     </None>

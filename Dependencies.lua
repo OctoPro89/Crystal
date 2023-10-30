@@ -15,12 +15,15 @@ IncludeDir["entt"] = "%{wks.location}/Crystal/vendor/entt"
 IncludeDir["shaderc"] = "%{VULKAN_SDK}/Include/shaderc"
 IncludeDir["SPIRV_Cross"] = "%{VULKAN_SDK}/Include/spirv-cross"
 IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
+IncludeDir["mono"] = "%{wks.location}/Crystal/vendor/mono/include"
 
 LibraryDir = {}
 
 LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
+LibraryDir["mono"] = "%{wks.location}/Crystal/vendor/mono/lib/%{cfg.buildcfg}"
 
 Library = {}
+Library["mono"] = "%{LibraryDir.mono}/libmono-static-sgen.lib"
 Library["Vulkan"] = "%{LibraryDir.VulkanSDK}/vulkan-1.lib"
 Library["VulkanUtils"] = "%{LibraryDir.VulkanSDK}/VkLayer_utils.lib"
 

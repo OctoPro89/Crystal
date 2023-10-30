@@ -1,9 +1,8 @@
 #include "crystalpch.h"
 #include "Application.h"
 #include "Crystal/Renderer/Renderer.h"
-#include "Input.h"
-#include "Keycodes.h"
 #include "Crystal/Core/Timestep.h"
+#include "Crystal/Scripting/ScriptEngine.h"
 #include <filesystem>
 #include <GLFW/glfw3.h>
 
@@ -29,6 +28,7 @@ namespace Crystal {
 		m_Window->SetEventCallback(CRYSTAL_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
+		ScriptEngine::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

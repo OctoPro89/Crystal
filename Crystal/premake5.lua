@@ -40,6 +40,7 @@ project "Crystal"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.mono}",
 		"%{IncludeDir.yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.VulkanSDK}"
@@ -52,7 +53,8 @@ project "Crystal"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
-		"opengl32.lib"
+		"opengl32.lib",
+		"%{Library.mono}"
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
