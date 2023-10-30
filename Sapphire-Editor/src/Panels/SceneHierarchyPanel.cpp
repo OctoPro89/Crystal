@@ -48,6 +48,12 @@ namespace Crystal {
 			{
 				if (ImGui::MenuItem("Create Empty Entity"))
 					m_Context->CreateEntity("Empty Entity");
+				if (ImGui::MenuItem("Create Camera"))
+					m_Context->CreateEntity("Camera").AddComponent<CameraComponent>();
+				if (ImGui::MenuItem("Create Sprite"))
+					m_Context->CreateEntity("Sprite").AddComponent<SpriteRendererComponent>();
+				if (ImGui::MenuItem("Create Circle"))
+					m_Context->CreateEntity("Circle").AddComponent<CircleRendererComponent>();
 
 				ImGui::EndPopup();
 			}
