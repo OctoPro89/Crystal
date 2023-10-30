@@ -7,10 +7,9 @@
 class Sandbox : public Crystal::Application
 {
 public:
-	Sandbox() 
-		: Application("Sandbox app")
+	Sandbox(const Crystal::ApplicationSpecification& specification)
+		: Application(specification)
 	{
-		//PushLayer(new ExampleLayer());
 		PushLayer(new Sandbox2D());
 	}
 
@@ -19,6 +18,10 @@ public:
 	}
 };
 
-Crystal::Application* Crystal::CreateApplication() {
-	return new Sandbox();
+Crystal::Application* Crystal::CreateApplication(Crystal::ApplicationCommandLineArgs args) {
+	Crystal::ApplicationSpecification spec;
+	spec.Name = "Sandbox";
+	spec.WorkingDirectory = "../Sapphire-Editor";
+	spec.CommandLineArgs = args;
+	return new Sandbox(spec);
 }

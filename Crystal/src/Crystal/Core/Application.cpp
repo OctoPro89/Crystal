@@ -4,7 +4,7 @@
 #include "Input.h"
 #include "Keycodes.h"
 #include "Crystal/Core/Timestep.h"
-
+#include <filesystem>
 #include <GLFW/glfw3.h>
 
 namespace Crystal {
@@ -13,8 +13,8 @@ namespace Crystal {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::string& name, ApplicationCommandLineArgs args)
-		: m_CommandLineArgs(args)
+	Application::Application(const ApplicationSpecification& specification)
+		: m_Specification(specification)
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 
@@ -22,9 +22,10 @@ namespace Crystal {
 		s_Instance = this;
 
 		// Set working directory
-		std::filesystem::current_path();
+		if(!m_Specification.WorkingDirectory.empty())
+			std::filesystem::current_path(m_Specification.WorkingDirectory);
 
-		m_Window = Window::Create(WindowProps(name));
+		m_Window = Window::Create(WindowProps(m_Specification.Name));
 		m_Window->SetEventCallback(CRYSTAL_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();

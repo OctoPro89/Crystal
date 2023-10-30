@@ -8,8 +8,8 @@ namespace Crystal {
 	class SapphireEditor : public Crystal::Application
 	{
 	public:
-		SapphireEditor()
-			: Application("Crystal Editor")
+		SapphireEditor(const ApplicationSpecification& spec)
+			: Application(spec)
 		{
 			PushLayer(new EditorLayer());
 		}
@@ -19,7 +19,11 @@ namespace Crystal {
 		}
 	};
 
-	Application* Crystal::CreateApplication() {
-		return new SapphireEditor();
+	Application* Crystal::CreateApplication(ApplicationCommandLineArgs args) {
+		ApplicationSpecification spec;
+		spec.Name = "Sapphire-Editor";
+		spec.CommandLineArgs = args;
+
+		return new SapphireEditor(spec);
 	}
 }

@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Crystal.h"
-#include "Crystal/Renderer/ParticleSystem.h"
-#include <glm/ext/matrix_transform.hpp>
+#include <Crystal.h>
 
 class Sandbox2D : public Crystal::Layer
 {
@@ -19,11 +17,11 @@ public:
 private:
 	Crystal::OrthographicCameraController m_CameraController;
 
-	//temp
-	Crystal::Ref<Crystal::VertexArray> m_VertexArray;
-	Crystal::Ref<Crystal::Shader> m_Shader;
-	Crystal::Ref<Crystal::Texture2D> m_Texture;
+	// Temp
+	Crystal::Ref<Crystal::VertexArray> m_SquareVA;
+	Crystal::Ref<Crystal::Shader> m_FlatColorShader;
 
-	ParticleProps m_Particle;
-	ParticleSystem m_ParticleSystem = ParticleSystem(100000);
+	Crystal::Ref<Crystal::Texture2D> m_CheckerboardTexture;
+
+	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };
