@@ -12,7 +12,7 @@ namespace Crystal {
 	{
 	public:
 		EditorLayer();
-		inline ConsolePanel GetConsole() { return Console; }
+		inline ConsolePanel* GetConsole() { return &Console; }
 		virtual ~EditorLayer() = default;
 
 		virtual void OnAttach() override;
@@ -21,6 +21,7 @@ namespace Crystal {
 		virtual void OnUpdate(Timestep ts) override;
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
+
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);

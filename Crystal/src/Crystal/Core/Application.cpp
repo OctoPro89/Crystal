@@ -37,6 +37,7 @@ namespace Crystal {
 	Application::~Application()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
+		ScriptEngine::Shutdown();
 		Renderer::Shutdown();
 	}
 

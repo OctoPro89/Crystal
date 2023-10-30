@@ -67,6 +67,14 @@ project "Crystal"
 		{
 		}
 
+		links
+		{
+			"%{Library.WinSock}",
+			"%{Library.WinMM}",
+			"%{Library.WinVersion}",
+			"%{Library.WinBCrypt}",
+		}
+
 	filter "configurations:Debug"
 		defines "CRYSTAL_DEBUG"
 		runtime "Debug"

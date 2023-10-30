@@ -1,5 +1,4 @@
 #pragma once
-
 #include <memory>
 
 // Platform detection using predefined macros
