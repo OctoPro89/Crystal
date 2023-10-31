@@ -6,12 +6,71 @@
 
 namespace Crystal {
 
+	namespace Utils {
+
+		static char* ReadBytes(const std::filesystem::path& filepath, uint32_t* outSize)
+		{
+			std::ifstream stream(filepath, std::ios::binary | std::ios::ate);
+
+			if (!stream)
+			{
+				// Failed to open the file
+				CRYSTAL_CORE_ERROR("Could not load bytes with ifstream!");
+				return nullptr;
+			}
+
+			std::streampos end = stream.tellg();
+			stream.seekg(0, std::ios::beg);
+			uint32_t size = end - stream.tellg();
+
+			if (size == 0)
+			{
+				// File is empty
+				return nullptr;
+			}
+
+			char* buffer = new char[size];
+			stream.read((char*)buffer, size);
+			stream.close();
+
+			*outSize = size;
+			return buffer;
+		}
+
+		static MonoAssembly* LoadMonoAssembly(const std::filesystem::path& assemblyPath)
+		{
+			uint32_t fileSize = 0;
+			char* fileData = ReadBytes(assemblyPath, &fileSize);
+
+			// NOTE: We can't use this image for anything other than loading the assembly because this image doesn't have a reference to the assembly
+			MonoImageOpenStatus status;
+			MonoImage* image = mono_image_open_from_data_full(fileData, fileSize, 1, &status, 0);
+
+			if (status != MONO_IMAGE_OK)
+			{
+				const char* errorMessage = mono_image_strerror(status);
+				// Log some error message using the errorMessage data
+				CRYSTAL_CORE_ERROR("Mono Image Error!: {0}", errorMessage);
+				return nullptr;
+			}
+
+			MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.string().c_str(), &status, 0);
+			mono_image_close(image);
+
+			// Don't forget to free the file data
+			delete[] fileData;
+
+			return assembly;
+		}
+	}
+
 	struct ScriptEngineData
 	{
 		MonoDomain* RootDomain = nullptr;
 		MonoDomain* AppDomain = nullptr;
 
 		MonoAssembly* CoreAssembly = nullptr;
+		MonoImage* CoreAssemblyImage = nullptr;
 	};
 
 	static ScriptEngineData* s_Data = nullptr;
@@ -21,12 +80,26 @@ namespace Crystal {
 		s_Data = new ScriptEngineData();
 
 		InitMono();
+		LoadAssembly("Resources/Scripts/Crystal-ScriptCore.dll");
+		MonoImage* assemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
+	
 	}
 
 	void Crystal::ScriptEngine::Shutdown()
 	{
 		ShutdownMono();
 		delete s_Data;
+	}
+
+	void ScriptEngine::LoadAssembly(const std::filesystem::path& filepath)
+	{
+		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
+		mono_domain_set(s_Data->AppDomain, true);
+
+		mono_add_internal_call("Crystal.Main::NativeLog", NativeLog);
+
+		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
+		// PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
 
 	void ScriptEngine::ShutdownMono()
@@ -37,61 +110,6 @@ namespace Crystal {
 		s_Data->AppDomain = nullptr;
 		// mono_jit_cleanup(s_Data->RootDomain);
 		s_Data->RootDomain = nullptr;
-	}
-
-	char* ReadBytes(const std::string& filepath, uint32_t* outSize)
-	{
-		std::ifstream stream(filepath, std::ios::binary | std::ios::ate);
-
-		if (!stream)
-		{
-			// Failed to open the file
-			CRYSTAL_CORE_ERROR("Could not load bytes with ifstream!");
-			return nullptr;
-		}
-
-		std::streampos end = stream.tellg();
-		stream.seekg(0, std::ios::beg);
-		uint32_t size = end - stream.tellg();
-
-		if (size == 0)
-		{
-			// File is empty
-			return nullptr;
-		}
-
-		char* buffer = new char[size];
-		stream.read((char*)buffer, size);
-		stream.close();
-
-		*outSize = size;
-		return buffer;
-	}
-
-	MonoAssembly* LoadCSharpAssembly(const std::string& assemblyPath)
-	{
-		uint32_t fileSize = 0;
-		char* fileData = ReadBytes(assemblyPath, &fileSize);
-
-		// NOTE: We can't use this image for anything other than loading the assembly because this image doesn't have a reference to the assembly
-		MonoImageOpenStatus status;
-		MonoImage* image = mono_image_open_from_data_full(fileData, fileSize, 1, &status, 0);
-
-		if (status != MONO_IMAGE_OK)
-		{
-			const char* errorMessage = mono_image_strerror(status);
-			// Log some error message using the errorMessage data
-			CRYSTAL_CORE_ERROR("Mono Image Error!: {0}", errorMessage);
-			return nullptr;
-		}
-
-		MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.c_str(), &status, 0);
-		mono_image_close(image);
-
-		// Don't forget to free the file data
-		delete[] fileData;
-
-		return assembly;
 	}
 
 	void PrintAssemblyTypes(MonoAssembly* assembly)
@@ -112,6 +130,13 @@ namespace Crystal {
 		}
 	}
 
+	static void NativeLog(MonoString* string, int value)
+	{
+		char* str = mono_string_to_utf8(string);
+		std::cout << str << value << "\n";
+		mono_free(str);
+	}
+
 	void Crystal::ScriptEngine::InitMono()
 	{
 		mono_set_assemblies_path("mono/lib");
@@ -125,13 +150,7 @@ namespace Crystal {
 		}
 
 		s_Data->RootDomain = rootDomain;
-		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
-		mono_domain_set(s_Data->AppDomain, true);
 
-		s_Data->CoreAssembly = LoadCSharpAssembly("Resources/Scripts/Crystal-ScriptCore.dll");
-		PrintAssemblyTypes(s_Data->CoreAssembly);
-
-		MonoImage* assemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
 		MonoClass* monoClass = mono_class_from_name(assemblyImage, "Crystal", "Main");
 
 		MonoObject* instance = mono_object_new(s_Data->AppDomain, monoClass);
