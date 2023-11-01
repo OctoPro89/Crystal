@@ -1,6 +1,7 @@
 #pragma once
 #include <filesystem>
 #include <string>
+#include <Crystal/Scene/Scene.h>
 
 extern "C" {
 	typedef struct _MonoClass MonoClass;
@@ -12,24 +13,6 @@ extern "C" {
 
 namespace Crystal
 {
-	class ScriptEngine
-	{
-	public:
-		static void Init();
-		static void Shutdown();
-
-		static void LoadAssembly(const std::filesystem::path& filepath);
-
-		std::unordered_map<std::string, Ref<ScriptClass>> EntityClasses; 
-	private:
-		static void InitMono();
-		static void ShutdownMono();
-
-		static MonoObject* InstantiateClass(MonoClass* monoClass);
-		static void LoadAssemblyClasses(MonoAssembly* assembly);
-
-		friend class ScriptClass;
-	};
 
 	class ScriptClass
 	{
@@ -60,5 +43,28 @@ namespace Crystal
 		MonoObject* m_Instance = nullptr;
 		MonoMethod* m_OnCreateMethod = nullptr;
 		MonoMethod* m_OnUpdateMethod = nullptr;
+	};
+
+	class ScriptEngine
+	{
+	public:
+		static void Init();
+		static void Shutdown();
+
+		static void LoadAssembly(const std::filesystem::path& filepath);
+		static void OnRuntimeStart(Scene* scene);
+		static void OnRuntimeStop();
+		static bool EntityClassExists(const std::string& fullClassName);
+		static void OnCreateEntity(Entity entity);
+
+		static std::unordered_map<std::string, Ref<ScriptClass>> GetEntityClasses();
+	private:
+		static void InitMono();
+		static void ShutdownMono();
+
+		static MonoObject* InstantiateClass(MonoClass* monoClass);
+		static void LoadAssemblyClasses(MonoAssembly* assembly);
+
+		friend class ScriptClass;
 	};
 }

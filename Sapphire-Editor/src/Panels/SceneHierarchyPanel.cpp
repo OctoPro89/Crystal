@@ -1,14 +1,11 @@
 #include "SceneHierarchyPanel.h"
-
+#include "Crystal/Scripting/ScriptEngine.h"
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
-
 #include <glm/gtc/type_ptr.hpp>
 #include <filesystem>
-
 #include "Crystal/Scene/Components.h"
 #include <cstring>
-
 #ifdef _MSVC_LANG
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -248,6 +245,7 @@ namespace Crystal {
 			DisplayAddComponentEntry<Rigidbody2DComponent>("Rigidbody 2D");
 			DisplayAddComponentEntry<BoxCollider2DComponent>("Box Collider 2D");
 			DisplayAddComponentEntry<CircleCollider2DComponent>("Circle Collider 2D");
+			DisplayAddComponentEntry<ScriptComponent>("Script");
 
 			ImGui::EndPopup();
 		}
@@ -352,6 +350,25 @@ namespace Crystal {
 				ImGui::DragFloat("Fade", &component.Fade, 0.00025f, 0.0f, 1.0f);
 			});
 
+		DrawComponent<ScriptComponent>("Script", entity, [](auto& component)
+			{
+				bool scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);;
+				static char buffer[64];
+				strcpy(buffer, component.ClassName.c_str());
+
+				if (!scriptClassExists)
+					ImGui::PushStyleColor(ImGuiCol_Text, { 0.9f,0.2f,0.3f,1.0f });
+				else
+					ImGui::PushStyleColor(ImGuiCol_Text, { 0.2f,0.9f,0.3f,1.0f });
+
+				if (ImGui::InputText("Class", buffer, sizeof(buffer)))
+				{
+					component.ClassName = buffer;
+				}
+
+				ImGui::PopStyleColor();
+			});
+
 		DrawComponent<Rigidbody2DComponent>("Rigidbody 2D", entity, [](auto& component)
 			{
 				const char* bodyTypeStrings[] = { "Static", "Dynamic", "Kinematic" };
@@ -410,5 +427,4 @@ namespace Crystal {
 			}
 		}
 	}
-
 }

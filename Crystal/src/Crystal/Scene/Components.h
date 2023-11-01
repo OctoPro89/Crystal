@@ -82,7 +82,7 @@ namespace Crystal
 
 	struct ScriptComponent
 	{
-		std::string Name;
+		std::string ClassName;
 
 		ScriptComponent() = default;
 		ScriptComponent(const ScriptComponent&) = default;

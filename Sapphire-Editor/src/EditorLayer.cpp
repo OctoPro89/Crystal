@@ -417,17 +417,16 @@ namespace Crystal {
 
 	void EditorLayer::OnOverlayRender()
 	{
+		if (m_SceneState == SceneState::Play)
+		{
+			Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
+			if (!camera)
+				return;
+			Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
+		}
+		else
+			Renderer2D::BeginScene(m_EditorCamera);
 		if (CrntPreferences.ShowPhysicsColliders) {
-			if (m_SceneState == SceneState::Play)
-			{
-				Entity camera = m_ActiveScene->GetPrimaryCameraEntity();
-				if (!camera)
-					return;
-				Renderer2D::BeginScene(camera.GetComponent<CameraComponent>().Camera, camera.GetComponent<TransformComponent>().GetTransform());
-			}
-			else
-				Renderer2D::BeginScene(m_EditorCamera);
-
 			// Circle Collider
 			{
 				auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
@@ -462,15 +461,14 @@ namespace Crystal {
 					Renderer2D::DrawRect(transform, CrntPreferences.QuadColliderColor);
 				}
 			}
-
-			// Draw outline
-			if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) {
-				const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
-				Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences.EntityOutlineColor);
-			}
-
-			Renderer2D::EndScene();
 		}
+		// Draw outline
+		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) {
+			const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
+			Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences.EntityOutlineColor);
+		}
+
+		Renderer2D::EndScene();
 	}
 
 	void EditorLayer::NewScene()

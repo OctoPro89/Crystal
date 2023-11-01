@@ -1,6 +1,6 @@
 #include "crystalpch.h"
 #include "Scene.h"
-
+#include "Crystal/Scripting/ScriptEngine.h"
 #include "Components.h"
 #include "ScriptableEntity.h"
 #include "Crystal/Renderer/Renderer2D.h"
@@ -128,11 +128,29 @@ namespace Crystal {
 	void Scene::OnRuntimeStart()
 	{
 		OnPhysics2DStart();
+
+		// Scripts
+		{
+			ScriptEngine::OnRuntimeStart(this);
+			// Instantiate script entities
+
+			auto view = m_Registry.view<ScriptComponent>();
+			for (auto e : view)
+			{
+				Entity entity = { e, this };
+
+				const auto& sc = entity.GetComponent<ScriptComponent>();
+				if(ScriptEngine::EntityClassExists(sc.ClassName))
+					ScriptEngine::OnCreateEntity(entity);
+			}
+		}
 	}
 
 	void Scene::OnRuntimeStop()
 	{
 		OnPhysics2DStop();
+		// Scripts
+		ScriptEngine::OnRuntimeStop();
 	}
 
 	void Scene::OnSimulationStart()
@@ -449,4 +467,8 @@ namespace Crystal {
 	{
 	}
 
+	template<>
+	void Scene::OnComponentAdded<ScriptComponent>(Entity entity, ScriptComponent& component)
+	{
+	}
 }

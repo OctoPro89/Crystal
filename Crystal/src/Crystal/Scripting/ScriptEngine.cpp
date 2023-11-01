@@ -1,4 +1,5 @@
 #include "crystalpch.h"
+#include <Crystal/Scene/Entity.h>
 #include "ScriptEngine.h"
 #include "ScriptGlue.h"
 #include "mono/metadata/assembly.h"
@@ -91,6 +92,11 @@ namespace Crystal {
 		MonoImage* CoreAssemblyImage = nullptr;
 
 		ScriptClass EntityClass;
+		std::unordered_map<std::string, Ref<ScriptClass>> EntityClasses;
+		std::unordered_map<UUID, Ref<ScriptInstance>> EntityInstances;
+
+		// Runtime
+		Scene* SceneContext = nullptr;
 	};
 
 	static ScriptEngineData* s_Data = nullptr;
@@ -111,11 +117,6 @@ namespace Crystal {
 		LoadAssemblyClasses(s_Data->CoreAssembly);
 
 		ScriptGlue::RegisterFunctions();
-
-		MonoObject* instance = s_Data->EntityClass.Instantiate();
-
-		// Call method
-		MonoMethod* method
 	}
 
 	void Crystal::ScriptEngine::Shutdown()
@@ -157,6 +158,35 @@ namespace Crystal {
 		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
 		//Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
+	}
+
+	void ScriptEngine::OnRuntimeStart(Scene* scene)
+	{
+		s_Data->SceneContext = scene;
+	}
+
+	void ScriptEngine::OnRuntimeStop()
+	{
+		s_Data->SceneContext = nullptr;
+	}
+
+	bool ScriptEngine::EntityClassExists(const std::string& fullClassName)
+	{
+		return s_Data->EntityClasses.find(fullClassName) != s_Data->EntityClasses.end();
+	}
+
+	void ScriptEngine::OnCreateEntity(Entity entity)
+	{
+		const auto& sc = entity.GetComponent<ScriptComponent>();
+		if (ScriptEngine::EntityClassExists(sc.ClassName))
+		{
+			s_Data->EntityInstances[entity.GetUUID()] = CreateRef<ScriptInstance>(s_Data->EntityClasses[sc.ClassName]);
+		}
+	}
+
+	std::unordered_map<std::string, Ref<Crystal::ScriptClass>> ScriptEngine::GetEntityClasses()
+	{
+		return s_Data->EntityClasses;
 	}
 
 	ScriptClass::ScriptClass(const std::string& classNamespace, const std::string& className)
