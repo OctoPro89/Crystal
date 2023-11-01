@@ -147,6 +147,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Crystal\Scripting\ScriptGlue.h" />
     <ClInclude Include="src\Crystal.h" />
     <ClInclude Include="src\Crystal\Core\Application.h" />
     <ClInclude Include="src\Crystal\Core\Core.h" />
@@ -624,6 +625,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Crystal\Scripting\ScriptGlue.cpp" />
     <ClCompile Include="src\Crystal\Core\Application.cpp" />
     <ClCompile Include="src\Crystal\Core\Layer.cpp" />
     <ClCompile Include="src\Crystal\Core\LayerStack.cpp" />

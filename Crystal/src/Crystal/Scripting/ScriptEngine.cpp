@@ -1,11 +1,11 @@
 #include "crystalpch.h"
 #include "ScriptEngine.h"
+#include "ScriptGlue.h"
 #include "mono/metadata/assembly.h"
 #include "mono/metadata/object.h"
 #include "mono/jit/jit.h"
 
 namespace Crystal {
-
 	namespace Utils {
 
 		static char* ReadBytes(const std::filesystem::path& filepath, uint32_t* outSize)
@@ -33,7 +33,7 @@ namespace Crystal {
 			stream.read((char*)buffer, size);
 			stream.close();
 
-			*outSize = size;
+			*outSize = (uint32_t)size;
 			return buffer;
 		}
 
@@ -62,6 +62,24 @@ namespace Crystal {
 
 			return assembly;
 		}
+
+		void PrintAssemblyTypes(MonoAssembly* assembly)
+		{
+			MonoImage* image = mono_assembly_get_image(assembly);
+			const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+			int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
+
+			for (int32_t i = 0; i < numTypes; i++)
+			{
+				uint32_t cols[MONO_TYPEDEF_SIZE];
+				mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
+
+				const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
+				const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+
+				CRYSTAL_CORE_TRACE("{}.{}", nameSpace, name);
+			}
+		}
 	}
 
 	struct ScriptEngineData
@@ -71,9 +89,18 @@ namespace Crystal {
 
 		MonoAssembly* CoreAssembly = nullptr;
 		MonoImage* CoreAssemblyImage = nullptr;
+
+		ScriptClass EntityClass;
 	};
 
 	static ScriptEngineData* s_Data = nullptr;
+
+	MonoObject* ScriptEngine::InstantiateClass(MonoClass* monoClass)
+	{
+		MonoObject* instance = mono_object_new(s_Data->AppDomain, monoClass);
+		mono_runtime_object_init(instance);
+		return instance;
+	}
 
 	void Crystal::ScriptEngine::Init()
 	{
@@ -81,25 +108,20 @@ namespace Crystal {
 
 		InitMono();
 		LoadAssembly("Resources/Scripts/Crystal-ScriptCore.dll");
-		MonoImage* assemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
-	
+		LoadAssemblyClasses(s_Data->CoreAssembly);
+
+		ScriptGlue::RegisterFunctions();
+
+		MonoObject* instance = s_Data->EntityClass.Instantiate();
+
+		// Call method
+		MonoMethod* method
 	}
 
 	void Crystal::ScriptEngine::Shutdown()
 	{
 		ShutdownMono();
 		delete s_Data;
-	}
-
-	void ScriptEngine::LoadAssembly(const std::filesystem::path& filepath)
-	{
-		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
-		mono_domain_set(s_Data->AppDomain, true);
-
-		mono_add_internal_call("Crystal.Main::NativeLog", NativeLog);
-
-		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
-		// PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
 
 	void ScriptEngine::ShutdownMono()
@@ -110,31 +132,6 @@ namespace Crystal {
 		s_Data->AppDomain = nullptr;
 		// mono_jit_cleanup(s_Data->RootDomain);
 		s_Data->RootDomain = nullptr;
-	}
-
-	void PrintAssemblyTypes(MonoAssembly* assembly)
-	{
-		MonoImage* image = mono_assembly_get_image(assembly);
-		const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
-		int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
-
-		for (int32_t i = 0; i < numTypes; i++)
-		{
-			uint32_t cols[MONO_TYPEDEF_SIZE];
-			mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
-
-			const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
-			const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
-
-			CRYSTAL_CORE_TRACE("{}.{}", nameSpace, name);
-		}
-	}
-
-	static void NativeLog(MonoString* string, int value)
-	{
-		char* str = mono_string_to_utf8(string);
-		std::cout << str << value << "\n";
-		mono_free(str);
 	}
 
 	void Crystal::ScriptEngine::InitMono()
@@ -150,19 +147,88 @@ namespace Crystal {
 		}
 
 		s_Data->RootDomain = rootDomain;
+	}
 
-		MonoClass* monoClass = mono_class_from_name(assemblyImage, "Crystal", "Main");
+	void ScriptEngine::LoadAssembly(const std::filesystem::path& filepath)
+	{
+		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
+		mono_domain_set(s_Data->AppDomain, true);
 
-		MonoObject* instance = mono_object_new(s_Data->AppDomain, monoClass);
-		mono_runtime_object_init(instance);
+		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
+		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
+		//Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
+	}
 
-		MonoMethod* PrintMessageFunc = mono_class_get_method_from_name(monoClass, "PrintMessage", 1);
+	ScriptClass::ScriptClass(const std::string& classNamespace, const std::string& className)
+		: m_ClassNamespace(classNamespace), m_ClassName(className)
+	{
+		m_MonoClass = mono_class_from_name(s_Data->CoreAssemblyImage, classNamespace.c_str(), className.c_str());
+	}
 
-		MonoString* monoString = mono_string_new(s_Data->AppDomain, "C# says cool!");
+	void ScriptEngine::LoadAssemblyClasses(MonoAssembly* assembly)
+	{
+		s_Data->EntityClasses.clear();
 
-		void* params = monoString;
-		mono_runtime_invoke(PrintMessageFunc, instance, &params, nullptr);
+		MonoImage* image = mono_assembly_get_image(assembly);
+		const MonoTableInfo* typeDefinitionsTable = mono_image_get_table_info(image, MONO_TABLE_TYPEDEF);
+		int32_t numTypes = mono_table_info_get_rows(typeDefinitionsTable);
+		MonoClass* entityClass = mono_class_from_name(image, "Crystal", "Entity");
 
-		// Create an object
+		for (int32_t i = 0; i < numTypes; i++)
+		{
+			uint32_t cols[MONO_TYPEDEF_SIZE];
+			mono_metadata_decode_row(typeDefinitionsTable, i, cols, MONO_TYPEDEF_SIZE);
+
+			const char* nameSpace = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAMESPACE]);
+			const char* name = mono_metadata_string_heap(image, cols[MONO_TYPEDEF_NAME]);
+			std::string fullName;
+			if (strlen(nameSpace) != 0)
+				fullName = fmt::format("{}.{}", nameSpace, name);
+			else
+				fullName = name;
+
+			MonoClass* monoClass = mono_class_from_name(image, nameSpace, name);
+
+			if (monoClass == entityClass)
+				continue;
+
+			bool isEntity = mono_class_is_subclass_of(monoClass, entityClass, false);
+			if (isEntity)
+				s_Data->EntityClasses[fullName] = CreateRef<ScriptClass>(nameSpace, name);
+		}
+	}
+
+	MonoObject* ScriptClass::Instantiate()
+	{
+		return ScriptEngine::InstantiateClass(m_MonoClass);
+	}
+
+	MonoMethod* ScriptClass::GetMethod(const std::string& name, int perameterCount)
+	{
+		return mono_class_get_method_from_name(m_MonoClass, name.c_str(), perameterCount);
+	}
+
+	MonoObject* ScriptClass::InvokeMethod(MonoObject* instance, MonoMethod* method, void** perams)
+	{
+		return mono_runtime_invoke(method, m_MonoClass, perams, nullptr);
+	}
+
+	ScriptInstance::ScriptInstance(Ref<ScriptClass> scriptClass)
+		: m_ScriptClass(scriptClass)
+	{
+		m_Instance = scriptClass->Instantiate();
+		m_OnCreateMethod = scriptClass->GetMethod("OnCreate", 0);
+		m_OnUpdateMethod = scriptClass->GetMethod("OnUpdate", 1);
+	}
+
+	void ScriptInstance::InvokeOnCreate()
+	{
+		s_Data->EntityClass.InvokeMethod(m_Instance, m_OnCreateMethod);
+	}
+
+	void ScriptInstance::InvokeOnUpdate(float ts)
+	{
+		void* param = &ts;
+		s_Data->EntityClass.InvokeMethod(m_Instance, m_OnUpdateMethod, &param);
 	}
 }

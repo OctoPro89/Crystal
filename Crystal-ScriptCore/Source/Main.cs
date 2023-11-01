@@ -3,22 +3,24 @@ using System.Runtime.CompilerServices;
 
 namespace Crystal
 {
-	public class Main
+	public static class InternalCalls
+	{
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static string NativeLog(string text, int perameter);
+	}
+	public class Entity
 	{
 		public float FloatVar { get; set; }
 
-		public Main()
+		public Entity()
 		{
 			Console.WriteLine("Main Constructor");
-			NativeLog("C# is cool", 069);
+			InternalCalls.NativeLog("C# is cool", 069);
 		}
 
 		public void PrintMessage(string message)
 		{
 			Console.WriteLine(message);
 		}
-
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		extern static string NativeLog(string text, int perameter);
 	}
 }
