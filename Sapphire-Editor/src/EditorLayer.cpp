@@ -579,7 +579,7 @@ namespace Crystal {
 			return;
 
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
-		if (m_SceneHierarchyPanel.GetSelectedEntity())
+		if (selectedEntity)
 			m_EditorScene->DuplicateEntity(selectedEntity);
 	}
 

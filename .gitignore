@@ -3,6 +3,7 @@
 bin-int
 bin
 Scripts
+CrystalInstaller
 Crystal/vendor/VulkanSDK
 Sandbox/*.json
 *.json

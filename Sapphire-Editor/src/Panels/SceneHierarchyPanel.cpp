@@ -112,7 +112,7 @@ namespace Crystal {
 	static void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		auto boldFont = io.Fonts->Fonts[0];
+		auto boldFont = io.Fonts->Fonts[4];
 
 		ImGui::PushID(label.c_str());
 

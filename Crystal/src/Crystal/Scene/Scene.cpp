@@ -1,13 +1,13 @@
 #include "crystalpch.h"
 #include "Scene.h"
-#include "Crystal/Scripting/ScriptEngine.h"
+#include "Entity.h"
+
 #include "Components.h"
 #include "ScriptableEntity.h"
+#include "Crystal/Scripting/ScriptEngine.h"
 #include "Crystal/Renderer/Renderer2D.h"
 
 #include <glm/glm.hpp>
-
-#include "Entity.h"
 
 // Box2D
 #include "box2d/b2_world.h"
@@ -117,31 +117,32 @@ namespace Crystal {
 		entity.AddComponent<TransformComponent>();
 		auto& tag = entity.AddComponent<TagComponent>();
 		tag.Tag = name.empty() ? "Entity" : name;
+
+		m_EntityMap[uuid] = entity;
+
 		return entity;
 	}
 
 	void Scene::DestroyEntity(Entity entity)
 	{
 		m_Registry.destroy(entity);
+		m_EntityMap.erase(entity.GetUUID());
 	}
 
 	void Scene::OnRuntimeStart()
 	{
 		OnPhysics2DStart();
 
-		// Scripts
+		// Scripting
 		{
 			ScriptEngine::OnRuntimeStart(this);
-			// Instantiate script entities
+			// Instantiate all script entities
 
 			auto view = m_Registry.view<ScriptComponent>();
 			for (auto e : view)
 			{
 				Entity entity = { e, this };
-
-				const auto& sc = entity.GetComponent<ScriptComponent>();
-				if(ScriptEngine::EntityClassExists(sc.ClassName))
-					ScriptEngine::OnCreateEntity(entity);
+				ScriptEngine::OnCreateEntity(entity);
 			}
 		}
 	}
@@ -149,7 +150,7 @@ namespace Crystal {
 	void Scene::OnRuntimeStop()
 	{
 		OnPhysics2DStop();
-		// Scripts
+
 		ScriptEngine::OnRuntimeStop();
 	}
 
@@ -167,6 +168,14 @@ namespace Crystal {
 	{
 		// Update scripts
 		{
+			// C# Entity OnUpdate
+			auto view = m_Registry.view<ScriptComponent>();
+			for (auto e : view)
+			{
+				Entity entity = { e, this };
+				ScriptEngine::OnUpdateEntity(entity, ts);
+			}
+
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
 				{
 					// TODO: Move to Scene::OnScenePlay
@@ -196,6 +205,7 @@ namespace Crystal {
 				auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
 
 				b2Body* body = (b2Body*)rb2d.RuntimeBody;
+
 				const auto& position = body->GetPosition();
 				transform.Translation.x = position.x;
 				transform.Translation.y = position.y;
@@ -315,14 +325,16 @@ namespace Crystal {
 
 	void Scene::DuplicateEntity(Entity entity)
 	{
-		Entity newEntity = CreateEntity(entity.GetName());
+		Entity newEntity = CreateEntity(entity.GetName() + " Copy");
 		CopyComponentIfExists(AllComponents{}, newEntity, entity);
 	}
 
-	template<typename T>
-	void Scene::OnComponentAdded(Entity entity, T& component)
+	Entity Scene::GetEntityByUUID(UUID uuid)
 	{
-		static_assert(sizeof(T) == 0);
+		if (m_EntityMap.find(uuid) != m_EntityMap.end())
+			return { m_EntityMap.at(uuid), this };
+
+		return {};
 	}
 
 	void Scene::OnPhysics2DStart()
@@ -350,7 +362,7 @@ namespace Crystal {
 				auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
 
 				b2PolygonShape boxShape;
-				boxShape.SetAsBox(bc2d.Size.x * transform.Scale.x, bc2d.Size.y * transform.Scale.y, b2Vec2(bc2d.Offset.x, bc2d.Offset.y), 0.0f);
+				boxShape.SetAsBox(bc2d.Size.x * transform.Scale.x, bc2d.Size.y * transform.Scale.y);
 
 				b2FixtureDef fixtureDef;
 				fixtureDef.shape = &boxShape;
@@ -415,6 +427,12 @@ namespace Crystal {
 		Renderer2D::EndScene();
 	}
 
+	template<typename T>
+	void Scene::OnComponentAdded(Entity entity, T& component)
+	{
+		static_assert(sizeof(T) == 0);
+	}
+
 	template<>
 	void Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
 	{
@@ -430,6 +448,11 @@ namespace Crystal {
 	{
 		if (m_ViewportWidth > 0 && m_ViewportHeight > 0)
 			component.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<ScriptComponent>(Entity entity, ScriptComponent& component)
+	{
 	}
 
 	template<>
@@ -464,11 +487,6 @@ namespace Crystal {
 
 	template<>
 	void Scene::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
-	{
-	}
-
-	template<>
-	void Scene::OnComponentAdded<ScriptComponent>(Entity entity, ScriptComponent& component)
 	{
 	}
 }

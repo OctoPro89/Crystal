@@ -267,8 +267,8 @@ namespace Crystal {
 			auto& scriptComponent = entity.GetComponent<ScriptComponent>();
 			out << YAML::Key << "ScriptComponent";
 			out << YAML::BeginMap; // ScriptComponent
-			out << YAML::Key << "Class" << YAML::Value << scriptComponent.ClassName;
-			out << YAML::EndMap; // Scriptcomponent
+			out << YAML::Key << "ClassName" << YAML::Value << scriptComponent.ClassName;
+			out << YAML::EndMap; // ScriptComponent
 		}
 
 		out << YAML::EndMap; // Entity

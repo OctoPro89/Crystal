@@ -59,11 +59,17 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Main.cs" />
+    <Compile Include="Source\Camera.cs" />
+    <Compile Include="Source\Crystal\Input.cs" />
+    <Compile Include="Source\Crystal\KeyCode.cs" />
+    <Compile Include="Source\Crystal\Scene\Components.cs" />
+    <Compile Include="Source\Crystal\Scene\Entity.cs" />
+    <Compile Include="Source\Crystal\Vector2.cs" />
+    <Compile Include="Source\Crystal\Vector3.cs" />
+    <Compile Include="Source\InternalCalls.cs" />
     <Compile Include="Source\Player.cs" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
