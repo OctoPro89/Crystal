@@ -60,14 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Camera.cs" />
+    <Compile Include="Source\TransformMove.cs" />
     <Compile Include="Source\Crystal\Input.cs" />
     <Compile Include="Source\Crystal\KeyCode.cs" />
     <Compile Include="Source\Crystal\Scene\Components.cs" />
     <Compile Include="Source\Crystal\Scene\Entity.cs" />
     <Compile Include="Source\Crystal\Vector2.cs" />
     <Compile Include="Source\Crystal\Vector3.cs" />
-    <Compile Include="Source\InternalCalls.cs" />
-    <Compile Include="Source\Player.cs" />
+    <Compile Include="Source\Crystal\InternalCalls.cs" />
+    <Compile Include="Source\RigidbodyController.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

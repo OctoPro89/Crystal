@@ -133,6 +133,7 @@ namespace Crystal
 		float Friction = 0.5f;
 		float Restitution = 0.0f;
 		float RestitutionThreshold = 0.5f;
+		float GravityScale = 1.0f;
 
 		// Storage for runtime
 		void* RuntimeBody = nullptr;
@@ -152,6 +153,7 @@ namespace Crystal
 		float Friction = 0.5f;
 		float Restitution = 0.0f;
 		float RestitutionThreshold = 0.5f;
+		float GravityScale = 1.0f;
 
 		// Storage for runtime
 		void* RuntimeBody = nullptr;

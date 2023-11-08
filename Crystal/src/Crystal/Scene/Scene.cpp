@@ -125,8 +125,8 @@ namespace Crystal {
 
 	void Scene::DestroyEntity(Entity entity)
 	{
-		m_Registry.destroy(entity);
 		m_EntityMap.erase(entity.GetUUID());
+		m_Registry.destroy(entity);
 	}
 
 	void Scene::OnRuntimeStart()
@@ -339,7 +339,7 @@ namespace Crystal {
 
 	void Scene::OnPhysics2DStart()
 	{
-		m_PhysicsWorld = new b2World({ 0.0f, -9.8f });
+		m_PhysicsWorld = new b2World({ 0.0f, -9.81f });
 
 		auto view = m_Registry.view<Rigidbody2DComponent>();
 		for (auto e : view)
@@ -371,6 +371,7 @@ namespace Crystal {
 				fixtureDef.restitution = bc2d.Restitution;
 				fixtureDef.restitutionThreshold = bc2d.RestitutionThreshold;
 				body->CreateFixture(&fixtureDef);
+				body->SetGravityScale(bc2d.GravityScale);
 			}
 
 			if (entity.HasComponent<CircleCollider2DComponent>())
@@ -388,6 +389,7 @@ namespace Crystal {
 				fixtureDef.restitution = cc2d.Restitution;
 				fixtureDef.restitutionThreshold = cc2d.RestitutionThreshold;
 				body->CreateFixture(&fixtureDef);
+				body->SetGravityScale(cc2d.GravityScale);
 			}
 		}
 	}
