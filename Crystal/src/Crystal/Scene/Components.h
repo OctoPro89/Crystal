@@ -2,6 +2,7 @@
 
 #include "Crystal/Scene/SceneCamera.h"
 #include "Crystal/Renderer/Texture.h"
+#include "Crystal/Renderer/SubTexture2D.h"
 #include "Crystal/Core/UUID.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -51,7 +52,11 @@ namespace Crystal
 	{
 		glm::vec4 Color = { 1.0f,1.0f,1.0f,1.0f };
 		Ref<Texture2D> Texture;
+		Ref<SubTexture2D> SubTex = nullptr;
 		float TilingFactor = 1.0f;
+		bool IsAtlas = false;
+		glm::vec2 cellSize{ 0 };
+		glm::vec2 texCoords{ 0 };
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;

@@ -73,6 +73,9 @@ namespace Crystal {
 		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
 
+		Ref<SubTexture2D> m_SubTex;
+		Ref<Texture2D> m_Player;
+
 		EditorCamera m_EditorCamera;
 
 		std::string m_ScenePath;

@@ -24,6 +24,8 @@ namespace Crystal {
 		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
 		m_IconSimulate = Texture2D::Create("Resources/Icons/PhysicsPlay.png");
 		m_IconStop = Texture2D::Create("Resources/Icons/Stop.png");
+		m_Player = Texture2D::Create("assets/textures/Hero.png");
+		m_SubTex = SubTexture2D::CreateFromCoords(m_Player, { 0.0f,0.0f }, { 32.0f,32.0f }, { 130,138 });
 
 		FrameBufferSpecification fbSpec;
 		fbSpec.Attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER, FramebufferTextureFormat::Depth };

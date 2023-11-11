@@ -31,6 +31,7 @@
 #include "Crystal/Renderer/Shader.h"
 #include "Crystal/Renderer/Framebuffer.h"
 #include "Crystal/Renderer/Texture.h"
+#include "Crystal/Renderer/SubTexture2D.h"
 #include "Crystal/Renderer/VertexArray.h"
 
 #include "Crystal/Renderer/OrthographicCamera.h"

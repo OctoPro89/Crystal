@@ -319,11 +319,9 @@ namespace Crystal {
 					ImGui::Checkbox("Fixed Aspect Ratio", &component.FixedAspectRatio);
 				}
 			});
-
 		DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](auto& component)
 			{
 				ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
-
 				ImGui::Button("Texture", ImVec2(100.0f, 0.0f));
 				if (ImGui::BeginDragDropTarget())
 				{
@@ -332,15 +330,27 @@ namespace Crystal {
 						const wchar_t* path = (const wchar_t*)payload->Data;
 						std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
 						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
-						if (texture->IsLoaded())
+						Ref<SubTexture2D> subtexture = SubTexture2D::CreateFromCoords(texture, { 1, 1 }, { 16,16 });
+						if (texture->IsLoaded()) {
 							component.Texture = texture;
+							component.SubTex = subtexture;
+						}
 						else
 							CRYSTAL_WARN("Could not load texture {0}", texturePath.filename().string());
 					}
 					ImGui::EndDragDropTarget();
 				}
-
 				ImGui::DragFloat("Tiling Factor", &component.TilingFactor, 0.1f, 0.0f, 100.0f);
+				ImGui::Checkbox("Texture Atlas", &component.IsAtlas);
+				if (component.IsAtlas) {
+					ImGui::DragFloat2("Cell Size", glm::value_ptr(component.cellSize), 0.01f);
+					ImGui::DragFloat2("Texture Index", glm::value_ptr(component.texCoords), 0.01f);
+					if (ImGui::Button("Done"))
+					{
+						Ref<SubTexture2D> subtexture = SubTexture2D::CreateFromCoords(component.Texture, component.texCoords, component.cellSize);
+						component.SubTex = subtexture;
+					}
+				}
 			});
 
 		DrawComponent<CircleRendererComponent>("Circle Renderer", entity, [](auto& component)
