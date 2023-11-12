@@ -4,6 +4,7 @@
 #include "Crystal/Events/MouseEvent.h"
 #include "Crystal/Events/ApplicationEvent.h"
 #include "Platform/OpenGL/OpenGLContext.h"
+#include "../../vendor/stb_image/stb_image.h"
 
 namespace Crystal {
 	static uint8_t s_GLFWWindowCount = 0;
@@ -56,6 +57,11 @@ namespace Crystal {
 		m_Context->Init();
 		// ^
 		glfwSetWindowUserPointer(m_Window, &m_Data);
+		//Crystal Icon
+		GLFWimage icon[1];
+		int channels;
+		icon[0].pixels = stbi_load("Resources\\Icons\\Crystal.ico", &icon[0].width, &icon[0].height, &channels, 0);
+		glfwSetWindowIcon(m_Window, 1, icon);
 		SetVSync(false);
 
 		// Set GLFW Callbacks

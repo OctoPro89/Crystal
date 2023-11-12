@@ -17,6 +17,7 @@
       <Filter>Panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Panels\TextEditorPanel.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -31,5 +32,15 @@
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
     <ClCompile Include="src\Panels\TextEditorPanel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Sapphire-Editor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="premake5.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\Crystal.png" />
+    <Image Include="Resources\Icons\Crystal.ico" />
   </ItemGroup>
 </Project>
