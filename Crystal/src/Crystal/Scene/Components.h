@@ -55,8 +55,8 @@ namespace Crystal
 		Ref<SubTexture2D> SubTex = nullptr;
 		float TilingFactor = 1.0f;
 		bool IsAtlas = false;
-		glm::vec2 cellSize{ 0 };
-		glm::vec2 texCoords{ 0 };
+		glm::vec2 cellSize{ 0.0f, 0.0f };
+		glm::vec2 texCoords{ 0.0f, 0.0f };
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;

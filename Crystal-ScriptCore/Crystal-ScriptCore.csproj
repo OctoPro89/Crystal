@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Camera.cs" />
+    <Compile Include="Source\Crystal\Vector4.cs" />
+    <Compile Include="Source\SpriteTest.cs" />
     <Compile Include="Source\TransformMove.cs" />
     <Compile Include="Source\Crystal\Input.cs" />
     <Compile Include="Source\Crystal\KeyCode.cs" />

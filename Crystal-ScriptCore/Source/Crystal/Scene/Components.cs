@@ -11,6 +11,52 @@ namespace Crystal
 		public Entity Entity { get; internal set; }
 	}
 
+	public class SpriteRendererComponent : Component
+	{
+		public Vector4 Color
+		{
+			get
+			{
+				InternalCalls.SpriteRendererComponent_GetColor(Entity.ID, out Vector4 color);
+				return color;
+			}
+			set
+			{
+				InternalCalls.SpriteRendererComponent_SetColor(Entity.ID, ref value);
+			}
+		}
+		public float AtlasCoordsX
+		{
+			get
+			{
+				InternalCalls.SpriteRendererComponent_GetTexIndex(Entity.ID, out Vector2 coords);
+				return coords.X;
+			}
+			set
+			{
+				InternalCalls.SpriteRendererComponent_SetTexIndexX(Entity.ID, ref value);
+			}
+		}
+		
+		public float AtlasCoordsY
+		{
+			get
+			{
+				InternalCalls.SpriteRendererComponent_GetTexIndex(Entity.ID, out Vector2 coords);
+				return coords.Y;
+			}
+			set
+			{
+				InternalCalls.SpriteRendererComponent_SetTexIndexX(Entity.ID, ref value);
+			}
+		}
+	}
+
+	public class BoxCollider2DComponent : Component
+	{
+
+	}
+
 	public class TransformComponent : Component
 	{
 		public Vector3 Translation
@@ -39,6 +85,5 @@ namespace Crystal
 		{
 			InternalCalls.Rigidbody2DComponent_ApplyLinearImpulseToCenter(Entity.ID, ref impulse, wake);
 		}
-
 	}
 }

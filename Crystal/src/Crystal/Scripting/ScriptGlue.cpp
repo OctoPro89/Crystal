@@ -94,6 +94,61 @@ namespace Crystal {
 		body->ApplyLinearImpulseToCenter(b2Vec2(impulse->x, impulse->y), wake);
 	}
 
+	static void SpriteRendererComponent_GetColor(UUID entityID, glm::vec4* outColor)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outColor = entity.GetComponent<SpriteRendererComponent>().Color;
+	}
+
+	static void SpriteRendererComponent_SetColor(UUID entityID, glm::vec4* outColor)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		entity.GetComponent<SpriteRendererComponent>().Color = *outColor;
+	}
+
+	static void SpriteRendererComponent_SetTexIndexX(UUID entityID, float indexX)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		SpriteRendererComponent& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
+
+		if(spriteRenderer.SubTex != nullptr)
+			spriteRenderer.SubTex->CreateFromCoords(spriteRenderer.Texture, {indexX, spriteRenderer.SubTex->GetTexCoords()->y}, spriteRenderer.cellSize);
+	}
+
+	static void SpriteRendererComponent_SetTexIndexY(UUID entityID, float indexY)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		SpriteRendererComponent& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
+
+		if (spriteRenderer.SubTex != nullptr)
+			spriteRenderer.SubTex->CreateFromCoords(spriteRenderer.Texture, { spriteRenderer.SubTex->GetTexCoords()->y, indexY }, spriteRenderer.cellSize);
+	}
+
+	static void SpriteRendererComponent_GetTexIndex(UUID entityID, glm::vec2* outTexIndex)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+		*outTexIndex = *entity.GetComponent<SpriteRendererComponent>().SubTex->GetTexCoords();
+	}
+
 	static bool Input_IsKeyDown(KeyCode keycode)
 	{
 		return Input::IsKeyPressed(keycode);
@@ -139,6 +194,14 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Entity_HasComponent);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
+
+		
+		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetColor);
+		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetColor);
+		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetTexIndex);
+		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndexX);
+		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndexY);
+		
 
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulse);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulseToCenter);
