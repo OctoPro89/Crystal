@@ -264,9 +264,9 @@ namespace Crystal {
 			if (spriteRendererComponent.SubTex) {
 				if (spriteRendererComponent.IsAtlas)
 				{
-					out << YAML::Key << "AtlasX" << YAML::Value << spriteRendererComponent.SubTex->GetTexCoords()->x;
+					out << YAML::Key << "AtlasX" << YAML::Value << spriteRendererComponent.texCoords.x;
 
-					out << YAML::Key << "AtlasY" << YAML::Value << spriteRendererComponent.SubTex->GetTexCoords()->y;
+					out << YAML::Key << "AtlasY" << YAML::Value << spriteRendererComponent.texCoords.y;
 
 					out << YAML::Key << "CellX" << YAML::Value << spriteRendererComponent.cellSize.x;
 
