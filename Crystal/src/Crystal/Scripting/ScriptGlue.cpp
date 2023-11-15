@@ -114,7 +114,7 @@ namespace Crystal {
 		entity.GetComponent<SpriteRendererComponent>().Color = *outColor;
 	}
 
-	static void SpriteRendererComponent_SetTexIndexX(UUID entityID, float indexX)
+	static void SpriteRendererComponent_SetTexIndex(UUID entityID, glm::vec2* index)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -122,22 +122,7 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		SpriteRendererComponent& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
-
-		if(spriteRenderer.SubTex != nullptr)
-			spriteRenderer.SubTex = SubTexture2D::CreateFromCoords(spriteRenderer.Texture, {indexX, spriteRenderer.SubTex->GetTexCoords()->y}, spriteRenderer.cellSize);
-	}
-
-	static void SpriteRendererComponent_SetTexIndexY(UUID entityID, float indexY)
-	{
-		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
-		Entity entity = scene->GetEntityByUUID(entityID);
-		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
-
-		SpriteRendererComponent& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
-
-		if (spriteRenderer.SubTex != nullptr)
-			spriteRenderer.SubTex = SubTexture2D::CreateFromCoords(spriteRenderer.Texture, { spriteRenderer.SubTex->GetTexCoords()->x, indexY }, spriteRenderer.cellSize);
+		spriteRenderer.SubTex = SubTexture2D::CreateFromCoords(spriteRenderer.Texture, *index, spriteRenderer.cellSize);
 	}
 
 	static void SpriteRendererComponent_GetTexIndex(UUID entityID, glm::vec2* outTexIndex)
@@ -199,8 +184,7 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetColor);
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetColor);
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetTexIndex);
-		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndexX);
-		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndexY);
+		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndex);
 		
 
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulse);

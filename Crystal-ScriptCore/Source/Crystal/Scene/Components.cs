@@ -25,29 +25,17 @@ namespace Crystal
 				InternalCalls.SpriteRendererComponent_SetColor(Entity.ID, ref value);
 			}
 		}
-		public float AtlasCoordsX
+
+		public Vector2 AtlasCoords
 		{
 			get
 			{
 				InternalCalls.SpriteRendererComponent_GetTexIndex(Entity.ID, out Vector2 coords);
-				return coords.X;
+				return coords;
 			}
 			set
 			{
-				InternalCalls.SpriteRendererComponent_SetTexIndexX(Entity.ID, ref value);
-			}
-		}
-		
-		public float AtlasCoordsY
-		{
-			get
-			{
-				InternalCalls.SpriteRendererComponent_GetTexIndex(Entity.ID, out Vector2 coords);
-				return coords.Y;
-			}
-			set
-			{
-				InternalCalls.SpriteRendererComponent_SetTexIndexY(Entity.ID, ref value);
+				InternalCalls.SpriteRendererComponent_SetTexIndex(Entity.ID, ref value);
 			}
 		}
 	}

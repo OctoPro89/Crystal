@@ -30,10 +30,7 @@ namespace Crystal
 		internal extern static void SpriteRendererComponent_GetTexIndex(ulong entityID, out Vector2 coords);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		internal extern static void SpriteRendererComponent_SetTexIndexX(ulong entityID, ref float indexX);
-
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		internal extern static void SpriteRendererComponent_SetTexIndexY(ulong entityID, ref float indexY);
+		internal extern static void SpriteRendererComponent_SetTexIndex(ulong entityID, ref Vector2 index);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static bool Input_IsKeyDown(KeyCode keycode);
