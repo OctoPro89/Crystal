@@ -271,6 +271,8 @@ namespace Crystal {
 					out << YAML::Key << "CellX" << YAML::Value << spriteRendererComponent.cellSize.x;
 
 					out << YAML::Key << "CellY" << YAML::Value << spriteRendererComponent.cellSize.y;
+
+					out << YAML::Key << "IsAtlas" << YAML::Value << spriteRendererComponent.IsAtlas;
 				}
 			}
 
@@ -378,17 +380,23 @@ namespace Crystal {
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 					if (spriteRendererComponent["TexturePath"])
 						src.Texture = Texture2D::Create(spriteRendererComponent["TexturePath"].as<std::string>());
-					src.SubTex = SubTexture2D::CreateFromCoords(src.Texture, {
-spriteRendererComponent["AtlasX"].as<float>(),
-spriteRendererComponent["AtlasY"].as<float>() },
+					if (spriteRendererComponent["IsAtlas"])
+					{
+						src.SubTex = SubTexture2D::CreateFromCoords(src.Texture, {
+						spriteRendererComponent["AtlasX"].as<float>(),
+						spriteRendererComponent["AtlasY"].as<float>() },
 						{
 						spriteRendererComponent["CellX"].as<float>(),
 						spriteRendererComponent["CellY"].as<float>()
 						});
+						src.cellSize.x = spriteRendererComponent["CellX"].as<float>();
+						src.cellSize.y = spriteRendererComponent["CellY"].as<float>();
+						src.texCoords.x = spriteRendererComponent["AtlasX"].as<float>();
+						src.texCoords.y = spriteRendererComponent["AtlasY"].as<float>();
+						src.IsAtlas = true;
+					}
 					if(spriteRendererComponent["TilingFactor"])
 						src.TilingFactor = spriteRendererComponent["TilingFactor"].as<float>();
-					//if (spriteRendererComponent["AtlasX"] && spriteRendererComponent["AtlasY"] && spriteRendererComponent["CellX"] && spriteRendererComponent["CellY"])
-
 				}
 
 				auto circleRendererComponent = entity["CircleRendererComponent"];
