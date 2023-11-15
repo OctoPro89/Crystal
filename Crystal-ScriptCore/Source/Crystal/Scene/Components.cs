@@ -47,7 +47,7 @@ namespace Crystal
 			}
 			set
 			{
-				InternalCalls.SpriteRendererComponent_SetTexIndexX(Entity.ID, ref value);
+				InternalCalls.SpriteRendererComponent_SetTexIndexY(Entity.ID, ref value);
 			}
 		}
 	}

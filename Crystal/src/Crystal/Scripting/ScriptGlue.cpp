@@ -124,7 +124,7 @@ namespace Crystal {
 		SpriteRendererComponent& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 
 		if(spriteRenderer.SubTex != nullptr)
-			spriteRenderer.SubTex->CreateFromCoords(spriteRenderer.Texture, {indexX, spriteRenderer.SubTex->GetTexCoords()->y}, spriteRenderer.cellSize);
+			spriteRenderer.SubTex = SubTexture2D::CreateFromCoords(spriteRenderer.Texture, {indexX, spriteRenderer.SubTex->GetTexCoords()->y}, spriteRenderer.cellSize);
 	}
 
 	static void SpriteRendererComponent_SetTexIndexY(UUID entityID, float indexY)
@@ -137,7 +137,7 @@ namespace Crystal {
 		SpriteRendererComponent& spriteRenderer = entity.GetComponent<SpriteRendererComponent>();
 
 		if (spriteRenderer.SubTex != nullptr)
-			spriteRenderer.SubTex->CreateFromCoords(spriteRenderer.Texture, { spriteRenderer.SubTex->GetTexCoords()->y, indexY }, spriteRenderer.cellSize);
+			spriteRenderer.SubTex = SubTexture2D::CreateFromCoords(spriteRenderer.Texture, { spriteRenderer.SubTex->GetTexCoords()->x, indexY }, spriteRenderer.cellSize);
 	}
 
 	static void SpriteRendererComponent_GetTexIndex(UUID entityID, glm::vec2* outTexIndex)

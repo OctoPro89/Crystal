@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Crystal;
@@ -9,12 +10,12 @@ namespace Sandbox
 {
 	public class RigidbodyController : Entity
 	{
-		private TransformComponent m_Transform;
+		private SpriteRendererComponent sprite;
 		private Rigidbody2DComponent m_Rigidbody;
 
 		void OnCreate()
 		{
-			m_Transform = GetComponent<TransformComponent>();
+			sprite = GetComponent<SpriteRendererComponent>();
 			m_Rigidbody = GetComponent<Rigidbody2DComponent>();
 		}
 
@@ -32,6 +33,9 @@ namespace Sandbox
 				velocity.X = -1.0f;
 			else if (Input.IsKeyDown(KeyCode.D))
 				velocity.X = 1.0f;
+
+			if (Input.IsKeyDown(KeyCode.K))
+				sprite.AtlasCoordsY = 0;
 
 			velocity *= (speed * ts);
 
