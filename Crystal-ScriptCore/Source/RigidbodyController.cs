@@ -34,21 +34,10 @@ namespace Sandbox
 			else if (Input.IsKeyDown(KeyCode.D))
 				velocity.X = 1.0f;
 
-			if (Input.IsKeyDown(KeyCode.K))
-			{
-				Vector2 newPos = new Vector2(3,5);
-				sprite.AtlasCoords = newPos;
-			} else
-			{
-				Vector2 newPos = new Vector2(1,5);
-				sprite.AtlasCoords = newPos;
-			}
-
 			velocity *= (speed * ts);
 
 			m_Rigidbody.ApplyLinearImpulse(velocity.XY, true);
 
 		}
-
 	}
 }
