@@ -4,6 +4,8 @@
 #include "Crystal/Renderer/ParticleSystem.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
+#include "Panels/VisualScriptPanel.h"
+#include "Panels/TextEditorPanel.h"
 #include "Panels/ConsolePanel.h"
 
 namespace Crystal {
@@ -63,15 +65,14 @@ namespace Crystal {
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 		glm::vec2 m_ViewportBounds[2];
 
-		float m_ParticlePos[2] = {0.0f,0.0f};
-
-		bool useParticles = false;
 		bool performanceWindow = false;
 		bool settingsWindow = false;
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
 		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
+		bool CodeEditor = false;
+		bool VScript = false;
 
 		Ref<SubTexture2D> m_SubTex;
 		Ref<Texture2D> m_Player;
@@ -79,9 +80,6 @@ namespace Crystal {
 		EditorCamera m_EditorCamera;
 
 		std::string m_ScenePath;
-
-		ParticleProps m_Particle;
-		ParticleSystem m_ParticleSystem = ParticleSystem(100000);
 
 		int m_GizmoType = 0;
 
@@ -95,6 +93,8 @@ namespace Crystal {
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
+		VisualScriptPanel m_vScript;
+		TextEditorPanel m_CodeEditor;
 		ConsolePanel Console;
 
 		// Editor Resources

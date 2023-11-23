@@ -58,7 +58,7 @@ namespace Crystal {
 		// ^
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		//Crystal Icon
-		GLFWimage icon[1];
+		GLFWimage icon[1]{};
 		int channels;
 		icon[0].pixels = stbi_load("Resources\\Icons\\Crystal.ico", &icon[0].width, &icon[0].height, &channels, 0);
 		glfwSetWindowIcon(m_Window, 1, icon);

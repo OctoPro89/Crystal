@@ -144,6 +144,7 @@
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\Panels\TextEditorPanel.h" />
+    <ClInclude Include="src\Panels\VisualScriptPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\SapphireEditorApp.cpp" />
     <ClCompile Include="src\Panels\TextEditorPanel.cpp" />
+    <ClCompile Include="src\Panels\VisualScriptPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crystal\Crystal.vcxproj">
@@ -163,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="premake5.lua" />
+    <None Include="Resources\Examples\RigidbodyPlayerMove.cs" />
+    <None Include="Resources\Examples\TransformPlayerMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\Crystal.png" />
