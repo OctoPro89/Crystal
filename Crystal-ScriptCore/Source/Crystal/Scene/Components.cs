@@ -42,7 +42,95 @@ namespace Crystal
 
 	public class BoxCollider2DComponent : Component
 	{
+		public float Density
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetDensity(Entity.ID, out float density);
+				return density;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetDensity(Entity.ID, value);
+			}
+		}
+		public float Friction
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetFriction(Entity.ID, out float friction);
+				return friction;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetFriction(Entity.ID, value);
+			}
+		}
 
+		public float GravityScale
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetGravityScale(Entity.ID, out float gravityScale);
+				return gravityScale;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetGravityScale(Entity.ID, value);
+			}
+		}
+
+		public float Restitution
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetRestitution(Entity.ID, out float restitution);
+				return restitution;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetRestitution(Entity.ID, value);
+			}
+		}
+
+		public float RestitutionThreshold
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetRestitutionThreshold(Entity.ID, out float restitutionThreshold);
+				return restitutionThreshold;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetRestitutionThreshold(Entity.ID, value);
+			}
+		}
+
+		public Vector2 Offset
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetOffset(Entity.ID, out Vector2 offset);
+				return offset;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetOffset(Entity.ID, ref value);
+			}
+		}
+
+		public Vector2 Size
+		{
+			get
+			{
+				InternalCalls.BoxCollider2DComponent_GetSize(Entity.ID, out Vector2 size);
+				return size;
+			}
+			set
+			{
+				InternalCalls.BoxCollider2DComponent_SetSize(Entity.ID, ref value);
+			}
+		}
 	}
 
 	public class TransformComponent : Component

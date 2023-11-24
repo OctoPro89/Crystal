@@ -70,6 +70,160 @@ namespace Crystal {
 		entity.GetComponent<TransformComponent>().Translation = *translation;
 	}
 
+	static void BoxCollider2DComponent_GetSize(UUID entityID, glm::vec2* outSize)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		*outSize = bc2d.Size;
+	}
+
+	static void BoxCollider2DComponent_SetSize(UUID entityID, glm::vec2* size)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.Size = *size;
+	}
+
+	static void BoxCollider2DComponent_GetFriction(UUID entityID, float outFriction)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		outFriction = bc2d.Friction;
+	}
+
+	static void BoxCollider2DComponent_SetFriction(UUID entityID, float friction)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.Friction = friction;
+	}
+
+	static void BoxCollider2DComponent_GetDensity(UUID entityID, float outDensity)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		outDensity = bc2d.Density;
+	}
+
+	static void BoxCollider2DComponent_SetDensity(UUID entityID, float density)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.Density = density;
+	}
+
+	static void BoxCollider2DComponent_GetGravityScale(UUID entityID, float outGravity)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		outGravity = bc2d.GravityScale;
+	}
+
+	static void BoxCollider2DComponent_SetGravityScale(UUID entityID, float gravityScale)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.GravityScale = gravityScale;
+	}
+
+	static void BoxCollider2DComponent_SetOffset(UUID entityID, glm::vec2* offset)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.Offset = *offset;
+	}
+
+	static void BoxCollider2DComponent_GetOffset(UUID entityID, glm::vec2* outOffset)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		*outOffset = bc2d.Offset;
+	}
+
+	static void BoxCollider2DComponent_SetRestitution(UUID entityID, float restitution)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.Restitution = restitution;
+	}
+
+	static void BoxCollider2DComponent_GetRestitution(UUID entityID, float outRestitution)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		outRestitution = bc2d.Restitution;
+	}
+
+	static void BoxCollider2DComponent_SetRestitutionThreshold(UUID entityID, float restitutionThreshold)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		bc2d.RestitutionThreshold = restitutionThreshold;
+	}
+
+	static void BoxCollider2DComponent_GetRestitutionThreshold(UUID entityID, float outRestitutionThreshold)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
+		outRestitutionThreshold = bc2d.RestitutionThreshold;
+	}
+
 	static void Rigidbody2DComponent_ApplyLinearImpulse(UUID entityID, glm::vec2* impulse, glm::vec2* point, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -216,6 +370,20 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
 
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetDensity);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetDensity);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetFriction);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetFriction);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetGravityScale);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetGravityScale);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetOffset);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetOffset);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetSize);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetSize);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetRestitution);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetRestitution);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetRestitutionThreshold);
+		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetRestitutionThreshold);
 		
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetColor);
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetColor);

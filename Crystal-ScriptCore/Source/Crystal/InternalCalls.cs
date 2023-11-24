@@ -42,6 +42,48 @@ namespace Crystal
 		internal extern static void SpriteRendererComponent_SetTexIndex(ulong entityID, ref Vector2 index);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetDensity(ulong entityID, float density);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetDensity(ulong entityID, out float density);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetFriction(ulong entityID, float friction);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetFriction(ulong entityID, out float friction);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetGravityScale(ulong entityID, float gravityScale);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetGravityScale(ulong entityID, out float gravityScale);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetOffset(ulong entityID, ref Vector2 Offset);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetOffset(ulong entityID, out Vector2 Offset);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetSize(ulong entityID, ref Vector2 Size);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetSize(ulong entityID, out Vector2 Size);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetRestitution(ulong entityID, float restitution);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetRestitution(ulong entityID, out float restitution);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_SetRestitutionThreshold(ulong entityID, float restitutionThreshold);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void BoxCollider2DComponent_GetRestitutionThreshold(ulong entityID, out float restitutionThreshold);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static bool Input_IsKeyDown(KeyCode keycode);
 	}
 }
