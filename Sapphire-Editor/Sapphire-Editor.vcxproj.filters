@@ -16,9 +16,7 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h">
       <Filter>Panels</Filter>
     </ClInclude>
-    <ClInclude Include="src\Panels\TextEditorPanel.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="src\Panels\VisualScriptPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -32,8 +30,6 @@
       <Filter>Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
-    <ClCompile Include="src\Panels\TextEditorPanel.cpp" />
-    <ClCompile Include="src\Panels\VisualScriptPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Sapphire-Editor.rc" />

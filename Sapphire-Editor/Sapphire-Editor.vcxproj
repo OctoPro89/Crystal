@@ -143,8 +143,6 @@
     <ClInclude Include="src\Panels\ConsolePanel.h" />
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
-    <ClInclude Include="src\Panels\TextEditorPanel.h" />
-    <ClInclude Include="src\Panels\VisualScriptPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -152,8 +150,6 @@
     <ClCompile Include="src\Panels\ContentBrowserPanel.cpp" />
     <ClCompile Include="src\Panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\SapphireEditorApp.cpp" />
-    <ClCompile Include="src\Panels\TextEditorPanel.cpp" />
-    <ClCompile Include="src\Panels\VisualScriptPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crystal\Crystal.vcxproj">

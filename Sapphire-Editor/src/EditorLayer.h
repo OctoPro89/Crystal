@@ -4,8 +4,6 @@
 #include "Crystal/Renderer/ParticleSystem.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
-#include "Panels/VisualScriptPanel.h"
-#include "Panels/TextEditorPanel.h"
 #include "Panels/ConsolePanel.h"
 
 namespace Crystal {
@@ -71,8 +69,6 @@ namespace Crystal {
 		bool m_ViewportHovered = false;
 		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
-		bool CodeEditor = false;
-		bool VScript = false;
 
 		Ref<SubTexture2D> m_SubTex;
 		Ref<Texture2D> m_Player;
@@ -93,8 +89,6 @@ namespace Crystal {
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 		ContentBrowserPanel m_ContentBrowserPanel;
-		VisualScriptPanel m_vScript;
-		TextEditorPanel m_CodeEditor;
 		ConsolePanel Console;
 
 		// Editor Resources

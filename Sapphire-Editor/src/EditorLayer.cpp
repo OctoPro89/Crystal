@@ -200,8 +200,6 @@ namespace Crystal {
 
 				if (ImGui::MenuItem("Settings")) settingsWindow = !settingsWindow;
 				if (ImGui::MenuItem("Performance")) performanceWindow = !performanceWindow;
-				if (ImGui::MenuItem("Code Editor")) CodeEditor = !CodeEditor;
-				if (ImGui::MenuItem("Visual Scripting")) VScript = !VScript;
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Edit"))
@@ -238,16 +236,6 @@ namespace Crystal {
 			ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 			ImGui::End();
-		}
-
-		if (VScript)
-		{
-			m_vScript.OnImGuiRender(m_CodeEditor, Console);
-		}
-
-		if (CodeEditor)
-		{
-			m_CodeEditor.OnImGuiRender();
 		}
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });

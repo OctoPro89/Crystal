@@ -18,11 +18,10 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
-    <OutputPath>..\Sapphire-Editor\Resources\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Sapphire-Editor\Resources\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>..\SandboxProj\assets\Scripts\Sapphire-Editor\Resources\Scripts\</OutputPath>
+    <BaseIntermediateOutputPath>..\SandboxProj\assets\Scripts\Sapphire-Editor\Resources\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -31,11 +30,10 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>..\Sapphire-Editor\Resources\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Sapphire-Editor\Resources\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
+    <OutputPath>..\SandboxProj\assets\Scripts\Sapphire-Editor\Resources\Scripts\</OutputPath>
+    <BaseIntermediateOutputPath>..\SandboxProj\assets\Scripts\Sapphire-Editor\Resources\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -44,11 +42,10 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>..\Sapphire-Editor\Resources\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Sapphire-Editor\Resources\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
+    <OutputPath>..\SandboxProj\assets\Scripts\Sapphire-Editor\Resources\Scripts\</OutputPath>
+    <BaseIntermediateOutputPath>..\SandboxProj\assets\Scripts\Sapphire-Editor\Resources\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -60,18 +57,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Camera.cs" />
-    <Compile Include="Source\Crystal\Vector4.cs" />
-    <Compile Include="Source\TransformMove.cs" />
     <Compile Include="Source\Crystal\Input.cs" />
+    <Compile Include="Source\Crystal\InternalCalls.cs" />
     <Compile Include="Source\Crystal\KeyCode.cs" />
     <Compile Include="Source\Crystal\Scene\Components.cs" />
     <Compile Include="Source\Crystal\Scene\Entity.cs" />
     <Compile Include="Source\Crystal\Vector2.cs" />
     <Compile Include="Source\Crystal\Vector3.cs" />
-    <Compile Include="Source\Crystal\InternalCalls.cs" />
+    <Compile Include="Source\Crystal\Vector4.cs" />
     <Compile Include="Source\RigidbodyController.cs" />
+    <Compile Include="Source\TransformMove.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
