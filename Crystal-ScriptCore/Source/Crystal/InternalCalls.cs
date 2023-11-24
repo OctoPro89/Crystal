@@ -18,6 +18,15 @@ namespace Crystal
 		internal extern static void Rigidbody2DComponent_ApplyLinearImpulse(ulong entityID, ref Vector2 impulse, ref Vector2 point, bool wake);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_ApplyForce(ulong entityID, ref Vector2 force, ref Vector2 point, bool wake);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_ApplyTorque(ulong entityID, float Torque, bool wake);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_ApplyForceToCenter(ulong entityID, ref Vector2 force, bool wake);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void Rigidbody2DComponent_ApplyLinearImpulseToCenter(ulong entityID, ref Vector2 impulse, bool wake);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]

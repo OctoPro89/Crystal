@@ -94,6 +94,42 @@ namespace Crystal {
 		body->ApplyLinearImpulseToCenter(b2Vec2(impulse->x, impulse->y), wake);
 	}
 
+	static void Rigidbody2DComponent_ApplyTorque(UUID entityID, float Torque, bool wake)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		body->ApplyTorque(Torque, wake);
+	}
+
+	static void Rigidbody2DComponent_ApplyForce(UUID entityID, glm::vec2* Force, glm::vec2* point, bool wake)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		body->ApplyForce(b2Vec2(Force->x, Force->y), b2Vec2(point->x, point->y), wake);
+	}
+
+	static void Rigidbody2DComponent_ApplyForceToCenter(UUID entityID, glm::vec2* Force, bool wake)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		body->ApplyForceToCenter(b2Vec2(Force->x, Force->y), wake);
+	}
+
 	static void SpriteRendererComponent_GetColor(UUID entityID, glm::vec4* outColor)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -189,6 +225,9 @@ namespace Crystal {
 
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulse);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulseToCenter);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyTorque);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForce);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForceToCenter);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsKeyDown);
 	}
