@@ -210,6 +210,9 @@
     <ClInclude Include="src\Crystal\Scripting\ScriptEngine.h">
       <Filter>src\Crystal\Scripting</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Scripting\ScriptGlue.h">
+      <Filter>src\Crystal\Scripting</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Utils\PlatformUtils.h">
       <Filter>src\Crystal\Utils</Filter>
     </ClInclude>
@@ -1500,7 +1503,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Scripting\ScriptGlue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1593,6 +1595,9 @@
     <ClCompile Include="src\Crystal\Scripting\ScriptEngine.cpp">
       <Filter>src\Crystal\Scripting</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Scripting\ScriptGlue.cpp">
+      <Filter>src\Crystal\Scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\DirectX\DirectXBuffer.cpp">
       <Filter>src\Platform\DirectX</Filter>
     </ClCompile>
@@ -1638,6 +1643,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Crystal\Scripting\ScriptGlue.cpp" />
   </ItemGroup>
 </Project>

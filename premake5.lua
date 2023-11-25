@@ -39,7 +39,7 @@ group "Core"
 group ""
 
 group "Tools"
-include "Sapphire-Editor"
+	include "Sapphire-Editor"
 group ""
 
 group "Misc"

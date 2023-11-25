@@ -3,8 +3,8 @@ project "Crystal-ScriptCore"
 	language "C#"
 	dotnetframework "4.7.2"
 
-	targetdir ("%{wks.location}/Sapphire-Editor/Resources/Scripts")
-	objdir ("%{wks.location}/Sapphire-Editor/Resources/Scripts/Intermediates")
+	targetdir ("../Sapphire-Editor/Resources/Scripts")
+	objdir ("../Sapphire-Editor/Resources/Scripts/Intermediates")
 
 	files 
 	{

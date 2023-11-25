@@ -147,7 +147,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Crystal\Scripting\ScriptGlue.h" />
     <ClInclude Include="src\Crystal.h" />
     <ClInclude Include="src\Crystal\Core\Application.h" />
     <ClInclude Include="src\Crystal\Core\Core.h" />
@@ -193,6 +192,7 @@
     <ClInclude Include="src\Crystal\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Crystal\Scene\ScriptableEntity.h" />
     <ClInclude Include="src\Crystal\Scripting\ScriptEngine.h" />
+    <ClInclude Include="src\Crystal\Scripting\ScriptGlue.h" />
     <ClInclude Include="src\Crystal\Utils\PlatformUtils.h" />
     <ClInclude Include="src\Platform\DirectX\DirectXBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
@@ -625,7 +625,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Crystal\Scripting\ScriptGlue.cpp" />
     <ClCompile Include="src\Crystal\Core\Application.cpp" />
     <ClCompile Include="src\Crystal\Core\Layer.cpp" />
     <ClCompile Include="src\Crystal\Core\LayerStack.cpp" />
@@ -656,6 +655,7 @@
     <ClCompile Include="src\Crystal\Scene\SceneCamera.cpp" />
     <ClCompile Include="src\Crystal\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Crystal\Scripting\ScriptEngine.cpp" />
+    <ClCompile Include="src\Crystal\Scripting\ScriptGlue.cpp" />
     <ClCompile Include="src\Platform\DirectX\DirectXBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />

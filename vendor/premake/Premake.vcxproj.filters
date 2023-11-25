@@ -31,6 +31,15 @@
     <Filter Include="..\Sandbox">
       <UniqueIdentifier>{3F7B6B1D-2B33-AD6A-943A-86C68011485B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\SandboxProj">
+      <UniqueIdentifier>{BAD45291-A6A2-4697-8F36-B7BD7BA322FC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\SandboxProj\assets">
+      <UniqueIdentifier>{7C5AC8D9-E8C6-83D4-B1BA-1B321DE6A53C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\SandboxProj\assets\Scripts">
+      <UniqueIdentifier>{B3FD3992-1F16-21BC-E8C2-B055549AB555}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\Sapphire-Editor">
       <UniqueIdentifier>{00B1B56A-EC94-76C0-55F5-701341F86042}</UniqueIdentifier>
     </Filter>
@@ -59,6 +68,9 @@
     </None>
     <None Include="..\..\Sandbox\premake5.lua">
       <Filter>..\Sandbox</Filter>
+    </None>
+    <None Include="..\..\SandboxProj\assets\Scripts\premake5.lua">
+      <Filter>..\SandboxProj\assets\Scripts</Filter>
     </None>
     <None Include="..\..\Sapphire-Editor\premake5.lua">
       <Filter>..\Sapphire-Editor</Filter>

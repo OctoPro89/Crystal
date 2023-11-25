@@ -85,6 +85,7 @@
     <None Include="..\..\Crystal\vendor\imgui\premake5.lua" />
     <None Include="..\..\Crystal\vendor\yaml\premake5.lua" />
     <None Include="..\..\Sandbox\premake5.lua" />
+    <None Include="..\..\SandboxProj\assets\Scripts\premake5.lua" />
     <None Include="..\..\Sapphire-Editor\premake5.lua" />
     <None Include="..\..\premake5.lua" />
     <None Include="premake5.lua" />
