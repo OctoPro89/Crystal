@@ -3,7 +3,7 @@
 
 namespace Crystal {
 	Layer::Layer(const std::string& debugName)
-		: m_DebugName(debugName)
+		: m_DebugName(debugName) /* Set the m_DebugName to the debugName given */
 	{
 	}
 

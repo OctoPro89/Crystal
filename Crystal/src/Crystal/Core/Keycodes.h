@@ -2,11 +2,11 @@
 
 namespace Crystal
 {
-	using KeyCode = uint16_t;
+	using KeyCode = uint16_t; /* Declare that a keycode is a 16 bit unsigned integer number */
 
 	namespace Key
 	{
-		enum : KeyCode
+		enum : KeyCode /* Create an enumeration that contains all the keys on the keyboard */
 		{
 			// From glfw3.h
 			Space = 32,

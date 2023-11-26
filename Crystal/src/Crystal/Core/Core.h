@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 
+/* A tonnn of preprossessor macros to be used later in the engine */
 // Platform detection using predefined macros
 #ifdef _WIN32
 	#ifdef _WIN64
@@ -30,11 +31,14 @@
 #else
 	#error "Unknown platform!"
 #endif
+/* -- Platform Macros -- */
 
 #ifdef CRYSTAL_DEBUG
 	#define CRYSTAL_ENABLE_ASSERTS
 #endif
+/* -- Debug Macros -- */
 
+/* -- Assert macros -- */
 #define CRYSTAL_ENABLE_ASSERTS
 
 #ifdef CRYSTAL_ENABLE_ASSERTS
@@ -44,13 +48,17 @@
 	#define CRYSTAL_ASSERT(x, ...)
 	#define CRYSTAL_CORE_ASSERT(x, ...)
 #endif
+/* -- Assert macros -- */
 
+/* Bit shifting macro */
 #define BIT(x) (1 << x)
 
+/* Bind event macro */
 #define CRYSTAL_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
 namespace Crystal 
 {
+	/* Templated macro for Scope that turns Scope into a unique pointer */
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
 	template<typename T, typename ... Args>
@@ -59,6 +67,7 @@ namespace Crystal
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
 
+	/* Templated macro for Ref that turns Ref into a shared pointer */
 	template<typename T>
 	using Ref = std::shared_ptr<T>;
 	template<typename T, typename ... Args>
