@@ -93,8 +93,9 @@ namespace Crystal
 		ScriptComponent(const ScriptComponent&) = default;
 	};
 
-	//Forward declaration
+	// Forward declaration
 	class ScriptableEntity;
+	
 	struct NativeScriptComponent
 	{
 		ScriptableEntity* Instance = nullptr;

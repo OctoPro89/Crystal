@@ -159,6 +159,7 @@ namespace Crystal {
 
 		std::unordered_map<std::string, Ref<ScriptClass>> EntityClasses;
 		std::unordered_map<UUID, Ref<ScriptInstance>> EntityInstances;
+		std::unordered_map<UUID, ScriptFieldMap> EntityScriptFields;
 
 		// Runtime
 		Scene* SceneContext = nullptr;
@@ -273,6 +274,16 @@ namespace Crystal {
 	std::unordered_map<std::string, Ref<ScriptClass>> ScriptEngine::GetEntityClasses()
 	{
 		return s_Data->EntityClasses;
+	}
+
+	const ScriptFieldMap& ScriptEngine::GetScriptFieldMap(Entity entity)
+	{
+		CRYSTAL_CORE_ASSERT(entity, "No Entity for GetScriptFieldMap");
+
+		UUID entityID = entity.GetUUID();
+		CRYSTAL_CORE_ASSERT(s_Data->EntityScriptFields.find(entityID) != s_Data->EntityScriptFields.end(), "No Usable Entity for GetScriptFieldMap");
+
+		return s_Data->EntityScriptFields.at(entityID);
 	}
 
 	Ref<ScriptInstance> ScriptEngine::GetEntityScriptInstance(UUID uuid)

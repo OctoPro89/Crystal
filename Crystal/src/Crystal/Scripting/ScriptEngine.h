@@ -36,6 +36,36 @@ namespace Crystal {
 		MonoClassField* ClassField;
 	};
 
+
+	/* ScriptField + Data Storage*/
+	struct ScriptFieldInstance
+	{
+		ScriptField Field;
+		template<typename T>
+		T GetFieldValue(const std::string& name)
+		{
+			bool success = GetFieldValueInternal(name, s_FieldValueBuffer);
+			if (!success)
+				return T();
+			return *(T*)s_FieldValueBuffer;
+		}
+
+		template<typename T>
+		bool SetFieldValue(const std::string& name, const T& value)
+		{
+			bool success = SetFieldValueInternal(name, &value);
+			if (!success)
+				return false;
+			return true;
+		}
+	private:
+		bool GetFieldValueInternal(const std::string& name, void* buffer);
+		bool SetFieldValueInternal(const std::string& name, const void* value);
+		char m_FieldValueBuffer[8];
+	};
+
+	using ScriptFieldMap = std::unordered_map<std::string, ScriptFieldInstance>;
+
 	class ScriptClass
 	{
 	public:
@@ -117,6 +147,7 @@ namespace Crystal {
 
 		static Scene* GetSceneContext();
 		static std::unordered_map<std::string, Ref<ScriptClass>> GetEntityClasses();
+		static const ScriptFieldMap& GetScriptFieldMap(Entity entity);
 		static Ref<ScriptInstance> GetEntityScriptInstance(UUID uuid);
 
 		static MonoImage* GetCoreAssemblyImage();

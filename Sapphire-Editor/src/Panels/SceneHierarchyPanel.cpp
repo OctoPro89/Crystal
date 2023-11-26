@@ -379,18 +379,41 @@ namespace Crystal {
 				ImGui::PopStyleColor();
 
 				// Fields
-				Ref<ScriptInstance> scriptInstance = ScriptEngine::GetEntityScriptInstance(entity.GetUUID());
-				if (scriptInstance)
+
+				// If runtime
+				bool sceneRunning = false;
+
+				if(sceneRunning)
 				{
-					const auto& fields = scriptInstance->GetScriptClass()->GetFields();
-					for (const auto& [name, field] : fields)
+					Ref<ScriptInstance> scriptInstance = ScriptEngine::GetEntityScriptInstance(entity.GetUUID());
+					if (scriptInstance)
 					{
-						if (field.Type == ScriptFieldType::Float)
+						const auto& fields = scriptInstance->GetScriptClass()->GetFields();
+						for (const auto& [name, field] : fields)
 						{
-							float data = scriptInstance->GetFieldValue<float>(name);
-							if (ImGui::DragFloat(name.c_str(), &data))
+							if (field.Type == ScriptFieldType::Float)
 							{
-								scriptInstance->SetFieldValue<float>(name, data);
+								float data = scriptInstance->GetFieldValue<float>(name);
+								if (ImGui::DragFloat(name.c_str(), &data))
+								{
+									scriptInstance->SetFieldValue<float>(name, data);
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					const auto& fields = ScriptEngine::GetScriptFieldMap(entity);
+					for (const auto& [name, fieldInstance] : fields)
+					{
+						if (fieldInstance.Field.Type == ScriptFieldType::Float)
+						{
+							float data = scriptInstance->GetValue<float>(name);
+
+							if (ImGui::DragFloat(name.c_str, &data))
+							{
+								scriptInstance->SetValue(name, data);
 							}
 						}
 					}
