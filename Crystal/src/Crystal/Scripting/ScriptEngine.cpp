@@ -215,7 +215,7 @@ namespace Crystal {
 		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
 		mono_domain_set(s_Data->AppDomain, true);
 
-		// Move this maybe
+		// Move this
 		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
 		// Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
@@ -223,7 +223,7 @@ namespace Crystal {
 
 	void ScriptEngine::LoadAppAssembly(const std::filesystem::path& filepath)
 	{
-		// Move this maybe
+		// Move this
 		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->AppAssemblyImage = mono_assembly_get_image(s_Data->AppAssembly);
 		// Utils::PrintAssemblyTypes(s_Data->AppAssembly);
@@ -244,8 +244,16 @@ namespace Crystal {
 		const auto& sc = entity.GetComponent<ScriptComponent>();
 		if (ScriptEngine::EntityClassExists(sc.ClassName))
 		{
+			UUID entityID = entity.GetUUID();
 			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->EntityClasses[sc.ClassName], entity);
-			s_Data->EntityInstances[entity.GetUUID()] = instance;
+			s_Data->EntityInstances[entityID] = instance;
+
+			if (s_Data->EntityScriptFields.find(entityID) != s_Data->EntityScriptFields.end())
+			{
+				const ScriptFieldMap& fieldMap = s_Data->EntityScriptFields.at(entityID);
+				for (const auto& [name, fieldInstance] : fieldMap)
+					instance->SetFieldValueInternal(name, fieldInstance.m_Buffer);
+			}
 			instance->InvokeOnCreate();
 		}
 	}
@@ -264,6 +272,14 @@ namespace Crystal {
 		return s_Data->SceneContext;
 	}
 
+	Ref<ScriptClass> ScriptEngine::GetEntityClass(const std::string& name)
+	{
+		if (s_Data->EntityClasses.find(name) == s_Data->EntityClasses.end())
+			return nullptr;
+
+		return s_Data->EntityClasses.at(name);
+	}
+
 	void ScriptEngine::OnRuntimeStop()
 	{
 		s_Data->SceneContext = nullptr;
@@ -276,14 +292,12 @@ namespace Crystal {
 		return s_Data->EntityClasses;
 	}
 
-	const ScriptFieldMap& ScriptEngine::GetScriptFieldMap(Entity entity)
+	ScriptFieldMap& ScriptEngine::GetScriptFieldMap(Entity entity)
 	{
 		CRYSTAL_CORE_ASSERT(entity, "No Entity for GetScriptFieldMap");
 
 		UUID entityID = entity.GetUUID();
-		CRYSTAL_CORE_ASSERT(s_Data->EntityScriptFields.find(entityID) != s_Data->EntityScriptFields.end(), "No Usable Entity for GetScriptFieldMap");
-
-		return s_Data->EntityScriptFields.at(entityID);
+		return s_Data->EntityScriptFields[entityID];
 	}
 
 	Ref<ScriptInstance> ScriptEngine::GetEntityScriptInstance(UUID uuid)
@@ -439,5 +453,4 @@ namespace Crystal {
 		mono_field_set_value(m_Instance, field.ClassField, (void*)value);
 		return true;
 	}
-
 }

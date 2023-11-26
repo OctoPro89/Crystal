@@ -190,7 +190,7 @@ Entities:
     TagComponent:
       Tag: Player
     TransformComponent:
-      Translation: [-10.1771536, 13.7977982, 0]
+      Translation: [-10.2803106, 13.7977982, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Rigidbody2DComponent:

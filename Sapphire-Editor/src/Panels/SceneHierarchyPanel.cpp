@@ -224,7 +224,7 @@ namespace Crystal {
 
 			char buffer[256];
 			memset(buffer, 0, sizeof(buffer));
-			std::strncpy(buffer, tag.c_str(), sizeof(buffer));
+			strncpy_s(buffer, sizeof(buffer), tag.c_str(), sizeof(buffer));
 			if (ImGui::InputText("##Tag", buffer, sizeof(buffer)))
 			{
 				tag = std::string(buffer);
@@ -361,11 +361,11 @@ namespace Crystal {
 			});
 
 		static float speed = 10.0f;
-		DrawComponent<ScriptComponent>("Script", entity, [entity](auto& component) mutable
+		DrawComponent<ScriptComponent>("Script", entity, [entity, scene = m_Context](auto& component) mutable
 			{
 				bool scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);;
 				static char buffer[64];
-				strcpy(buffer, component.ClassName.c_str());
+				strcpy_s(buffer, sizeof(buffer), component.ClassName.c_str());
 
 				if (!scriptClassExists)
 					ImGui::PushStyleColor(ImGuiCol_Text, { 0.9f,0.2f,0.3f,1.0f });
@@ -377,13 +377,9 @@ namespace Crystal {
 					component.ClassName = buffer;
 				}
 				ImGui::PopStyleColor();
-
 				// Fields
-
-				// If runtime
-				bool sceneRunning = false;
-
-				if(sceneRunning)
+				bool sceneRunning = scene->IsRunning();
+				if (sceneRunning)
 				{
 					Ref<ScriptInstance> scriptInstance = ScriptEngine::GetEntityScriptInstance(entity.GetUUID());
 					if (scriptInstance)
@@ -396,7 +392,7 @@ namespace Crystal {
 								float data = scriptInstance->GetFieldValue<float>(name);
 								if (ImGui::DragFloat(name.c_str(), &data))
 								{
-									scriptInstance->SetFieldValue<float>(name, data);
+									scriptInstance->SetFieldValue(name, data);
 								}
 							}
 						}
@@ -404,16 +400,40 @@ namespace Crystal {
 				}
 				else
 				{
-					const auto& fields = ScriptEngine::GetScriptFieldMap(entity);
-					for (const auto& [name, fieldInstance] : fields)
+					if (scriptClassExists)
 					{
-						if (fieldInstance.Field.Type == ScriptFieldType::Float)
-						{
-							float data = scriptInstance->GetValue<float>(name);
+						Ref<ScriptClass> entityClass = ScriptEngine::GetEntityClass(component.ClassName);
+						const auto& fields = entityClass->GetFields();
 
-							if (ImGui::DragFloat(name.c_str, &data))
+						auto& entityFields = ScriptEngine::GetScriptFieldMap(entity);
+						for (const auto& [name, field] : fields)
+						{
+							// Field has been set in editor
+							if (entityFields.find(name) != entityFields.end())
 							{
-								scriptInstance->SetValue(name, data);
+								ScriptFieldInstance& scriptField = entityFields.at(name);
+
+								// Display control to set it
+								if (field.Type == ScriptFieldType::Float)
+								{
+									float data = scriptField.GetValue<float>();
+									if (ImGui::DragFloat(name.c_str(), &data))
+										scriptField.SetValue(data);
+								}
+							}
+							else
+							{
+								// Display control to set it maybe
+								if (field.Type == ScriptFieldType::Float)
+								{
+									float data = 0.0f;
+									if (ImGui::DragFloat(name.c_str(), &data))
+									{
+										ScriptFieldInstance& fieldInstance = entityFields[name];
+										fieldInstance.Field = field;
+										fieldInstance.SetValue(data);
+									}
+								}
 							}
 						}
 					}

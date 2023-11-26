@@ -41,27 +41,30 @@ namespace Crystal {
 	struct ScriptFieldInstance
 	{
 		ScriptField Field;
-		template<typename T>
-		T GetFieldValue(const std::string& name)
+
+		ScriptFieldInstance()
 		{
-			bool success = GetFieldValueInternal(name, s_FieldValueBuffer);
-			if (!success)
-				return T();
-			return *(T*)s_FieldValueBuffer;
+			memset(m_Buffer, 0, sizeof(m_Buffer));
 		}
 
 		template<typename T>
-		bool SetFieldValue(const std::string& name, const T& value)
+		T GetValue()
 		{
-			bool success = SetFieldValueInternal(name, &value);
-			if (!success)
-				return false;
-			return true;
+			static_assert(sizeof(T) <= 8, "Type too large!");
+			return *(T*)m_Buffer;
+		}
+
+		template<typename T>
+		void SetValue(T value)
+		{
+			static_assert(sizeof(T) <= 8, "Type too large!");
+			memcpy(m_Buffer, &value, sizeof(T));
 		}
 	private:
-		bool GetFieldValueInternal(const std::string& name, void* buffer);
-		bool SetFieldValueInternal(const std::string& name, const void* value);
-		char m_FieldValueBuffer[8];
+		uint8_t m_Buffer[8];
+
+		friend class ScriptInstance;
+		friend class ScriptEngine;
 	};
 
 	using ScriptFieldMap = std::unordered_map<std::string, ScriptFieldInstance>;
@@ -101,6 +104,7 @@ namespace Crystal {
 		template<typename T>
 		inline T GetFieldValue(const std::string& name)
 		{
+			static_assert(sizeof(T) <= 8, "Type too large!");
 			bool success = GetFieldValueInternal(name, s_FieldValueBuffer);
 			if (!success)
 				return T();
@@ -108,12 +112,10 @@ namespace Crystal {
 		}
 
 		template<typename T>
-		inline bool SetFieldValue(const std::string& name, const T& value)
+		inline void SetFieldValue(const std::string& name, T value)
 		{
-			bool success = SetFieldValueInternal(name, &value);
-			if (!success)
-				return false;
-			return true;
+			static_assert(sizeof(T) <= 8, "Type too large!");
+			SetFieldValueInternal(name, &value);
 		}
 	private:
 		bool GetFieldValueInternal(const std::string& name, void* buffer);
@@ -127,6 +129,9 @@ namespace Crystal {
 		MonoMethod* m_OnUpdateMethod = nullptr;
 
 		inline static char s_FieldValueBuffer[8];
+
+		friend class ScriptEngine;
+		friend struct ScriptFieldInstance;
 	};
 
 	class ScriptEngine
@@ -146,8 +151,9 @@ namespace Crystal {
 		static void OnUpdateEntity(Entity entity, Timestep ts);
 
 		static Scene* GetSceneContext();
+		static Ref<ScriptClass> GetEntityClass(const std::string& name);
 		static std::unordered_map<std::string, Ref<ScriptClass>> GetEntityClasses();
-		static const ScriptFieldMap& GetScriptFieldMap(Entity entity);
+		static ScriptFieldMap& GetScriptFieldMap(Entity entity);
 		static Ref<ScriptInstance> GetEntityScriptInstance(UUID uuid);
 
 		static MonoImage* GetCoreAssemblyImage();
