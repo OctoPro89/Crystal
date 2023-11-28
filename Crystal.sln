@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80ED8CC8-6CE7-B51A-5554-4C2B41ED1B87}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -33,6 +35,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{7802C95D-64BA-0AAB-CDC1-E306B998A59B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Crystal Engine", "CrystalInstaller\CrystalInstaller.vdproj", "{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project", "Sapphire-Editor\SandboxProj\assets\Scripts\Project.csproj", "{5C2CF323-C80B-72BF-D123-FD953D82D820}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +107,18 @@ Global
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}.Dist|x64.Build.0 = Dist|x64
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}.Release|x64.ActiveCfg = Release|x64
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0}.Release|x64.Build.0 = Release|x64
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}.Debug|x64.ActiveCfg = Debug
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}.Debug|x64.Build.0 = Debug
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}.Dist|x64.ActiveCfg = Debug
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}.Dist|x64.Build.0 = Debug
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}.Release|x64.ActiveCfg = Release
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E}.Release|x64.Build.0 = Release
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Debug|x64.ActiveCfg = Debug|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Debug|x64.Build.0 = Debug|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Dist|x64.ActiveCfg = Dist|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Dist|x64.Build.0 = Dist|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Release|x64.ActiveCfg = Release|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +134,7 @@ Global
 		{6ACC3F23-D6AB-BEBE-DFC3-49954B222520} = {53E47842-3FC8-3998-A828-34EB942B241A}
 		{88F1A057-74BE-FB62-9DD7-E90A890331F1} = {53E47842-3FC8-3998-A828-34EB942B241A}
 		{F4C124E3-60A1-A37E-69B9-2E55D5170AE0} = {7802C95D-64BA-0AAB-CDC1-E306B998A59B}
+		{DC62A5D2-6309-4DE9-8C73-352CE2B9857E} = {DD376B17-49ED-E30C-D2E1-DDE33E96DA10}
+		{5C2CF323-C80B-72BF-D123-FD953D82D820} = {7802C95D-64BA-0AAB-CDC1-E306B998A59B}
 	EndGlobalSection
 EndGlobal

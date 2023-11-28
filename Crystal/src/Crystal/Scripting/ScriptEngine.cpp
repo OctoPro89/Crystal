@@ -117,31 +117,6 @@ namespace Crystal {
 			}
 			return it->second;
 		}
-
-		const char* ScriptFieldTypeToString(ScriptFieldType fieldType)
-		{
-			switch (fieldType)
-			{
-			case ScriptFieldType::Float:   return "Float";
-			case ScriptFieldType::Double:  return "Double";
-			case ScriptFieldType::Bool:    return "Bool";
-			case ScriptFieldType::Char:    return "Char";
-			case ScriptFieldType::Byte:    return "Byte";
-			case ScriptFieldType::Short:   return "Short";
-			case ScriptFieldType::Int:     return "Int";
-			case ScriptFieldType::Long:    return "Long";
-			case ScriptFieldType::SByte:   return "SByte";
-			case ScriptFieldType::UShort:  return "UShort";
-			case ScriptFieldType::UInt:    return "UInt";
-			case ScriptFieldType::ULong:   return "ULong";
-			case ScriptFieldType::Vector2: return "Vector2";
-			case ScriptFieldType::Vector3: return "Vector3";
-			case ScriptFieldType::Vector4: return "Vector4";
-			case ScriptFieldType::Entity:  return "Entity";
-
-			}
-			return "<Invalid>";
-		}
 	}
 
 	struct ScriptEngineData
@@ -357,8 +332,6 @@ namespace Crystal {
 				{
 					MonoType* type = mono_field_get_type(field);
 					ScriptFieldType fieldType = Utils::MonoTypeToScriptFieldType(type);
-					CRYSTAL_CORE_WARN("  {} ({})", fieldName, Utils::ScriptFieldTypeToString(fieldType));
-
 					scriptClass->m_Fields[fieldName] = ScriptField{ fieldType, fieldName, field };
 				}
 			}

@@ -8,16 +8,16 @@
 
 namespace Crystal 
 {
-	class Log
+	class Log /* log class */
 	{
 	public:
-		static void Init();
+		static void Init(); /* a static function to initialize the logger */
 
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }		/* a static function that returns a shared pointer reference to the core logger */
+		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; } /* a static function that returns a shared pointer reference to the client logger */
 	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
+		static std::shared_ptr<spdlog::logger> s_CoreLogger;	/* the core logger */
+		static std::shared_ptr<spdlog::logger> s_ClientLogger;	/* the client logger */
 	};
 }
 

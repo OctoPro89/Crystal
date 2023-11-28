@@ -62,6 +62,7 @@ namespace Crystal {
 		int channels;
 		icon[0].pixels = stbi_load("Resources\\Icons\\Crystal.ico", &icon[0].width, &icon[0].height, &channels, 0);
 		glfwSetWindowIcon(m_Window, 1, icon);
+		stbi_image_free(icon[0].pixels);
 		SetVSync(false);
 
 		// Set GLFW Callbacks

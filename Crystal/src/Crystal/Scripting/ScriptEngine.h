@@ -50,18 +50,18 @@ namespace Crystal {
 		template<typename T>
 		T GetValue()
 		{
-			static_assert(sizeof(T) <= 8, "Type too large!");
+			static_assert(sizeof(T) <= 16, "Type too large!");
 			return *(T*)m_Buffer;
 		}
 
 		template<typename T>
 		void SetValue(T value)
 		{
-			static_assert(sizeof(T) <= 8, "Type too large!");
+			static_assert(sizeof(T) <= 16, "Type too large!");
 			memcpy(m_Buffer, &value, sizeof(T));
 		}
 	private:
-		uint8_t m_Buffer[8];
+		uint8_t m_Buffer[16];
 
 		friend class ScriptInstance;
 		friend class ScriptEngine;
@@ -104,7 +104,7 @@ namespace Crystal {
 		template<typename T>
 		inline T GetFieldValue(const std::string& name)
 		{
-			static_assert(sizeof(T) <= 8, "Type too large!");
+			static_assert(sizeof(T) <= 16, "Type too large!");
 			bool success = GetFieldValueInternal(name, s_FieldValueBuffer);
 			if (!success)
 				return T();
@@ -114,7 +114,7 @@ namespace Crystal {
 		template<typename T>
 		inline void SetFieldValue(const std::string& name, T value)
 		{
-			static_assert(sizeof(T) <= 8, "Type too large!");
+			static_assert(sizeof(T) <= 16, "Type too large!");
 			SetFieldValueInternal(name, &value);
 		}
 	private:
@@ -128,7 +128,7 @@ namespace Crystal {
 		MonoMethod* m_OnCreateMethod = nullptr;
 		MonoMethod* m_OnUpdateMethod = nullptr;
 
-		inline static char s_FieldValueBuffer[8];
+		inline static char s_FieldValueBuffer[16];
 
 		friend class ScriptEngine;
 		friend struct ScriptFieldInstance;
@@ -168,4 +168,54 @@ namespace Crystal {
 		friend class ScriptGlue;
 	};
 
+	namespace Utils {
+		inline const char* ScriptFieldTypeToString(ScriptFieldType type)
+		{
+			switch (type)
+			{
+			case Crystal::ScriptFieldType::None:		return "None";	  break;
+			case Crystal::ScriptFieldType::Float:		return "Float";	  break;
+			case Crystal::ScriptFieldType::Double:		return "Double";  break;
+			case Crystal::ScriptFieldType::Bool:		return "Bool";	  break;
+			case Crystal::ScriptFieldType::Char:		return "Char";	  break;
+			case Crystal::ScriptFieldType::Byte:		return "Byte";    break;
+			case Crystal::ScriptFieldType::Short:		return "Short";	  break;
+			case Crystal::ScriptFieldType::Int:			return "Int";     break;
+			case Crystal::ScriptFieldType::Long:		return "Long";    break;
+			case Crystal::ScriptFieldType::SByte:		return "SByte";	  break;
+			case Crystal::ScriptFieldType::UShort:		return "UShort";  break;
+			case Crystal::ScriptFieldType::UInt:		return "UInt";	  break;
+			case Crystal::ScriptFieldType::ULong:		return "ULong";	  break;
+			case Crystal::ScriptFieldType::Vector2:		return "Vector2"; break;
+			case Crystal::ScriptFieldType::Vector3:		return "Vector3"; break;
+			case Crystal::ScriptFieldType::Vector4:		return "Vector4"; break;
+			}
+
+			CRYSTAL_CORE_ASSERT(false, "Unknown script field type");
+			return "Unknown";
+		}
+
+		inline ScriptFieldType ScriptFieldTypeFromString(std::string_view type)
+		{
+			if (type == "None")		return Crystal::ScriptFieldType::None;
+			if (type == "Float")	return Crystal::ScriptFieldType::Float;
+			if (type == "Double")	return Crystal::ScriptFieldType::Double;
+			if (type == "Bool")		return Crystal::ScriptFieldType::Bool;
+			if (type == "Char")		return Crystal::ScriptFieldType::Char;
+			if (type == "Byte")		return Crystal::ScriptFieldType::Byte;
+			if (type == "Short")	return Crystal::ScriptFieldType::Short;
+			if (type == "Int")		return Crystal::ScriptFieldType::Int;
+			if (type == "Long")		return Crystal::ScriptFieldType::Long;
+			if (type == "SByte")	return Crystal::ScriptFieldType::SByte;
+			if (type == "UShort")	return Crystal::ScriptFieldType::UShort;
+			if (type == "UInt")		return Crystal::ScriptFieldType::UInt;
+			if (type == "ULong")	return Crystal::ScriptFieldType::ULong;
+			if (type == "Vector2")	return Crystal::ScriptFieldType::Vector2;
+			if (type == "Vector3")	return Crystal::ScriptFieldType::Vector3;
+			if (type == "Vector4")	return Crystal::ScriptFieldType::Vector4;
+
+			CRYSTAL_CORE_ASSERT(false, "Unknown ScriptFieldType!");
+			return ScriptFieldType::None;
+		}
+	}
 }

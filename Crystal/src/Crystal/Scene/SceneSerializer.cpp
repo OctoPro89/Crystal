@@ -3,11 +3,11 @@
 
 #include "Entity.h"
 #include "Components.h"
+#include <Crystal/Scripting/ScriptEngine.h>
 
 #include <fstream>
 
 #include <yaml-cpp/yaml.h>
-
 namespace YAML {
 
 	template<>
@@ -84,10 +84,35 @@ namespace YAML {
 			return true;
 		}
 	};
+	template<>
+	struct convert<Crystal::UUID>
+	{
+		static Node encode(const Crystal::UUID& uuid)
+		{
+			Node node;
+			node.push_back((uint64_t)uuid);
+			return node;
+		}
 
+		static bool decode(const Node& node, Crystal::UUID& uuid)
+		{
+			uuid = node.as<int64_t>();
+			return true;
+		}
+	};
 }
 namespace Crystal {
-
+#define WRITE_SCRIPT_FIELD(FieldType, Type)           \
+			case ScriptFieldType::FieldType:          \
+				out << scriptField.GetValue<Type>();  \
+				break
+#define READ_SCRIPT_FIELD(FieldType, Type) \
+	case ScriptFieldType::FieldType:			\
+	{ \
+		Type data = scriptField["Data"].as<Type>(); \
+		fieldInstance.SetValue(data); \
+		break; \
+	}
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v)
 	{
 		out << YAML::Flow;
@@ -285,6 +310,50 @@ namespace Crystal {
 			out << YAML::Key << "ScriptComponent";
 			out << YAML::BeginMap; // ScriptComponent
 			out << YAML::Key << "ClassName" << YAML::Value << scriptComponent.ClassName;
+
+			// Fields
+			Ref<ScriptClass> entityClass = ScriptEngine::GetEntityClass(scriptComponent.ClassName);
+			const auto& fields = entityClass->GetFields();
+
+			out << YAML::Key << "ScriptFields" << YAML::Value;
+			out << YAML::BeginSeq; //ScriptFields
+			if (fields.size() > 0) 
+			{
+				auto& entityFields = ScriptEngine::GetScriptFieldMap(entity);
+				for (const auto& [name, field] : fields)
+				{
+					if (entityFields.find(name) == entityFields.end())
+						continue;
+					out << YAML::BeginMap; // Field
+					out << YAML::Key << "Name" << YAML::Value << name;
+					out << YAML::Key << "Type" << YAML::Value << Utils::ScriptFieldTypeToString(field.Type);
+
+					ScriptFieldInstance& scriptField = entityFields.at(name);
+					out << YAML::Key << "Data" << YAML::Value;
+					switch (field.Type)
+					{
+						WRITE_SCRIPT_FIELD(Float, float);
+						WRITE_SCRIPT_FIELD(Double, double);
+						WRITE_SCRIPT_FIELD(Bool, bool);
+						WRITE_SCRIPT_FIELD(Char, char);
+						WRITE_SCRIPT_FIELD(Byte, int8_t);
+						WRITE_SCRIPT_FIELD(Short, int16_t);
+						WRITE_SCRIPT_FIELD(Int, int32_t);
+						WRITE_SCRIPT_FIELD(Long, int64_t);
+						WRITE_SCRIPT_FIELD(SByte, int8_t);
+						WRITE_SCRIPT_FIELD(UShort, uint16_t);
+						WRITE_SCRIPT_FIELD(UInt, uint32_t);
+						WRITE_SCRIPT_FIELD(ULong, uint64_t);
+						WRITE_SCRIPT_FIELD(Vector2, glm::vec2);
+						WRITE_SCRIPT_FIELD(Vector3, glm::vec3);
+						WRITE_SCRIPT_FIELD(Vector4, glm::vec4);
+						WRITE_SCRIPT_FIELD(Entity, UUID);
+					}
+					out << YAML::EndMap; // Field
+				}
+				out << YAML::EndSeq; // ScriptFields
+			}
+
 			out << YAML::EndMap; // ScriptComponent
 		}
 
@@ -447,6 +516,32 @@ namespace Crystal {
 				{
 					auto& sc = deserializedEntity.AddComponent<ScriptComponent>();
 					sc.ClassName = scriptComponent["ClassName"].as<std::string>();
+
+					auto scriptFields = scriptComponent["ScriptFields"];
+					if (scriptFields)
+					{
+						Ref<ScriptClass> entityClass = ScriptEngine::GetEntityClass(sc.ClassName);
+						CRYSTAL_CORE_ASSERT(entityClass, "No Entity Class");
+						const auto& fields = entityClass->GetFields();
+						auto& entityFields = ScriptEngine::GetScriptFieldMap(deserializedEntity);
+						for (auto scriptField : scriptFields)
+						{
+							std::string name = scriptField["Name"].as<std::string>();
+							std::string typeString = scriptField["Type"].as<std::string>();
+							ScriptFieldType type = Utils::ScriptFieldTypeFromString(typeString);
+							ScriptFieldInstance& fieldInstance = entityFields[name];
+							CRYSTAL_CORE_ASSERT(fields.find(name) != fields.end(), "No Field for Deserialize");
+							if (fields.find(name) == fields.end())
+								continue;
+
+							fieldInstance.Field = fields.at(name);
+							switch (type)
+							{
+								READ_SCRIPT_FIELD(Float, float);
+							}
+							std::string data = scriptField["Data"].as<std::string>();
+						}
+					}
 				}
 			}
 		}

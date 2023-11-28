@@ -6,7 +6,7 @@ namespace Crystal
 
 	namespace MouseButton
 	{
-		enum : MouseCode
+		enum : MouseCode /* an enum for all the mouse buttons */
 		{
 			// From glfw3.h
 			Button0 = 0,
