@@ -19,6 +19,7 @@ project "Sapphire-Editor"
 		"%{wks.location}/Crystal/src",
 		"%{wks.location}/Crystal/vendor",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.filewatch}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.ImGuizmo}"
 	}

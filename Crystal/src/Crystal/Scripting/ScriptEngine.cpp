@@ -1,12 +1,12 @@
 #include "crystalpch.h"
 #include "ScriptEngine.h"
-#include "Crystal/Scene/Entity.h"
+#include <Crystal/Scene/Entity.h>
 #include "ScriptGlue.h"
-
-#include "mono/jit/jit.h"
-#include "mono/metadata/assembly.h"
-#include "mono/metadata/object.h"
-#include "mono/metadata/tabledefs.h"
+#include <FileWatch.hpp>
+#include <mono/jit/jit.h>
+#include <mono/metadata/assembly.h>
+#include <mono/metadata/object.h>
+#include <mono/metadata/tabledefs.h>
 
 namespace Crystal {
 
@@ -130,6 +130,9 @@ namespace Crystal {
 		MonoAssembly* AppAssembly = nullptr;
 		MonoImage* AppAssemblyImage = nullptr;
 
+		std::filesystem::path CoreAssemblyFilepath;
+		std::filesystem::path AppAssemblyFilepath;
+
 		ScriptClass EntityClass;
 
 		std::unordered_map<std::string, Ref<ScriptClass>> EntityClasses;
@@ -147,13 +150,11 @@ namespace Crystal {
 		s_Data = new ScriptEngineData();
 
 		InitMono();
+		ScriptGlue::RegisterFunctions();
 		LoadAssembly("Resources/Scripts/Crystal-ScriptCore.dll");
 		LoadAppAssembly("SandboxProj/assets/Scripts/Binaries/Project.dll");
 		LoadAssemblyClasses();
-
 		ScriptGlue::RegisterComponents();
-		ScriptGlue::RegisterFunctions();
-
 		// Retrieve and instantiate class
 		s_Data->EntityClass = ScriptClass("Crystal", "Entity", true);
 	}
@@ -177,10 +178,12 @@ namespace Crystal {
 
 	void ScriptEngine::ShutdownMono()
 	{
-		// mono_domain_unload(s_Data->AppDomain);
+		mono_domain_set(mono_get_root_domain(), false);
+
+		mono_domain_unload(s_Data->AppDomain);
 		s_Data->AppDomain = nullptr;
 
-		// mono_jit_cleanup(s_Data->RootDomain);
+		mono_jit_cleanup(s_Data->RootDomain);
 		s_Data->RootDomain = nullptr;
 	}
 
@@ -191,6 +194,7 @@ namespace Crystal {
 		mono_domain_set(s_Data->AppDomain, true);
 
 		// Move this
+		s_Data->CoreAssemblyFilepath = filepath;
 		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
 		// Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
@@ -199,9 +203,22 @@ namespace Crystal {
 	void ScriptEngine::LoadAppAssembly(const std::filesystem::path& filepath)
 	{
 		// Move this
+		s_Data->AppAssemblyFilepath = filepath;
 		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->AppAssemblyImage = mono_assembly_get_image(s_Data->AppAssembly);
 		// Utils::PrintAssemblyTypes(s_Data->AppAssembly);
+	}
+
+	void ScriptEngine::ReloadAssembly()
+	{
+		mono_domain_set(mono_get_root_domain(), false);
+		mono_domain_unload(s_Data->AppDomain);
+		LoadAssembly(s_Data->CoreAssemblyFilepath);
+		LoadAppAssembly(s_Data->AppAssemblyFilepath);
+		LoadAssemblyClasses();
+		ScriptGlue::RegisterComponents();
+		// Retrieve and instantiate classes
+		s_Data->EntityClass = ScriptClass("Crystal", "Entity", true);
 	}
 
 	void ScriptEngine::OnRuntimeStart(Scene* scene)

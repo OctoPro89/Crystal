@@ -16,7 +16,6 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h">
       <Filter>Panels</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -30,15 +29,5 @@
       <Filter>Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="premake5.lua" />
-    <None Include="Sapphire-Editor.aps" />
-    <None Include="imgui.ini" />
-    <None Include="assets\Scenes\Physics2D.crystal" />
-    <None Include="assets\Scenes\Untitled.crystal" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Sapphire-Editor.rc" />
   </ItemGroup>
 </Project>

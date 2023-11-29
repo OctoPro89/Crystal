@@ -3,9 +3,10 @@
 #include <ImGuizmo.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Crystal/Scene/SceneSerializer.h"
-#include "Crystal/Utils/PlatformUtils.h"
-#include "Crystal/Math/Math.h"
+#include <Crystal/Scene/SceneSerializer.h>
+#include <Crystal/Utils/PlatformUtils.h>
+#include <Crystal/Math/Math.h>
+#include <Crystal/Scripting/ScriptEngine.h>
 
 namespace Crystal {
 	const std::filesystem::path g_AssetPath = "assets";
@@ -190,6 +191,11 @@ namespace Crystal {
 					NewScene();
 				ImGui::EndMenu();
 			}
+			if (ImGui::BeginMenu("Edit"))
+			{
+				if (ImGui::MenuItem("Preferences")) preferencesWindow = !preferencesWindow;
+				ImGui::EndMenu();
+			}
 			if (ImGui::BeginMenu("View"))
 			{
 				// Disabling full screen would allow the window to be moved to the front of other windows, 
@@ -200,9 +206,9 @@ namespace Crystal {
 				if (ImGui::MenuItem("Performance")) performanceWindow = !performanceWindow;
 				ImGui::EndMenu();
 			}
-			if (ImGui::BeginMenu("Edit"))
+			if (ImGui::BeginMenu("Scripting"))
 			{
-				if (ImGui::MenuItem("Preferences")) preferencesWindow = !preferencesWindow;
+				if (ImGui::MenuItem("Reload C# Assemblies", "")) ScriptEngine::ReloadAssembly();
 				ImGui::EndMenu();
 			}
 

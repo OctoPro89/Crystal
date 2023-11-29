@@ -1644,7 +1644,4 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="premake5.lua" />
-  </ItemGroup>
 </Project>

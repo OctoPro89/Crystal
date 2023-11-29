@@ -34,6 +34,7 @@ project "Crystal"
 		"src",
 		"vendor/spdlog/include",
 		"%{IncludeDir.Box2D}",
+		"%{IncludeDir.filewatch}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
