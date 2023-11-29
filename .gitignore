@@ -6,3 +6,5 @@ bin-int
 *.ipch
 *.pdb
 *.exe
+bin/Release-windows-x86_64/Crystal/Crystal.lib
+bin/Debug-windows-x86_64/Crystal/Crystal.lib
