@@ -1,0 +1,296 @@
+************************************* Invoked: Sat Oct 28 11:23:13 2023
+[0] Arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\VulkanSDK-1.3.268.0-Installer.exe
+[3] Operations sanity check succeeded.
+[3] Language: en-US
+[373] Loaded control script ":/metadata/installer-config/installscript_qs.qs"
+[373] Using control script: ":/metadata/installer-config/installscript_qs.qs"
+[1794] Preparing meta information download...
+[2364] Retrieving meta information from remote repository...
+[2682] Extracting meta information...
+[9504] OverwriteTargetDirectory : Warning : You have selected an existing, non-empty directory for installation.
+Note that it will be completely wiped on uninstallation of this application.
+It is not advisable to install into this directory as installation might fail.
+Do you want to continue? Yes|No
+[19351] Installation space required: "2.46 GB" Temporary space required: "511.89 MB" Local repository size: "0.00 bytes"
+[19358] Tmp is on a different volume than the installation directory. Tmp volume mount point: "C:\\" Free space available: "466.51 GB" Install volume mount point: "D:\\" Free space available: "1.54 TB"
+[38071] backup  operation: Mkdir
+[38071] 	- arguments: D:/Programming/C++/Crystal/Crystal/vendor/VulkanSDK
+[38071] Done
+[38071] perform  operation: Mkdir
+[38071] 	- arguments: D:/Programming/C++/Crystal/Crystal/vendor/VulkanSDK
+[38071] Done
+[38071] Preparing the installation...
+[38071] Install size: 4 components
+[38071] Downloading packages...
+[38072] Downloading archive "1.3.268.0debug.7z.sha1" for component Shader Toolchain Debug Symbols - 64-bit.
+[38385] Downloading archive "1.3.268.0debug.7z" for component Shader Toolchain Debug Symbols - 64-bit.
+[44867] Downloading archive "1.3.268.0Volk.7z.sha1" for component Volk header, source, and library..
+[45321] Downloading archive "1.3.268.0Volk.7z" for component Volk header, source, and library..
+[45705] Installing component The Vulkan SDK
+[45706] backup com.lunarg.vulkan operation: License
+[45706] 	- arguments:
+[45706] Done
+[45706] perform com.lunarg.vulkan operation: License
+[45706] 	- arguments:
+[45707] Done
+[45708] Installing component The Vulkan SDK Core (Always Installed)
+[45709] backup com.lunarg.vulkan.core operation: Extract
+[45709] 	- arguments: installer://com.lunarg.vulkan.core/1.3.268.0core.7z, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK
+[45709] Done
+[45709] perform com.lunarg.vulkan.core operation: Extract
+[45709] 	- arguments: installer://com.lunarg.vulkan.core/1.3.268.0core.7z, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK
+[52420] Done
+[52420] Starting elevated process "D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\VulkanSDK-1.3.268.0-Installer.exe" with arguments " --start-server PRODUCTION,{a9f70122-88ee-4b67-9f64-16d48c2026b7},{dc5f358b-86f5-400e-877a-50a6943f9a59}"
+[54104] Finished starting elevated process.
+[54146] "Execute" as admin: true
+[54146] backup com.lunarg.vulkan.core operation: Execute
+[54147] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK, SHORTCUTS, Vulkan SDK 1.3.268.0, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, REMOVESHORTCUTS, Vulkan SDK 1.3.268.0
+[54147] Done
+[54147] perform com.lunarg.vulkan.core operation: Execute
+[54148] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK, SHORTCUTS, Vulkan SDK 1.3.268.0, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, REMOVESHORTCUTS, Vulkan SDK 1.3.268.0
+[54149] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK SHORTCUTS Vulkan SDK 1.3.268.0
+[54517] Done
+[54518] "Execute" as admin: true
+[54518] backup com.lunarg.vulkan.core operation: Execute
+[54518] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_api_dump.json
+[54518] Done
+[54518] perform com.lunarg.vulkan.core operation: Execute
+[54519] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_api_dump.json
+[54519] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_api_dump.json
+[54529] Done
+[54529] "Execute" as admin: true
+[54529] backup com.lunarg.vulkan.core operation: Execute
+[54530] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_api_dump.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_api_dump.json
+[54530] Done
+[54530] perform com.lunarg.vulkan.core operation: Execute
+[54531] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_api_dump.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_api_dump.json
+[54531] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_api_dump.json
+[54540] Done
+[54540] "Execute" as admin: true
+[54540] backup com.lunarg.vulkan.core operation: Execute
+[54541] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_gfxreconstruct.json
+[54541] Done
+[54541] perform com.lunarg.vulkan.core operation: Execute
+[54541] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_gfxreconstruct.json
+[54542] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_gfxreconstruct.json
+[54551] Done
+[54552] "Execute" as admin: true
+[54552] backup com.lunarg.vulkan.core operation: Execute
+[54553] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_gfxreconstruct.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_gfxreconstruct.json
+[54553] Done
+[54553] perform com.lunarg.vulkan.core operation: Execute
+[54554] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_gfxreconstruct.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_gfxreconstruct.json
+[54554] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_gfxreconstruct.json
+[54563] Done
+[54564] "Execute" as admin: true
+[54564] backup com.lunarg.vulkan.core operation: Execute
+[54564] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_synchronization2.json
+[54564] Done
+[54565] perform com.lunarg.vulkan.core operation: Execute
+[54565] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_synchronization2.json
+[54566] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_khronos_synchronization2.json
+[54575] Done
+[54575] "Execute" as admin: true
+[54575] backup com.lunarg.vulkan.core operation: Execute
+[54576] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_synchronization2.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_synchronization2.json
+[54576] Done
+[54576] perform com.lunarg.vulkan.core operation: Execute
+[54577] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_synchronization2.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_synchronization2.json
+[54577] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_khronos_synchronization2.json
+[54587] Done
+[54587] "Execute" as admin: true
+[54587] backup com.lunarg.vulkan.core operation: Execute
+[54587] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_validation.json
+[54587] Done
+[54587] perform com.lunarg.vulkan.core operation: Execute
+[54588] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_validation.json
+[54588] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_khronos_validation.json
+[54597] Done
+[54597] "Execute" as admin: true
+[54597] backup com.lunarg.vulkan.core operation: Execute
+[54598] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_validation.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_validation.json
+[54598] Done
+[54598] perform com.lunarg.vulkan.core operation: Execute
+[54599] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_validation.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_validation.json
+[54600] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_khronos_validation.json
+[54609] Done
+[54609] "Execute" as admin: true
+[54609] backup com.lunarg.vulkan.core operation: Execute
+[54609] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_monitor.json
+[54609] Done
+[54609] perform com.lunarg.vulkan.core operation: Execute
+[54610] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_monitor.json
+[54611] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_monitor.json
+[54619] Done
+[54620] "Execute" as admin: true
+[54620] backup com.lunarg.vulkan.core operation: Execute
+[54621] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_monitor.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_monitor.json
+[54621] Done
+[54621] perform com.lunarg.vulkan.core operation: Execute
+[54621] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_monitor.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_monitor.json
+[54622] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_monitor.json
+[54631] Done
+[54631] "Execute" as admin: true
+[54631] backup com.lunarg.vulkan.core operation: Execute
+[54631] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_screenshot.json
+[54631] Done
+[54631] perform com.lunarg.vulkan.core operation: Execute
+[54632] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_screenshot.json
+[54632] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_screenshot.json
+[54642] Done
+[54642] "Execute" as admin: true
+[54642] backup com.lunarg.vulkan.core operation: Execute
+[54643] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_screenshot.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_screenshot.json
+[54643] Done
+[54643] perform com.lunarg.vulkan.core operation: Execute
+[54644] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_screenshot.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_screenshot.json
+[54645] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_screenshot.json
+[54654] Done
+[54654] "Execute" as admin: true
+[54654] backup com.lunarg.vulkan.core operation: Execute
+[54655] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_profiles.json
+[54655] Done
+[54655] perform com.lunarg.vulkan.core operation: Execute
+[54655] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_profiles.json
+[54656] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_khronos_profiles.json
+[54665] Done
+[54665] "Execute" as admin: true
+[54665] backup com.lunarg.vulkan.core operation: Execute
+[54666] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_profiles.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_profiles.json
+[54666] Done
+[54666] perform com.lunarg.vulkan.core operation: Execute
+[54667] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_profiles.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_profiles.json
+[54667] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_khronos_profiles.json
+[54676] Done
+[54676] "Execute" as admin: true
+[54676] backup com.lunarg.vulkan.core operation: Execute
+[54677] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_shader_object.json
+[54677] Done
+[54677] perform com.lunarg.vulkan.core operation: Execute
+[54677] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_khronos_shader_object.json
+[54678] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_khronos_shader_object.json
+[54687] Done
+[54687] "Execute" as admin: true
+[54688] backup com.lunarg.vulkan.core operation: Execute
+[54688] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_shader_object.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_shader_object.json
+[54688] Done
+[54688] perform com.lunarg.vulkan.core operation: Execute
+[54689] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, ADDEXPLICIT, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_shader_object.json, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, DELKEYVALUE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin\VkLayer_khronos_shader_object.json
+[54690] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "ADDEXPLICIT D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin\\VkLayer_khronos_shader_object.json
+[54699] Done
+[54699] "Execute" as admin: true
+[54699] backup com.lunarg.vulkan.core operation: Execute
+[54699] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_device_simulation.json
+[54699] Done
+[54700] perform com.lunarg.vulkan.core operation: Execute
+[54700] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, CLEANEXPLICIT, VkLayer_device_simulation.json
+[54701] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "CLEANEXPLICIT VkLayer_device_simulation.json
+[54709] Done
+[54710] "Execute" as admin: true
+[54710] backup com.lunarg.vulkan.core operation: Execute
+[54711] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin, NOP, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin, REMOVE
+[54711] Done
+[54711] perform com.lunarg.vulkan.core operation: Execute
+[54713] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin, NOP, UNDOEXECUTE, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin, REMOVE
+[54714] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin NOP
+[54722] Done
+[54722] "Execute" as admin: true
+[54722] backup com.lunarg.vulkan.core operation: Execute
+[54723] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin, ADD
+[54723] Done
+[54723] perform com.lunarg.vulkan.core operation: Execute
+[54724] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Helpers\install_helper.exe, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK\Bin, ADD
+[54725] D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Helpers\\install_helper.exe" started, arguments: "D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK\\Bin ADD
+[54734] Done
+[54734] backup com.lunarg.vulkan.core operation: License
+[54734] 	- arguments:
+[54734] Done
+[54734] perform com.lunarg.vulkan.core operation: License
+[54734] 	- arguments:
+[54735] Done
+[54736] Installing component Shader Toolchain Debug Symbols - 64-bit
+[54736] backup com.lunarg.vulkan.debug operation: Extract
+[54736] 	- arguments: installer://com.lunarg.vulkan.debug/1.3.268.0debug.7z, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK
+[54736] Done
+[54736] perform com.lunarg.vulkan.debug operation: Extract
+[54736] 	- arguments: installer://com.lunarg.vulkan.debug/1.3.268.0debug.7z, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK
+[62934] Done
+[62934] backup com.lunarg.vulkan.debug operation: License
+[62934] 	- arguments:
+[62934] Done
+[62934] perform com.lunarg.vulkan.debug operation: License
+[62934] 	- arguments:
+[62935] Done
+[62936] Installing component Volk header, source, and library.
+[62937] backup com.lunarg.vulkan.volk operation: Extract
+[62937] 	- arguments: installer://com.lunarg.vulkan.volk/1.3.268.0Volk.7z, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK
+[62937] Done
+[62937] perform com.lunarg.vulkan.volk operation: Extract
+[62937] 	- arguments: installer://com.lunarg.vulkan.volk/1.3.268.0Volk.7z, D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK
+[62953] Done
+[62953] backup com.lunarg.vulkan.volk operation: License
+[62953] 	- arguments:
+[62953] Done
+[62953] perform com.lunarg.vulkan.volk operation: License
+[62953] 	- arguments:
+[62954] Done
+[62957] Writing maintenance tool: "D:\\Programming\\C++\\Crystal\\Crystal\\vendor\\VulkanSDK/maintenancetool.exe.new"
+[62957] Writing maintenance tool.
+[62996] Wrote permissions for maintenance tool.
+[63066] Maintenance tool restart: false.
+[63069] Installation finished!
+[63125] perform  operation: Delete
+[63125] 	- arguments: D:\Programming\C++\Crystal\Crystal\vendor\VulkanSDK/Helpers/VC_redist.x64.exe
+[63126] Done
+[63131] Component name: com.lunarg.vulkan.core
+[63131] Component name: com.lunarg.vulkan.32bit
+[63131] 32Bit Is NOT Installed
+[65175] Warning: QString::arg: Argument missing: Run the Vulkan Configurator and Hardware Capabilities Viewer, Vulkan SDK 1.3.268.0
+[65175] Component name: com.lunarg.vulkan.core
+[65175] perform  operation: Execute
+[65175] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.core, /t, REG_DWORD, /d, 1, /f
+[65176] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.core /t REG_DWORD /d 1 /f
+[65184] Done
+[65184] Is Installed
+[65184] Component name: com.lunarg.vulkan.32bit
+[65184] perform  operation: Execute
+[65184] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.32bit, /t, REG_DWORD, /d, 0, /f
+[65184] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.32bit /t REG_DWORD /d 0 /f
+[65191] Done
+[65192] Was not installed
+[65192] Component name: com.lunarg.vulkan.debug
+[65192] perform  operation: Execute
+[65192] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.debug, /t, REG_DWORD, /d, 1, /f
+[65192] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.debug /t REG_DWORD /d 1 /f
+[65199] Done
+[65199] Is Installed
+[65199] Component name: com.lunarg.vulkan.debug32
+[65199] perform  operation: Execute
+[65199] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.debug32, /t, REG_DWORD, /d, 0, /f
+[65200] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.debug32 /t REG_DWORD /d 0 /f
+[65207] Done
+[65207] Was not installed
+[65207] Component name: com.lunarg.vulkan.glm
+[65207] perform  operation: Execute
+[65207] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.glm, /t, REG_DWORD, /d, 0, /f
+[65207] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.glm /t REG_DWORD /d 0 /f
+[65215] Done
+[65215] Was not installed
+[65215] Component name: com.lunarg.vulkan.sdl2
+[65215] perform  operation: Execute
+[65215] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.sdl2, /t, REG_DWORD, /d, 0, /f
+[65215] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.sdl2 /t REG_DWORD /d 0 /f
+[65222] Done
+[65223] Was not installed
+[65223] Component name: com.lunarg.vulkan.volk
+[65223] perform  operation: Execute
+[65223] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.volk, /t, REG_DWORD, /d, 1, /f
+[65223] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.volk /t REG_DWORD /d 1 /f
+[65230] Done
+[65231] Is Installed
+[65231] Component name: com.lunarg.vulkan.vma
+[65231] perform  operation: Execute
+[65231] 	- arguments: reg, ADD, HKEY_LOCAL_MACHINE\SOFTWARE\LunarG\VulkanSDK, /v, com.lunarg.vulkan.vma, /t, REG_DWORD, /d, 0, /f
+[65231] reg" started, arguments: "ADD HKEY_LOCAL_MACHINE\\SOFTWARE\\LunarG\\VulkanSDK /v com.lunarg.vulkan.vma /t REG_DWORD /d 0 /f
+[65238] Done
+[65238] Was not installed

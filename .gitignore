@@ -1,11 +1,8 @@
-#directories
 .vs
 bin-int
-bin
-Scripts
-CrystalInstaller
-Crystal/vendor/VulkanSDK
-Sandbox/*.json
-*.json
 *.lib
 *.idb
+*.json
+*.ipch
+*.pdb
+*.exe
