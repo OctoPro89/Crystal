@@ -20,6 +20,12 @@
 			Z = z;
 		}
 
+		public Vector3(Vector2 XY, float z)
+		{
+			X = XY.X;
+			Y = XY.Y;
+			Z = z;
+		}
 
 		public Vector2 XY
 		{

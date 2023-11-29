@@ -157,6 +157,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\Scenes\Physics2D.crystal" />
+    <None Include="assets\Scenes\Untitled.crystal" />
     <None Include="imgui.ini" />
     <None Include="premake5.lua" />
     <None Include="Sapphire-Editor.aps" />

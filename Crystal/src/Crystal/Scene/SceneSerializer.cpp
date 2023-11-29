@@ -106,12 +106,13 @@ namespace Crystal {
 			case ScriptFieldType::FieldType:          \
 				out << scriptField.GetValue<Type>();  \
 				break
-#define READ_SCRIPT_FIELD(FieldType, Type) \
-	case ScriptFieldType::FieldType:			\
-	{ \
-		Type data = scriptField["Data"].as<Type>(); \
-		fieldInstance.SetValue(data); \
-		break; \
+
+#define READ_SCRIPT_FIELD(FieldType, Type)             \
+	case ScriptFieldType::FieldType:                   \
+	{                                                  \
+		Type data = scriptField["Data"].as<Type>();    \
+		fieldInstance.SetValue(data);                  \
+		break;                                         \
 	}
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v)
 	{
@@ -307,6 +308,7 @@ namespace Crystal {
 		if (entity.HasComponent<ScriptComponent>())
 		{
 			auto& scriptComponent = entity.GetComponent<ScriptComponent>();
+
 			out << YAML::Key << "ScriptComponent";
 			out << YAML::BeginMap; // ScriptComponent
 			out << YAML::Key << "ClassName" << YAML::Value << scriptComponent.ClassName;
@@ -314,22 +316,23 @@ namespace Crystal {
 			// Fields
 			Ref<ScriptClass> entityClass = ScriptEngine::GetEntityClass(scriptComponent.ClassName);
 			const auto& fields = entityClass->GetFields();
-
-			out << YAML::Key << "ScriptFields" << YAML::Value;
-			out << YAML::BeginSeq; //ScriptFields
-			if (fields.size() > 0) 
+			if (fields.size() > 0)
 			{
+				out << YAML::Key << "ScriptFields" << YAML::Value;
 				auto& entityFields = ScriptEngine::GetScriptFieldMap(entity);
+				out << YAML::BeginSeq;
 				for (const auto& [name, field] : fields)
 				{
 					if (entityFields.find(name) == entityFields.end())
 						continue;
-					out << YAML::BeginMap; // Field
+
+					out << YAML::BeginMap; // ScriptField
 					out << YAML::Key << "Name" << YAML::Value << name;
 					out << YAML::Key << "Type" << YAML::Value << Utils::ScriptFieldTypeToString(field.Type);
 
-					ScriptFieldInstance& scriptField = entityFields.at(name);
 					out << YAML::Key << "Data" << YAML::Value;
+					ScriptFieldInstance& scriptField = entityFields.at(name);
+
 					switch (field.Type)
 					{
 						WRITE_SCRIPT_FIELD(Float, float);
@@ -340,7 +343,7 @@ namespace Crystal {
 						WRITE_SCRIPT_FIELD(Short, int16_t);
 						WRITE_SCRIPT_FIELD(Int, int32_t);
 						WRITE_SCRIPT_FIELD(Long, int64_t);
-						WRITE_SCRIPT_FIELD(SByte, int8_t);
+						WRITE_SCRIPT_FIELD(SByte, uint8_t);
 						WRITE_SCRIPT_FIELD(UShort, uint16_t);
 						WRITE_SCRIPT_FIELD(UInt, uint32_t);
 						WRITE_SCRIPT_FIELD(ULong, uint64_t);
@@ -349,11 +352,10 @@ namespace Crystal {
 						WRITE_SCRIPT_FIELD(Vector4, glm::vec4);
 						WRITE_SCRIPT_FIELD(Entity, UUID);
 					}
-					out << YAML::EndMap; // Field
+					out << YAML::EndMap; // ScriptFields
 				}
-				out << YAML::EndSeq; // ScriptFields
+				out << YAML::EndSeq;
 			}
-
 			out << YAML::EndMap; // ScriptComponent
 		}
 

@@ -18,6 +18,7 @@ namespace Crystal
 		m_FileIconLUA = Texture2D::Create("Resources/Icons/FileIcons/LUAIcon.png");
 		m_FileIconGLSL = Texture2D::Create("Resources/Icons/FileIcons/GLSLIcon.png");
 		m_FileIconHLSL = Texture2D::Create("Resources/Icons/FileIcons/HLSLIcon.png");
+		m_FileIconScene = Texture2D::Create("Resources/Icons/FileIcons/CrystalIcon.png");
 		m_ArrowIcon = Texture2D::Create("Resources/Icons/arrow.png");
 	}
 	
@@ -65,6 +66,7 @@ namespace Crystal
 				else if (extension == ".lua") { icon = m_FileIconLUA; }
 				else if (extension == ".glsl") { icon = m_FileIconGLSL; }
 				else if (extension == ".hlsl") { icon = m_FileIconHLSL; }
+				else if (extension == ".crystal") { icon = m_FileIconScene; }
 				else { icon = m_FileIcon; }
 			}
 			else

@@ -37,7 +37,7 @@ Entities:
       Density: 1
       GravityScale: 1
       Friction: 0.119999997
-      Restitution: 0
+      Restitution: 0.300000012
       RestitutionThreshold: 0.5
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
@@ -47,10 +47,10 @@ Entities:
       ScriptFields:
         - Name: speed
           Type: Float
-          Data: 45
+          Data: 50
         - Name: torque
           Type: Float
-          Data: 1
+          Data: 0.100000001
   - Entity: 2023496280253134902
     TagComponent:
       Tag: Floor Copy
@@ -223,7 +223,7 @@ Entities:
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [37.7609787, -26.296917, 79.9641876]
+      Translation: [37.7609787, -26.296917, 67.3209763]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -237,3 +237,5 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
+    ScriptComponent:
+      ClassName: Sandbox.Camera

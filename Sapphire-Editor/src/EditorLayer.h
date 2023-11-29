@@ -7,7 +7,6 @@
 #include "Panels/ConsolePanel.h"
 
 namespace Crystal {
-
 	class EditorLayer : public Layer
 	{
 	public:

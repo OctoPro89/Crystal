@@ -35,6 +35,8 @@
     <None Include="premake5.lua" />
     <None Include="Sapphire-Editor.aps" />
     <None Include="imgui.ini" />
+    <None Include="assets\Scenes\Physics2D.crystal" />
+    <None Include="assets\Scenes\Untitled.crystal" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Sapphire-Editor.rc" />

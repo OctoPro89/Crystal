@@ -22,5 +22,6 @@ namespace Crystal
 		Ref<Texture2D> m_FileIconLUA;
 		Ref<Texture2D> m_FileIconGLSL;
 		Ref<Texture2D> m_FileIconHLSL;
+		Ref<Texture2D> m_FileIconScene;
 	};
 }

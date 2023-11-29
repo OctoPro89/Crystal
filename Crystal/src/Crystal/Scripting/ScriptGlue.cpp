@@ -11,13 +11,10 @@
 
 #include "mono/metadata/object.h"
 #include "mono/metadata/reflection.h"
-
 #include "box2d/b2_body.h"
 
 namespace Crystal {
-
 	static std::unordered_map<MonoType*, std::function<bool(Entity)>> s_EntityHasComponentFuncs;
-
 #define CRYSTAL_ADD_INTERNAL_CALL(Name) mono_add_internal_call("Crystal.InternalCalls::"#Name, Name)
 
 	static void NativeLog(MonoString* string, int parameter)
@@ -50,6 +47,11 @@ namespace Crystal {
 		return s_EntityHasComponentFuncs.at(managedType)(entity);
 	}
 
+	static MonoObject* GetScriptInstance(UUID entityID)
+	{
+		return ScriptEngine::GetManagedInstance(entityID);
+	}
+
 	static void TransformComponent_GetTranslation(UUID entityID, glm::vec3* outTranslation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -58,6 +60,20 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		*outTranslation = entity.GetComponent<TransformComponent>().Translation;
+	}
+
+	static uint64_t Entity_FindEntityByName(MonoString* outUUID)
+	{
+		char* cStr = mono_string_to_utf8(outUUID);
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene!");
+		Entity entity = scene->FindEntityByName(cStr);
+		mono_free(cStr);
+
+		if (!entity)
+			return 0;
+
+		return entity.GetUUID();
 	}
 
 	static void TransformComponent_SetTranslation(UUID entityID, glm::vec3* translation)
@@ -329,6 +345,12 @@ namespace Crystal {
 		return Input::IsKeyPressed(keycode);
 	}
 
+	static void Editor_ConsoleLog(MonoString* message)
+	{
+		char* cStr = mono_string_to_utf8(message);
+		mono_free(cStr);
+	}
+
 	template<typename... Component>
 	static void RegisterComponent()
 	{
@@ -348,7 +370,6 @@ namespace Crystal {
 				s_EntityHasComponentFuncs[managedType] = [](Entity entity) { return entity.HasComponent<Component>(); };
 			}(), ...);
 	}
-
 	template<typename... Component>
 	static void RegisterComponent(ComponentGroup<Component...>)
 	{
@@ -367,6 +388,8 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(NativeLog_VectorDot);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Entity_HasComponent);
+		CRYSTAL_ADD_INTERNAL_CALL(Entity_FindEntityByName);
+		CRYSTAL_ADD_INTERNAL_CALL(GetScriptInstance);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
 
