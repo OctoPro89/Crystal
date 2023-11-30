@@ -76,7 +76,13 @@ namespace Crystal {
 		}
 	}
 
-	void Application::Run() 
+	void Application::SubmitToMainThread(const std::function<void()>& func)
+	{
+		std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex); /* Lock the scope */
+		m_MainThreadQueue.emplace_back(func); /* emplace back the function */
+	}
+
+	void Application::Run()
 	{
 		CRYSTAL_PROFILE_FUNCTION(); /* Profile the function */
 
@@ -86,6 +92,8 @@ namespace Crystal {
 			float time = (float)glfwGetTime(); /* Get the time in seconds */
 			Timestep timestep = time - m_LastFrameTime; /* Create an instance of the Timestep class to keep track of time and do the appropriate math to get the time */
 			m_LastFrameTime = time; /* set the lastframetime to the time since last frame (FPS Counter) */
+
+			ExecuteMainThreadQueue(); /* Execute the main thread queue */
 
 			if (!m_Minimized) { /* See if the window is minimized */
 				CRYSTAL_PROFILE_SCOPE("Layerstack OnUpdates"); /* Profile the scope */
@@ -125,5 +133,11 @@ namespace Crystal {
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight()); /* Tell the renderer to resize the window */
 
 		return false; /* return false because the event is not blocked and its not handled */
+	}
+	void Application::ExecuteMainThreadQueue()
+	{
+		for (auto& func : m_MainThreadQueue)
+			func();
+		m_MainThreadQueue.clear();
 	}
 }

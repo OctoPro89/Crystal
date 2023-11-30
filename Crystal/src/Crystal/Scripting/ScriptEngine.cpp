@@ -1,6 +1,7 @@
 #include "crystalpch.h"
 #include "ScriptEngine.h"
 #include <Crystal/Scene/Entity.h>
+#include <Crystal/Core/Application.h>
 #include "ScriptGlue.h"
 #include <FileWatch.hpp>
 #include <mono/jit/jit.h>
@@ -139,6 +140,9 @@ namespace Crystal {
 		std::unordered_map<UUID, Ref<ScriptInstance>> EntityInstances;
 		std::unordered_map<UUID, ScriptFieldMap> EntityScriptFields;
 
+		Scope<filewatch::FileWatch<std::string>> AppAssemblyFileWatcher;
+		bool AssemblyReloadPending;
+
 		// Runtime
 		Scene* SceneContext = nullptr;
 	};
@@ -200,6 +204,23 @@ namespace Crystal {
 		// Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
 	}
 
+	static void OnAppAssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
+	{
+		if (change_type == filewatch::Event::modified && !s_Data->AssemblyReloadPending)
+		{
+			s_Data->AssemblyReloadPending = true;
+
+			using namespace std::chrono_literals;
+			std::this_thread::sleep_for(500ms);
+			// reload assembly
+			// add reload to main thread queue
+			Application::Get().SubmitToMainThread([]() {
+				s_Data->AppAssemblyFileWatcher.reset();
+				ScriptEngine::ReloadAssembly(); 
+			});
+		}
+	}
+
 	void ScriptEngine::LoadAppAssembly(const std::filesystem::path& filepath)
 	{
 		// Move this
@@ -207,6 +228,9 @@ namespace Crystal {
 		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->AppAssemblyImage = mono_assembly_get_image(s_Data->AppAssembly);
 		// Utils::PrintAssemblyTypes(s_Data->AppAssembly);
+
+		s_Data->AppAssemblyFileWatcher = CreateScope<filewatch::FileWatch<std::string>>(filepath.string(), OnAppAssemblyFileSystemEvent);
+		s_Data->AssemblyReloadPending = false;
 	}
 
 	void ScriptEngine::ReloadAssembly()

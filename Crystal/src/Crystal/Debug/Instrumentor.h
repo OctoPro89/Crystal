@@ -8,47 +8,47 @@
 #include <thread>
 
 namespace Crystal {
-	struct ProfileResult
+	struct ProfileResult /* struct for storing the profile result */
 	{
 		std::string Name;
 		long long Start, End;
 		uint32_t ThreadID;
 	};
 
-	struct InstrumentationSession
+	struct InstrumentationSession /* simple struct with a Name */
 	{
 		std::string Name;
 	};
 
-	class Instrumentor
+	class Instrumentor /* Instrumentor class */
 	{
 	private:
-		InstrumentationSession* m_CurrentSession;
-		std::ofstream m_OutputStream;
-		int m_ProfileCount;
+		InstrumentationSession* m_CurrentSession; /* Pointer to the class for a session */
+		std::ofstream m_OutputStream; /* Output stream */
+		int m_ProfileCount; /* profile counter */
 	public:
 		Instrumentor()
 			: m_CurrentSession(nullptr), m_ProfileCount(0)
 		{
 		}
 
-		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
+		void BeginSession(const std::string& name, const std::string& filepath = "results.json") /* Begin a session with a json file */
 		{
 			m_OutputStream.open(filepath);
 			WriteHeader();
 			m_CurrentSession = new InstrumentationSession{ name };
 		}
 
-		void EndSession()
+		void EndSession() /* End the session and clean up*/
 		{
-			WriteFooter();
+			WriteFooter(); 
 			m_OutputStream.close();
 			delete m_CurrentSession;
 			m_CurrentSession = nullptr;
 			m_ProfileCount = 0;
 		}
 
-		void WriteProfile(const ProfileResult& result)
+		void WriteProfile(const ProfileResult& result) /* Write all the profiling stuff */
 		{
 			if (m_ProfileCount++ > 0)
 				m_OutputStream << ",";
@@ -69,56 +69,56 @@ namespace Crystal {
 			m_OutputStream.flush();
 		}
 
-		void WriteHeader()
+		void WriteHeader() /* Write data */
 		{
 			m_OutputStream << "{\"otherData\": {},\"traceEvents\":[";
 			m_OutputStream.flush();
 		}
 
-		void WriteFooter()
+		void WriteFooter() /* Write footer data */
 		{
 			m_OutputStream << "]}";
-			m_OutputStream.flush();
+			m_OutputStream.flush(); /* flush the output stream */
 		}
 
-		static Instrumentor& Get()
+		static Instrumentor& Get() /* static reference to get the instance */
 		{
-			static Instrumentor instance;
-			return instance;
+			static Instrumentor instance; /* instance */
+			return instance; /* return the instance */
 		}
 	};
 
-	class InstrumentationTimer
+	class InstrumentationTimer /* Instrumentation Timer class */
 	{
 	public:
 		InstrumentationTimer(const char* name)
 			: m_Name(name), m_Stopped(false)
 		{
-			m_StartTimepoint = std::chrono::high_resolution_clock::now();
+			m_StartTimepoint = std::chrono::high_resolution_clock::now(); /* get start timepoint */
 		}
 
 		~InstrumentationTimer()
 		{
-			if (!m_Stopped)
-				Stop();
+			if (!m_Stopped) /* if stopped stop */
+				Stop(); /* stop */
 		}
 
 		void Stop()
 		{
-			auto endTimepoint = std::chrono::high_resolution_clock::now();
+			auto endTimepoint = std::chrono::high_resolution_clock::now(); /* get the end time point */
 
-			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
-			long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
+			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count(); /* create a variable for the start */
+			long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count(); /* create a variable for the end */
 
-			uint32_t threadID = (uint32_t)std::hash<std::thread::id>{}(std::this_thread::get_id());
-			Instrumentor::Get().WriteProfile({ m_Name, start, end, threadID });
+			uint32_t threadID = (uint32_t)std::hash<std::thread::id>{}(std::this_thread::get_id()); /* get the thread ID */
+			Instrumentor::Get().WriteProfile({ m_Name, start, end, threadID }); /* Write a profile with the perams */
 
 			m_Stopped = true;
 		}
 	private:
-		const char* m_Name;
-		std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
-		bool m_Stopped;
+		const char* m_Name; /* const char pointer for the name */
+		std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint; /* start timepoint */
+		bool m_Stopped; /* is started boolean */
 	};
 }
 
