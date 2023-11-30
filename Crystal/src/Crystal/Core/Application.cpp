@@ -136,6 +136,7 @@ namespace Crystal {
 	}
 	void Application::ExecuteMainThreadQueue()
 	{
+		std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex); /* std vector of std functions */
 		for (auto& func : m_MainThreadQueue)
 			func();
 		m_MainThreadQueue.clear();

@@ -8,6 +8,7 @@
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/object.h>
 #include <mono/metadata/tabledefs.h>
+#include <Crystal/Core/Timer.h>
 
 namespace Crystal {
 
@@ -145,6 +146,8 @@ namespace Crystal {
 
 		// Runtime
 		Scene* SceneContext = nullptr;
+
+		Timer ReloadTimer;
 	};
 
 	static ScriptEngineData* s_Data = nullptr;
@@ -210,8 +213,8 @@ namespace Crystal {
 		{
 			s_Data->AssemblyReloadPending = true;
 
-			using namespace std::chrono_literals;
-			std::this_thread::sleep_for(500ms);
+			s_Data->ReloadTimer = Timer();
+
 			// reload assembly
 			// add reload to main thread queue
 			Application::Get().SubmitToMainThread([]() {
