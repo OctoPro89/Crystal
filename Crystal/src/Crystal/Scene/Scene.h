@@ -41,10 +41,12 @@ namespace Crystal {
 
 		Entity GetPrimaryCameraEntity();
 
-		bool IsRunning() const { return m_IsRunning; }
+		inline bool IsRunning() const { return m_IsRunning; }
+		inline bool IsPaused() const { return m_IsPaused; }
+		inline void SetPaused(bool paused) { m_IsPaused = paused; }
 
 		template<typename... Components>
-		auto GetAllEntitiesWith()
+		inline auto GetAllEntitiesWith()
 		{
 			return m_Registry.view<Components...>();
 		}
@@ -62,6 +64,7 @@ namespace Crystal {
 
 		b2World* m_PhysicsWorld = nullptr;
 		bool m_IsRunning = false;
+		bool m_IsPaused = false;
 
 		std::unordered_map<UUID, entt::entity> m_EntityMap;
 

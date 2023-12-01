@@ -31,10 +31,9 @@ namespace Crystal {
 		void OpenScene(const std::filesystem::path path);
 		void SaveScene();
 		void SaveSceneAs();
-
+		void OnScenePause();
 		void OnScenePlay();
 		void OnSceneStop();
-
 		void OnSimulationPlay();
 		void OnSimulationStop();
 
@@ -91,7 +90,7 @@ namespace Crystal {
 		ConsolePanel Console;
 
 		// Editor Resources
-		Ref<Texture2D> m_IconPlay, m_IconStop, m_IconSimulate;
+		Ref<Texture2D> m_IconPlay, m_IconPause, m_IconStop, m_IconSimulate, m_IconStep;
 
 		// Preferences
 		struct Preferences

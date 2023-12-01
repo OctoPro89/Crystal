@@ -209,17 +209,14 @@ namespace Crystal {
 
 	static void OnAppAssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
 	{
-		if (change_type == filewatch::Event::modified && !s_Data->AssemblyReloadPending)
+		if (!s_Data->AssemblyReloadPending && change_type == filewatch::Event::modified)
 		{
 			s_Data->AssemblyReloadPending = true;
 
-			s_Data->ReloadTimer = Timer();
-
-			// reload assembly
-			// add reload to main thread queue
-			Application::Get().SubmitToMainThread([]() {
+			Application::Get().SubmitToMainThread([]()
+			{
 				s_Data->AppAssemblyFileWatcher.reset();
-				ScriptEngine::ReloadAssembly(); 
+				ScriptEngine::ReloadAssembly();
 			});
 		}
 	}
@@ -242,6 +239,7 @@ namespace Crystal {
 		mono_domain_unload(s_Data->AppDomain);
 		LoadAssembly(s_Data->CoreAssemblyFilepath);
 		LoadAppAssembly(s_Data->AppAssemblyFilepath);
+		auto fp = s_Data->AppAssemblyFilepath;
 		LoadAssemblyClasses();
 		ScriptGlue::RegisterComponents();
 		// Retrieve and instantiate classes

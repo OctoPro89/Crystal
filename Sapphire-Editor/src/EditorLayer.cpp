@@ -21,6 +21,8 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION();
 
 		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
+		m_IconPause = Texture2D::Create("Resources/Icons/Pause.png");
+		m_IconStep = Texture2D::Create("Resources/Icons/Step.png");
 		m_IconSimulate = Texture2D::Create("Resources/Icons/PhysicsPlay.png");
 		m_IconStop = Texture2D::Create("Resources/Icons/Stop.png");
 		m_Player = Texture2D::Create("assets/textures/Hero.png");
@@ -567,6 +569,13 @@ namespace Crystal {
 		Console.Log("Scene Saved Successfully!");
 	}
 
+	void EditorLayer::OnScenePause()
+	{
+		if (m_SceneState == SceneState::Edit)
+			return;
+		m_ActiveScene->SetPaused(true);
+	}
+
 	void EditorLayer::OnScenePlay()
 	{
 		if (m_SceneState == SceneState::Simulate)
@@ -653,6 +662,17 @@ namespace Crystal {
 					OnSimulationPlay();
 				else if (m_SceneState == SceneState::Simulate)
 					OnSceneStop();
+			}
+		}
+		if (m_SceneState == SceneState::Play || m_SceneState == SceneState::Simulate) {
+			ImGui::SameLine();
+			{
+				bool isPaused = m_ActiveScene->IsPaused();
+				Ref<Texture2D> icon = m_IconPause;
+				if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+				{
+					m_ActiveScene->SetPaused(!isPaused);
+				}
 			}
 		}
 		ImGui::PopStyleColor(3);
