@@ -664,14 +664,27 @@ namespace Crystal {
 					OnSceneStop();
 			}
 		}
-		if (m_SceneState == SceneState::Play || m_SceneState == SceneState::Simulate) {
+		if (m_SceneState == SceneState::Play || m_SceneState == SceneState::Simulate) 
+		{
+			bool isPaused = m_ActiveScene->IsPaused();
 			ImGui::SameLine();
 			{
-				bool isPaused = m_ActiveScene->IsPaused();
 				Ref<Texture2D> icon = m_IconPause;
 				if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 				{
 					m_ActiveScene->SetPaused(!isPaused);
+				}
+			}
+
+			if (isPaused)
+			{
+				ImGui::SameLine();
+				{
+					Ref<Texture2D> icon = m_IconStep;
+					if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+					{
+						m_ActiveScene->Step(1);
+					}
 				}
 			}
 		}

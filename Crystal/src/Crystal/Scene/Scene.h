@@ -45,6 +45,8 @@ namespace Crystal {
 		inline bool IsPaused() const { return m_IsPaused; }
 		inline void SetPaused(bool paused) { m_IsPaused = paused; }
 
+		void Step(int frames);
+
 		template<typename... Components>
 		inline auto GetAllEntitiesWith()
 		{
@@ -65,6 +67,7 @@ namespace Crystal {
 		b2World* m_PhysicsWorld = nullptr;
 		bool m_IsRunning = false;
 		bool m_IsPaused = false;
+		int m_StepFrames = 0;
 
 		std::unordered_map<UUID, entt::entity> m_EntityMap;
 
