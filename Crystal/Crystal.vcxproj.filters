@@ -1503,6 +1503,18 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\filewatch\FileWatch.hpp" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanRendererAPI.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanDevice.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanBuffer.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanContext.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanFrameBuffer.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanPipeline.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanShader.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanTexture.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanUniformBuffer.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanVertexArray.h" />
+    <ClInclude Include="src\Platform\Vulkan\VulkanSwapChain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1643,5 +1655,16 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Vulkan\VulkanRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanDevice.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanBuffer.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanContext.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanFrameBuffer.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanPipeline.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanShader.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanTexture.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanUniformBuffer.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanVertexArray.cpp" />
+    <ClCompile Include="src\Platform\Vulkan\VulkanSwapChain.cpp" />
   </ItemGroup>
 </Project>

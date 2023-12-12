@@ -85,9 +85,9 @@ namespace Crystal {
 
 		VkApplicationInfo appInfo = {};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-		appInfo.pApplicationName = "LittleVulkanEngine App";
+		appInfo.pApplicationName = "Crystal App";
 		appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-		appInfo.pEngineName = "No Engine";
+		appInfo.pEngineName = "Crystal";
 		appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
 		appInfo.apiVersion = VK_API_VERSION_1_0;
 
@@ -123,9 +123,10 @@ namespace Crystal {
 		uint32_t deviceCount = 0;
 		vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
 		if (deviceCount == 0) {
-			throw std::runtime_error("failed to find GPUs with Vulkan support!");
+			CRYSTAL_CORE_FATAL("Failed to find GPUs with Vulkan support!");
+			//throw std::runtime_error("failed to find GPUs with Vulkan support!");
 		}
-		std::cout << "Device count: " << deviceCount << std::endl;
+		m_NumberOfDevices = deviceCount;
 		std::vector<VkPhysicalDevice> devices(deviceCount);
 		vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
 
@@ -137,11 +138,12 @@ namespace Crystal {
 		}
 
 		if (physicalDevice == VK_NULL_HANDLE) {
-			throw std::runtime_error("failed to find a suitable GPU!");
+			CRYSTAL_CORE_FATAL("Failed to find a suitable GPU!");
+			//throw std::runtime_error("failed to find a suitable GPU!");
 		}
 
 		vkGetPhysicalDeviceProperties(physicalDevice, &properties);
-		std::cout << "physical device: " << properties.deviceName << std::endl;
+		m_PhysicalDevice = properties.deviceName;
 	}
 
 	void VulkanDevice::createLogicalDevice() {
@@ -184,7 +186,8 @@ namespace Crystal {
 		}
 
 		if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device_) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create logical device!");
+			CRYSTAL_CORE_FATAL("Failed to create logical device!");
+			//throw std::runtime_error("failed to create logical device!");
 		}
 
 		vkGetDeviceQueue(device_, indices.graphicsFamily, 0, &graphicsQueue_);
@@ -201,7 +204,8 @@ namespace Crystal {
 			VK_COMMAND_POOL_CREATE_TRANSIENT_BIT | VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
 		if (vkCreateCommandPool(device_, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create command pool!");
+			CRYSTAL_CORE_FATAL("Failed to create command pool!");
+			//throw std::runtime_error("failed to create command pool!");
 		}
 	}
 
@@ -243,7 +247,8 @@ namespace Crystal {
 		VkDebugUtilsMessengerCreateInfoEXT createInfo;
 		populateDebugMessengerCreateInfo(createInfo);
 		if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS) {
-			throw std::runtime_error("failed to set up debug messenger!");
+			CRYSTAL_CORE_ASSERT(false, "Failed to set up debug messenger!");  
+			//throw std::runtime_error("failed to set up debug messenger!");
 		}
 	}
 
@@ -292,21 +297,25 @@ namespace Crystal {
 		std::vector<VkExtensionProperties> extensions(extensionCount);
 		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 
+		std::stringstream availExtensions;
+		std::stringstream reqExtensions;
+
 		std::cout << "available extensions:" << std::endl;
 		std::unordered_set<std::string> available;
 		for (const auto& extension : extensions) {
-			std::cout << "\t" << extension.extensionName << std::endl;
+			availExtensions << extension.extensionName << "\n";
 			available.insert(extension.extensionName);
 		}
 
-		std::cout << "required extensions:" << std::endl;
 		auto requiredExtensions = getRequiredExtensions();
 		for (const auto& required : requiredExtensions) {
-			std::cout << "\t" << required << std::endl;
+			reqExtensions << required << "\n";
 			if (available.find(required) == available.end()) {
-				throw std::runtime_error("Missing required glfw extension");
+				CRYSTAL_CORE_ASSERT(false, "Missing required GLFW extension!");
+				//throw std::runtime_error("Missing required glfw extension");
 			}
 		}
+		
 	}
 
 	bool VulkanDevice::checkDeviceExtensionSupport(VkPhysicalDevice device) {
@@ -400,7 +409,8 @@ namespace Crystal {
 				return format;
 			}
 		}
-		throw std::runtime_error("failed to find supported format!");
+		CRYSTAL_CORE_FATAL("Failed to find supported format!");
+		//throw std::runtime_error("failed to find supported format!");
 	}
 
 	uint32_t VulkanDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
@@ -412,8 +422,8 @@ namespace Crystal {
 				return i;
 			}
 		}
-
-		throw std::runtime_error("failed to find suitable memory type!");
+		CRYSTAL_CORE_FATAL("Failed to find suitable memory type!");
+		//throw std::runtime_error("failed to find suitable memory type!");
 	}
 
 	void VulkanDevice::createBuffer(
@@ -429,7 +439,8 @@ namespace Crystal {
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
 		if (vkCreateBuffer(device_, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create vertex buffer!");
+			CRYSTAL_CORE_FATAL("Failed to create vertex buffer!");
+			//throw std::runtime_error("failed to create vertex buffer!");
 		}
 
 		VkMemoryRequirements memRequirements;
@@ -441,7 +452,8 @@ namespace Crystal {
 		allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
 		if (vkAllocateMemory(device_, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
-			throw std::runtime_error("failed to allocate vertex buffer memory!");
+			CRYSTAL_CORE_FATAL("Failed to find allocate vertex buffer memory!");
+			//throw std::runtime_error("failed to allocate vertex buffer memory!");
 		}
 
 		vkBindBufferMemory(device_, buffer, bufferMemory, 0);
@@ -524,7 +536,8 @@ namespace Crystal {
 		VkImage& image,
 		VkDeviceMemory& imageMemory) {
 		if (vkCreateImage(device_, &imageInfo, nullptr, &image) != VK_SUCCESS) {
-			throw std::runtime_error("failed to create image!");
+			CRYSTAL_CORE_FATAL("Failed to create image!");
+			//throw std::runtime_error("failed to create image!");
 		}
 
 		VkMemoryRequirements memRequirements;
@@ -536,11 +549,13 @@ namespace Crystal {
 		allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
 		if (vkAllocateMemory(device_, &allocInfo, nullptr, &imageMemory) != VK_SUCCESS) {
-			throw std::runtime_error("failed to allocate image memory!");
+			CRYSTAL_CORE_FATAL("Failed to allocate image memory!");
+			//throw std::runtime_error("failed to allocate image memory!");
 		}
 
 		if (vkBindImageMemory(device_, image, imageMemory, 0) != VK_SUCCESS) {
-			throw std::runtime_error("failed to bind image memory!");
+			CRYSTAL_CORE_FATAL("Failed to bind image memory!");
+			//throw std::runtime_error("failed to bind image memory!");
 		}
 	}
 

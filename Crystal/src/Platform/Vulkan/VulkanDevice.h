@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+struct GLFWwindow;
 namespace Crystal {
 
 	struct SwapChainSupportDetails {
@@ -35,7 +36,10 @@ namespace Crystal {
 		void operator=(const VulkanDevice&) = delete;
 		VulkanDevice(VulkanDevice&&) = delete;
 		VulkanDevice& operator=(VulkanDevice&&) = delete;
-
+		std::string& GetPhysicalDevice() { return m_PhysicalDevice; }
+		std::string& GetAvailableExtensions() { return m_AvailableExtensions; }
+		std::string& GetRequiredExtensions() { return m_RequiredExtensions; }
+		uint8_t& GetNumOfDevices() { return m_NumberOfDevices; }
 		VkCommandPool getCommandPool() { return commandPool; }
 		VkDevice device() { return device_; }
 		VkSurfaceKHR surface() { return surface_; }
@@ -70,6 +74,10 @@ namespace Crystal {
 		VkPhysicalDeviceProperties properties;
 
 	private:
+		std::string m_PhysicalDevice;
+		std::string m_AvailableExtensions;
+		std::string m_RequiredExtensions;
+		uint8_t m_NumberOfDevices;
 		void createInstance();
 		void setupDebugMessenger();
 		void createSurface();
