@@ -1,5 +1,8 @@
 #pragma once
 #include "Crystal/Renderer/RendererAPI.h"
+#include "VulkanSwapChain.h"
+#include "VulkanPipeline.h"
+#include <Crystal/Core/Application.h>
 
 namespace Crystal {
 	class VulkanRenderAPI : public RendererAPI
@@ -16,6 +19,13 @@ namespace Crystal {
 
 		virtual void SetLineWidth(float width) override;
 	private:
-
+		void CreatePipelineLayout();
+		void CreatePipeline();
+		void CreateCommandBuffers();
+		VulkanDevice vkDevice{ m_WindowHandle };
+		VulkanSwapChain m_SwapChain{ vkDevice, VkExtent2D{Application::Get().GetWindow().GetWidth(), Application::Get().GetWindow().GetHeight()} };
+		Ref<VulkanPipeline> m_Pipeline{};
+		VkPipelineLayout pipelineLayout{};
+		std::vector<VkCommandBuffer> commandBuffers{};
 	};
 }

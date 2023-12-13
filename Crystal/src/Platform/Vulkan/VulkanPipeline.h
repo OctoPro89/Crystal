@@ -19,7 +19,7 @@ namespace Crystal {
 	public:
 		VulkanPipeline(VulkanDevice& device, const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo);
 		VulkanDevice& GetDevice() { return m_Device; }
-
+		void Bind(VkCommandBuffer commandBuffer);
 		~VulkanPipeline();
 		VulkanPipeline(const VulkanPipeline&) = delete;
 		void operator=(const VulkanPipeline&) = delete;

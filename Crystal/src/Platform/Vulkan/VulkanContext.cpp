@@ -5,7 +5,7 @@
 #include <vulkan/vulkan.h>
 
 namespace Crystal {
-	VulkanContext::VulkanContext(GLFWwindow* windowHandle, VulkanPipeline& pipeline)
+	VulkanContext::VulkanContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)
 	{
 		CRYSTAL_CORE_ASSERT(windowHandle, "Window handle is null!");
@@ -14,27 +14,10 @@ namespace Crystal {
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 		glfwMakeContextCurrent(m_WindowHandle);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		CRYSTAL_CORE_ASSERT(status, "Failed to initialize Glad!");
 	}
 	void VulkanContext::SwapBuffers()
 	{
-
-	}
-	void VulkanContext::CreatePipelineLayout()
-	{
-		VkPipelineLayoutCreateInfo pipelineLayoutInfo;
-		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = 0;
-		pipelineLayoutInfo.pSetLayouts = nullptr;
-		pipelineLayoutInfo
-	}
-	void VulkanContext::CreatePipeline()
-	{
-
-	}
-	void VulkanContext::CreateCommandBuffers()
-	{
-
+		CRYSTAL_PROFILE_FUNCTION();
+		glfwSwapBuffers(m_WindowHandle);
 	}
 }

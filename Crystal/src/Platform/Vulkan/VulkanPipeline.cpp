@@ -7,6 +7,10 @@ namespace Crystal {
 	{
 		CreateGraphicsPipeline(vertFilepath, fragFilepath, configInfo);
 	}
+	void VulkanPipeline::Bind(VkCommandBuffer commandBuffer)
+	{
+		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
+	}
 	VulkanPipeline::~VulkanPipeline()
 	{
 		vkDestroyShaderModule(m_Device.device(), vertShaderModule, nullptr);
