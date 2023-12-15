@@ -363,7 +363,7 @@ namespace Crystal {
 		static float speed = 10.0f;
 		DrawComponent<ScriptComponent>("Script", entity, [entity, scene = m_Context](auto& component) mutable
 			{
-				bool scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);;
+				bool scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);
 				static char buffer[64];
 				strcpy_s(buffer, sizeof(buffer), component.ClassName.c_str());
 
@@ -371,6 +371,8 @@ namespace Crystal {
 					ImGui::PushStyleColor(ImGuiCol_Text, { 0.9f,0.2f,0.3f,1.0f });
 				else
 					ImGui::PushStyleColor(ImGuiCol_Text, { 0.2f,0.9f,0.3f,1.0f });
+
+				scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);
 
 				if (ImGui::InputText("Class", buffer, sizeof(buffer)))
 				{

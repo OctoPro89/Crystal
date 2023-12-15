@@ -1,25 +1,84 @@
 Scene: Untitled
 Entities:
-  - Entity: 5013843358596456735
+  - Entity: 7453659689707672812
     TagComponent:
-      Tag: Sprite
+      Tag: Ground Copy
     TransformComponent:
-      Translation: [0, 0, 0]
+      Translation: [15.842639, 3.92712164, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 3465450984911304389
+    TagComponent:
+      Tag: Ground
+    TransformComponent:
+      Translation: [7.77209044, 29.2645493, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 8307065430778552573
+    TagComponent:
+      Tag: Player
+    TransformComponent:
+      Translation: [-1.49011612e-08, 1.56240392, -4.65661287e-10]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: true
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.25999999
+      Restitution: 0
+      RestitutionThreshold: 0.5
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [1, 0, 0, 1]
       TilingFactor: 1
-  - Entity: 4486475155311257911
+    ScriptComponent:
+      ClassName: Player
+      ScriptFields:
+        - Name: speed
+          Type: Float
+          Data: 10
+  - Entity: 1586371829711226719
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [0, 0, 0]
+      Translation: [0, 0, 17.5488167]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
       Camera:
-        ProjectionType: 1
+        ProjectionType: 0
         PerspectiveFOV: 0.785398185
         PerspectiveNear: 0.00999999978
         PerspectiveFar: 1000
@@ -28,3 +87,1438 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
+    ScriptComponent:
+      ClassName: Sandbox.CamController
+      ScriptFields:
+        - Name: ZfromPlayer
+          Type: Float
+          Data: 14
+  - Entity: 13516363678042894050
+    TagComponent:
+      Tag: Ground
+    TransformComponent:
+      Translation: [0, -0.821022749, 0]
+      Rotation: [0, 0, 0]
+      Scale: [206.123672, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.337510705, 0.725868702, 0.182167813, 1]
+      TilingFactor: 1
+  - Entity: 15178014176681164815
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [24.6360626, 6.68692303, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 18076116969381818251
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [34.0370293, 9.45709419, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 2726551797604919726
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [42.5561409, 12.3253946, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 14865780723992455182
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [37.179245, 17.2053204, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11409802566901320065
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [29.8678532, 20.4371853, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 6678851221832762209
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [22.1773891, 23.2540379, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 1566800924563477083
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [14.7112293, 25.8460121, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 16958013422912098685
+    TagComponent:
+      Tag: Ground Copy
+    TransformComponent:
+      Translation: [17.5495434, 89.0690308, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 18047032117595504278
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-0.32858634, 32.7402039, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 2500050778624286653
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [3.07342529, 37.783268, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 15612417513182005112
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [12.216692, 38.6500397, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 15698404716896276093
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [20.3129044, 40.6373558, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3.41287088, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 7275620182735474160
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [27.991415, 42.3032494, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 12991433422382427003
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [34.7682648, 44.4737968, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13452977433712321192
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [41.4193192, 46.1519661, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 8449499887365267761
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [47.1927605, 49.0050888, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 10995586574458836116
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [53.2540817, 51.1663208, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 7885907440040688098
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [47.6199913, 54.3246689, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 3356412364709327926
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [40.3419495, 56.668766, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 14542815550112396701
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [32.0124893, 59.1403961, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 16533022867754188380
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [24.3551807, 60.9811134, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13600746169252078264
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [16.8551807, 62.9811134, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11591296247777982862
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [9.71480942, 65.3362885, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 995902677843108472
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [2.81083965, 67.9072952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 2575335071809202295
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-5.4770565, 71.267662, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 274200452791612088
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-12.2607355, 73.9098129, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 15328406903187079095
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-19.2196007, 76.4670105, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 9965125727981621952
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-10.7196016, 80.9670105, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11230859937712939626
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-1.21960258, 83.9670105, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 9584644724189154223
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [8.19432068, 86.381218, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 6039234859699480942
+    TagComponent:
+      Tag: Ground Copy Copy
+    TransformComponent:
+      Translation: [-36.1159897, 134.679916, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 17476771666454425107
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [17.4903431, 89.0690308, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 9129019317870645383
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [23.7917709, 91.0701141, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 8658025433592815106
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [32.5151482, 93.0455704, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 12714842113546787265
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [40.0151482, 95.5455704, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 10506921569681064290
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [50.239994, 98.1424179, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2.55066609, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 15739233527456446860
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [58.8964195, 99.0937042, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 3698909588534550986
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [53.4802704, 104.858429, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 9129331614287623465
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [48.9770355, 107.136986, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13533508471302012329
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [43.90485, 108.948181, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 14278975318892894705
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [37.40485, 110.948181, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 1712238229337192043
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [30.3027744, 112.781281, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13165110221505885458
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [23.261095, 113.923538, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 3869775193118340963
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [10.189909, 114.32988, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 1906494623744591141
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [2.58245373, 115.920982, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13322630559061472685
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-4.89497471, 116.633392, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11766829966911474073
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-11.4370117, 117.275612, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11922057914911670484
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-17.8782444, 118.346802, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 3078110874510590868
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-24.3782444, 118.846802, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13833062284610064330
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-32.1819305, 120.105492, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 6507451285328467118
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-40.3502617, 122.995125, -1.86264515e-09]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 7970243853525117303
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-47.5777206, 126.503853, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 1310790326102388151
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-43.6159897, 132.679916, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 16857694741796357299
+    TagComponent:
+      Tag: Ground Copy Copy Copy
+    TransformComponent:
+      Translation: [-21.3827877, 140.003067, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 7975246816789156799
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [-36.1159897, 134.679916, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 15912490149721746910
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [-31.0701828, 136.793304, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11776309945580977905
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [-25.8501682, 138.279358, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 9158035549508404538
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [54.6286926, 164.592667, 0]
+      Rotation: [0, 0, 0]
+      Scale: [19.1199989, 19.1199989, 19.1199989]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TexturePath: assets\textures\YouWin.png
+      TilingFactor: 1
+  - Entity: 16546236918560886255
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [-21.3827877, 140.003067, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 17835923929441801072
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [-14.9119768, 141.958206, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 13876371214846985518
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [-5.30606365, 144.740524, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.86678731, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 797781505843459570
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [5.589571, 146.107269, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.04900908, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 2325694229005891460
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [11.8815613, 147.222473, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.04900908, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 671951819945000218
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [19.4234028, 149.410278, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.04900908, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 11569434360827437681
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [27.3294144, 151.479904, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.04900908, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 17858066033812715243
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [35.896122, 153.644577, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.04900908, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1
+  - Entity: 17244497144032333493
+    TagComponent:
+      Tag: Ground Copy Copy Copy Copy Copy
+    TransformComponent:
+      Translation: [54.6286926, 156.807724, 0]
+      Rotation: [0, 0, 0]
+      Scale: [24.1729889, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.264763623, 0.791505814, 0.174192443, 1]
+      TilingFactor: 1

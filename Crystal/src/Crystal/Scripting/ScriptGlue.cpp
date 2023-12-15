@@ -12,6 +12,7 @@
 #include "mono/metadata/object.h"
 #include "mono/metadata/reflection.h"
 #include "box2d/b2_body.h"
+#include "box2d/b2_contact.h"
 
 namespace Crystal {
 	static std::unordered_map<MonoType*, std::function<bool(Entity)>> s_EntityHasComponentFuncs;
@@ -238,6 +239,18 @@ namespace Crystal {
 
 		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
 		outRestitutionThreshold = bc2d.RestitutionThreshold;
+	}
+
+	static void Rigidbody2DComponent_GetVelocity(UUID entityID, glm::vec2* outVelocity)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		*outVelocity = glm::vec2(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
 	}
 
 	static void Rigidbody2DComponent_ApplyLinearImpulse(UUID entityID, glm::vec2* impulse, glm::vec2* point, bool wake)

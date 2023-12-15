@@ -9,6 +9,8 @@
 #include <mono/metadata/object.h>
 #include <mono/metadata/tabledefs.h>
 #include <Crystal/Core/Timer.h>
+#include <box2d/b2_contact.h>
+
 
 namespace Crystal {
 
@@ -284,6 +286,24 @@ namespace Crystal {
 		instance->InvokeOnUpdate((float)ts);
 	}
 
+	void ScriptEngine::OnCollisionEnter(Entity entity, b2Contact* contact)
+	{
+		UUID entityUUID = entity.GetUUID();
+		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
+
+		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
+		instance->InvokeOnCollisionEnter(contact);
+	}
+
+	void ScriptEngine::OnCollisionExit(Entity entity, b2Contact* contact)
+	{
+		UUID entityUUID = entity.GetUUID();
+		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
+
+		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
+		instance->InvokeOnCollisionExit(contact);
+	}
+
 	Scene* ScriptEngine::GetSceneContext()
 	{
 		return s_Data->SceneContext;
@@ -427,6 +447,8 @@ namespace Crystal {
 		m_Constructor = s_Data->EntityClass.GetMethod(".ctor", 1);
 		m_OnCreateMethod = scriptClass->GetMethod("OnCreate", 0);
 		m_OnUpdateMethod = scriptClass->GetMethod("OnUpdate", 1);
+		m_OnCollisionEnterMethod = scriptClass->GetMethod("OnCollisionEnter", 1);
+		m_OnCollisionExitMethod = scriptClass->GetMethod("OnCollisionExit", 1);
 
 		// Call Entity constructor
 		{
@@ -473,5 +495,23 @@ namespace Crystal {
 		const ScriptField& field = it->second;
 		mono_field_set_value(m_Instance, field.ClassField, (void*)value);
 		return true;
+	}
+
+	void ScriptInstance::InvokeOnCollisionEnter(b2Contact* contact)
+	{
+		if (m_OnCollisionEnterMethod)
+		{
+			void* param = &contact;
+			m_ScriptClass->InvokeMethod(m_Instance, m_OnCollisionEnterMethod, &param);
+		}
+	}
+
+	void ScriptInstance::InvokeOnCollisionExit(b2Contact* contact)
+	{
+		if (m_OnCollisionExitMethod)
+		{
+			void* param = &contact;
+			m_ScriptClass->InvokeMethod(m_Instance, m_OnCollisionExitMethod, &param);
+		}
 	}
 }

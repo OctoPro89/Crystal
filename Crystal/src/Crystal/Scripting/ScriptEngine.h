@@ -7,6 +7,8 @@
 #include <string>
 #include <map>
 
+class b2Contact;
+
 extern "C" {
 	typedef struct _MonoClass MonoClass;
 	typedef struct _MonoObject MonoObject;
@@ -98,6 +100,8 @@ namespace Crystal {
 
 		void InvokeOnCreate();
 		void InvokeOnUpdate(float ts);
+		void InvokeOnCollisionEnter(b2Contact* contact);
+		void InvokeOnCollisionExit(b2Contact* contact);
 
 		inline Ref<ScriptClass> GetScriptClass() { return m_ScriptClass; };
 
@@ -129,6 +133,8 @@ namespace Crystal {
 		MonoMethod* m_Constructor = nullptr;
 		MonoMethod* m_OnCreateMethod = nullptr;
 		MonoMethod* m_OnUpdateMethod = nullptr;
+		MonoMethod* m_OnCollisionEnterMethod = nullptr;
+		MonoMethod* m_OnCollisionExitMethod = nullptr;
 
 		inline static char s_FieldValueBuffer[16];
 
@@ -152,6 +158,8 @@ namespace Crystal {
 		static bool EntityClassExists(const std::string& fullClassName);
 		static void OnCreateEntity(Entity entity);
 		static void OnUpdateEntity(Entity entity, Timestep ts);
+		static void OnCollisionEnter(Entity entity, b2Contact* contact);
+		static void OnCollisionExit(Entity entity, b2Contact* contact);
 
 		static Scene* GetSceneContext();
 		static Ref<ScriptClass> GetEntityClass(const std::string& name);

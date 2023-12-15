@@ -1,27 +1,29 @@
 #include "crystalpch.h"
 #include "VulkanRendererAPI.h"
 #include <vulkan/vulkan.h>
+#include "VulkanShader.h"
 #include <GLFW/glfw3.h>
 
 namespace Crystal
 {
-	void VulkanRenderAPI::Init()
+	VulkanRendererAPI* VulkanRendererAPI::api = nullptr;
+	void VulkanRendererAPI::Init()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
 		CreatePipelineLayout();
 		CreatePipeline();
 		CreateCommandBuffers();
 	}
-	void VulkanRenderAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+	void VulkanRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 	{
 	}
-	void VulkanRenderAPI::SetClearColor(const glm::vec4 color)
+	void VulkanRendererAPI::SetClearColor(const glm::vec4 color)
 	{
 	}
-	void VulkanRenderAPI::Clear()
+	void VulkanRendererAPI::Clear()
 	{
 	}
-	void VulkanRenderAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
+	void VulkanRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
 	{
 		uint32_t imageIndex;
 		VkResult result = m_SwapChain.acquireNextImage(&imageIndex);
@@ -35,18 +37,18 @@ namespace Crystal
 		if (result != VK_SUCCESS)
 			CRYSTAL_CORE_FATAL("Failed to present swap chain image");
 	}
-	void VulkanRenderAPI::DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)
+	void VulkanRendererAPI::DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)
 	{
 	}
-	void VulkanRenderAPI::SetLineWidth(float width)
+	void VulkanRendererAPI::SetLineWidth(float width)
 	{
 		vkCmdSetLineWidth(commandBuffers[0], width);
 	}
-	VulkanRenderAPI::~VulkanRenderAPI()
+	VulkanRendererAPI::~VulkanRendererAPI()
 	{
 		vkDestroyPipelineLayout(vkDevice.device(), pipelineLayout, nullptr);
 	}
-	void VulkanRenderAPI::CreatePipelineLayout()
+	void VulkanRendererAPI::CreatePipelineLayout()
 	{
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
@@ -56,15 +58,16 @@ namespace Crystal
 		pipelineLayoutInfo.pPushConstantRanges = nullptr;
 		if (vkCreatePipelineLayout(vkDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout));
 	}
-	void VulkanRenderAPI::CreatePipeline()
+	void VulkanRendererAPI::CreatePipeline()
 	{
+		VulkanShader::CreateShaderModule();
 		PipelineConfigInfo pipelineConfig{};
 		VulkanPipeline::DefaultPipelineConfigInfo(m_SwapChain.width(), m_SwapChain.height());
 		pipelineConfig.renderPass = m_SwapChain.getRenderPass();
 		pipelineConfig.pipelineLayout = pipelineLayout;
-		m_Pipeline = std::make_unique<VulkanPipeline>(vkDevice, "assets/cache/shader/vulkan/simple.vert.spv", "assets/cache/shader/vulkan/simple.frag.spv", pipelineConfig);
+		m_Pipeline = std::make_unique<VulkanPipeline>(vkDevice, , pipelineConfig);
 	}
-	void VulkanRenderAPI::CreateCommandBuffers()
+	void VulkanRendererAPI::CreateCommandBuffers()
 	{
 		commandBuffers.resize(m_SwapChain.imageCount());
 
@@ -106,6 +109,8 @@ namespace Crystal
 			vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			m_Pipeline->Bind(commandBuffers[i]);
+			
+
 			vkCmdDraw(commandBuffers[i], 3, 1, 0, 0);
 			vkCmdEndRenderPass(commandBuffers[i]);
 			if (vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS)

@@ -368,6 +368,7 @@ namespace Crystal {
 	void Scene::OnPhysics2DStart()
 	{
 		m_PhysicsWorld = new b2World({ 0.0f, -9.81f });
+		m_PhysicsWorld->SetContactListener();
 
 		auto view = m_Registry.view<Rigidbody2DComponent>();
 		for (auto e : view)
@@ -398,6 +399,9 @@ namespace Crystal {
 				fixtureDef.friction = bc2d.Friction;
 				fixtureDef.restitution = bc2d.Restitution;
 				fixtureDef.restitutionThreshold = bc2d.RestitutionThreshold;
+				b2BodyUserData& bodyData = body->GetUserData();
+				//Set user data to the uuid for collisions
+				bodyData.pointer = (uintptr_t)entity.GetUUID();
 				body->CreateFixture(&fixtureDef);
 				body->SetGravityScale(bc2d.GravityScale);
 			}
