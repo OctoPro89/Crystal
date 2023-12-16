@@ -36,6 +36,9 @@ namespace Crystal
 		internal extern static void Rigidbody2DComponent_ApplyLinearImpulseToCenter(ulong entityID, ref Vector2 impulse, bool wake);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_GetPosition(ulong entityID, out Vector2 velocity);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void SpriteRendererComponent_GetColor(ulong entityID, out Vector4 color);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -91,5 +94,8 @@ namespace Crystal
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static bool Input_IsKeyDown(KeyCode keycode);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static bool Input_IsMouseDown(MouseCode button);
 	}
 }
