@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 class Player : Entity
 {
 	public float speed;
+	public float jumpForce;
 	private Rigidbody2DComponent rb;
 	private BoxCollider2DComponent bc2d;
 	private bool isJumping = false;
@@ -23,11 +24,8 @@ class Player : Entity
 		Vector3 velocity = Vector3.Zero;
 		if (Input.IsKeyDown(KeyCode.W) && isJumping == false)
 		{
-			velocity.Y = 200.0f;
-			if (velocity.Y >= 190.0f)
-			{
-				isJumping = true;
-			}
+			velocity.Y += jumpForce;
+			isJumping = true;
 		}
 		if (Input.IsKeyDown(KeyCode.D) || Input.IsKeyDown(KeyCode.Right))
 		{

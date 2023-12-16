@@ -302,19 +302,47 @@ namespace Crystal {
 	void ScriptEngine::OnCollisionEnter(Entity entity, Entity entity2, b2Contact* contact)
 	{
 		UUID entityUUID = entity.GetUUID();
-		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionEnter Scripting not working right!");
+		UUID entityUUID2 = entity2.GetUUID();
+		//CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionEnter Scripting not working right!");
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
-		instance->InvokeOnCollisionEnter(entity2, contact);
+		Ref<ScriptInstance> instance2 = s_Data->EntityInstances[entityUUID2];
+		if (instance && instance2) 
+		{
+			instance->InvokeOnCollisionEnter(entity2, contact);
+			instance->InvokeOnCollisionEnter(entity, contact);
+		}
+		else if (instance)
+		{
+			instance->InvokeOnCollisionEnter(entity2, contact);
+		}
+		else if (instance2)
+		{
+			instance2->InvokeOnCollisionEnter(entity, contact);
+		}
 	}
 
 	void ScriptEngine::OnCollisionExit(Entity entity, Entity entity2, b2Contact* contact)
 	{
 		UUID entityUUID = entity.GetUUID();
-		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionExit Scripting not working right!");
+		UUID entityUUID2 = entity2.GetUUID();
+		//CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionEnter Scripting not working right!");
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
-		instance->InvokeOnCollisionExit(entity, contact);
+		Ref<ScriptInstance> instance2 = s_Data->EntityInstances[entityUUID2];
+		if (instance && instance2)
+		{
+			instance->InvokeOnCollisionExit(entity2, contact);
+			instance->InvokeOnCollisionExit(entity, contact);
+		}
+		else if (instance)
+		{
+			instance->InvokeOnCollisionExit(entity2, contact);
+		}
+		else if (instance2)
+		{
+			instance2->InvokeOnCollisionExit(entity, contact);
+		}
 	}
 
 	Scene* ScriptEngine::GetSceneContext()

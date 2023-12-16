@@ -29,8 +29,8 @@ namespace Crystal {
 			// Get the user data (entity ID) associated with each fixture
 			b2BodyUserData& bodyData = bodyA->GetUserData();
 			b2BodyUserData& bodyData2 = bodyB->GetUserData();
-			UUID& entityID_A = (UUID)bodyData.pointer;
-			UUID& entityID_B = (UUID)bodyData2.pointer;
+			UUID entityID_A = (UUID)bodyData.pointer;
+			UUID entityID_B = (UUID)bodyData2.pointer;
 
 			// Now, you can use the entity IDs to identify the entities involved in the collision
 			// Implement your collision handling logic here
@@ -39,6 +39,7 @@ namespace Crystal {
 			Entity entity = scene->GetEntityByUUID(entityID_A);
 			Entity entity2 = scene->GetEntityByUUID(entityID_B);
 			CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+			CRYSTAL_CORE_ASSERT(entity2, "No Entity!");
 			// entity1 is the thing we hit, entity2 is the thing with the script
 			ScriptEngine::OnCollisionEnter(entity2, entity, contact);
 		}
@@ -59,8 +60,18 @@ namespace Crystal {
 			Entity entity = scene->GetEntityByUUID(entityID_A);
 			Entity entity2 = scene->GetEntityByUUID(entityID_B);
 			CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+			CRYSTAL_CORE_ASSERT(entity2, "No Entity!");
 			// entity1 is the thing we exit, entity2 is the thing with the script
 			ScriptEngine::OnCollisionExit(entity2, entity, contact);
+		}
+
+		void PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+		{
+
+		}
+		void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+		{
+
 		}
 	};
 	PhysicsContactListener m_ContactListener;
@@ -445,11 +456,11 @@ namespace Crystal {
 				fixtureDef.friction = bc2d.Friction;
 				fixtureDef.restitution = bc2d.Restitution;
 				fixtureDef.restitutionThreshold = bc2d.RestitutionThreshold;
+				body->CreateFixture(&fixtureDef);
+				body->SetGravityScale(bc2d.GravityScale);
 				b2BodyUserData& bodyData = body->GetUserData();
 				//Set user data to the uuid for collisions
 				bodyData.pointer = (uintptr_t)entity.GetUUID();
-				body->CreateFixture(&fixtureDef);
-				body->SetGravityScale(bc2d.GravityScale);
 			}
 
 			if (entity.HasComponent<CircleCollider2DComponent>())
@@ -468,6 +479,9 @@ namespace Crystal {
 				fixtureDef.restitutionThreshold = cc2d.RestitutionThreshold;
 				body->CreateFixture(&fixtureDef);
 				body->SetGravityScale(cc2d.GravityScale);
+				b2BodyUserData& bodyData = body->GetUserData();
+				//Set user data to the uuid for collisions
+				bodyData.pointer = (uintptr_t)entity.GetUUID();
 			}
 		}
 	}

@@ -46,7 +46,7 @@ namespace Sandbox
 			}
 			else if (Input.IsKeyDown(KeyCode.D) || Input.IsKeyDown(KeyCode.Right))
 			{
-				velocity.X = 1.0f;
+				velocity.X = 1.0f; 
 				m_Rigidbody.ApplyTorque(torque, true);
 			}
 			if(Input.IsKeyDown(KeyCode.E))
