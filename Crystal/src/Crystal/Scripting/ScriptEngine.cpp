@@ -154,6 +154,19 @@ namespace Crystal {
 
 	static ScriptEngineData* s_Data = nullptr;
 
+	struct HitInfo {
+		HitInfo(float xa, float ya, float xb, float yb, UUID hitEntity)
+		{
+			XA = xa;
+			YA = ya;
+			XB = xb;
+			YB = yb;
+			entityHit = hitEntity;
+		}
+		float XA, YA, XB, YB;
+		UUID entityHit;
+	};
+
 	void ScriptEngine::Init()
 	{
 		s_Data = new ScriptEngineData();
@@ -286,22 +299,22 @@ namespace Crystal {
 		instance->InvokeOnUpdate((float)ts);
 	}
 
-	void ScriptEngine::OnCollisionEnter(Entity entity, b2Contact* contact)
+	void ScriptEngine::OnCollisionEnter(Entity entity, Entity entity2, b2Contact* contact)
 	{
 		UUID entityUUID = entity.GetUUID();
-		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
+		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionEnter Scripting not working right!");
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
-		instance->InvokeOnCollisionEnter(contact);
+		instance->InvokeOnCollisionEnter(entity2, contact);
 	}
 
-	void ScriptEngine::OnCollisionExit(Entity entity, b2Contact* contact)
+	void ScriptEngine::OnCollisionExit(Entity entity, Entity entity2, b2Contact* contact)
 	{
 		UUID entityUUID = entity.GetUUID();
-		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
+		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionExit Scripting not working right!");
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
-		instance->InvokeOnCollisionExit(contact);
+		instance->InvokeOnCollisionExit(entity, contact);
 	}
 
 	Scene* ScriptEngine::GetSceneContext()
@@ -497,20 +510,36 @@ namespace Crystal {
 		return true;
 	}
 
-	void ScriptInstance::InvokeOnCollisionEnter(b2Contact* contact)
+	void ScriptInstance::InvokeOnCollisionEnter(Entity entity, b2Contact* contact)
 	{
 		if (m_OnCollisionEnterMethod)
 		{
-			void* param = &contact;
+			HitInfo& hit = HitInfo(
+				contact->GetFixtureA()->GetBody()->GetPosition().x,
+				contact->GetFixtureA()->GetBody()->GetPosition().y,
+				contact->GetFixtureB()->GetBody()->GetPosition().x,
+				contact->GetFixtureB()->GetBody()->GetPosition().y,
+				entity.GetUUID()
+			);
+
+			void* param = static_cast<void*>(&hit);
 			m_ScriptClass->InvokeMethod(m_Instance, m_OnCollisionEnterMethod, &param);
 		}
 	}
 
-	void ScriptInstance::InvokeOnCollisionExit(b2Contact* contact)
+	void ScriptInstance::InvokeOnCollisionExit(Entity entity, b2Contact* contact)
 	{
 		if (m_OnCollisionExitMethod)
 		{
-			void* param = &contact;
+			HitInfo& hit = HitInfo(
+				contact->GetFixtureA()->GetBody()->GetPosition().x, 
+				contact->GetFixtureA()->GetBody()->GetPosition().y,
+				contact->GetFixtureB()->GetBody()->GetPosition().x,
+				contact->GetFixtureB()->GetBody()->GetPosition().y, 
+				entity.GetUUID()
+			);
+
+			void* param = static_cast<void*>(&hit);
 			m_ScriptClass->InvokeMethod(m_Instance, m_OnCollisionExitMethod, &param);
 		}
 	}

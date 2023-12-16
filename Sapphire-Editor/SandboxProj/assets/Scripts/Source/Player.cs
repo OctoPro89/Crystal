@@ -21,16 +21,13 @@ class Player : Entity
 	void OnUpdate(float ts)
 	{
 		Vector3 velocity = Vector3.Zero;
-		if (Input.IsKeyDown(KeyCode.W) && isJumping == false && numOfJumps <= numOfAllowedJumps)
+		if (Input.IsKeyDown(KeyCode.W) && isJumping == false)
 		{
 			velocity.Y = 200.0f;
-			isJumping = true;
-			numOfJumps++;
-		}
-		else if ((velocity.X == 0.0f) && !Input.IsKeyDown(KeyCode.W))
-		{
-			isJumping = false;
-			numOfJumps = 0;
+			if (velocity.Y >= 190.0f)
+			{
+				isJumping = true;
+			}
 		}
 		if (Input.IsKeyDown(KeyCode.D) || Input.IsKeyDown(KeyCode.Right))
 		{
@@ -43,5 +40,9 @@ class Player : Entity
 		velocity *= (speed * ts);
 
 		rb.ApplyLinearImpulse(velocity.XY, true);
+	}
+	void OnCollisionEnter(HitInfo hit)
+	{
+		isJumping = false;
 	}
 }

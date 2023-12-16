@@ -1504,7 +1504,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="vendor\filewatch\FileWatch.hpp" />
-    <ClInclude Include="src\Crystal\Physics\PhysicsContactListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">

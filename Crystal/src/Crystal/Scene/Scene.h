@@ -3,7 +3,6 @@
 #include "Crystal/Core/Timestep.h"
 #include "Crystal/Renderer/EditorCamera.h"
 #include "Crystal/Core/UUID.h"
-
 #include <entt.hpp>
 
 class b2World;
@@ -63,7 +62,7 @@ namespace Crystal {
 	private:
 		entt::registry m_Registry;
 		uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
-
+		//PhysicsContactListener m_ContactListener;
 		b2World* m_PhysicsWorld = nullptr;
 		bool m_IsRunning = false;
 		bool m_IsPaused = false;

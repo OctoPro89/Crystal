@@ -358,6 +358,11 @@ namespace Crystal {
 		return Input::IsKeyPressed(keycode);
 	}
 
+	static bool Input_IsMouseDown(MouseCode button)
+	{
+		return Input::IsMouseButtonPressed(button);
+	}
+
 	static void Editor_ConsoleLog(MonoString* message)
 	{
 		char* cStr = mono_string_to_utf8(message);
@@ -427,13 +432,14 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetTexIndex);
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndex);
 		
-
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulse);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulseToCenter);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyTorque);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForce);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForceToCenter);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetVelocity);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsKeyDown);
+		CRYSTAL_ADD_INTERNAL_CALL(Input_IsMouseDown);
 	}
 }

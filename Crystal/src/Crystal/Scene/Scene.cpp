@@ -11,13 +11,59 @@
 
 // Box2D
 #include "box2d/b2_world.h"
+#include "box2d/b2_contact.h"
 #include "box2d/b2_body.h"
 #include "box2d/b2_fixture.h"
 #include "box2d/b2_polygon_shape.h"
 #include "box2d/b2_circle_shape.h"
 
 namespace Crystal {
+	class PhysicsContactListener : public b2ContactListener 
+	{
+	public:
+		void BeginContact(b2Contact* contact) override {
+			// Get the Box2D fixtures involved in the collision
+			b2Body* bodyA = contact->GetFixtureA()->GetBody();
+			b2Body* bodyB = contact->GetFixtureB()->GetBody();
 
+			// Get the user data (entity ID) associated with each fixture
+			b2BodyUserData& bodyData = bodyA->GetUserData();
+			b2BodyUserData& bodyData2 = bodyB->GetUserData();
+			UUID& entityID_A = (UUID)bodyData.pointer;
+			UUID& entityID_B = (UUID)bodyData2.pointer;
+
+			// Now, you can use the entity IDs to identify the entities involved in the collision
+			// Implement your collision handling logic here
+			Scene* scene = ScriptEngine::GetSceneContext();
+			CRYSTAL_CORE_ASSERT(scene, "No Scene");
+			Entity entity = scene->GetEntityByUUID(entityID_A);
+			Entity entity2 = scene->GetEntityByUUID(entityID_B);
+			CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+			// entity1 is the thing we hit, entity2 is the thing with the script
+			ScriptEngine::OnCollisionEnter(entity2, entity, contact);
+		}
+
+		void EndContact(b2Contact* contact) override {
+			// Handle collision end
+			b2Body* bodyA = contact->GetFixtureA()->GetBody();
+			b2Body* bodyB = contact->GetFixtureB()->GetBody();
+
+			// Get the user data (entity ID) associated with each fixture
+			b2BodyUserData& bodyData = bodyA->GetUserData();
+			b2BodyUserData& bodyData2 = bodyB->GetUserData();
+			UUID& entityID_A = (UUID)bodyData.pointer;
+			UUID& entityID_B = (UUID)bodyData2.pointer;
+
+			Scene* scene = ScriptEngine::GetSceneContext();
+			CRYSTAL_CORE_ASSERT(scene, "No Scene");
+			Entity entity = scene->GetEntityByUUID(entityID_A);
+			Entity entity2 = scene->GetEntityByUUID(entityID_B);
+			CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+			// entity1 is the thing we exit, entity2 is the thing with the script
+			ScriptEngine::OnCollisionExit(entity2, entity, contact);
+		}
+	};
+	PhysicsContactListener m_ContactListener;
 	static b2BodyType Rigidbody2DTypeToBox2DBody(Rigidbody2DComponent::BodyType bodyType)
 	{
 		switch (bodyType)
@@ -368,7 +414,7 @@ namespace Crystal {
 	void Scene::OnPhysics2DStart()
 	{
 		m_PhysicsWorld = new b2World({ 0.0f, -9.81f });
-		m_PhysicsWorld->SetContactListener();
+		m_PhysicsWorld->SetContactListener(&m_ContactListener);
 
 		auto view = m_Registry.view<Rigidbody2DComponent>();
 		for (auto e : view)
@@ -391,7 +437,7 @@ namespace Crystal {
 				auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
 
 				b2PolygonShape boxShape;
-				boxShape.SetAsBox(bc2d.Size.x * transform.Scale.x, bc2d.Size.y * transform.Scale.y);
+				boxShape.SetAsBox(bc2d.Size.x * transform.Scale.x, bc2d.Size.y * transform.Scale.y, b2Vec2(bc2d.Offset.x, bc2d.Offset.y), 0.0f);
 
 				b2FixtureDef fixtureDef;
 				fixtureDef.shape = &boxShape;

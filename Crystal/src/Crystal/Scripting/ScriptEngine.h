@@ -100,8 +100,8 @@ namespace Crystal {
 
 		void InvokeOnCreate();
 		void InvokeOnUpdate(float ts);
-		void InvokeOnCollisionEnter(b2Contact* contact);
-		void InvokeOnCollisionExit(b2Contact* contact);
+		void InvokeOnCollisionEnter(Entity entity, b2Contact* contact);
+		void InvokeOnCollisionExit(Entity entity, b2Contact* contact);
 
 		inline Ref<ScriptClass> GetScriptClass() { return m_ScriptClass; };
 
@@ -158,8 +158,8 @@ namespace Crystal {
 		static bool EntityClassExists(const std::string& fullClassName);
 		static void OnCreateEntity(Entity entity);
 		static void OnUpdateEntity(Entity entity, Timestep ts);
-		static void OnCollisionEnter(Entity entity, b2Contact* contact);
-		static void OnCollisionExit(Entity entity, b2Contact* contact);
+		static void OnCollisionEnter(Entity entity, Entity entity2, b2Contact* contact);
+		static void OnCollisionExit(Entity entity, Entity entity2, b2Contact* contact);
 
 		static Scene* GetSceneContext();
 		static Ref<ScriptClass> GetEntityClass(const std::string& name);

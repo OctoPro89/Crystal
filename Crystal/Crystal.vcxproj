@@ -168,7 +168,6 @@
     <ClInclude Include="src\Crystal\Events\MouseEvent.h" />
     <ClInclude Include="src\Crystal\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Crystal\Math\Math.h" />
-    <ClInclude Include="src\Crystal\Physics\PhysicsContactListener.h" />
     <ClInclude Include="src\Crystal\Renderer\Buffer.h" />
     <ClInclude Include="src\Crystal\Renderer\Camera.h" />
     <ClInclude Include="src\Crystal\Renderer\EditorCamera.h" />
