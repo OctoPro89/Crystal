@@ -583,4 +583,9 @@ namespace Crystal {
 	void Scene::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
 	{
 	}
+
+	template<>
+	void Scene::OnComponentAdded<AudioComponent>(Entity entity, AudioComponent& component)
+	{
+	}
 }

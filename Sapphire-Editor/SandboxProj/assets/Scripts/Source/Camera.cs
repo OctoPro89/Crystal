@@ -11,6 +11,7 @@ namespace Sandbox
 	{
 		private Entity player;
 		bool FollowPlayer = true;
+		public float ZfromPlayer;
 
 		void OnCreate()
 		{

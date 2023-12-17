@@ -21,7 +21,8 @@ project "Sapphire-Editor"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.filewatch}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.miniaudio}"
 	}
 
 	links

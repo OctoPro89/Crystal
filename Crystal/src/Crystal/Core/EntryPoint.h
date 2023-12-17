@@ -1,6 +1,5 @@
 #pragma once
 extern Crystal::Application* Crystal::CreateApplication(ApplicationCommandLineArgs args); /* Extern the command line arguments */
-
 int main(int argc, char** argv)
 {
 	Crystal::Log::Init(); /* Initialize the logging system */

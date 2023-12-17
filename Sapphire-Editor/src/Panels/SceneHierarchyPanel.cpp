@@ -6,6 +6,7 @@
 #include <filesystem>
 #include "Crystal/Scene/Components.h"
 #include <cstring>
+#include <fstream>
 #ifdef _MSVC_LANG
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -246,6 +247,7 @@ namespace Crystal {
 			DisplayAddComponentEntry<BoxCollider2DComponent>("Box Collider 2D");
 			DisplayAddComponentEntry<CircleCollider2DComponent>("Circle Collider 2D");
 			DisplayAddComponentEntry<ScriptComponent>("Script");
+			DisplayAddComponentEntry<AudioComponent>("Audio");
 
 			ImGui::EndPopup();
 		}
@@ -372,13 +374,15 @@ namespace Crystal {
 				else
 					ImGui::PushStyleColor(ImGuiCol_Text, { 0.2f,0.9f,0.3f,1.0f });
 
-				scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);
-
 				if (ImGui::InputText("Class", buffer, sizeof(buffer)))
 				{
 					component.ClassName = buffer;
+					ImGui::PopStyleColor();
+					return;
 				}
+				
 				ImGui::PopStyleColor();
+
 				// Fields
 				bool sceneRunning = scene->IsRunning();
 				if (sceneRunning)
@@ -472,7 +476,7 @@ namespace Crystal {
 				ImGui::DragFloat2("Offset", glm::value_ptr(component.Offset), 0.01f);
 				ImGui::DragFloat2("Size", glm::value_ptr(component.Size), 0.01f);
 				ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
-				ImGui::DragFloat("Gravity Scale", &component.GravityScale, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Gravity Scale", &component.GravityScale, 0.01f, 0.0f, 100.0f);
 				ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution Threshold", &component.RestitutionThreshold, 0.01f, 0.0f);
@@ -483,12 +487,44 @@ namespace Crystal {
 				ImGui::DragFloat2("Offset", glm::value_ptr(component.Offset), 0.01f);
 				ImGui::DragFloat("Radius", &component.Radius, 0.01f);
 				ImGui::DragFloat("Density", &component.Density, 0.01f, 0.0f, 1.0f);
-				ImGui::DragFloat("Gravity Scale", &component.GravityScale, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Gravity Scale", &component.GravityScale, 0.01f, 0.0f, 100.0f);
 				ImGui::DragFloat("Friction", &component.Friction, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution Threshold", &component.RestitutionThreshold, 0.01f, 0.0f);
 			});
 
+		DrawComponent<AudioComponent>("Audio", entity, [](auto& component)
+			{
+				std::filesystem::path audioPath = std::filesystem::path(component.audioFilePath);
+				std::ifstream file(component.audioFilePath);
+
+				ImGui::Button("Drag Audio File Here", ImVec2(100.0f, 0.0f));
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						audioPath = std::filesystem::path(g_AssetPath) / path;
+
+						if (!(audioPath.extension() == ".mp3" || audioPath.extension() == ".wav" || audioPath.extension() == ".ogg"))
+						{
+							CRYSTAL_WARN("Could not load audio file {0}", audioPath.filename().string());
+						}
+						else
+						{
+							// it worked
+							component.audioFilePath = audioPath.string().c_str();
+						}
+					}
+					ImGui::EndDragDropTarget();
+				}
+				ImGui::DragFloat("Volume Multiplier", &component.volumeMultiplier, 0.1f, 0.0f, 2.0f);
+				
+				if (ImGui::Button("Preview Audio"))
+				{
+					component.Play();
+				}
+			});
 	}
 
 	template<typename T>

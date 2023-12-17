@@ -36,10 +36,13 @@
 #ifdef CRYSTAL_DEBUG
 	#define CRYSTAL_ENABLE_ASSERTS
 #endif
+
+#ifndef CRYSTAL_DEBUG
+	#define CRYSTAL_ASSERTS_HANG
+#endif
 /* -- Debug Macros -- */
 
 /* -- Assert macros -- */
-#define CRYSTAL_ENABLE_ASSERTS
 
 #ifdef CRYSTAL_ENABLE_ASSERTS
 	#define CRYSTAL_ASSERT(x, ...) { if(!(x)) { CRYSTAL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
@@ -48,6 +51,12 @@
 	#define CRYSTAL_ASSERT(x, ...)
 	#define CRYSTAL_CORE_ASSERT(x, ...)
 #endif
+
+#ifdef CRYSTAL_ASSERTS_HANG
+	#define CRYSTAL_ASSERT(x, ...) { if(!(x)) { CRYSTAL_ERROR("Assertion Failed: {0}", __VA_ARGS__); while(true); } }
+#define CRYSTAL_CORE_ASSERT(x, ...) { if(!(x)) { CRYSTAL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); while(true); } }
+#endif
+
 /* -- Assert macros -- */
 
 /* Bit shifting macro */

@@ -3,6 +3,7 @@
 #include "Crystal/Scene/SceneCamera.h"
 #include "Crystal/Renderer/Texture.h"
 #include "Crystal/Renderer/SubTexture2D.h"
+#include "Crystal/Audio/SoundSystem.h"
 #include "Crystal/Core/UUID.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -168,6 +169,23 @@ namespace Crystal
 		CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
 	};
 
+	struct AudioComponent
+	{
+		const char* audioFilePath = "";
+		float volumeMultiplier = 1.0f;
+		AudioComponent() = default;
+		AudioComponent(const AudioComponent&) = default;
+		void Play()
+		{
+			SetVolume();
+			SoundSystem::PlayAudio(audioFilePath);
+		}
+		void SetVolume()
+		{
+			SoundSystem::SetVolumeMultiplier(volumeMultiplier);
+		}
+	};
+
 	template<typename... Component>
 	struct ComponentGroup
 	{
@@ -175,5 +193,5 @@ namespace Crystal
 	};
 	using AllComponents = ComponentGroup<TransformComponent, SpriteRendererComponent, CameraComponent,
 		Rigidbody2DComponent, BoxCollider2DComponent, CircleCollider2DComponent, CircleRendererComponent,
-		NativeScriptComponent, ScriptComponent>;
+		NativeScriptComponent, ScriptComponent, AudioComponent>;
 }

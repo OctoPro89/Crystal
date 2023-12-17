@@ -48,6 +48,20 @@ namespace Crystal {
 		return s_EntityHasComponentFuncs.at(managedType)(entity);
 	}
 
+	static uint64_t Entity_FindEntityByName(MonoString* outUUID)
+	{
+		char* cStr = mono_string_to_utf8(outUUID);
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene!");
+		Entity entity = scene->FindEntityByName(cStr);
+		mono_free(cStr);
+
+		if (!entity)
+			return 0;
+
+		return entity.GetUUID();
+	}
+
 	static MonoObject* GetScriptInstance(UUID entityID)
 	{
 		return ScriptEngine::GetManagedInstance(entityID);
@@ -63,20 +77,6 @@ namespace Crystal {
 		*outTranslation = entity.GetComponent<TransformComponent>().Translation;
 	}
 
-	static uint64_t Entity_FindEntityByName(MonoString* outUUID)
-	{
-		char* cStr = mono_string_to_utf8(outUUID);
-		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene!");
-		Entity entity = scene->FindEntityByName(cStr);
-		mono_free(cStr);
-
-		if (!entity)
-			return 0;
-
-		return entity.GetUUID();
-	}
-
 	static void TransformComponent_SetTranslation(UUID entityID, glm::vec3* translation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -85,6 +85,50 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		entity.GetComponent<TransformComponent>().Translation = *translation;
+	}
+
+	static void TransformComponent_GetRotation(UUID entityID, glm::vec3* outRotation)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outRotation = entity.GetComponent<TransformComponent>().Rotation;
+	}
+
+	static void TransformComponent_SetRotation(UUID entityID, glm::vec3* rotation)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		entity.GetComponent<TransformComponent>().Rotation = *rotation;
+	}
+
+	static void TransformComponent_GetScale(UUID entityID, glm::vec3* outScale)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outScale = entity.GetComponent<TransformComponent>().Rotation;
+	}
+
+	static void TransformComponent_SetScale(UUID entityID, glm::vec3* scale)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		entity.GetComponent<TransformComponent>().Rotation = *scale;
 	}
 
 	static void BoxCollider2DComponent_GetSize(UUID entityID, glm::vec2* outSize)
@@ -363,6 +407,21 @@ namespace Crystal {
 		return Input::IsMouseButtonPressed(button);
 	}
 
+	static void Input_GetMousePos(glm::vec2* outPos)
+	{
+		*outPos = glm::vec2(Input::GetMousePosition().first, Input::GetMousePosition().second);
+	}
+
+	static void Input_GetMouseX(float outX)
+	{
+		outX = Input::GetMouseX();
+	}
+
+	static void Input_GetMouseX(float outY)
+	{
+		outY = Input::GetMouseY();
+	}
+
 	static void Editor_ConsoleLog(MonoString* message)
 	{
 		char* cStr = mono_string_to_utf8(message);
@@ -411,6 +470,10 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(GetScriptInstance);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
+		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetRotation);
+		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetRotation);
+		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetScale);
+		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetScale);
 
 		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_SetDensity);
 		CRYSTAL_ADD_INTERNAL_CALL(BoxCollider2DComponent_GetDensity);

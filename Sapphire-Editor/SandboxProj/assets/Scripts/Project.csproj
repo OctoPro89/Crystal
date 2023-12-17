@@ -59,7 +59,7 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\CamController.cs" />
+    <Compile Include="Source\Camera.cs" />
     <Compile Include="Source\Player.cs" />
     <Compile Include="Source\RigidbodyController.cs" />
     <Compile Include="Source\TransformMove.cs" />

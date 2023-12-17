@@ -3,6 +3,7 @@
 #include "Crystal/Renderer/Renderer.h"
 #include "Crystal/Core/Timestep.h"
 #include "Crystal/Scripting/ScriptEngine.h"
+#include "Crystal/Audio/SoundSystem.h"
 #include <filesystem>
 #include <GLFW/glfw3.h>
 
@@ -29,6 +30,7 @@ namespace Crystal {
 
 		Renderer::Init(); /* Initialize the Renderer */
 		ScriptEngine::Init(); /* Initialize the ScriptEngine */
+		SoundSystem::Init(); /* Initialize the audio system */
 
 		m_ImGuiLayer = new ImGuiLayer(); /* Create the ImGui Layer */
 		PushOverlay(m_ImGuiLayer); /* Push the ImGui Layer as an Overlay */
@@ -39,6 +41,7 @@ namespace Crystal {
 		CRYSTAL_PROFILE_FUNCTION(); /* Profile the function */
 		ScriptEngine::Shutdown(); /* Shutdown the ScriptEngine */
 		Renderer::Shutdown(); /* Shutdown the renderer */
+		SoundSystem::Shutdown(); /* Shutdown the audio system */
 	}
 
 	void Application::PushLayer(Layer* layer)

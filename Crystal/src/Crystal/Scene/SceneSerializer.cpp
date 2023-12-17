@@ -359,6 +359,19 @@ namespace Crystal {
 			out << YAML::EndMap; // ScriptComponent
 		}
 
+		if (entity.HasComponent<AudioComponent>())
+		{
+			out << YAML::Key << "AudioComponent";
+			out << YAML::BeginMap; // AudioComponent
+			auto& audioComponent = entity.GetComponent<AudioComponent>();
+			
+			out << YAML::Key << "AudioFile" << YAML::Value << audioComponent.audioFilePath;
+
+			out << YAML::Key << "VolumeMultiplier" << YAML::Value << audioComponent.volumeMultiplier;
+
+			out << YAML::EndMap; // AudioComponent
+		}
+
 		out << YAML::EndMap; // Entity
 	}
 
@@ -544,6 +557,14 @@ namespace Crystal {
 							std::string data = scriptField["Data"].as<std::string>();
 						}
 					}
+				}
+
+				auto audioComponent = entity["AudioComponent"];
+				if (audioComponent)
+				{
+					auto& ac = deserializedEntity.AddComponent<AudioComponent>();
+					ac.audioFilePath = audioComponent["AudioFile"].as<std::string>().c_str();
+					ac.volumeMultiplier = audioComponent["VolumeMultiplier"].as<float>();
 				}
 			}
 		}
