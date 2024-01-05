@@ -171,14 +171,14 @@ namespace Crystal
 
 	struct AudioComponent
 	{
-		const char* audioFilePath = "";
+		std::string audioFilePath = "";
 		float volumeMultiplier = 1.0f;
 		AudioComponent() = default;
 		AudioComponent(const AudioComponent&) = default;
 		void Play()
 		{
 			SetVolume();
-			SoundSystem::PlayAudio(audioFilePath);
+			SoundSystem::PlayAudio(audioFilePath.c_str());
 		}
 		void SetVolume()
 		{

@@ -446,30 +446,6 @@ namespace Crystal {
 				}
 			});
 
-		DrawComponent<Rigidbody2DComponent>("Rigidbody 2D", entity, [](auto& component)
-			{
-				const char* bodyTypeStrings[] = { "Static", "Dynamic", "Kinematic" };
-				const char* currentBodyTypeString = bodyTypeStrings[(int)component.Type];
-				if (ImGui::BeginCombo("Body Type", currentBodyTypeString))
-				{
-					for (int i = 0; i < 2; i++)
-					{
-						bool isSelected = currentBodyTypeString == bodyTypeStrings[i];
-						if (ImGui::Selectable(bodyTypeStrings[i], isSelected))
-						{
-							currentBodyTypeString = bodyTypeStrings[i];
-							component.Type = (Rigidbody2DComponent::BodyType)i;
-						}
-
-						if (isSelected)
-							ImGui::SetItemDefaultFocus();
-					}
-
-					ImGui::EndCombo();
-				}
-
-				ImGui::Checkbox("Fixed Rotation", &component.FixedRotation);
-			});
 
 		DrawComponent<BoxCollider2DComponent>("Box Collider 2D", entity, [](auto& component)
 			{
@@ -506,14 +482,14 @@ namespace Crystal {
 						const wchar_t* path = (const wchar_t*)payload->Data;
 						audioPath = std::filesystem::path(g_AssetPath) / path;
 
-						if (!(audioPath.extension() == ".mp3" || audioPath.extension() == ".wav" || audioPath.extension() == ".ogg"))
+						if (!(audioPath.extension() == ".mp3" || audioPath.extension() == ".wav")
 						{
 							CRYSTAL_WARN("Could not load audio file {0}", audioPath.filename().string());
 						}
 						else
 						{
 							// it worked
-							component.audioFilePath = audioPath.string().c_str();
+							component.audioFilePath = audioPath.string();
 						}
 					}
 					ImGui::EndDragDropTarget();

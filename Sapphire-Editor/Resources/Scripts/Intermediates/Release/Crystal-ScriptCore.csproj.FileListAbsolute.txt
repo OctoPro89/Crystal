@@ -1,0 +1,6 @@
+D:\Programming\C++\Crystal\Sapphire-Editor\Resources\Scripts\Intermediates\Release\Crystal-ScriptCore.csproj.AssemblyReference.cache
+D:\Programming\C++\Crystal\Sapphire-Editor\Resources\Scripts\Intermediates\Release\Crystal-ScriptCore.csproj.CoreCompileInputs.cache
+D:\Programming\C++\Crystal\Sapphire-Editor\Resources\Scripts\Intermediates\Release\Crystal-ScriptCore.dll
+D:\Programming\C++\Crystal\Sapphire-Editor\Resources\Scripts\Intermediates\Release\Crystal-ScriptCore.pdb
+D:\Programming\C++\Crystal\Sapphire-Editor\Resources\Scripts\Crystal-ScriptCore.dll
+D:\Programming\C++\Crystal\Sapphire-Editor\Resources\Scripts\Crystal-ScriptCore.pdb

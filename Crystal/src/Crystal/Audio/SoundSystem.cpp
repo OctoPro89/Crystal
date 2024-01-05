@@ -18,7 +18,7 @@ namespace Crystal
 	}
 	void SoundSystem::PlayAudio(const char* fileLocation)
 	{
-		if (fileLocation != "") { ma_engine_play_sound(&engine, "D:/Programming/C++/Crystal/Sapphire-Editor/assets/Sounds/emotionaldamage.mp3", NULL); }
+		if (fileLocation != "") { ma_engine_play_sound(&engine, fileLocation, NULL); }
 	}
 	void SoundSystem::SetVolume(float volume)
 	{

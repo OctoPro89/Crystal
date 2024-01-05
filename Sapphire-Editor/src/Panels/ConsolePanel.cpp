@@ -12,33 +12,32 @@ namespace Crystal
 	void ConsolePanel::OnImGuiRender()
 	{
 		ImGui::Begin("Console");
-		for (int i = 0; i < Logs.size(); i++)
+		for(MsgType& msg : Messages)
 		{
-			ImGui::TextColored({ 0.835f, 0.835f,1.0f,1.0f }, std::string("INFO: " + Logs[i]).c_str());
-		}
-		for (int i = 0; i < Warns.size(); i++)
-		{
-			ImGui::TextColored({ 0.725f, 0.761f, 0.176f, 1.0f }, std::string("WARNING: " + Warns[i]).c_str());
-		}
-		for (int i = 0; i < Errors.size(); i++)
-		{
-			ImGui::TextColored({ 0.69f, 0.149f,0.149f,1.0f }, std::string("ERROR!: " + Errors[i]).c_str());
+			if (msg.type == 1) /* Info */
+				ImGui::TextColored({ 0.835f, 0.835f,1.0f,1.0f }, std::string("INFO: " + msg.msg).c_str());
+			else if (msg.type == 2) /* Warn */
+				ImGui::TextColored({ 0.725f, 0.661f, 0.176f, 1.0f }, std::string("WARNING: " + msg.msg).c_str());
+			else if (msg.type == 3) /* Error */
+				ImGui::TextColored({ 0.69f, 0.149f,0.149f,1.0f }, std::string("ERROR: " + msg.msg).c_str());
+			else
+				CRYSTAL_CORE_ASSERT(false, "Invalid Console Logging Type!");
 		}
 		ImGui::End();
 	}
 
 	void ConsolePanel::Log(std::string message)
 	{
-		Logs.push_back(message);
+		Messages.emplace_back(1, std::move(message));
 	}
 
 	void ConsolePanel::Warn(std::string message)
 	{
-		Warns.push_back(message);
+		Messages.emplace_back(2, std::move(message));
 	}
 
 	void ConsolePanel::Error(std::string message)
 	{
-		Errors.push_back(message);
+		Messages.emplace_back(3, std::move(message));
 	}
 }

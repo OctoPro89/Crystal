@@ -22,6 +22,9 @@ namespace Crystal
 		Ref<Texture2D> m_FileIconLUA;
 		Ref<Texture2D> m_FileIconGLSL;
 		Ref<Texture2D> m_FileIconHLSL;
+		Ref<Texture2D> m_FileIconMP3;
+		Ref<Texture2D> m_FileIconWAV;
+		Ref<Texture2D> m_FileIconOGG;
 		Ref<Texture2D> m_FileIconScene;
 	};
 }

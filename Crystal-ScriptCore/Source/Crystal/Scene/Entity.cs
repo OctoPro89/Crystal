@@ -36,7 +36,10 @@ namespace Crystal
 		public T GetComponent<T>() where T : Component, new()
 		{
 			if (!HasComponent<T>())
+			{
+				Editor.Error("NullReferenceException: Rigidbody2D Component is null!");
 				return null;
+			}
 
 			T component = new T() { Entity = this };
 			return component;

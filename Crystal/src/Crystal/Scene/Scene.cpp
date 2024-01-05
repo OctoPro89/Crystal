@@ -190,6 +190,7 @@ namespace Crystal {
 	{
 		m_IsRunning = true;
 		OnPhysics2DStart();
+		m_PhysicsWorld->SetContactListener(&m_ContactListener);
 
 		// Scripting
 		{
@@ -425,7 +426,6 @@ namespace Crystal {
 	void Scene::OnPhysics2DStart()
 	{
 		m_PhysicsWorld = new b2World({ 0.0f, -9.81f });
-		m_PhysicsWorld->SetContactListener(&m_ContactListener);
 
 		auto view = m_Registry.view<Rigidbody2DComponent>();
 		for (auto e : view)

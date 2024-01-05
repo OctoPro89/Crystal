@@ -19,6 +19,9 @@ namespace Crystal
 		m_FileIconGLSL = Texture2D::Create("Resources/Icons/FileIcons/GLSLIcon.png");
 		m_FileIconHLSL = Texture2D::Create("Resources/Icons/FileIcons/HLSLIcon.png");
 		m_FileIconScene = Texture2D::Create("Resources/Icons/FileIcons/CrystalIcon.png");
+		m_FileIconMP3 = Texture2D::Create("Resources/Icons/FileIcons/MP3Icon.png");
+		m_FileIconWAV = Texture2D::Create("Resources/Icons/FileIcons/WAVIcon.png");
+		m_FileIconOGG = Texture2D::Create("Resources/Icons/FileIcons/OGGIcon.png");
 		m_ArrowIcon = Texture2D::Create("Resources/Icons/arrow.png");
 	}
 	
@@ -66,6 +69,9 @@ namespace Crystal
 				else if (extension == ".lua") { icon = m_FileIconLUA; }
 				else if (extension == ".glsl") { icon = m_FileIconGLSL; }
 				else if (extension == ".hlsl") { icon = m_FileIconHLSL; }
+				else if (extension == ".mp3") { icon = m_FileIconMP3; }
+				else if (extension == ".wav") { icon = m_FileIconWAV; }
+				else if (extension == ".ogg") { icon = m_FileIconOGG; }
 				else if (extension == ".crystal") { icon = m_FileIconScene; }
 				else { icon = m_FileIcon; }
 			}

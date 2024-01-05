@@ -21,6 +21,8 @@ namespace Crystal {
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
 
+		static EditorLayer* GetEditorLayer() { return s_Instance; }
+
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
@@ -36,7 +38,6 @@ namespace Crystal {
 		void OnSceneStop();
 		void OnSimulationPlay();
 		void OnSimulationStop();
-
 		void OnDuplicateEntity();
 
 		void SerializeScene(Ref<Scene> scene, const std::string& path);
@@ -45,6 +46,8 @@ namespace Crystal {
 		void UI_Toolbar();
 		void UI_Preferences();
 	private:
+		static EditorLayer* s_Instance;
+
 		//temp
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_Shader;

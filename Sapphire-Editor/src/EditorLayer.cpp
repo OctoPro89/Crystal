@@ -10,10 +10,12 @@
 
 namespace Crystal {
 	const std::filesystem::path g_AssetPath = "assets";
+	EditorLayer* EditorLayer::s_Instance = nullptr;
 
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer")
 	{
+		s_Instance = this;
 	}
 
 	void EditorLayer::OnAttach()
@@ -210,7 +212,15 @@ namespace Crystal {
 			}
 			if (ImGui::BeginMenu("Scripting"))
 			{
-				if (ImGui::MenuItem("Reload C# Assemblies", "")) ScriptEngine::ReloadAssembly();
+				if (ImGui::MenuItem("Reload C# Assemblies", ""))
+				{
+					if (m_SceneState != SceneState::Edit)
+						Console.Error("Could not reload script assemblies because scene is running!");
+					else {
+						ScriptEngine::ReloadAssembly();
+						Console.Log("Script Assemblies reloaded!");
+					}
+				}
 				ImGui::EndMenu();
 			}
 

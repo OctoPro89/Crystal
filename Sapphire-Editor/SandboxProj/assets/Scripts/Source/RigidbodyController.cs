@@ -19,15 +19,9 @@ namespace Sandbox
 			m_Rigidbody = GetComponent<Rigidbody2DComponent>();
 		}
 
-		public void Spin(float speed)
-		{
-			m_Rigidbody.ApplyTorque(speed, true);
-		}
-
 		void OnUpdate(float ts)
 		{
 			Vector3 velocity = Vector3.Zero;
-
 			if (Input.IsKeyDown(KeyCode.W) || Input.IsKeyDown(KeyCode.Up))
 			{
 				velocity.Y = 1.0f;
@@ -57,6 +51,11 @@ namespace Sandbox
 			velocity *= (speed * ts);
 
 			m_Rigidbody.ApplyLinearImpulse(velocity.XY, true);
+		}
+
+		void OnCollisionEnter(HitInfo info) 
+		{
+			Editor.Warn($"Player hit {info.entityHit}");
 		}
 	}
 }

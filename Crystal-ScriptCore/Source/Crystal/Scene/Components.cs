@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -147,6 +148,32 @@ namespace Crystal
 				InternalCalls.TransformComponent_SetTranslation(Entity.ID, ref value);
 			}
 		}
+
+		public Vector3 Rotation
+		{
+			get
+			{
+				InternalCalls.TransformComponent_GetRotation(Entity.ID, out Vector3 rotation);
+				return rotation;
+			}
+			set
+			{
+				InternalCalls.TransformComponent_SetRotation(Entity.ID, ref value);
+			}
+		}
+
+		public Vector3 Scale
+		{
+			get
+			{
+				InternalCalls.TransformComponent_GetScale(Entity.ID, out Vector3 scale);
+				return scale;
+			}
+			set
+			{
+				InternalCalls.TransformComponent_SetScale(Entity.ID, ref value);
+			}
+		}
 	}
 
 	public class Rigidbody2DComponent : Component
@@ -175,6 +202,19 @@ namespace Crystal
 		public void ApplyForceToCenter(Vector2 force, bool wake)
 		{
 			InternalCalls.Rigidbody2DComponent_ApplyForceToCenter(Entity.ID, ref force, wake);
+		}
+	}
+
+	public class AudioComponent : Component
+	{
+		public void Play()
+		{
+			InternalCalls.AudioComponent_PlayAudio(Entity.ID);
+		}
+
+		public void SetVolume(float volumeMultiplier)
+		{
+			InternalCalls.AudioComponent_SetVolumeMultiplier(Entity.ID, volumeMultiplier);
 		}
 	}
 }

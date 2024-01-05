@@ -1649,4 +1649,7 @@
     </ClCompile>
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="premake5.lua" />
+  </ItemGroup>
 </Project>

@@ -21,6 +21,18 @@ namespace Crystal
 		internal extern static void TransformComponent_SetTranslation(ulong entityID, ref Vector3 translation);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void TransformComponent_GetRotation(ulong entityID, out Vector3 rotation);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void TransformComponent_SetRotation(ulong entityID, ref Vector3 rotation);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void TransformComponent_GetScale(ulong entityID, out Vector3 scale);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void TransformComponent_SetScale(ulong entityID, ref Vector3 scale);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void Rigidbody2DComponent_ApplyLinearImpulse(ulong entityID, ref Vector2 impulse, ref Vector2 point, bool wake);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -97,5 +109,35 @@ namespace Crystal
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static bool Input_IsMouseDown(MouseCode button);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Input_GetMousePos(out Vector2 mousePos);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static bool Input_GetMouseX(out float x);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static bool Input_GetMouseY(out float y);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void AudioComponent_PlayAudio(ulong entityID);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void AudioComponent_SetVolumeMultiplier(ulong entityID, float volumeMultiplier);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Editor_ConsoleLog(string message);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Editor_ConsoleWarn(string message);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Editor_ConsoleError(string message);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Scene_CreateEntity(out ulong UUID);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Scene_DestroyEntity(ulong entityID);
 	}
 }

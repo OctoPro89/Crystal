@@ -1,6 +1,16 @@
 #pragma once
 #include "crystalpch.h"
 
+class MsgType
+{
+public:
+	MsgType(int Type, std::string Msg)
+		: type(Type), msg(std::move(Msg)) {}
+
+	int type;
+	std::string msg;
+};
+
 namespace Crystal
 {
 	class ConsolePanel
@@ -13,15 +23,7 @@ namespace Crystal
 		void Warn(std::string message);
 		void Error(std::string message);
 	private:
-		std::vector<std::string> Logs =
-		{
-
-		};
-		std::vector<std::string> Warns =
-		{
-
-		};
-		std::vector<std::string> Errors =
+		std::vector<MsgType> Messages =
 		{
 
 		};

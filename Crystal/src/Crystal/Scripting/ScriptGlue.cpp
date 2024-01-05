@@ -9,6 +9,8 @@
 #include "Crystal/Scene/Scene.h"
 #include "Crystal/Scene/Entity.h"
 
+#include <EditorLayer.h>
+
 #include "mono/metadata/object.h"
 #include "mono/metadata/reflection.h"
 #include "box2d/b2_body.h"
@@ -48,6 +50,10 @@ namespace Crystal {
 		return s_EntityHasComponentFuncs.at(managedType)(entity);
 	}
 
+	static bool Entity_IsHovered(UUID entityID)
+	{
+	}
+
 	static uint64_t Entity_FindEntityByName(MonoString* outUUID)
 	{
 		char* cStr = mono_string_to_utf8(outUUID);
@@ -65,6 +71,26 @@ namespace Crystal {
 	static MonoObject* GetScriptInstance(UUID entityID)
 	{
 		return ScriptEngine::GetManagedInstance(entityID);
+	}
+
+	static void Scene_CreateEntity(UUID* outUUID)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->CreateEntity();
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outUUID = entity.GetUUID();
+	}
+
+	static void Scene_DestroyEntity(UUID entityID)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		scene->DestroyEntity(entity);
 	}
 
 	static void TransformComponent_GetTranslation(UUID entityID, glm::vec3* outTranslation)
@@ -90,7 +116,6 @@ namespace Crystal {
 	static void TransformComponent_GetRotation(UUID entityID, glm::vec3* outRotation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
@@ -100,7 +125,6 @@ namespace Crystal {
 
 	static void TransformComponent_SetRotation(UUID entityID, glm::vec3* rotation)
 	{
-		Scene* scene = ScriptEngine::GetSceneContext();
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
@@ -112,23 +136,21 @@ namespace Crystal {
 	static void TransformComponent_GetScale(UUID entityID, glm::vec3* outScale)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
-		*outScale = entity.GetComponent<TransformComponent>().Rotation;
+		*outScale = entity.GetComponent<TransformComponent>().Scale;
 	}
 
 	static void TransformComponent_SetScale(UUID entityID, glm::vec3* scale)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
-		entity.GetComponent<TransformComponent>().Rotation = *scale;
+		entity.GetComponent<TransformComponent>().Scale = *scale;
 	}
 
 	static void BoxCollider2DComponent_GetSize(UUID entityID, glm::vec2* outSize)
@@ -417,15 +439,56 @@ namespace Crystal {
 		outX = Input::GetMouseX();
 	}
 
-	static void Input_GetMouseX(float outY)
+	static void Input_GetMouseY(float outY)
 	{
 		outY = Input::GetMouseY();
+	}
+
+	static void Input_GetMouseScroll(float outScroll)
+	{
+		// lol
 	}
 
 	static void Editor_ConsoleLog(MonoString* message)
 	{
 		char* cStr = mono_string_to_utf8(message);
+		std::string& msg = std::string(cStr);
 		mono_free(cStr);
+		EditorLayer::GetEditorLayer()->GetConsole()->Log(msg);
+	}
+
+	static void Editor_ConsoleWarn(MonoString* message)
+	{
+		char* cStr = mono_string_to_utf8(message);
+		std::string& msg = std::string(cStr);
+		mono_free(cStr);
+		EditorLayer::GetEditorLayer()->GetConsole()->Warn(msg);
+	}
+
+	static void Editor_ConsoleError(MonoString* message)
+	{
+		char* cStr = mono_string_to_utf8(message);
+		std::string& msg = std::string(cStr);
+		mono_free(cStr);
+		EditorLayer::GetEditorLayer()->GetConsole()->Error(msg);
+	}
+
+	static void AudioComponent_PlayAudio(UUID entityID)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+		entity.GetComponent<AudioComponent>().Play();
+	}
+
+	static void AudioComponent_SetVolumeMultiplier(UUID entityID, float volumeMultiplier)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+		entity.GetComponent<AudioComponent>().volumeMultiplier = volumeMultiplier;
 	}
 
 	template<typename... Component>
@@ -504,5 +567,19 @@ namespace Crystal {
 
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsKeyDown);
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsMouseDown);
+		CRYSTAL_ADD_INTERNAL_CALL(Input_GetMousePos);
+		CRYSTAL_ADD_INTERNAL_CALL(Input_GetMouseX);
+		CRYSTAL_ADD_INTERNAL_CALL(Input_GetMouseY);
+		CRYSTAL_ADD_INTERNAL_CALL(Input_GetMouseScroll);
+
+		CRYSTAL_ADD_INTERNAL_CALL(AudioComponent_PlayAudio);
+		CRYSTAL_ADD_INTERNAL_CALL(AudioComponent_SetVolumeMultiplier);
+
+		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleLog);
+		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleWarn);
+		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleError);
+
+		CRYSTAL_ADD_INTERNAL_CALL(Scene_CreateEntity);
+		CRYSTAL_ADD_INTERNAL_CALL(Scene_DestroyEntity);
 	}
 }

@@ -19,7 +19,7 @@ Entities:
       Primary: true
       FixedAspectRatio: false
     ScriptComponent:
-      ClassName: Sandbox.CamController
+      ClassName: Sandbox.Camera
       ScriptFields:
         []
   - Entity: 18085298175519636347
