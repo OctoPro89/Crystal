@@ -1,5 +1,6 @@
 #include "crystalpch.h"
 #include "ScriptEngine.h"
+#include <EditorLayer.h>
 #include <Crystal/Scene/Entity.h>
 #include <Crystal/Core/Application.h>
 #include "ScriptGlue.h"
@@ -288,15 +289,27 @@ namespace Crystal {
 			}
 			instance->InvokeOnCreate();
 		}
+		else
+		{
+			EditorLayer::GetEditorLayer()->GetConsole()->Error("Could Not Find Script Class: \"" + sc.ClassName + "\" On Object: " + entity.GetName());
+			return;
+		}
 	}
 
 	void ScriptEngine::OnUpdateEntity(Entity entity, Timestep ts)
 	{
 		UUID entityUUID = entity.GetUUID();
-		CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
-
-		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
-		instance->InvokeOnUpdate((float)ts);
+		// CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
+		if (EntityClassExists(entity.GetComponent<ScriptComponent>().ClassName))
+		{
+			Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
+			instance->InvokeOnUpdate((float)ts);
+		}
+		else
+		{
+			EditorLayer::GetEditorLayer()->GetConsole()->Error("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
+			return;
+		}
 	}
 
 	void ScriptEngine::OnCollisionEnter(Entity entity, Entity entity2, b2Contact* contact)

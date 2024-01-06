@@ -248,6 +248,7 @@ namespace Crystal {
 			DisplayAddComponentEntry<CircleCollider2DComponent>("Circle Collider 2D");
 			DisplayAddComponentEntry<ScriptComponent>("Script");
 			DisplayAddComponentEntry<AudioComponent>("Audio");
+			DisplayAddComponentEntry<DistanceJoint2DComponent>("Distance Joint 2D");
 
 			ImGui::EndPopup();
 		}
@@ -354,7 +355,6 @@ namespace Crystal {
 					}
 				}
 			});
-
 		DrawComponent<CircleRendererComponent>("Circle Renderer", entity, [](auto& component)
 			{
 				ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
@@ -446,7 +446,30 @@ namespace Crystal {
 				}
 			});
 
+		DrawComponent<Rigidbody2DComponent>("Rigidbody 2D", entity, [](auto& component)
+			{
+				const char* bodyTypeStrings[] = { "Static", "Dynamic", "Kinematic" };
+				const char* currentBodyTypeString = bodyTypeStrings[(int)component.Type];
+				if (ImGui::BeginCombo("Body Type", currentBodyTypeString))
+				{
+					for (int i = 0; i < 2; i++)
+					{
+						bool isSelected = currentBodyTypeString == bodyTypeStrings[i];
+						if (ImGui::Selectable(bodyTypeStrings[i], isSelected))
+						{
+							currentBodyTypeString = bodyTypeStrings[i];
+							component.Type = (Rigidbody2DComponent::BodyType)i;
+						}
 
+						if (isSelected)
+							ImGui::SetItemDefaultFocus();
+					}
+
+					ImGui::EndCombo();
+				}
+
+				ImGui::Checkbox("Fixed Rotation", &component.FixedRotation);
+			});
 		DrawComponent<BoxCollider2DComponent>("Box Collider 2D", entity, [](auto& component)
 			{
 				ImGui::DragFloat2("Offset", glm::value_ptr(component.Offset), 0.01f);
@@ -457,7 +480,6 @@ namespace Crystal {
 				ImGui::DragFloat("Restitution", &component.Restitution, 0.01f, 0.0f, 1.0f);
 				ImGui::DragFloat("Restitution Threshold", &component.RestitutionThreshold, 0.01f, 0.0f);
 			});
-
 		DrawComponent<CircleCollider2DComponent>("Circle Collider 2D", entity, [](auto& component)
 			{
 				ImGui::DragFloat2("Offset", glm::value_ptr(component.Offset), 0.01f);
@@ -482,7 +504,7 @@ namespace Crystal {
 						const wchar_t* path = (const wchar_t*)payload->Data;
 						audioPath = std::filesystem::path(g_AssetPath) / path;
 
-						if (!(audioPath.extension() == ".mp3" || audioPath.extension() == ".wav")
+						if (!(audioPath.extension() == ".mp3" || audioPath.extension() == ".wav"))
 						{
 							CRYSTAL_WARN("Could not load audio file {0}", audioPath.filename().string());
 						}
@@ -501,6 +523,29 @@ namespace Crystal {
 					component.Play();
 				}
 			});
+
+		DrawComponent<DistanceJoint2DComponent>("Distance Joint 2D", entity, [scene = m_Context](auto& component)
+		{
+			static const char* name = "...";
+			ImGui::Text("Attached Rigidbody:");
+			if (ImGui::Button(name))
+				ImGui::OpenPopup("Attached Rigidbody");
+			if (ImGui::BeginPopup("Attached Rigidbody"))
+			{
+				auto view = scene->GetAllEntitiesWith<TransformComponent, Rigidbody2DComponent>();
+				for (auto e : view)
+				{
+					Entity ent = { e, scene.get() };
+					if(ImGui::MenuItem(ent.GetName().c_str()))
+					{
+						component.AttachedRuntimeBody = ent.GetComponent<Rigidbody2DComponent>().RuntimeBody;
+						name = ent.GetName().c_str();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+				ImGui::EndPopup();
+			}
+		});
 	}
 
 	template<typename T>

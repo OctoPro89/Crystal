@@ -169,6 +169,23 @@ namespace Crystal
 		CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
 	};
 
+	struct DistanceJoint2DComponent
+	{
+		glm::vec2 AnchorOffset1{ 0.0f, 0.0f };
+		glm::vec2 AnchorOffset2{ 0.0f, 0.0f };
+		float Distance;
+		float MinDistance;
+		float MaxDistance;
+		float Damping;
+		float Stiffness;
+		bool ShouldBodiesCollide;
+		void* RuntimeBody = nullptr;
+		void* AttachedRuntimeBody = nullptr;
+
+		DistanceJoint2DComponent() = default;
+		DistanceJoint2DComponent(const DistanceJoint2DComponent&) = default;
+	};
+
 	struct AudioComponent
 	{
 		std::string audioFilePath = "";
@@ -193,5 +210,5 @@ namespace Crystal
 	};
 	using AllComponents = ComponentGroup<TransformComponent, SpriteRendererComponent, CameraComponent,
 		Rigidbody2DComponent, BoxCollider2DComponent, CircleCollider2DComponent, CircleRendererComponent,
-		NativeScriptComponent, ScriptComponent, AudioComponent>;
+		NativeScriptComponent, ScriptComponent, AudioComponent, DistanceJoint2DComponent>;
 }

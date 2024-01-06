@@ -12,6 +12,8 @@ namespace Crystal
 	void ConsolePanel::OnImGuiRender()
 	{
 		ImGui::Begin("Console");
+		if (ImGui::Button("Clear"))
+			Clear();
 		for(MsgType& msg : Messages)
 		{
 			if (msg.type == 1) /* Info */
@@ -39,5 +41,9 @@ namespace Crystal
 	void ConsolePanel::Error(std::string message)
 	{
 		Messages.emplace_back(3, std::move(message));
+	}
+	void ConsolePanel::Clear()
+	{
+		Messages.clear();
 	}
 }

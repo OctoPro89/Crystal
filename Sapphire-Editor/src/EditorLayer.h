@@ -9,9 +9,18 @@
 namespace Crystal {
 	class EditorLayer : public Layer
 	{
+	private:
+		enum class SceneState
+		{
+			Edit = 0, Play = 1, Simulate = 2
+		};
 	public:
 		EditorLayer();
+		static EditorLayer* GetEditorLayer() { return s_Instance; }
+		inline void SetShouldReloadAssemblies(bool should) { shouldReloadAssemblies = should; }
 		inline ConsolePanel* GetConsole() { return &Console; }
+		inline SceneState GetSceneState() { return m_SceneState; }
+		
 		virtual ~EditorLayer() = default;
 
 		virtual void OnAttach() override;
@@ -21,7 +30,6 @@ namespace Crystal {
 		virtual void OnImGuiRender() override;
 		virtual void OnEvent(Event& e) override;
 
-		static EditorLayer* GetEditorLayer() { return s_Instance; }
 
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
@@ -70,6 +78,7 @@ namespace Crystal {
 		bool m_ViewportHovered = false;
 		bool preferencesWindow = false;
 		bool m_CamSwitch = true;
+		bool shouldReloadAssemblies = false;
 
 		Ref<SubTexture2D> m_SubTex;
 		Ref<Texture2D> m_Player;
@@ -79,11 +88,6 @@ namespace Crystal {
 		std::string m_ScenePath;
 
 		int m_GizmoType = 0;
-
-		enum class SceneState
-		{
-			Edit = 0, Play = 1, Simulate = 2
-		};
 
 		SceneState m_SceneState = SceneState::Edit;
 

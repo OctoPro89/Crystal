@@ -120,7 +120,7 @@ namespace Crystal {
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
-		*outRotation = entity.GetComponent<TransformComponent>().Rotation;
+		*outRotation = glm::degrees(entity.GetComponent<TransformComponent>().Rotation);
 	}
 
 	static void TransformComponent_SetRotation(UUID entityID, glm::vec3* rotation)
@@ -130,7 +130,7 @@ namespace Crystal {
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
-		entity.GetComponent<TransformComponent>().Rotation = *rotation;
+		entity.GetComponent<TransformComponent>().Rotation = glm::radians(*rotation);
 	}
 
 	static void TransformComponent_GetScale(UUID entityID, glm::vec3* outScale)

@@ -14,6 +14,8 @@
 #include "box2d/b2_contact.h"
 #include "box2d/b2_body.h"
 #include "box2d/b2_fixture.h"
+#include "box2d/b2_joint.h"
+#include "box2d/b2_distance_joint.h"
 #include "box2d/b2_polygon_shape.h"
 #include "box2d/b2_circle_shape.h"
 
@@ -482,6 +484,22 @@ namespace Crystal {
 				b2BodyUserData& bodyData = body->GetUserData();
 				//Set user data to the uuid for collisions
 				bodyData.pointer = (uintptr_t)entity.GetUUID();
+
+				if (entity.HasComponent<DistanceJoint2DComponent>())
+				{
+					auto& dj2d = entity.GetComponent<DistanceJoint2DComponent>();
+
+					b2DistanceJointDef djd;
+					djd.bodyA = body;
+					djd.bodyB = (b2Body*)dj2d.AttachedRuntimeBody;
+					djd.collideConnected = dj2d.ShouldBodiesCollide;
+					djd.damping = dj2d.Damping;
+					djd.length = dj2d.Distance;
+					djd.minLength = dj2d.MinDistance;
+					djd.maxLength = dj2d.MaxDistance;
+					djd.stiffness = dj2d.Stiffness;
+					b2DistanceJoint* dj = (b2DistanceJoint*)m_PhysicsWorld->CreateJoint(&djd);
+				}
 			}
 		}
 	}
@@ -586,6 +604,11 @@ namespace Crystal {
 
 	template<>
 	void Scene::OnComponentAdded<AudioComponent>(Entity entity, AudioComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<DistanceJoint2DComponent>(Entity entity, DistanceJoint2DComponent& component)
 	{
 	}
 }

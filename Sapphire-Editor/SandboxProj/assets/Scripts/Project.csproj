@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Camera.cs" />
-    <Compile Include="Source\Player.cs" />
     <Compile Include="Source\RigidbodyController.cs" />
     <Compile Include="Source\TransformMove.cs" />
   </ItemGroup>

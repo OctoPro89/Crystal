@@ -27,6 +27,32 @@ namespace Crystal
 			}
 		}
 
+		public Vector3 Rotation
+		{
+			get
+			{
+				InternalCalls.TransformComponent_GetRotation(ID, out Vector3 result);
+				return result;
+			}
+			set
+			{
+				InternalCalls.TransformComponent_SetRotation(ID, ref value);
+			}
+		}
+
+		public Vector3 Scale
+		{
+			get
+			{
+				InternalCalls.TransformComponent_GetScale(ID, out Vector3 result);
+				return result;
+			}
+			set
+			{
+				InternalCalls.TransformComponent_SetScale(ID, ref value);
+			}
+		}
+
 		public bool HasComponent<T>() where T : Component, new()
 		{
 			Type componentType = typeof(T);

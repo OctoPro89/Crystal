@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Components.h"
 #include <Crystal/Scripting/ScriptEngine.h>
+#include <EditorLayer.h>
 
 #include <fstream>
 
@@ -536,25 +537,32 @@ namespace Crystal {
 					if (scriptFields)
 					{
 						Ref<ScriptClass> entityClass = ScriptEngine::GetEntityClass(sc.ClassName);
-						CRYSTAL_CORE_ASSERT(entityClass, "No Entity Class");
-						const auto& fields = entityClass->GetFields();
-						auto& entityFields = ScriptEngine::GetScriptFieldMap(deserializedEntity);
-						for (auto scriptField : scriptFields)
+						if (!entityClass)
 						{
-							std::string name = scriptField["Name"].as<std::string>();
-							std::string typeString = scriptField["Type"].as<std::string>();
-							ScriptFieldType type = Utils::ScriptFieldTypeFromString(typeString);
-							ScriptFieldInstance& fieldInstance = entityFields[name];
-							CRYSTAL_CORE_ASSERT(fields.find(name) != fields.end(), "No Field for Deserialize");
-							if (fields.find(name) == fields.end())
-								continue;
-
-							fieldInstance.Field = fields.at(name);
-							switch (type)
+							CRYSTAL_CORE_WARN("No Entity Class Found For Script Fields (Probably Invalid Class Name)");
+							EditorLayer::GetEditorLayer()->GetConsole()->Warn("No Entity Class Found For Script Fields (Probably Invalid Class Name) On Entity: " + deserializedEntity.GetName());
+						}
+						else 
+						{
+							const auto& fields = entityClass->GetFields();
+							auto& entityFields = ScriptEngine::GetScriptFieldMap(deserializedEntity);
+							for (auto scriptField : scriptFields)
 							{
-								READ_SCRIPT_FIELD(Float, float);
+								std::string name = scriptField["Name"].as<std::string>();
+								std::string typeString = scriptField["Type"].as<std::string>();
+								ScriptFieldType type = Utils::ScriptFieldTypeFromString(typeString);
+								ScriptFieldInstance& fieldInstance = entityFields[name];
+								CRYSTAL_CORE_ASSERT(fields.find(name) != fields.end(), "No Field for Deserialize");
+								if (fields.find(name) == fields.end())
+									continue;
+
+								fieldInstance.Field = fields.at(name);
+								switch (type)
+								{
+									READ_SCRIPT_FIELD(Float, float);
+								}
+								std::string data = scriptField["Data"].as<std::string>();
 							}
-							std::string data = scriptField["Data"].as<std::string>();
 						}
 					}
 				}
