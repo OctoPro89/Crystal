@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using Crystal;
-
+﻿using Crystal;
 namespace Sandbox
 {
 	public class RigidbodyController : Entity
@@ -40,10 +33,10 @@ namespace Sandbox
 			}
 			else if (Input.IsKeyDown(KeyCode.D) || Input.IsKeyDown(KeyCode.Right))
 			{
-				velocity.X = 1.0f; 
+				velocity.X = 1.0f;
 				m_Rigidbody.ApplyTorque(torque, true);
 			}
-			if(Input.IsKeyDown(KeyCode.E))
+			if (Input.IsKeyDown(KeyCode.E))
 			{
 				velocity.X = 0.8f;
 			}
@@ -51,11 +44,6 @@ namespace Sandbox
 			velocity *= (speed * ts);
 
 			m_Rigidbody.ApplyLinearImpulse(velocity.XY, true);
-		}
-
-		void OnCollisionEnter(HitInfo info) 
-		{
-			Editor.Warn($"Player hit {info.entityHit}");
 		}
 	}
 }

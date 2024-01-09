@@ -169,18 +169,20 @@ namespace Crystal
 		CircleCollider2DComponent(const CircleCollider2DComponent&) = default;
 	};
 
+	class Entity;
+
 	struct DistanceJoint2DComponent
 	{
 		glm::vec2 AnchorOffset1{ 0.0f, 0.0f };
 		glm::vec2 AnchorOffset2{ 0.0f, 0.0f };
-		float Distance;
+		float RestLength;
 		float MinDistance;
 		float MaxDistance;
 		float Damping;
 		float Stiffness;
 		bool ShouldBodiesCollide;
-		void* RuntimeBody = nullptr;
-		void* AttachedRuntimeBody = nullptr;
+		std::string AttachedStr = "...";
+		UUID Attached;
 
 		DistanceJoint2DComponent() = default;
 		DistanceJoint2DComponent(const DistanceJoint2DComponent&) = default;

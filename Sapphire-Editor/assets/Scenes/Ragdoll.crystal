@@ -1,0 +1,245 @@
+Scene: Untitled
+Entities:
+  - Entity: 15147881337098772859
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Translation: [0, 2.884624, 9.85806084]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 0
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false
+  - Entity: 5514278451072918415
+    TagComponent:
+      Tag: ground
+    TransformComponent:
+      Translation: [1.86264515e-09, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [8.91099834, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.288438618, 0.930501938, 0.154484898, 1]
+      TilingFactor: 1
+  - Entity: 6727653371813810403
+    TagComponent:
+      Tag: Chest
+    TransformComponent:
+      Translation: [0, 2.52624607, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1.70000005, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    CircleCollider2DComponent:
+      Offset: [0, -1.05999994]
+      Radius: 0.100000001
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.403750747, 0.59913069, 0.942084968, 1]
+      TilingFactor: 1
+    ScriptComponent:
+      ClassName: Sandbox.RigidbodyController
+      ScriptFields:
+        - Name: speed
+          Type: Float
+          Data: 93
+  - Entity: 8688127477333166846
+    TagComponent:
+      Tag: Arm Left
+    TransformComponent:
+      Translation: [-1.19602966, 2.65820432, -2.3327909e-10]
+      Rotation: [0, 0, -0.750904143]
+      Scale: [0.399999648, 0.767300367, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.403750747, 0.59913069, 0.942084968, 1]
+      TilingFactor: 1
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 6727653371813810403
+      AttachedStr: ...
+      Damping: 0
+      MaxDistance: 0.800000012
+      MinDistance: 0.699999988
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0
+  - Entity: 8971762439348063897
+    TagComponent:
+      Tag: Arm Right
+    TransformComponent:
+      Translation: [1.22501242, 2.87407041, 0]
+      Rotation: [0, 0, -2.04846787]
+      Scale: [0.400000989, 0.767302394, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.403750747, 0.59913069, 0.942084968, 1]
+      TilingFactor: 1
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 6727653371813810403
+      AttachedStr: ...
+      Damping: 0
+      MaxDistance: 0.800000012
+      MinDistance: 0.699999988
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0
+  - Entity: 3729161351553956226
+    TagComponent:
+      Tag: Head
+    TransformComponent:
+      Translation: [0, 3.90667152, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    CircleRendererComponent:
+      Color: [1, 1, 1, 1]
+      Thickness: 1
+      Fade: 0
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 6727653371813810403
+      AttachedStr: ...
+      Damping: 0
+      MaxDistance: 1.36000001
+      MinDistance: 1.35000002
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0
+  - Entity: 11453728907119559192
+    TagComponent:
+      Tag: Left Leg
+    TransformComponent:
+      Translation: [0.298222035, 1.08175743, 0]
+      Rotation: [0, 0, 0.0417709537]
+      Scale: [0.399999648, 1.14968705, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.403750747, 0.59913069, 0.942084968, 1]
+      TilingFactor: 1
+    ScriptComponent:
+      ClassName: Sandbox.RigidbodyController
+      ScriptFields:
+        []
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 6727653371813810403
+      AttachedStr: ...
+      Damping: 0
+      MaxDistance: 1.47000003
+      MinDistance: 1.14999998
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0
+  - Entity: 12336742377855016325
+    TagComponent:
+      Tag: Left Leg Copy
+    TransformComponent:
+      Translation: [-0.257474273, 1.07204938, -0.0143095255]
+      Rotation: [0, 0, 0.0498925]
+      Scale: [0.399999887, 1.14968812, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.403750747, 0.59913069, 0.942084968, 1]
+      TilingFactor: 1
+    ScriptComponent:
+      ClassName: Sandbox.RigidbodyController
+      ScriptFields:
+        []
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 6727653371813810403
+      AttachedStr: ...
+      Damping: 0
+      MaxDistance: 1.47000003
+      MinDistance: 1.14999998
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0

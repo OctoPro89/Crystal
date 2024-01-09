@@ -373,6 +373,28 @@ namespace Crystal {
 			out << YAML::EndMap; // AudioComponent
 		}
 
+		if (entity.HasComponent<DistanceJoint2DComponent>())
+		{
+			out << YAML::Key << "DistanceJoint2DComponent";
+			out << YAML::BeginMap; // DistanceJoint2DComponent
+			auto& distanceJointComponent = entity.GetComponent<DistanceJoint2DComponent>();
+
+			out << YAML::Key << "AnchorOffset1" << YAML::Value << distanceJointComponent.AnchorOffset1;
+			out << YAML::Key << "AnchorOffset2" << YAML::Value << distanceJointComponent.AnchorOffset2;
+
+			out << YAML::Key << "Attached" << YAML::Value << distanceJointComponent.Attached;
+			out << YAML::Key << "AttachedStr" << YAML::Value << distanceJointComponent.AttachedStr;
+
+			out << YAML::Key << "Damping" << YAML::Value << distanceJointComponent.Damping;
+			out << YAML::Key << "MaxDistance" << YAML::Value << distanceJointComponent.MaxDistance;
+			out << YAML::Key << "MinDistance" << YAML::Value << distanceJointComponent.MinDistance;
+			out << YAML::Key << "RestLength" << YAML::Value << distanceJointComponent.RestLength;
+			out << YAML::Key << "ShouldBodiesCollide" << YAML::Value << distanceJointComponent.ShouldBodiesCollide;
+			out << YAML::Key << "Stiffness" << YAML::Value << distanceJointComponent.Stiffness;
+
+			out << YAML::EndMap; // DistanceJoint2DComponent
+		}
+
 		out << YAML::EndMap; // Entity
 	}
 
@@ -573,6 +595,22 @@ namespace Crystal {
 					auto& ac = deserializedEntity.AddComponent<AudioComponent>();
 					ac.audioFilePath = audioComponent["AudioFile"].as<std::string>().c_str();
 					ac.volumeMultiplier = audioComponent["VolumeMultiplier"].as<float>();
+				}
+
+				auto distanceJointComponent = entity["DistanceJoint2DComponent"];
+				if (distanceJointComponent)
+				{
+					auto& djc = deserializedEntity.AddComponent<DistanceJoint2DComponent>();
+					djc.AnchorOffset1 = distanceJointComponent["AnchorOffset1"].as<glm::vec2>();
+					djc.AnchorOffset2 = distanceJointComponent["AnchorOffset2"].as<glm::vec2>();
+					djc.Attached = distanceJointComponent["Attached"].as<UUID>();
+					djc.AttachedStr = distanceJointComponent["AttachedStr"].as<std::string>();
+					djc.Damping = distanceJointComponent["Damping"].as<float>();
+					djc.RestLength = distanceJointComponent["RestLength"].as<float>();
+					djc.MaxDistance = distanceJointComponent["MaxDistance"].as<float>();
+					djc.MinDistance = distanceJointComponent["MinDistance"].as<float>();
+					djc.ShouldBodiesCollide = distanceJointComponent["ShouldBodiesCollide"].as<bool>();
+					djc.Stiffness = distanceJointComponent["Stiffness"].as<float>();
 				}
 			}
 		}

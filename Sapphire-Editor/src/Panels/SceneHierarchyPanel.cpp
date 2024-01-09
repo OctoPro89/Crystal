@@ -362,7 +362,6 @@ namespace Crystal {
 				ImGui::DragFloat("Fade", &component.Fade, 0.00025f, 0.0f, 1.0f);
 			});
 
-		static float speed = 10.0f;
 		DrawComponent<ScriptComponent>("Script", entity, [entity, scene = m_Context](auto& component) mutable
 			{
 				bool scriptClassExists = ScriptEngine::EntityClassExists(component.ClassName);
@@ -526,9 +525,10 @@ namespace Crystal {
 
 		DrawComponent<DistanceJoint2DComponent>("Distance Joint 2D", entity, [scene = m_Context](auto& component)
 		{
-			static const char* name = "...";
+			static char buffer[64];
+			strcpy_s(buffer, sizeof(buffer), component.AttachedStr.c_str());
 			ImGui::Text("Attached Rigidbody:");
-			if (ImGui::Button(name))
+			if (ImGui::Button(component.AttachedStr.c_str()))
 				ImGui::OpenPopup("Attached Rigidbody");
 			if (ImGui::BeginPopup("Attached Rigidbody"))
 			{
@@ -538,13 +538,22 @@ namespace Crystal {
 					Entity ent = { e, scene.get() };
 					if(ImGui::MenuItem(ent.GetName().c_str()))
 					{
-						component.AttachedRuntimeBody = ent.GetComponent<Rigidbody2DComponent>().RuntimeBody;
-						name = ent.GetName().c_str();
+						component.AttachedStr = ent.GetName().c_str();
+						component.Attached = ent.GetUUID();
 						ImGui::CloseCurrentPopup();
 					}
 				}
 				ImGui::EndPopup();
 			}
+
+			ImGui::Checkbox("Bodies Collide", &component.ShouldBodiesCollide);
+			ImGui::DragFloat("Rest Length", &component.RestLength, 0.1f);
+			ImGui::DragFloat("Stiffness", &component.Stiffness, 0.01f);
+			ImGui::DragFloat("Damping", &component.Damping, 0.1f, 0.0f);
+			ImGui::DragFloat("MinDistance", &component.MinDistance, 0.1f);
+			ImGui::DragFloat("MaxDistance", &component.MaxDistance, 0.1f, 0.0f);
+			ImGui::DragFloat2("Offset", glm::value_ptr(component.AnchorOffset1), 0.1f);
+			ImGui::DragFloat2("Attached body Offset", glm::value_ptr(component.AnchorOffset2), 0.1f);
 		});
 	}
 

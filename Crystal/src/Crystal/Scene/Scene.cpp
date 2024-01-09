@@ -20,7 +20,7 @@
 #include "box2d/b2_circle_shape.h"
 
 namespace Crystal {
-	class PhysicsContactListener : public b2ContactListener 
+	class PhysicsContactListener : public b2ContactListener
 	{
 	public:
 		void BeginContact(b2Contact* contact) override {
@@ -192,8 +192,8 @@ namespace Crystal {
 	{
 		m_IsRunning = true;
 		OnPhysics2DStart();
+		OnPhysics2DJoints();
 		m_PhysicsWorld->SetContactListener(&m_ContactListener);
-
 		// Scripting
 		{
 			ScriptEngine::OnRuntimeStart(this);
@@ -220,6 +220,7 @@ namespace Crystal {
 	void Scene::OnSimulationStart()
 	{
 		OnPhysics2DStart();
+		OnPhysics2DJoints();
 	}
 
 	void Scene::OnSimulationStop()
@@ -428,8 +429,8 @@ namespace Crystal {
 	void Scene::OnPhysics2DStart()
 	{
 		m_PhysicsWorld = new b2World({ 0.0f, -9.81f });
-
 		auto view = m_Registry.view<Rigidbody2DComponent>();
+
 		for (auto e : view)
 		{
 			Entity entity = { e, this };
@@ -484,24 +485,37 @@ namespace Crystal {
 				b2BodyUserData& bodyData = body->GetUserData();
 				//Set user data to the uuid for collisions
 				bodyData.pointer = (uintptr_t)entity.GetUUID();
+			}
 
-				if (entity.HasComponent<DistanceJoint2DComponent>())
-				{
-					auto& dj2d = entity.GetComponent<DistanceJoint2DComponent>();
-
-					b2DistanceJointDef djd;
-					djd.bodyA = body;
-					djd.bodyB = (b2Body*)dj2d.AttachedRuntimeBody;
-					djd.collideConnected = dj2d.ShouldBodiesCollide;
-					djd.damping = dj2d.Damping;
-					djd.length = dj2d.Distance;
-					djd.minLength = dj2d.MinDistance;
-					djd.maxLength = dj2d.MaxDistance;
-					djd.stiffness = dj2d.Stiffness;
-					b2DistanceJoint* dj = (b2DistanceJoint*)m_PhysicsWorld->CreateJoint(&djd);
-				}
+			if (entity.HasComponent<DistanceJoint2DComponent>())
+			{
+				auto& dj2d = entity.GetComponent<DistanceJoint2DComponent>();
 			}
 		}
+	}
+
+	void Scene::OnPhysics2DJoints()
+	{
+		auto view = m_Registry.view<DistanceJoint2DComponent>();
+
+		for (auto e : view)
+		{
+			Entity This = { e, this };
+			auto& dj2d = This.GetComponent<DistanceJoint2DComponent>();
+			Entity Attached = { this->m_EntityMap.at(dj2d.Attached), this };
+
+			b2DistanceJointDef djd;
+			djd.type = e_distanceJoint;
+			djd.bodyA = (b2Body*)This.GetComponent<Rigidbody2DComponent>().RuntimeBody;
+			djd.bodyB = (b2Body*)Attached.GetComponent<Rigidbody2DComponent>().RuntimeBody;
+			djd.collideConnected = dj2d.ShouldBodiesCollide;
+			djd.damping = dj2d.Damping;
+			djd.length = dj2d.RestLength;
+			djd.minLength = dj2d.MinDistance;
+			djd.maxLength = dj2d.MaxDistance;
+			djd.stiffness = dj2d.Stiffness;
+			b2DistanceJoint* dj = (b2DistanceJoint*)m_PhysicsWorld->CreateJoint(&djd);
+		}				
 	}
 
 	void Scene::OnPhysics2DStop()
