@@ -249,6 +249,7 @@ namespace Crystal {
 			DisplayAddComponentEntry<ScriptComponent>("Script");
 			DisplayAddComponentEntry<AudioComponent>("Audio");
 			DisplayAddComponentEntry<DistanceJoint2DComponent>("Distance Joint 2D");
+			DisplayAddComponentEntry<HingeJoint2DComponent>("Hinge Joint 2D");
 
 			ImGui::EndPopup();
 		}
@@ -553,7 +554,41 @@ namespace Crystal {
 			ImGui::DragFloat("MinDistance", &component.MinDistance, 0.1f);
 			ImGui::DragFloat("MaxDistance", &component.MaxDistance, 0.1f, 0.0f);
 			ImGui::DragFloat2("Offset", glm::value_ptr(component.AnchorOffset1), 0.1f);
-			ImGui::DragFloat2("Attached body Offset", glm::value_ptr(component.AnchorOffset2), 0.1f);
+			ImGui::DragFloat2("Attached Offset", glm::value_ptr(component.AnchorOffset2), 0.1f);
+		});
+
+		DrawComponent<HingeJoint2DComponent>("Hinge Joint 2D", entity, [scene = m_Context](auto& component)
+		{
+			static char buffer[64];
+			strcpy_s(buffer, sizeof(buffer), component.AttachedStr.c_str());
+			ImGui::Text("Attached Rigidbody:");
+			if (ImGui::Button(component.AttachedStr.c_str()))
+				ImGui::OpenPopup("Attached Rigidbody");
+			if (ImGui::BeginPopup("Attached Rigidbody"))
+			{
+				auto view = scene->GetAllEntitiesWith<TransformComponent, Rigidbody2DComponent>();
+				for (auto e : view)
+				{
+					Entity ent = { e, scene.get() };
+					if (ImGui::MenuItem(ent.GetName().c_str()))
+					{
+						component.AttachedStr = ent.GetName().c_str();
+						component.Attached = ent.GetUUID();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+				ImGui::EndPopup();
+			}
+
+			ImGui::Checkbox("Bodies Collide", &component.ShouldBodiesCollide);
+			ImGui::Checkbox("Enable Motor", &component.EnableMotor);
+			ImGui::Checkbox("Enable Limit", &component.EnableLimit);
+			ImGui::DragFloat("Maximum Angle", &component.LowerLimitAngle);
+			ImGui::DragFloat("Minimum Angle", &component.UpperLimitAngle);
+			ImGui::DragFloat("Motor Speed", &component.MotorSpeed);
+			ImGui::DragFloat("Max Motor Torque", &component.MaxMotorTorque);
+			ImGui::DragFloat2("Offset", glm::value_ptr(component.AnchorOffset1));
+			ImGui::DragFloat2("Attached Offset", glm::value_ptr(component.AnchorOffset2));
 		});
 	}
 

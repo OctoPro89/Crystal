@@ -24,6 +24,18 @@ namespace Crystal {
 		virtual void SetLineWidth(float width) = 0;
 
 		inline static API GetAPI() { return s_API; }
+		inline static std::string CrystalAPITypeToString(API api)
+		{
+			switch (api)
+			{
+			case API::OpenGL:
+				return "OpenGL";
+			case API::Vulkan:
+				return "Vulkan";
+			case API::None:
+				return "None";
+			}
+		}
 	private:
 		static API s_API;
 	};

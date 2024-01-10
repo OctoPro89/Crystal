@@ -188,6 +188,24 @@ namespace Crystal
 		DistanceJoint2DComponent(const DistanceJoint2DComponent&) = default;
 	};
 
+	struct HingeJoint2DComponent
+	{
+		glm::vec2 AnchorOffset1{ 0.0f, 0.0f };
+		glm::vec2 AnchorOffset2{ 0.0f, 0.0f };
+		bool EnableLimit;
+		bool EnableMotor;
+		bool ShouldBodiesCollide;
+		float LowerLimitAngle;
+		float UpperLimitAngle;
+		float MotorSpeed;
+		float MaxMotorTorque;
+		std::string AttachedStr = "...";
+		UUID Attached;
+
+		HingeJoint2DComponent() = default;
+		HingeJoint2DComponent(const HingeJoint2DComponent&) = default;
+	};
+
 	struct AudioComponent
 	{
 		std::string audioFilePath = "";
@@ -212,5 +230,5 @@ namespace Crystal
 	};
 	using AllComponents = ComponentGroup<TransformComponent, SpriteRendererComponent, CameraComponent,
 		Rigidbody2DComponent, BoxCollider2DComponent, CircleCollider2DComponent, CircleRendererComponent,
-		NativeScriptComponent, ScriptComponent, AudioComponent, DistanceJoint2DComponent>;
+		NativeScriptComponent, ScriptComponent, AudioComponent, DistanceJoint2DComponent, HingeJoint2DComponent>;
 }

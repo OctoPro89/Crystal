@@ -395,6 +395,31 @@ namespace Crystal {
 			out << YAML::EndMap; // DistanceJoint2DComponent
 		}
 
+		if (entity.HasComponent<HingeJoint2DComponent>())
+		{
+			out << YAML::Key << "HingeJoint2DComponent";
+			out << YAML::BeginMap; /* HingeJoint2DComponent */
+			auto& hingeJointComponent = entity.GetComponent<HingeJoint2DComponent>();
+
+			out << YAML::Key << "AnchorOffset1" << YAML::Value << hingeJointComponent.AnchorOffset1;
+			out << YAML::Key << "AnchorOffset2" << YAML::Value << hingeJointComponent.AnchorOffset2;
+
+			out << YAML::Key << "Attached" << YAML::Value << hingeJointComponent.Attached;
+			out << YAML::Key << "AttachedStr" << YAML::Value << hingeJointComponent.AttachedStr;
+
+			out << YAML::Key << "ShouldBodiesCollide" << YAML::Value << hingeJointComponent.ShouldBodiesCollide;
+			out << YAML::Key << "EnableLimit" << YAML::Value << hingeJointComponent.EnableLimit;
+			out << YAML::Key << "EnableMotor" << YAML::Value << hingeJointComponent.EnableMotor;
+
+			out << YAML::Key << "LowerLimitAngle" << YAML::Value << hingeJointComponent.LowerLimitAngle;
+			out << YAML::Key << "UpperLimitAngle" << YAML::Value << hingeJointComponent.UpperLimitAngle;
+
+			out << YAML::Key << "MotorSpeed" << YAML::Value << hingeJointComponent.MotorSpeed;
+			out << YAML::Key << "MaxMotorTorque" << YAML::Value << hingeJointComponent.MaxMotorTorque;
+
+			out << YAML::EndMap; /* HingeJoint2DComponent */
+		}
+
 		out << YAML::EndMap; // Entity
 	}
 
@@ -611,6 +636,23 @@ namespace Crystal {
 					djc.MinDistance = distanceJointComponent["MinDistance"].as<float>();
 					djc.ShouldBodiesCollide = distanceJointComponent["ShouldBodiesCollide"].as<bool>();
 					djc.Stiffness = distanceJointComponent["Stiffness"].as<float>();
+				}
+
+				auto hingeJointComponent = entity["HingeJoint2DComponent"];
+				if (hingeJointComponent)
+				{
+					auto& hjc = deserializedEntity.AddComponent<HingeJoint2DComponent>();
+					hjc.AnchorOffset1 = hingeJointComponent["AnchorOffset1"].as<glm::vec2>();
+					hjc.AnchorOffset2 = hingeJointComponent["AnchorOffset2"].as<glm::vec2>();
+					hjc.Attached = hingeJointComponent["Attached"].as<UUID>();
+					hjc.AttachedStr = hingeJointComponent["AttachedStr"].as<std::string>();
+					hjc.ShouldBodiesCollide = hingeJointComponent["ShouldBodiesCollide"].as<bool>();
+					hjc.EnableLimit = hingeJointComponent["EnableLimit"].as<bool>();
+					hjc.EnableMotor = hingeJointComponent["EnableMotor"].as<bool>();
+					hjc.LowerLimitAngle = hingeJointComponent["LowerLimitAngle"].as<float>();
+					hjc.UpperLimitAngle = hingeJointComponent["UpperLimitAngle"].as<float>();
+					hjc.MotorSpeed = hingeJointComponent["MotorSpeed"].as<float>();
+					hjc.MaxMotorTorque = hingeJointComponent["MaxMotorTorque"].as<float>();
 				}
 			}
 		}

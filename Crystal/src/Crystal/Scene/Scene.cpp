@@ -16,6 +16,7 @@
 #include "box2d/b2_fixture.h"
 #include "box2d/b2_joint.h"
 #include "box2d/b2_distance_joint.h"
+#include "box2d/b2_revolute_joint.h"
 #include "box2d/b2_polygon_shape.h"
 #include "box2d/b2_circle_shape.h"
 
@@ -486,19 +487,36 @@ namespace Crystal {
 				//Set user data to the uuid for collisions
 				bodyData.pointer = (uintptr_t)entity.GetUUID();
 			}
-
-			if (entity.HasComponent<DistanceJoint2DComponent>())
-			{
-				auto& dj2d = entity.GetComponent<DistanceJoint2DComponent>();
-			}
 		}
 	}
 
 	void Scene::OnPhysics2DJoints()
 	{
-		auto view = m_Registry.view<DistanceJoint2DComponent>();
+		auto viewHinge = m_Registry.view<HingeJoint2DComponent>();
+		auto viewDistance = m_Registry.view<DistanceJoint2DComponent>();
 
-		for (auto e : view)
+
+		for (auto e : viewHinge)
+		{
+			Entity This = { e, this };
+			auto& hj2d = This.GetComponent<HingeJoint2DComponent>();
+			Entity Attached = { this->m_EntityMap.at(hj2d.Attached), this };
+
+			b2RevoluteJointDef rjd;
+			rjd.type = e_revoluteJoint;
+			rjd.bodyA = (b2Body*)This.GetComponent<Rigidbody2DComponent>().RuntimeBody;
+			rjd.bodyB = (b2Body*)Attached.GetComponent<Rigidbody2DComponent>().RuntimeBody;
+			rjd.collideConnected = hj2d.ShouldBodiesCollide;
+			rjd.enableLimit = hj2d.EnableLimit;
+			rjd.enableMotor = hj2d.EnableMotor;
+			rjd.localAnchorA = { hj2d.AnchorOffset1.x, hj2d.AnchorOffset1.y };
+			rjd.localAnchorB = { hj2d.AnchorOffset2.x, hj2d.AnchorOffset2.y };
+			rjd.maxMotorTorque = hj2d.MaxMotorTorque;
+			rjd.motorSpeed = hj2d.MotorSpeed;
+			b2RevoluteJoint* dj = (b2RevoluteJoint*)m_PhysicsWorld->CreateJoint(&rjd);
+		}
+
+		for (auto e : viewDistance)
 		{
 			Entity This = { e, this };
 			auto& dj2d = This.GetComponent<DistanceJoint2DComponent>();
@@ -508,6 +526,8 @@ namespace Crystal {
 			djd.type = e_distanceJoint;
 			djd.bodyA = (b2Body*)This.GetComponent<Rigidbody2DComponent>().RuntimeBody;
 			djd.bodyB = (b2Body*)Attached.GetComponent<Rigidbody2DComponent>().RuntimeBody;
+			djd.localAnchorA = { dj2d.AnchorOffset1.x, dj2d.AnchorOffset1.y };
+			djd.localAnchorB = { dj2d.AnchorOffset2.x, dj2d.AnchorOffset2.y };
 			djd.collideConnected = dj2d.ShouldBodiesCollide;
 			djd.damping = dj2d.Damping;
 			djd.length = dj2d.RestLength;
@@ -515,7 +535,7 @@ namespace Crystal {
 			djd.maxLength = dj2d.MaxDistance;
 			djd.stiffness = dj2d.Stiffness;
 			b2DistanceJoint* dj = (b2DistanceJoint*)m_PhysicsWorld->CreateJoint(&djd);
-		}				
+		}		
 	}
 
 	void Scene::OnPhysics2DStop()
@@ -623,6 +643,11 @@ namespace Crystal {
 
 	template<>
 	void Scene::OnComponentAdded<DistanceJoint2DComponent>(Entity entity, DistanceJoint2DComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<HingeJoint2DComponent>(Entity entity, HingeJoint2DComponent& component)
 	{
 	}
 }

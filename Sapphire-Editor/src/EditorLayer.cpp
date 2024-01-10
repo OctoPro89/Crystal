@@ -475,12 +475,14 @@ namespace Crystal {
 				{
 					auto [tc, cc2d] = view.get<TransformComponent, CircleCollider2DComponent>(entity);
 
-					glm::vec3 translation = tc.Translation + glm::vec3(cc2d.Offset, 0.001f);
 					glm::vec3 scale = tc.Scale * glm::vec3(cc2d.Radius * 2.0f);
-					glm::mat4 transform = glm::translate(glm::mat4(1.0f), translation)
+
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), tc.Translation)
+						* glm::rotate(glm::mat4(1.0f), tc.Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f))
+						* glm::translate(glm::mat4(1.0f), glm::vec3(cc2d.Offset, 0.001f))
 						* glm::scale(glm::mat4(1.0f), scale);
 
-					Renderer2D::DrawCircle(transform, CrntPreferences.SphereColliderColor, 0.01f);
+					Renderer2D::DrawCircle(transform, CrntPreferences.SphereColliderColor, 0.05f);
 				}
 			}
 
@@ -490,8 +492,7 @@ namespace Crystal {
 				for (auto entity : view)
 				{
 					auto [tc, bc2d] = view.get<TransformComponent, BoxCollider2DComponent>(entity);
-
-					glm::vec3 translation = tc.Translation + glm::vec3(bc2d.Offset, 0.001f);
+					
 					glm::vec3 scale = tc.Scale * glm::vec3(bc2d.Size * 2.0f, 1.0f);
 
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), tc.Translation)
@@ -499,7 +500,7 @@ namespace Crystal {
 						* glm::translate(glm::mat4(1.0f), glm::vec3(bc2d.Offset, 0.001f))
 						* glm::scale(glm::mat4(1.0f), scale);
 
-					Renderer2D::DrawRect(transform, glm::vec4(0, 1, 0, 1));
+					Renderer2D::DrawRect(transform, CrntPreferences.QuadColliderColor);
 				}
 			}
 		}
@@ -654,7 +655,7 @@ namespace Crystal {
 		{
 			Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate) ? m_IconPlay : m_IconStop;
 			ImGui::SetCursorPosX((ImGui::GetWindowContentRegionMax().x * 0.5f) - (size * .5f));
-			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+			if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 			{
 				if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate)
 					OnScenePlay();
@@ -665,7 +666,7 @@ namespace Crystal {
 		ImGui::SameLine();
 		{
 			Ref<Texture2D> icon = (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play) ? m_IconSimulate : m_IconStop;
-			if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+			if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 			{
 				if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Play)
 					OnSimulationPlay();
@@ -679,7 +680,7 @@ namespace Crystal {
 			ImGui::SameLine();
 			{
 				Ref<Texture2D> icon = m_IconPause;
-				if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+				if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 				{
 					m_ActiveScene->SetPaused(!isPaused);
 				}
@@ -690,7 +691,7 @@ namespace Crystal {
 				ImGui::SameLine();
 				{
 					Ref<Texture2D> icon = m_IconStep;
-					if (ImGui::ImageButton((ImTextureID)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
+					if (ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), ImVec2(size, size), { 0,0 }, { 1,1 }, 0, ImVec4(0.0f, 0.0f, 0.0f, 0.0f), tintColor) && toolbarEnabled)
 					{
 						m_ActiveScene->Step(1);
 					}
@@ -705,6 +706,29 @@ namespace Crystal {
 	void EditorLayer::UI_Preferences()
 	{
 		ImGui::Begin("Preferences");
+		if (ImGui::TreeNodeEx("Display"))
+		{
+			if (ImGui::Checkbox("Use V-Sync", &CrntPreferences.VSync))
+			{
+				Application::Get().GetWindow().SetVSync(CrntPreferences.VSync);
+			}
+			if (ImGui::TreeNodeEx("Rendering"))
+			{
+				if (ImGui::DragFloat("Line Thickness", &CrntPreferences.LineThickness, 0.01f, 0.0f, 10.0f))
+				{
+					Renderer2D::SetLineWidth(CrntPreferences.LineThickness);
+				}
+				if (ImGui::TreeNodeEx("Rendering API"))
+				{
+					std::string& renderingApiStr = "Current Rendering API: " + RendererAPI::CrystalAPITypeToString(RendererAPI::GetAPI());
+					ImGui::Text(renderingApiStr.c_str());
+					if (ImGui::MenuItem("OpenGL")) {}
+					ImGui::TreePop();
+				}
+				ImGui::TreePop();
+			}
+			ImGui::TreePop();
+		}
 		if (ImGui::TreeNodeEx("Fonts"))
 		{
 			if (ImGui::MenuItem("Open Sans"))
