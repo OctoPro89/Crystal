@@ -18,6 +18,12 @@ namespace Crystal {
 		s_Instance = this;
 	}
 
+	void EditorLayer::StopSceneForReload()
+	{
+		OnSceneStop();
+		Console.Log("Stopping scene for script assembly reload.");
+	}
+
 	void EditorLayer::OnAttach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();

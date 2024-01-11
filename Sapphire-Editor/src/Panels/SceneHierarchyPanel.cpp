@@ -583,8 +583,8 @@ namespace Crystal {
 			ImGui::Checkbox("Bodies Collide", &component.ShouldBodiesCollide);
 			ImGui::Checkbox("Enable Motor", &component.EnableMotor);
 			ImGui::Checkbox("Enable Limit", &component.EnableLimit);
-			ImGui::DragFloat("Maximum Angle", &component.LowerLimitAngle);
-			ImGui::DragFloat("Minimum Angle", &component.UpperLimitAngle);
+			ImGui::DragFloat("Maximum Angle", &component.UpperLimitAngle);
+			ImGui::DragFloat("Minimum Angle", &component.LowerLimitAngle);
 			ImGui::DragFloat("Motor Speed", &component.MotorSpeed);
 			ImGui::DragFloat("Max Motor Torque", &component.MaxMotorTorque);
 			ImGui::DragFloat2("Offset", glm::value_ptr(component.AnchorOffset1));

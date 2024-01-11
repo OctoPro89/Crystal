@@ -1,0 +1,105 @@
+body {
+  background-color: rgb(20, 20, 20);
+  align-items: center;
+  font-family: "Space Mono", monospace;
+  justify-content: center;
+  text-align: center;
+}
+
+.code
+{
+  color:white;
+}
+
+h1 {
+  color: white;
+  font-size:5rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.2);
+}
+
+h2 {
+  padding: 1px;
+  color: white;
+  font-size:3.5rem;
+  font-family: "Space Mono", monospace;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.2);
+}
+
+h3 {
+  color: whitesmoke;
+  font-size:1rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.redh
+{
+  color: rgb(235, 47, 47);
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.blueh {
+  color: rgb(47, 129, 235);
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.greenh {
+  color: rgb(103, 235, 47);
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.yellowh {
+  color: rgb(235, 207, 47);
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.white-wrap {
+  color: rgb(255, 255, 255);
+  font-size:1rem;
+  word-wrap: break-word;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.red {
+  color: rgb(235, 47, 47);
+  font-size:1rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.blue {
+  color: rgb(47, 129, 235);
+  font-size:1rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.green {
+  color: rgb(103, 235, 47);
+  font-size:1rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.yellow {
+  color: rgb(235, 207, 47);
+  font-size:1rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.link {
+  color: rgb(170, 242, 255);
+  font-size:1rem;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.link-large
+{
+  color: rgb(170, 242, 255);
+  font-size:250%;
+  text-shadow: 0 0.5em 1em rgba(0,0,0,0.4);
+}
+
+.rounded-img-centered
+{
+  height: auto;
+  margin: 0.5vw;
+  border-radius: 15px;   
+  box-shadow: 7px 7px 3px rgba(0.1,0.1,0.1,0.2);
+}

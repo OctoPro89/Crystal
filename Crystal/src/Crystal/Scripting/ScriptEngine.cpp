@@ -3,6 +3,7 @@
 #include <EditorLayer.h>
 #include <Crystal/Scene/Entity.h>
 #include <Crystal/Core/Application.h>
+#include <Crystal/Core/FileSystem.h>
 #include "ScriptGlue.h"
 #include <FileWatch.hpp>
 #include <mono/jit/jit.h>
@@ -39,43 +40,17 @@ namespace Crystal {
 
 	namespace Utils {
 
-		// TODO: move to FileSystem class
-		static char* ReadBytes(const std::filesystem::path& filepath, uint32_t* outSize)
-		{
-			std::ifstream stream(filepath, std::ios::binary | std::ios::ate);
-
-			if (!stream)
-			{
-				// Failed to open the file
-				return nullptr;
-			}
-
-			std::streampos end = stream.tellg();
-			stream.seekg(0, std::ios::beg);
-			uint64_t size = end - stream.tellg();
-
-			if (size == 0)
-			{
-				// File is empty
-				return nullptr;
-			}
-
-			char* buffer = new char[size];
-			stream.read((char*)buffer, size);
-			stream.close();
-
-			*outSize = (uint32_t)size;
-			return buffer;
-		}
-
 		static MonoAssembly* LoadMonoAssembly(const std::filesystem::path& assemblyPath)
 		{
-			uint32_t fileSize = 0;
-			char* fileData = ReadBytes(assemblyPath, &fileSize);
+			Buffer fileData = FileSystem::ReadBytes(assemblyPath);
+			if (fileData)
+			{
+
+			}
 
 			// NOTE: We can't use this image for anything other than loading the assembly because this image doesn't have a reference to the assembly
 			MonoImageOpenStatus status;
-			MonoImage* image = mono_image_open_from_data_full(fileData, fileSize, 1, &status, 0);
+			MonoImage* image = mono_image_open_from_data_full(fileData.As<char>(), (uint32_t)fileData.Size, 1, &status, 0);
 
 			if (status != MONO_IMAGE_OK)
 			{
@@ -89,7 +64,7 @@ namespace Crystal {
 			mono_image_close(image);
 
 			// Don't forget to free the file data
-			delete[] fileData;
+			fileData.Release();
 
 			return assembly;
 		}
@@ -174,8 +149,18 @@ namespace Crystal {
 
 		InitMono();
 		ScriptGlue::RegisterFunctions();
-		LoadAssembly("Resources/Scripts/Crystal-ScriptCore.dll");
-		LoadAppAssembly("SandboxProj/assets/Scripts/Binaries/Project.dll");
+		bool status = LoadAssembly("Resources/Scripts/Crystal-ScriptCore.dll");
+		if (!status)
+		{
+			CRYSTAL_CORE_ERROR("Could not load core assembly!");
+			return;
+		}
+		status = LoadAppAssembly("SandboxProj/assets/Scripts/Binaries/Project.dll");
+		if (!status)
+		{
+			CRYSTAL_CORE_ERROR("Could not load app assembly!");
+			return;
+		}
 		LoadAssemblyClasses();
 		ScriptGlue::RegisterComponents();
 		// Retrieve and instantiate class
@@ -210,19 +195,6 @@ namespace Crystal {
 		s_Data->RootDomain = nullptr;
 	}
 
-	void ScriptEngine::LoadAssembly(const std::filesystem::path& filepath)
-	{
-		// Create an App Domain
-		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
-		mono_domain_set(s_Data->AppDomain, true);
-
-		// Move this
-		s_Data->CoreAssemblyFilepath = filepath;
-		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
-		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
-		// Utils::PrintAssemblyTypes(s_Data->CoreAssembly);
-	}
-
 	static void OnAppAssemblyFileSystemEvent(const std::string& path, const filewatch::Event change_type)
 	{
 		if (!s_Data->AssemblyReloadPending && change_type == filewatch::Event::modified)
@@ -237,25 +209,42 @@ namespace Crystal {
 		}
 	}
 
-	void ScriptEngine::LoadAppAssembly(const std::filesystem::path& filepath)
+	bool ScriptEngine::LoadAssembly(const std::filesystem::path& filepath)
+	{
+		// Create an App Domain
+		s_Data->AppDomain = mono_domain_create_appdomain("CrystalScriptRuntime", nullptr);
+		mono_domain_set(s_Data->AppDomain, true);
+
+		// Move this
+		s_Data->CoreAssemblyFilepath = filepath;
+		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
+		if (s_Data->CoreAssembly == nullptr)
+			return false;
+		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
+		return true;
+	}
+
+	bool ScriptEngine::LoadAppAssembly(const std::filesystem::path& filepath)
 	{
 		// Move this
 		s_Data->AppAssemblyFilepath = filepath;
 		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->AppAssemblyImage = mono_assembly_get_image(s_Data->AppAssembly);
-		// Utils::PrintAssemblyTypes(s_Data->AppAssembly);
-
+		if (s_Data->AppAssembly == nullptr)
+			return false;
 		s_Data->AppAssemblyFileWatcher = CreateScope<filewatch::FileWatch<std::string>>(filepath.string(), OnAppAssemblyFileSystemEvent);
 		s_Data->AssemblyReloadPending = false;
+		return true;
 	}
 
 	void ScriptEngine::ReloadAssembly()
 	{
+		if (EditorLayer::GetEditorLayer()->IsPlaying())
+			EditorLayer::GetEditorLayer()->StopSceneForReload();
 		mono_domain_set(mono_get_root_domain(), false);
 		mono_domain_unload(s_Data->AppDomain);
 		LoadAssembly(s_Data->CoreAssemblyFilepath);
 		LoadAppAssembly(s_Data->AppAssemblyFilepath);
-		auto fp = s_Data->AppAssemblyFilepath;
 		LoadAssemblyClasses();
 		ScriptGlue::RegisterComponents();
 		// Retrieve and instantiate classes
@@ -299,7 +288,6 @@ namespace Crystal {
 	void ScriptEngine::OnUpdateEntity(Entity entity, Timestep ts)
 	{
 		UUID entityUUID = entity.GetUUID();
-		// CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnUpdate Scripting not working right!");
 		if (EntityClassExists(entity.GetComponent<ScriptComponent>().ClassName))
 		{
 			Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
@@ -307,6 +295,7 @@ namespace Crystal {
 		}
 		else
 		{
+			CRYSTAL_CORE_ERROR("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
 			EditorLayer::GetEditorLayer()->GetConsole()->Error("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
 			return;
 		}
@@ -316,7 +305,6 @@ namespace Crystal {
 	{
 		UUID entityUUID = entity.GetUUID();
 		UUID entityUUID2 = entity2.GetUUID();
-		//CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionEnter Scripting not working right!");
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
 		Ref<ScriptInstance> instance2 = s_Data->EntityInstances[entityUUID2];

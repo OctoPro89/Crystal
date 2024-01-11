@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Game Engine Docs</title>
+    <script src="../js/mainpage.js"></script>
+    <link rel="stylesheet" href="../styles/mainpage.css">
+</head>
+<body>
+    <h1>Crystal Docs</h1>
+    <h2>NOTICE: Please bear with me, all the features of the Scripting may not be available, and the docs are still being worked on.</h2>
+    <h1>&nbsp;</h1>
+    <h2>Installation:</h2>
+    <h3>To download for Windows x64, go to <a class="link" href="https://www.github.com/OctoPro89/Crystal/releases">the github page</a> and download the latest installer (.msi) and follow the instructions.</h3>
+    <h3>Test the engine by going to Scenes -> Physics2D.crystal and drag it onto the viewport.</h3>
+    <h3>Sometimes I forget to upload the correct scene so if WASD controls don't work check the console.</h3>
+    <h2>Scripting:</h2>
+    <h3>To get started with Crystal scripting, first make sure your install includes scripting</h3>
+    <h3>After obtaining a scripting install, go to the a project folder and open up</h3>
+    <h3>the project file (.sln for VS) and go to a project and go to its .sln file</h3>
+    <h3>From there, you can start writing your own scripts to control entities!</h3>
+    <h2>Script Syntax:</h2>
+    <a class="link" href="FullScriptDocs.html">See Full Scripting Syntax and API</a>
+    <h3>To get started create a .cs file under Source in Crystal-ScriptCore, then make sure to add "using Crystal" at the top.</h3>
+    <h3>Then add a namespace if you want and make a public class that derives from Entity: <code class="code">public class MyClass : Entity</code></h3>
+    <h3>&nbsp;</h3>
+    <h2>Starter script example: </h2>
+    <img class="rounded-img-centered" src="../resources/exampleclass.png">
+    <h3>The OnUpdate function is called every frame with "ts" being the deltaTime</h3>
+    <h2>Rigidbody based movement script:</h2>
+    <img class="rounded-img-centered" src="../resources/PhysicsController.png">
+    <h3>In this script, I use the GetComponent<> Function to get the Rigidbody 2D of the entity, then I modify it's velocity to move it.</h3>
+    <h3>It also uses the Input class to see what keys are pressed and respond accordingly by applying impulse force.</h3>
+    <h3>You can use the OnCreate method like a constructor, use it to initialize components when script is created at runtime.</h3>
+    <h2>Transform based movement:</h2>
+    <h3>Transform based movement script:</h3>
+    <img class="rounded-img-centered" src="../resources/TransformController.png">
+    <h3>This is what a general script would look like.</h3>
+    <h3> In the Rigidbody script, the velocity was not multiplied with delta time(ts), so it was dependent on your FPS</h3>
+    <h2>Editor:</h2>
+    <a href="EditorDocs.html" class="link">See Editor Docs</a>
+</body>
+</html>

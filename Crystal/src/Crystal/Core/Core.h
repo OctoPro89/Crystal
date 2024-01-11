@@ -33,13 +33,14 @@
 #endif
 /* -- Platform Macros -- */
 
+/* -- Debug Macros -- */
+
 #ifdef CRYSTAL_DEBUG
 	#define CRYSTAL_ENABLE_ASSERTS
-#endif
-
-#ifndef CRYSTAL_DEBUG
+#else
 	#define CRYSTAL_ASSERTS_HANG
 #endif
+
 /* -- Debug Macros -- */
 
 /* -- Assert macros -- */
@@ -47,7 +48,7 @@
 #ifdef CRYSTAL_ENABLE_ASSERTS
 	#define CRYSTAL_ASSERT(x, ...) { if(!(x)) { CRYSTAL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define CRYSTAL_CORE_ASSERT(x, ...) { if(!(x)) { CRYSTAL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#else
+#elif !defined CRYSTAL_ASSERTS_HANG
 	#define CRYSTAL_ASSERT(x, ...)
 	#define CRYSTAL_CORE_ASSERT(x, ...)
 #endif

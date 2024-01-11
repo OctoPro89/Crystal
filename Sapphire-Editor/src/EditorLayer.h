@@ -20,6 +20,9 @@ namespace Crystal {
 		inline void SetShouldReloadAssemblies(bool should) { shouldReloadAssemblies = should; }
 		inline ConsolePanel* GetConsole() { return &Console; }
 		inline SceneState GetSceneState() { return m_SceneState; }
+		inline bool IsPlaying() { return m_SceneState == SceneState::Play; }
+
+		void StopSceneForReload();
 		
 		virtual ~EditorLayer() = default;
 

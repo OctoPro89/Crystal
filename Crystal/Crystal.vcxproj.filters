@@ -1507,6 +1507,8 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Audio\SoundSystem.h" />
+    <ClInclude Include="src\Crystal\Core\Buffer.h" />
+    <ClInclude Include="src\Crystal\Core\Filesystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1648,6 +1650,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp" />
+    <ClCompile Include="src\Crystal\Core\Filesystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="premake5.lua" />

@@ -513,6 +513,8 @@ namespace Crystal {
 			rjd.localAnchorB = { hj2d.AnchorOffset2.x, hj2d.AnchorOffset2.y };
 			rjd.maxMotorTorque = hj2d.MaxMotorTorque;
 			rjd.motorSpeed = hj2d.MotorSpeed;
+			rjd.upperAngle = glm::radians(hj2d.UpperLimitAngle);
+			rjd.lowerAngle = glm::radians(hj2d.LowerLimitAngle);
 			b2RevoluteJoint* dj = (b2RevoluteJoint*)m_PhysicsWorld->CreateJoint(&rjd);
 		}
 
