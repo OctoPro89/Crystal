@@ -718,12 +718,14 @@ namespace Crystal {
 			{
 				Application::Get().GetWindow().SetVSync(CrntPreferences.VSync);
 			}
+
 			if (ImGui::TreeNodeEx("Rendering"))
 			{
 				if (ImGui::DragFloat("Line Thickness", &CrntPreferences.LineThickness, 0.01f, 0.0f, 10.0f))
 				{
 					Renderer2D::SetLineWidth(CrntPreferences.LineThickness);
 				}
+
 				if (ImGui::TreeNodeEx("Rendering API"))
 				{
 					std::string& renderingApiStr = "Current Rendering API: " + RendererAPI::CrystalAPITypeToString(RendererAPI::GetAPI());
@@ -731,7 +733,16 @@ namespace Crystal {
 					if (ImGui::MenuItem("OpenGL")) {}
 					ImGui::TreePop();
 				}
+
 				ImGui::TreePop();
+
+				if (ImGui::TreeNodeEx("Image Minification and Maxification"))
+				{
+					if (ImGui::MenuItem("Linear")) { Renderer2D::SetFilteringMode(false); }
+					if (ImGui::MenuItem("Nearest")) { Renderer2D::SetFilteringMode(true); }
+
+					ImGui::TreePop();
+				}
 			}
 			ImGui::TreePop();
 		}

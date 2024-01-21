@@ -69,5 +69,4 @@ namespace Crystal
 	{
 		glLineWidth(width);
 	}
-
 }

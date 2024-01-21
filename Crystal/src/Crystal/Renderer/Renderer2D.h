@@ -46,6 +46,8 @@ namespace Crystal {
 
 		static float GetLineWidth();
 		static void SetLineWidth(float width);
+		static bool GetFilteringMode();
+		static void SetFilteringMode(bool nearestFiltering);
 
 		// Stats
 		struct Statistics

@@ -175,7 +175,7 @@ namespace Crystal {
 		bc2d.Size = *size;
 	}
 
-	static void BoxCollider2DComponent_GetFriction(UUID entityID, float outFriction)
+	static void BoxCollider2DComponent_GetFriction(UUID entityID, float* outFriction)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -183,7 +183,7 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
-		outFriction = bc2d.Friction;
+		*outFriction = bc2d.Friction;
 	}
 
 	static void BoxCollider2DComponent_SetFriction(UUID entityID, float friction)
@@ -197,7 +197,7 @@ namespace Crystal {
 		bc2d.Friction = friction;
 	}
 
-	static void BoxCollider2DComponent_GetDensity(UUID entityID, float outDensity)
+	static void BoxCollider2DComponent_GetDensity(UUID entityID, float* outDensity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -205,7 +205,7 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
-		outDensity = bc2d.Density;
+		*outDensity = bc2d.Density;
 	}
 
 	static void BoxCollider2DComponent_SetDensity(UUID entityID, float density)
@@ -219,7 +219,7 @@ namespace Crystal {
 		bc2d.Density = density;
 	}
 
-	static void BoxCollider2DComponent_GetGravityScale(UUID entityID, float outGravity)
+	static void BoxCollider2DComponent_GetGravityScale(UUID entityID, float* outGravity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -227,7 +227,7 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
-		outGravity = bc2d.GravityScale;
+		*outGravity = bc2d.GravityScale;
 	}
 
 	static void BoxCollider2DComponent_SetGravityScale(UUID entityID, float gravityScale)
@@ -274,7 +274,7 @@ namespace Crystal {
 		bc2d.Restitution = restitution;
 	}
 
-	static void BoxCollider2DComponent_GetRestitution(UUID entityID, float outRestitution)
+	static void BoxCollider2DComponent_GetRestitution(UUID entityID, float* outRestitution)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -282,7 +282,7 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
-		outRestitution = bc2d.Restitution;
+		*outRestitution = bc2d.Restitution;
 	}
 
 	static void BoxCollider2DComponent_SetRestitutionThreshold(UUID entityID, float restitutionThreshold)
@@ -296,7 +296,7 @@ namespace Crystal {
 		bc2d.RestitutionThreshold = restitutionThreshold;
 	}
 
-	static void BoxCollider2DComponent_GetRestitutionThreshold(UUID entityID, float outRestitutionThreshold)
+	static void BoxCollider2DComponent_GetRestitutionThreshold(UUID entityID, float* outRestitutionThreshold)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -304,7 +304,7 @@ namespace Crystal {
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		auto& bc2d = entity.GetComponent<BoxCollider2DComponent>();
-		outRestitutionThreshold = bc2d.RestitutionThreshold;
+		*outRestitutionThreshold = bc2d.RestitutionThreshold;
 	}
 
 	static void Rigidbody2DComponent_GetVelocity(UUID entityID, glm::vec2* outVelocity)
@@ -434,21 +434,20 @@ namespace Crystal {
 		*outPos = glm::vec2(Input::GetMousePosition().first, Input::GetMousePosition().second);
 	}
 
-	static void Input_GetMouseX(float outX)
+	static void Input_GetMouseX(float* outX)
 	{
-		outX = Input::GetMouseX();
+		*outX = Input::GetMouseX();
 	}
 
-	static void Input_GetMouseY(float outY)
+	static void Input_GetMouseY(float* outY)
 	{
-		outY = Input::GetMouseY();
+		*outY = Input::GetMouseY();
 	}
 
-	static void Input_GetMouseScroll(float outScroll)
+	static void Input_GetMouseScroll(float* outScroll)
 	{
-		// lol
+		*outScroll = 0;
 	}
-
 	static void Editor_ConsoleLog(MonoString* message)
 	{
 		char* cStr = mono_string_to_utf8(message);

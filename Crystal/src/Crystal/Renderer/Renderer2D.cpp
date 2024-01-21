@@ -78,6 +78,8 @@ namespace Crystal {
 
 		float LineWidth = 2.0f;
 
+		bool NearestFiltering;
+
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureSlotIndex = 1; // 0 = white texture
 
@@ -552,10 +554,13 @@ namespace Crystal {
 	void Renderer2D::DrawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityID)
 	{
 		if (src.Texture)
+		{
+			src.Texture->SetFilteringMode(s_Data.NearestFiltering);
 			if (src.IsAtlas)
 				DrawQuad(transform, src.SubTex, src.TilingFactor, src.Color, entityID);
 			else
 				DrawQuad(transform, src.Texture, src.TilingFactor, src.Color, entityID);
+		}
 		else
 			DrawQuad(transform, src.Color, entityID);
 	}
@@ -569,6 +574,16 @@ namespace Crystal {
 	void Renderer2D::SetLineWidth(float width)
 	{
 		s_Data.LineWidth = width;
+	}
+
+	bool Renderer2D::GetFilteringMode()
+	{
+		return s_Data.NearestFiltering;
+	}
+
+	void Renderer2D::SetFilteringMode(bool nearestFiltering)
+	{
+		s_Data.NearestFiltering = nearestFiltering;
 	}
 
 	void Renderer2D::ResetStats()

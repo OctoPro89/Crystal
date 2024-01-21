@@ -10,7 +10,7 @@ namespace Sandbox
 	public class Camera : Entity
 	{
 		private Entity player;
-		bool FollowPlayer = false;
+		bool FollowPlayer = true;
 		public float ZfromPlayer;
 
 		void OnCreate()

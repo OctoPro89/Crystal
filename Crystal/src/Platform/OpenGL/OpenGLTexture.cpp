@@ -69,7 +69,7 @@ namespace Crystal
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, m_InternalFormat, m_Width, m_Height);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
@@ -86,6 +86,12 @@ namespace Crystal
 		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		CRYSTAL_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data Must be entire texture!");
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
+	}
+
+	void OpenGLTexture2D::SetFilteringMode(bool nearestFiltering)
+	{
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, nearestFiltering ? GL_NEAREST : GL_LINEAR);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, nearestFiltering ? GL_NEAREST : GL_LINEAR);
 	}
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
