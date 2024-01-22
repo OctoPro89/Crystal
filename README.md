@@ -1,2 +1,2 @@
 # Crystal
-Crystal Engine
+Crystal Game Engine
