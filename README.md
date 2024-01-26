@@ -1,2 +1,2 @@
 # Crystal
-Crystal2D Game Engine
+Crystal Game Engine
