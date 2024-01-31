@@ -39,11 +39,16 @@ namespace Crystal {
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		void OnOverlayRender();
 
+		void NewProject();
+		void OpenProject(const std::filesystem::path& path);
+		void SaveProject();
+
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path path);
 		void SaveScene();
 		void SaveSceneAs();
+
 		void OnScenePause();
 		void OnScenePlay();
 		void OnSceneStop();
@@ -66,9 +71,6 @@ namespace Crystal {
 
 		Ref<Scene> m_ActiveScene;
 		Ref<Scene> m_EditorScene;
-		Entity m_CameraEntity;
-		Entity m_CameraEntity2;
-		Entity m_SquareEntity;
 
 		Entity m_HoveredEntity;
 
@@ -80,7 +82,6 @@ namespace Crystal {
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
 		bool preferencesWindow = false;
-		bool m_CamSwitch = true;
 		bool shouldReloadAssemblies = false;
 
 		Ref<SubTexture2D> m_SubTex;
@@ -96,7 +97,7 @@ namespace Crystal {
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
-		ContentBrowserPanel m_ContentBrowserPanel;
+		Scope<ContentBrowserPanel> m_ContentBrowserPanel;
 		ConsolePanel Console;
 
 		// Editor Resources

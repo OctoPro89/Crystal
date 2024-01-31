@@ -1509,6 +1509,8 @@
     <ClInclude Include="src\Crystal\Audio\SoundSystem.h" />
     <ClInclude Include="src\Crystal\Core\Buffer.h" />
     <ClInclude Include="src\Crystal\Core\Filesystem.h" />
+    <ClInclude Include="src\Crystal\Projects\Project.h" />
+    <ClInclude Include="src\Crystal\Projects\ProjectSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Core\Application.cpp">
@@ -1651,6 +1653,8 @@
     </ClCompile>
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp" />
     <ClCompile Include="src\Crystal\Core\Filesystem.cpp" />
+    <ClCompile Include="src\Crystal\Projects\Project.cpp" />
+    <ClCompile Include="src\Crystal\Projects\ProjectSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="premake5.lua" />

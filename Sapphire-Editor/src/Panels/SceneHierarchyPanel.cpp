@@ -7,13 +7,13 @@
 #include "Crystal/Scene/Components.h"
 #include <cstring>
 #include <fstream>
+
+/* The MSVC Compiler is goofy */
 #ifdef _MSVC_LANG
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
 namespace Crystal {
-
-	extern const std::filesystem::path g_AssetPath;
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
@@ -323,6 +323,7 @@ namespace Crystal {
 					ImGui::Checkbox("Fixed Aspect Ratio", &component.FixedAspectRatio);
 				}
 			});
+
 		DrawComponent<SpriteRendererComponent>("Sprite Renderer", entity, [](auto& component)
 			{
 				ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
@@ -332,7 +333,7 @@ namespace Crystal {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
+						std::filesystem::path texturePath(path);
 						Ref<Texture2D> texture = Texture2D::Create(texturePath.string());
 						Ref<SubTexture2D> subtexture = SubTexture2D::CreateFromCoords(texture, { 1, 1 }, { 16,16 });
 						if (texture->IsLoaded()) {
@@ -502,7 +503,7 @@ namespace Crystal {
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 					{
 						const wchar_t* path = (const wchar_t*)payload->Data;
-						audioPath = std::filesystem::path(g_AssetPath) / path;
+						audioPath = path;
 
 						if (!(audioPath.extension() == ".mp3" || audioPath.extension() == ".wav"))
 						{

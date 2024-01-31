@@ -22,7 +22,9 @@
 #include "Crystal/Scene/Entity.h"
 #include "Crystal/Scene/ScriptableEntity.h"
 
-// ---Renderer------------------------
+#include "Crystal/Projects/Project.h"
+
+/* --- Renderer --- */
 #include "Crystal/Renderer/Renderer.h"
 #include "Crystal/Renderer/Renderer2D.h"
 #include "Crystal/Renderer/RenderCommand.h"
@@ -35,4 +37,5 @@
 #include "Crystal/Renderer/VertexArray.h"
 
 #include "Crystal/Renderer/OrthographicCamera.h"
-// -----------------------------------
+
+/* --- Renderer --- */

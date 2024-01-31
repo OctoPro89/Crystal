@@ -4,11 +4,13 @@
 #include "Entity.h"
 #include "Components.h"
 #include <Crystal/Scripting/ScriptEngine.h>
+#include <Crystal/Projects/Project.h>
 #include <EditorLayer.h>
 
 #include <fstream>
 
 #include <yaml-cpp/yaml.h>
+
 namespace YAML {
 
 	template<>
@@ -511,7 +513,10 @@ namespace Crystal {
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteRendererComponent["Color"].as<glm::vec4>();
 					if (spriteRendererComponent["TexturePath"])
-						src.Texture = Texture2D::Create(spriteRendererComponent["TexturePath"].as<std::string>());
+					{
+						std::string texturePath = spriteRendererComponent["TexturePath"].as<std::string>();
+						src.Texture = Texture2D::Create(Project::GetAssetFileSystemPath(texturePath).string());
+					}
 					if (spriteRendererComponent["IsAtlas"])
 					{
 						src.SubTex = SubTexture2D::CreateFromCoords(src.Texture, {
@@ -618,7 +623,8 @@ namespace Crystal {
 				if (audioComponent)
 				{
 					auto& ac = deserializedEntity.AddComponent<AudioComponent>();
-					ac.audioFilePath = audioComponent["AudioFile"].as<std::string>().c_str();
+					std::string audioFilePath = audioComponent["AudioFile"].as<std::string>();
+					ac.audioFilePath = Project::GetAssetFileSystemPath(audioFilePath).string();
 					ac.volumeMultiplier = audioComponent["VolumeMultiplier"].as<float>();
 				}
 

@@ -1,14 +1,12 @@
 #include "crystalpch.h"
 #include "ContentBrowserPanel.h"
+#include <Crystal/Projects/Project.h>
 #include <imgui/imgui.h>
 
 namespace Crystal
 {
-	// Assets directory
-	extern const std::filesystem::path g_AssetPath = "assets";
-
 	ContentBrowserPanel::ContentBrowserPanel()
-		: m_CurrentDirectory(g_AssetPath)
+		: m_BaseDirectory(Project::GetAssetDirectory()), m_CurrentDirectory(m_BaseDirectory)
 	{
 		m_DirectoryIcon = Texture2D::Create("Resources/Icons/ContentBrowser/FolderIcon.png");
 		m_FileIcon = Texture2D::Create("Resources/Icons/FileIcons/FileIcon.png");
@@ -21,7 +19,6 @@ namespace Crystal
 		m_FileIconScene = Texture2D::Create("Resources/Icons/FileIcons/CrystalIcon.png");
 		m_FileIconMP3 = Texture2D::Create("Resources/Icons/FileIcons/MP3Icon.png");
 		m_FileIconWAV = Texture2D::Create("Resources/Icons/FileIcons/WAVIcon.png");
-		m_FileIconOGG = Texture2D::Create("Resources/Icons/FileIcons/OGGIcon.png");
 		m_ArrowIcon = Texture2D::Create("Resources/Icons/arrow.png");
 	}
 	
@@ -29,12 +26,12 @@ namespace Crystal
 	{
 		ImGui::Begin("Assets");
 
-		if (m_CurrentDirectory != std::filesystem::path(g_AssetPath))
+		if (m_CurrentDirectory != std::filesystem::path(m_BaseDirectory))
 		{
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 0.8f));
-			ImGui::ImageButton((ImTextureID)m_ArrowIcon->GetRendererID(), { 32, 32 }, { 0,1 }, { 1, 0 });
+			ImGui::ImageButton((ImTextureID)(uint64_t)m_ArrowIcon->GetRendererID(), { 32, 32 }, { 0,1 }, { 1, 0 });
 			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
 			{
 				m_CurrentDirectory = m_CurrentDirectory.parent_path();
@@ -71,7 +68,6 @@ namespace Crystal
 				else if (extension == ".hlsl") { icon = m_FileIconHLSL; }
 				else if (extension == ".mp3") { icon = m_FileIconMP3; }
 				else if (extension == ".wav") { icon = m_FileIconWAV; }
-				else if (extension == ".ogg") { icon = m_FileIconOGG; }
 				else if (extension == ".crystal") { icon = m_FileIconScene; }
 				else { icon = m_FileIcon; }
 			}
@@ -80,12 +76,11 @@ namespace Crystal
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 0.8f));
-			ImGui::ImageButton((ImTextureID)icon->GetRendererID(), { thumbnailSize, thumbnailSize }, { 0,1 }, { 1, 0 });
+			ImGui::ImageButton((ImTextureID)(uint64_t)icon->GetRendererID(), { thumbnailSize, thumbnailSize }, { 0,1 }, { 1, 0 });
 
 			if (ImGui::BeginDragDropSource())
 			{
-				auto relativePath = std::filesystem::relative(path, g_AssetPath);
-				const wchar_t* itemPath = relativePath.c_str();
+				const wchar_t* itemPath = path.c_str();
 				ImGui::SetDragDropPayload("CONTENT_BROWSER_ITEM", itemPath, (wcslen(itemPath) + 1) * sizeof(wchar_t), ImGuiCond_Once);
 				ImGui::EndDragDropSource();
 			}

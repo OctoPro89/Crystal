@@ -160,6 +160,13 @@
     <ResourceCompile Include="Sapphire-Editor.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\shaders\Renderer2D_Circle.glsl" />
+    <None Include="Resources\shaders\Renderer2D_Line.glsl" />
+    <None Include="Resources\shaders\Renderer2D_Quad.glsl" />
+    <None Include="Resources\shaders\RGBTriangle.glsl" />
+    <None Include="Resources\shaders\Texture.glsl" />
+    <None Include="SandboxProj\assets\Scripts\Win-GenerateProjects.bat" />
+    <None Include="SandboxProj\SandboxProj.cryproj" />
     <None Include="Sapphire-Editor.aps" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

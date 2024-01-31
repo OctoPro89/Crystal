@@ -170,6 +170,8 @@
     <ClInclude Include="src\Crystal\Events\MouseEvent.h" />
     <ClInclude Include="src\Crystal\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Crystal\Math\Math.h" />
+    <ClInclude Include="src\Crystal\Projects\Project.h" />
+    <ClInclude Include="src\Crystal\Projects\ProjectSerializer.h" />
     <ClInclude Include="src\Crystal\Renderer\Buffer.h" />
     <ClInclude Include="src\Crystal\Renderer\Camera.h" />
     <ClInclude Include="src\Crystal\Renderer\EditorCamera.h" />
@@ -639,6 +641,8 @@
     <ClCompile Include="src\Crystal\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Crystal\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Crystal\Math\Math.cpp" />
+    <ClCompile Include="src\Crystal\Projects\Project.cpp" />
+    <ClCompile Include="src\Crystal\Projects\ProjectSerializer.cpp" />
     <ClCompile Include="src\Crystal\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Crystal\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp" />

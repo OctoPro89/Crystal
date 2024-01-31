@@ -43,10 +43,6 @@ namespace Crystal {
 		static MonoAssembly* LoadMonoAssembly(const std::filesystem::path& assemblyPath)
 		{
 			Buffer fileData = FileSystem::ReadBytes(assemblyPath);
-			if (fileData)
-			{
-
-			}
 
 			// NOTE: We can't use this image for anything other than loading the assembly because this image doesn't have a reference to the assembly
 			MonoImageOpenStatus status;
@@ -155,7 +151,9 @@ namespace Crystal {
 			CRYSTAL_CORE_ERROR("Could not load core assembly!");
 			return;
 		}
-		status = LoadAppAssembly("SandboxProj/assets/Scripts/Binaries/Project.dll");
+
+		std::filesystem::path scriptModulePath = "SandboxProj/assets/Scripts/Binaries/Project.dll"; //Project::GetAssetDirectory() / Project::GetActive()->GetConfig().ScriptModulePath;
+		status = LoadAppAssembly(scriptModulePath);
 		if (!status)
 		{
 			CRYSTAL_CORE_ERROR("Could not load app assembly!");
@@ -228,6 +226,7 @@ namespace Crystal {
 	{
 		// Move this
 		s_Data->AppAssemblyFilepath = filepath;
+		auto& cool = s_Data;
 		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath);
 		s_Data->AppAssemblyImage = mono_assembly_get_image(s_Data->AppAssembly);
 		if (s_Data->AppAssembly == nullptr)

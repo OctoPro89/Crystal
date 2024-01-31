@@ -53,7 +53,7 @@ namespace Crystal {
 		static const char* GetCacheDirectory()
 		{
 			// TODO: make sure the assets directory is valid
-			return "assets/cache/shader/opengl";
+			return "Resources/shaders/cache/opengl";
 		}
 
 		static void CreateCacheDirectoryIfNeeded()

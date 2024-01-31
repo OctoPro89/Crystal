@@ -9,19 +9,12 @@
 #include <Crystal/Scripting/ScriptEngine.h>
 
 namespace Crystal {
-	const std::filesystem::path g_AssetPath = "assets";
 	EditorLayer* EditorLayer::s_Instance = nullptr;
 
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer")
 	{
 		s_Instance = this;
-	}
-
-	void EditorLayer::StopSceneForReload()
-	{
-		OnSceneStop();
-		Console.Log("Stopping scene for script assembly reload.");
 	}
 
 	void EditorLayer::OnAttach()
@@ -46,8 +39,14 @@ namespace Crystal {
 		auto commandLineArgs = Application::Get().GetSpecification().CommandLineArgs;
 		if (commandLineArgs.Count > 1)
 		{
-			auto sceneFilePath = commandLineArgs[1];
-			OpenScene(sceneFilePath);
+			auto projectFilePath = commandLineArgs[1];
+			OpenProject(projectFilePath);
+			m_ContentBrowserPanel = CreateScope<ContentBrowserPanel>();
+		}
+		else
+		{
+			/* TODO HERE USE LAUNCHER */
+			CRYSTAL_CORE_ASSERT(false, "No Project");
 		}
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
@@ -121,6 +120,12 @@ namespace Crystal {
 		OnOverlayRender();
 
 		m_FrameBuffer->Unbind();
+	}
+
+	void EditorLayer::StopSceneForReload()
+	{
+		OnSceneStop();
+		Console.Log("Stopping scene for script assembly reload.");
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -233,7 +238,7 @@ namespace Crystal {
 		}
 
 		m_SceneHierarchyPanel.OnImGuiRender();
-		m_ContentBrowserPanel.OnImGuiRender();
+		m_ContentBrowserPanel->OnImGuiRender();
 		Console.OnImGuiRender();
 
 		if (settingsWindow)
@@ -287,7 +292,7 @@ namespace Crystal {
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
 			{
 				const wchar_t* path = (const wchar_t*)payload->Data;
-				OpenScene(std::filesystem::path(g_AssetPath) / path);
+				OpenScene(path);
 			}
 			ImGui::EndDragDropTarget();
 		}
@@ -517,6 +522,26 @@ namespace Crystal {
 		}
 
 		Renderer2D::EndScene();
+	}
+
+	void EditorLayer::NewProject()
+	{
+		Project::New();
+	}
+
+	void EditorLayer::OpenProject(const std::filesystem::path& path)
+	{
+		if (Project::Load(path))
+		{
+			auto startScenePath = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().StartScene);
+			OpenScene(startScenePath);
+			m_ContentBrowserPanel = CreateScope<ContentBrowserPanel>();
+		}
+	}
+
+	void EditorLayer::SaveProject()
+	{
+		// Project::SaveActive();
 	}
 
 	void EditorLayer::NewScene()
