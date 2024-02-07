@@ -1,18 +1,22 @@
 #include "crystalpch.h"
 #include "ScriptEngine.h"
+
+#include "ScriptGlue.h"
+#include <FileWatch.hpp>
+#include <box2d/b2_contact.h>
+
 #include <EditorLayer.h>
+
+#include <Crystal/Core/Timer.h>
 #include <Crystal/Scene/Entity.h>
 #include <Crystal/Core/Application.h>
 #include <Crystal/Core/FileSystem.h>
-#include "ScriptGlue.h"
-#include <FileWatch.hpp>
+
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/object.h>
 #include <mono/metadata/tabledefs.h>
-#include <Crystal/Core/Timer.h>
-#include <box2d/b2_contact.h>
-
+#include <mono/metadata/mono-debug.h>
 
 namespace Crystal {
 
@@ -40,7 +44,7 @@ namespace Crystal {
 
 	namespace Utils {
 
-		static MonoAssembly* LoadMonoAssembly(const std::filesystem::path& assemblyPath)
+		static MonoAssembly* LoadMonoAssembly(const std::filesystem::path& assemblyPath, bool loadPDB = false)
 		{
 			Buffer fileData = FileSystem::ReadBytes(assemblyPath);
 
@@ -53,6 +57,26 @@ namespace Crystal {
 				const char* errorMessage = mono_image_strerror(status);
 				// Log some error message using the errorMessage data
 				return nullptr;
+			}
+
+			if (loadPDB)
+			{
+				std::filesystem::path pdbPath = assemblyPath;
+				pdbPath.replace_extension(".pdb");
+
+				CRYSTAL_CORE_WARN("Attempting to load pdb: {0}", pdbPath);
+
+				if (std::filesystem::exists(pdbPath))
+				{
+					Buffer pdbFileData = FileSystem::ReadBytes(pdbPath);
+
+					mono_debug_open_image_from_memory(image, pdbFileData.As<const mono_byte>(), (int)pdbFileData.Size);
+
+					CRYSTAL_CORE_INFO("Loaded PDB: {0}", pdbPath);
+
+					/* Release the data */
+					fileData.Release();
+				}
 			}
 
 			std::string pathString = assemblyPath.string();
@@ -118,6 +142,8 @@ namespace Crystal {
 		Scope<filewatch::FileWatch<std::string>> AppAssemblyFileWatcher;
 		bool AssemblyReloadPending;
 
+		bool EnableDebugging = true;
+
 		// Runtime
 		Scene* SceneContext = nullptr;
 
@@ -175,11 +201,28 @@ namespace Crystal {
 	{
 		mono_set_assemblies_path("mono/lib");
 
+		if (s_Data->EnableDebugging)
+		{
+			const char* argv[2] = {
+				"--debugger-agent=transport=dt_socket,address=127.0.0.1:2550,server=y,suspend=n,loglevel=3,logfile=Resources/Logs/MonoDebugger.log",
+				"--soft-breakpoints"
+			};
+
+			mono_jit_parse_options(2, (char**)argv);
+
+		}
+
 		MonoDomain* rootDomain = mono_jit_init("CrystalJITRuntime");
 		CRYSTAL_CORE_ASSERT(rootDomain, "No Rootdomain!");
 
 		// Store the root domain pointer
 		s_Data->RootDomain = rootDomain;
+
+		if (s_Data->EnableDebugging)
+		{
+			mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+			mono_debug_domain_create(s_Data->RootDomain);
+		}
 	}
 
 	void ScriptEngine::ShutdownMono()
@@ -215,7 +258,7 @@ namespace Crystal {
 
 		// Move this
 		s_Data->CoreAssemblyFilepath = filepath;
-		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath);
+		s_Data->CoreAssembly = Utils::LoadMonoAssembly(filepath, s_Data->EnableDebugging);
 		if (s_Data->CoreAssembly == nullptr)
 			return false;
 		s_Data->CoreAssemblyImage = mono_assembly_get_image(s_Data->CoreAssembly);
@@ -226,8 +269,7 @@ namespace Crystal {
 	{
 		// Move this
 		s_Data->AppAssemblyFilepath = filepath;
-		auto& cool = s_Data;
-		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath);
+		s_Data->AppAssembly = Utils::LoadMonoAssembly(filepath, s_Data->EnableDebugging);
 		s_Data->AppAssemblyImage = mono_assembly_get_image(s_Data->AppAssembly);
 		if (s_Data->AppAssembly == nullptr)
 			return false;
@@ -240,6 +282,7 @@ namespace Crystal {
 	{
 		if (EditorLayer::GetEditorLayer()->IsPlaying())
 			EditorLayer::GetEditorLayer()->StopSceneForReload();
+
 		mono_domain_set(mono_get_root_domain(), false);
 		mono_domain_unload(s_Data->AppDomain);
 		LoadAssembly(s_Data->CoreAssemblyFilepath);
@@ -295,6 +338,7 @@ namespace Crystal {
 		else
 		{
 			CRYSTAL_CORE_ERROR("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
+
 			EditorLayer::GetEditorLayer()->GetConsole()->Error("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
 			return;
 		}
@@ -477,7 +521,8 @@ namespace Crystal {
 
 	MonoObject* ScriptClass::InvokeMethod(MonoObject* instance, MonoMethod* method, void** params)
 	{
-		return mono_runtime_invoke(method, instance, params, nullptr);
+		MonoObject* exception = nullptr;
+		return mono_runtime_invoke(method, instance, params, &exception);
 	}
 
 	ScriptInstance::ScriptInstance(Ref<ScriptClass> scriptClass, Entity entity)

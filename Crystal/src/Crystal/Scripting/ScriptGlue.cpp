@@ -448,11 +448,13 @@ namespace Crystal {
 	{
 		*outScroll = 0;
 	}
+
 	static void Editor_ConsoleLog(MonoString* message)
 	{
 		char* cStr = mono_string_to_utf8(message);
 		std::string& msg = std::string(cStr);
 		mono_free(cStr);
+
 		EditorLayer::GetEditorLayer()->GetConsole()->Log(msg);
 	}
 
@@ -461,6 +463,7 @@ namespace Crystal {
 		char* cStr = mono_string_to_utf8(message);
 		std::string& msg = std::string(cStr);
 		mono_free(cStr);
+	
 		EditorLayer::GetEditorLayer()->GetConsole()->Warn(msg);
 	}
 
@@ -469,6 +472,7 @@ namespace Crystal {
 		char* cStr = mono_string_to_utf8(message);
 		std::string& msg = std::string(cStr);
 		mono_free(cStr);
+		
 		EditorLayer::GetEditorLayer()->GetConsole()->Error(msg);
 	}
 

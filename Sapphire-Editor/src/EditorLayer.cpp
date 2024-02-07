@@ -189,19 +189,20 @@ namespace Crystal {
 				// which we can't undo at the moment without finer window depth/z control.
 				//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);
 
-				if (ImGui::MenuItem("Exit")) Application::Get().Close();
-				if (ImGui::MenuItem("Open...", "Ctrl+O"))
+				if (ImGui::MenuItem("Open Project...", "Ctrl+O")) OpenProject();
+				if (ImGui::MenuItem("Save Project", "Ctrl+O")) SaveProject();
+
+				ImGui::Separator();
+
+				if (ImGui::MenuItem("Open Scene...", "Ctrl+Alt+O")) OpenScene();
+				if (ImGui::MenuItem("Save Scene", "Ctrl+Alt+S")) 
 				{
-					OpenScene();
-				}
-				if (ImGui::MenuItem("Save", "Ctrl+S")) {
 					SceneSerializer serializer(m_ActiveScene);
 					serializer.Serialize("assets/scenes/Untitled.crystal");
 				}
-				if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
-					SaveSceneAs();
-				if (ImGui::MenuItem("New Scene", "Ctrl+N"))
-					NewScene();
+				if (ImGui::MenuItem("Save Scene As...", "Ctrl+Alt+Shift+S")) SaveSceneAs();
+				if (ImGui::MenuItem("New Scene", "Ctrl+N")) NewScene();
+				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
 			if (ImGui::BeginMenu("Edit"))
@@ -401,32 +402,34 @@ namespace Crystal {
 
 		bool control = (Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl));
 		bool shift = (Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift));
+		bool alt = (Input::IsKeyPressed(Key::LeftAlt) || Input::IsKeyPressed(Key::RightAlt));
 		switch (e.GetKeyCode())
 		{
 		case Key::N:
 		{
-			if (control)
-			{
-				NewScene();
-			}
+			if (control) NewScene();
 			break;
 		}
 		case Key::O:
 		{
-			if (control)
-			{
-				OpenScene();
-			}
+			if (control && alt) OpenScene();
+			else if (control) OpenProject();
 			break;
 		}
 		case Key::S:
 		{
 			if (control)
 			{
-				if (shift)
+				if (shift && alt)
 					SaveSceneAs();
+				//else if (shift)
+					// SaveProjectAs();
 				else
+				{
 					SaveScene();
+					SaveProject();
+					break;
+				}
 			}
 			break;
 		}
@@ -455,6 +458,8 @@ namespace Crystal {
 			m_GizmoType = ImGuizmo::OPERATION::ROTATE | ImGuizmo::OPERATION::SCALE | ImGuizmo::OPERATION::TRANSLATE;
 			break;
 		}
+
+		return false;
 	}
 
 	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
@@ -527,6 +532,14 @@ namespace Crystal {
 	void EditorLayer::NewProject()
 	{
 		Project::New();
+	}
+
+	void EditorLayer::OpenProject()
+	{
+		std::string filepath = FileDialogs::OpenFile("Crystal Project(*.cryproj)\0*.cryproj\0");
+
+		if (!filepath.empty())
+			OpenProject(filepath);
 	}
 
 	void EditorLayer::OpenProject(const std::filesystem::path& path)

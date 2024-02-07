@@ -34,6 +34,8 @@ namespace Crystal {
 				return "Vulkan";
 			case API::None:
 				return "None";
+			default:
+				return "None";
 			}
 		}
 	private:

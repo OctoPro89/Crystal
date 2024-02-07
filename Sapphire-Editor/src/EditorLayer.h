@@ -40,6 +40,7 @@ namespace Crystal {
 		void OnOverlayRender();
 
 		void NewProject();
+		void OpenProject();
 		void OpenProject(const std::filesystem::path& path);
 		void SaveProject();
 
@@ -64,9 +65,6 @@ namespace Crystal {
 	private:
 		static EditorLayer* s_Instance;
 
-		//temp
-		Ref<VertexArray> m_VertexArray;
-		Ref<Shader> m_Shader;
 		Ref<FrameBuffer> m_FrameBuffer;
 
 		Ref<Scene> m_ActiveScene;

@@ -69,7 +69,7 @@ namespace Crystal {
 		LayerStack m_LayerStack; /* A layerstack object */
 		float m_LastFrameTime = 0.0f; /* A floating point number since the last frame time */
 
-		std::vector<std::function<void()>> m_MainThreadQueue; /* vector of void functions called s_MainThreadQueue */
+		std::vector<std::function<void()>> m_MainThreadQueue; /* vector of void functions called m_MainThreadQueue */
 		std::mutex m_MainThreadQueueMutex; /* mutex for the main thread queue */
 	private:
 		static Application* s_Instance; /* a static pointer to an application */
