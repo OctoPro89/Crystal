@@ -40,7 +40,7 @@ namespace Crystal {
 		void OnOverlayRender();
 
 		void NewProject();
-		void OpenProject();
+		bool OpenProject();
 		void OpenProject(const std::filesystem::path& path);
 		void SaveProject();
 

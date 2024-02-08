@@ -16,7 +16,6 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h">
       <Filter>Panels</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -30,18 +29,5 @@
       <Filter>Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Sapphire-Editor.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Sapphire-Editor.aps" />
-    <None Include="SandboxProj\assets\Scripts\Win-GenerateProjects.bat" />
-    <None Include="SandboxProj\SandboxProj.cryproj" />
-    <None Include="Resources\shaders\Renderer2D_Circle.glsl" />
-    <None Include="Resources\shaders\Renderer2D_Line.glsl" />
-    <None Include="Resources\shaders\Renderer2D_Quad.glsl" />
-    <None Include="Resources\shaders\RGBTriangle.glsl" />
-    <None Include="Resources\shaders\Texture.glsl" />
   </ItemGroup>
 </Project>

@@ -33,6 +33,7 @@ project "Crystal"
 	{
 		"src",
 		"vendor/spdlog/include",
+		"../Sapphire-Editor/src",
 		"%{IncludeDir.Box2D}",
 		"%{IncludeDir.filewatch}",
 		"%{IncludeDir.GLFW}",

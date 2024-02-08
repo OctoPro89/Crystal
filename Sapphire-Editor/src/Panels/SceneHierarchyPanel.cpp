@@ -1,10 +1,11 @@
 #include "SceneHierarchyPanel.h"
-#include "Crystal/Scripting/ScriptEngine.h"
+#include <Crystal/Scripting/ScriptEngine.h>
+#include <Crystal/UI/UI.h>
 #include <imgui/imgui.h>
+#include <Crystal/Scene/Components.h>
 #include <imgui/imgui_internal.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <filesystem>
-#include "Crystal/Scene/Components.h"
 #include <cstring>
 #include <fstream>
 
@@ -370,19 +371,14 @@ namespace Crystal {
 				static char buffer[64];
 				strcpy_s(buffer, sizeof(buffer), component.ClassName.c_str());
 
-				if (!scriptClassExists)
-					ImGui::PushStyleColor(ImGuiCol_Text, { 0.9f,0.2f,0.3f,1.0f });
-				else
-					ImGui::PushStyleColor(ImGuiCol_Text, { 0.2f,0.9f,0.3f,1.0f });
+				UI::ScopedStyleColor textColorRed(ImGuiCol_Text, ImVec4(0.9f, 0.2f, 0.3f, 1.0f), !scriptClassExists);
+				UI::ScopedStyleColor textColorGreen(ImGuiCol_Text, ImVec4(0.2f, 0.9f, 0.3f, 1.0f), scriptClassExists);
 
 				if (ImGui::InputText("Class", buffer, sizeof(buffer)))
 				{
 					component.ClassName = buffer;
-					ImGui::PopStyleColor();
 					return;
 				}
-				
-				ImGui::PopStyleColor();
 
 				// Fields
 				bool sceneRunning = scene->IsRunning();

@@ -46,7 +46,10 @@ namespace Crystal {
 		else
 		{
 			/* TODO HERE USE LAUNCHER */
-			CRYSTAL_CORE_ASSERT(false, "No Project");
+			if (!OpenProject())
+			{
+				Application::Get().Close();
+			}
 		}
 
 		m_EditorCamera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
@@ -202,6 +205,9 @@ namespace Crystal {
 				}
 				if (ImGui::MenuItem("Save Scene As...", "Ctrl+Alt+Shift+S")) SaveSceneAs();
 				if (ImGui::MenuItem("New Scene", "Ctrl+N")) NewScene();
+
+				ImGui::Separator();
+
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}
@@ -421,15 +427,13 @@ namespace Crystal {
 			if (control)
 			{
 				if (shift && alt)
+				{
 					SaveSceneAs();
+				}
 				//else if (shift)
 					// SaveProjectAs();
-				else
-				{
-					SaveScene();
-					SaveProject();
-					break;
-				}
+				else if (alt) SaveScene();
+				else SaveProject();
 			}
 			break;
 		}
@@ -534,12 +538,15 @@ namespace Crystal {
 		Project::New();
 	}
 
-	void EditorLayer::OpenProject()
+	bool EditorLayer::OpenProject()
 	{
 		std::string filepath = FileDialogs::OpenFile("Crystal Project(*.cryproj)\0*.cryproj\0");
 
-		if (!filepath.empty())
-			OpenProject(filepath);
+		if (filepath.empty())
+			return false;
+
+		OpenProject(filepath);
+		return true;
 	}
 
 	void EditorLayer::OpenProject(const std::filesystem::path& path)
@@ -549,12 +556,14 @@ namespace Crystal {
 			auto startScenePath = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().StartScene);
 			OpenScene(startScenePath);
 			m_ContentBrowserPanel = CreateScope<ContentBrowserPanel>();
+			Console.Log("Opened Project: \"" + path.string() + "\"");
 		}
 	}
 
 	void EditorLayer::SaveProject()
 	{
 		// Project::SaveActive();
+		Console.Log("Saved Project Successfully!");
 	}
 
 	void EditorLayer::NewScene()
@@ -596,6 +605,7 @@ namespace Crystal {
 			m_ActiveScene = m_EditorScene;
 
 			m_ScenePath = path.string();
+			Console.Log("Opened Scene: \"" + path.string() + "\"");
 		}
 	}
 

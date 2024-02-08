@@ -1,4 +1,6 @@
 ﻿using Crystal;
+using System;
+
 namespace Sandbox
 {
 	public class RigidbodyController : Entity
@@ -7,6 +9,7 @@ namespace Sandbox
 
 		public float speed;
 		public float torque;
+
 		void OnCreate()
 		{
 			m_Rigidbody = GetComponent<Rigidbody2DComponent>();
@@ -14,6 +17,7 @@ namespace Sandbox
 
 		void OnUpdate(float ts)
 		{
+
 			Vector3 velocity = Vector3.Zero;
 			if (Input.IsKeyDown(KeyCode.W) || Input.IsKeyDown(KeyCode.Up))
 			{
@@ -35,10 +39,6 @@ namespace Sandbox
 			{
 				velocity.X = 1.0f;
 				m_Rigidbody.ApplyTorque(torque, true);
-			}
-			if (Input.IsKeyDown(KeyCode.E))
-			{
-				velocity.X = 0.8f;
 			}
 
 			velocity *= (speed * ts);
