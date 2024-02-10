@@ -43,6 +43,11 @@ namespace Sandbox
 
 			velocity *= (speed * ts);
 
+			Editor.ClearConsole();
+
+			Vector2 rbVelocity = m_Rigidbody.LinearVelocity;
+			Editor.Log($"{rbVelocity.X}, {rbVelocity.Y}");
+
 			m_Rigidbody.ApplyLinearImpulse(velocity.XY, true);
 		}
 	}

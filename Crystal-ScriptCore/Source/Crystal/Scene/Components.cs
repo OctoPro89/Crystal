@@ -178,7 +178,6 @@ namespace Crystal
 
 	public class Rigidbody2DComponent : Component
 	{
-
 		public void ApplyLinearImpulse(Vector2 impulse, Vector2 worldPosition, bool wake)
 		{
 			InternalCalls.Rigidbody2DComponent_ApplyLinearImpulse(Entity.ID, ref impulse, ref worldPosition, wake);
@@ -202,6 +201,15 @@ namespace Crystal
 		public void ApplyForceToCenter(Vector2 force, bool wake)
 		{
 			InternalCalls.Rigidbody2DComponent_ApplyForceToCenter(Entity.ID, ref force, wake);
+		}
+
+		public Vector2 LinearVelocity
+		{
+			get 
+			{
+				InternalCalls.Rigidbody2DComponent_GetLinearVelocity(Entity.ID, out Vector2 Velocity);
+				return Velocity;
+			}
 		}
 	}
 

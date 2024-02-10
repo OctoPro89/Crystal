@@ -17,7 +17,7 @@ namespace Sandbox
 		{
 			player = FindEntityByName("Player");
 		}
-		//cool beans
+		
 		void OnUpdate(float ts)
 		{
 			if (player != null && FollowPlayer)
@@ -26,7 +26,7 @@ namespace Sandbox
 			}
 			else if (player == null)
 			{
-				Console.Write("Uh oh!");
+				Console.Write("Check that there is an entity named \"Player\"!");
 			}
 		}
 	}

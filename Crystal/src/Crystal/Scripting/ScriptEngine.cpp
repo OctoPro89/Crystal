@@ -178,7 +178,7 @@ namespace Crystal {
 			return;
 		}
 
-		std::filesystem::path scriptModulePath = "SandboxProj/assets/Scripts/Binaries/Project.dll"; //Project::GetAssetDirectory() / Project::GetActive()->GetConfig().ScriptModulePath;
+		std::filesystem::path scriptModulePath = Project::GetAssetDirectory() / Project::GetActive()->GetConfig().ScriptModulePath;
 		status = LoadAppAssembly(scriptModulePath);
 		if (!status)
 		{

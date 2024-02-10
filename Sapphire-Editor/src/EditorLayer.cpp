@@ -409,6 +409,7 @@ namespace Crystal {
 		bool control = (Input::IsKeyPressed(Key::LeftControl) || Input::IsKeyPressed(Key::RightControl));
 		bool shift = (Input::IsKeyPressed(Key::LeftShift) || Input::IsKeyPressed(Key::RightShift));
 		bool alt = (Input::IsKeyPressed(Key::LeftAlt) || Input::IsKeyPressed(Key::RightAlt));
+
 		switch (e.GetKeyCode())
 		{
 		case Key::N:
@@ -445,22 +446,37 @@ namespace Crystal {
 				break;
 			}
 		}
-		//Gizmo's
-		case Key::Q:
-			m_GizmoType = -1;
-			break;
-		case Key::W:
-			m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
-			break;
-		case Key::E:
-			m_GizmoType = ImGuizmo::OPERATION::SCALE;
-			break;
-		case Key::R:
-			m_GizmoType = ImGuizmo::OPERATION::ROTATE;
-			break;
-		case Key::T:
-			m_GizmoType = ImGuizmo::OPERATION::ROTATE | ImGuizmo::OPERATION::SCALE | ImGuizmo::OPERATION::TRANSLATE;
-			break;
+		if (Application::Get().GetImGuiLayer()->GetActiveWidgetID() == 0) /* Check if we are not using a menu */
+		{
+			//Gizmo's
+			case Key::Q:
+				m_GizmoType = -1;
+				break;
+			case Key::W:
+				m_GizmoType = ImGuizmo::OPERATION::TRANSLATE;
+				break;
+			case Key::E:
+				m_GizmoType = ImGuizmo::OPERATION::SCALE;
+				break;
+			case Key::R:
+				m_GizmoType = ImGuizmo::OPERATION::ROTATE;
+				break;
+			case Key::T:
+				m_GizmoType = ImGuizmo::OPERATION::ROTATE | ImGuizmo::OPERATION::SCALE | ImGuizmo::OPERATION::TRANSLATE;
+				break;
+			}
+
+			case Key::Delete:
+			{
+				Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
+				if (selectedEntity)
+				{
+					m_SceneHierarchyPanel.SetSelectedEntity({});
+					m_ActiveScene->DestroyEntity(selectedEntity);
+				}
+
+				break;
+			}
 		}
 
 		return false;
@@ -553,6 +569,8 @@ namespace Crystal {
 	{
 		if (Project::Load(path))
 		{
+			ScriptEngine::Init(); /* Initialize the ScriptEngine here because of the paths */
+
 			auto startScenePath = Project::GetAssetFileSystemPath(Project::GetActive()->GetConfig().StartScene);
 			OpenScene(startScenePath);
 			m_ContentBrowserPanel = CreateScope<ContentBrowserPanel>();
@@ -683,7 +701,10 @@ namespace Crystal {
 
 		Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity();
 		if (selectedEntity)
-			m_EditorScene->DuplicateEntity(selectedEntity);
+		{
+			Entity newEntity = m_EditorScene->DuplicateEntity(selectedEntity);
+			m_SceneHierarchyPanel.SetSelectedEntity(newEntity);
+		}
 	}
 
 	void EditorLayer::SerializeScene(Ref<Scene> scene, const std::string& path)

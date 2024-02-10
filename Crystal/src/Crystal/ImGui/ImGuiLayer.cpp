@@ -2,7 +2,10 @@
 #include "ImGuiLayer.h"
 
 #include <imgui.h>
+#include <imgui_internal.h>
+
 #include <ImGuizmo.h>
+
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
 
@@ -18,10 +21,12 @@ namespace Crystal {
 	{
 
 	}
+
 	ImGuiLayer::~ImGuiLayer()
 	{
 
 	}
+
 	void ImGuiLayer::OnAttach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
@@ -57,6 +62,7 @@ namespace Crystal {
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
+
 	void ImGuiLayer::OnDetach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
@@ -174,4 +180,9 @@ namespace Crystal {
 		ImGui::StyleColorsLight();
 	}
 
+	uint32_t ImGuiLayer::GetActiveWidgetID() const
+	{
+		ImGuiContext& g = *GImGui;
+		return g.ActiveId;
+	}
 }

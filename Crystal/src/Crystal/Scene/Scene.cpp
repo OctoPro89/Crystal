@@ -77,6 +77,7 @@ namespace Crystal {
 
 		}
 	};
+
 	PhysicsContactListener m_ContactListener;
 	static b2BodyType Rigidbody2DTypeToBox2DBody(Rigidbody2DComponent::BodyType bodyType)
 	{
@@ -401,10 +402,18 @@ namespace Crystal {
 
 	}
 
-	void Scene::DuplicateEntity(Entity entity)
+	Entity Scene::DuplicateEntity(Entity entity)
 	{
+		/* Copy name because we're going to modify component data structure 
+		std::string name = entity.GetName();
+		Entity newEntity = CreateEntity(name);
+		*/
+
+
+		/* USE FOR " COPY" NAME */
 		Entity newEntity = CreateEntity(entity.GetName() + " Copy");
 		CopyComponentIfExists(AllComponents{}, newEntity, entity);
+		return newEntity;
 	}
 
 	Entity Scene::FindEntityByName(std::string_view name)

@@ -307,7 +307,7 @@ namespace Crystal {
 		*outRestitutionThreshold = bc2d.RestitutionThreshold;
 	}
 
-	static void Rigidbody2DComponent_GetVelocity(UUID entityID, glm::vec2* outVelocity)
+	static void Rigidbody2DComponent_GetLinearVelocity(UUID entityID, glm::vec2* outLinearVelocity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
 		CRYSTAL_CORE_ASSERT(scene, "No Scene");
@@ -316,7 +316,7 @@ namespace Crystal {
 
 		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
 		b2Body* body = (b2Body*)rb2d.RuntimeBody;
-		*outVelocity = glm::vec2(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
+		*outLinearVelocity = glm::vec2(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
 	}
 
 	static void Rigidbody2DComponent_ApplyLinearImpulse(UUID entityID, glm::vec2* impulse, glm::vec2* point, bool wake)
@@ -476,6 +476,11 @@ namespace Crystal {
 		EditorLayer::GetEditorLayer()->GetConsole()->Error(msg);
 	}
 
+	static void Editor_ConsoleClear()
+	{
+		EditorLayer::GetEditorLayer()->GetConsole()->Clear();
+	}
+
 	static void AudioComponent_PlayAudio(UUID entityID)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -566,7 +571,7 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyTorque);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForce);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForceToCenter);
-		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetVelocity);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetLinearVelocity);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsKeyDown);
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsMouseDown);
@@ -581,6 +586,7 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleLog);
 		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleWarn);
 		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleError);
+		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleClear);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Scene_CreateEntity);
 		CRYSTAL_ADD_INTERNAL_CALL(Scene_DestroyEntity);

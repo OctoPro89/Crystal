@@ -29,7 +29,7 @@ namespace Crystal {
 		m_Window->SetEventCallback(CRYSTAL_BIND_EVENT_FN(Application::OnEvent)); /* Set the Application Event Callbacks */
 
 		Renderer::Init(); /* Initialize the Renderer */
-		ScriptEngine::Init(); /* Initialize the ScriptEngine */
+		// ScriptEngine::Init(); /* Initialize the ScriptEngine */
 		SoundSystem::Init(); /* Initialize the audio system */
 
 		m_ImGuiLayer = new ImGuiLayer(); /* Create the ImGui Layer */

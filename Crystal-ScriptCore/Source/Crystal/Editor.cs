@@ -22,5 +22,10 @@ namespace Crystal
 		{
 			InternalCalls.Editor_ConsoleError(message);
 		}
+
+		public static void ClearConsole()
+		{
+			InternalCalls.Editor_ConsoleClear();
+		}
 	}
 }

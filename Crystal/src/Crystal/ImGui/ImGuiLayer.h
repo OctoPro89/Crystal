@@ -25,6 +25,8 @@ namespace Crystal {
 		void SetDefaultThemeColors();
 		void SetDefaultLightColors();
 		void SetDefaultDarkColors();
+
+		uint32_t ImGuiLayer::GetActiveWidgetID() const;
 	private:
 		bool m_BlockEvents = true;
 		float m_Time = 0.0f;
