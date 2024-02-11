@@ -178,6 +178,13 @@ namespace Crystal
 
 	public class Rigidbody2DComponent : Component
 	{
+		public enum BodyType
+		{
+			Static = 0,
+			Dynamic = 1,
+			Kinematic = 2
+		};
+
 		public void ApplyLinearImpulse(Vector2 impulse, Vector2 worldPosition, bool wake)
 		{
 			InternalCalls.Rigidbody2DComponent_ApplyLinearImpulse(Entity.ID, ref impulse, ref worldPosition, wake);
@@ -203,11 +210,32 @@ namespace Crystal
 			InternalCalls.Rigidbody2DComponent_ApplyForceToCenter(Entity.ID, ref force, wake);
 		}
 
+		public Rigidbody2DComponent.BodyType Type
+		{
+			get
+			{
+				return InternalCalls.Rigidbody2DComponent_GetType(Entity.ID);
+			}
+			set
+			{
+				InternalCalls.Rigidbody2DComponent_SetType(Entity.ID, value);
+			}
+		}
+
 		public Vector2 LinearVelocity
 		{
 			get 
 			{
 				InternalCalls.Rigidbody2DComponent_GetLinearVelocity(Entity.ID, out Vector2 Velocity);
+				return Velocity;
+			}
+		}
+
+		public float AngularVelocity
+		{
+			get
+			{
+				InternalCalls.Rigidbody2DComponent_GetAngularVelocity(Entity.ID, out float Velocity);
 				return Velocity;
 			}
 		}

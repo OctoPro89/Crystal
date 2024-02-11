@@ -30,4 +30,7 @@
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="TankGame\TankGame.cryproj" />
+  </ItemGroup>
 </Project>

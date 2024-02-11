@@ -171,6 +171,7 @@
     <ClInclude Include="src\Crystal\Events\MouseEvent.h" />
     <ClInclude Include="src\Crystal\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Crystal\Math\Math.h" />
+    <ClInclude Include="src\Crystal\Physics\Physics2D.h" />
     <ClInclude Include="src\Crystal\Projects\Project.h" />
     <ClInclude Include="src\Crystal\Projects\ProjectSerializer.h" />
     <ClInclude Include="src\Crystal\Renderer\Buffer.h" />

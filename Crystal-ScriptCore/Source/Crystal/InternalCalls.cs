@@ -51,6 +51,18 @@ namespace Crystal
 		internal extern static void Rigidbody2DComponent_GetLinearVelocity(ulong entityID, out Vector2 velocity);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_GetAngularVelocity(ulong entityID, out float velocity);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static Rigidbody2DComponent.BodyType Rigidbody2DComponent_GetType(ulong entityID);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_SetType(ulong entityID, Rigidbody2DComponent.BodyType bodyType);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void Rigidbody2DComponent_GetType(ulong entityID, out float velocity);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void SpriteRendererComponent_GetColor(ulong entityID, out Vector4 color);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]

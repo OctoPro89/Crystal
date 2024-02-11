@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Crystal
 {
-	public class CrystalMath
+	public static class CrystalMath
 	{
-		public float Lerp(float a, float b, float t)
+		public static float Lerp(float a, float b, float t)
 		{
-			return a + (1.0f - t) * (b * t);
+			return a * (1.0f - t) + (b * t);
 		}
 	}
 }

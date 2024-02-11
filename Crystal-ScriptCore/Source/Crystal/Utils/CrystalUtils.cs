@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Crystal
 {
-	class CrystalUtils
+	public static class CrystalUtils
 	{
 		private static Random random = new Random();
 
@@ -70,7 +70,7 @@ namespace Crystal
 		}
 
 		/* Calls a function after a delay */
-		public void FuncAfterDelay(float delayInSeconds, Action func)
+		public static void FuncAfterDelay(float delayInSeconds, Action func)
 		{
 			ThreadPool.QueueUserWorkItem(state =>
 			{

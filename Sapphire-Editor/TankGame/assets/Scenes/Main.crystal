@@ -1,0 +1,139 @@
+Scene: Untitled
+Entities:
+  - Entity: 12375703778946699878
+    TagComponent:
+      Tag: Tank1Turret
+    TransformComponent:
+      Translation: [-60.2468948, 13.5193014, -0.00100004673]
+      Rotation: [0, 0, 0]
+      Scale: [5.77529097, 5.77529097, 5.77529955]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\TankTurret.png
+      TilingFactor: 1
+  - Entity: 443500982112873463
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Translation: [0, 9.69999981, 51.9199982]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 0
+        PerspectiveFOV: 1.22173047
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false
+  - Entity: 7346605253046478200
+    TagComponent:
+      Tag: Tank1
+    TransformComponent:
+      Translation: [-61.0313683, 12.6416531, 0]
+      Rotation: [0, 0, 0]
+      Scale: [8, 6.5, 6.5]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, -0.889999986]
+      Size: [0.180000007, 0.280000001]
+      Density: 1
+      GravityScale: 2
+      Friction: 0.0399999991
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    CircleCollider2DComponent:
+      Offset: [1.69000006, -0.899999976]
+      Radius: 0.180000007
+      Density: 1
+      GravityScale: 2
+      Friction: 0.0399999991
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\Tank.png
+      TilingFactor: 1
+    ScriptComponent:
+      ClassName: Player1
+      ScriptFields:
+        - Name: XOff
+          Type: Float
+          Data: 0.300000012
+        - Name: YOff
+          Type: Float
+          Data: 0.850000024
+        - Name: speed
+          Type: Float
+          Data: 10
+    AudioComponent:
+      AudioFile: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\Sounds\shotgun-firing-4-6746.mp3
+      VolumeMultiplier: 1
+  - Entity: 15518958469964055817
+    TagComponent:
+      Tag: Floor
+    TransformComponent:
+      Translation: [0, -4.71687603, 0]
+      Rotation: [0, 0, 0]
+      Scale: [46.9782257, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1
+  - Entity: 8558952043911400180
+    TagComponent:
+      Tag: Floor
+    TransformComponent:
+      Translation: [-44.9093704, 2.17096043, 0]
+      Rotation: [0, 0, -0.301280528]
+      Scale: [46.978241, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1
+  - Entity: 16320810590908975789
+    TagComponent:
+      Tag: Floor Copy
+    TransformComponent:
+      Translation: [44.9099998, 2.17000008, 0]
+      Rotation: [0, 0, 0.301243842]
+      Scale: [46.9782448, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1

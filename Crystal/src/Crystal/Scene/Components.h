@@ -117,7 +117,7 @@ namespace Crystal
 	struct Rigidbody2DComponent
 	{
 		enum class BodyType {
-			Static = 0, Dynamic, Kinematic
+			Static = 0, Dynamic = 1, Kinematic = 2
 		};
 		BodyType Type = BodyType::Static;
 		bool FixedRotation = false;

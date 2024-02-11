@@ -6,6 +6,7 @@
 #include "ScriptableEntity.h"
 #include "Crystal/Scripting/ScriptEngine.h"
 #include "Crystal/Renderer/Renderer2D.h"
+#include "Crystal/Physics/Physics2D.h"
 
 #include <glm/glm.hpp>
 
@@ -79,18 +80,6 @@ namespace Crystal {
 	};
 
 	PhysicsContactListener m_ContactListener;
-	static b2BodyType Rigidbody2DTypeToBox2DBody(Rigidbody2DComponent::BodyType bodyType)
-	{
-		switch (bodyType)
-		{
-		case Rigidbody2DComponent::BodyType::Static:    return b2_staticBody;
-		case Rigidbody2DComponent::BodyType::Dynamic:   return b2_dynamicBody;
-		case Rigidbody2DComponent::BodyType::Kinematic: return b2_kinematicBody;
-		}
-
-		CRYSTAL_CORE_ASSERT(false, "Unknown body type");
-		return b2_staticBody;
-	}
 
 	Scene::Scene()
 	{
@@ -448,7 +437,7 @@ namespace Crystal {
 			auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
 
 			b2BodyDef bodyDef;
-			bodyDef.type = Rigidbody2DTypeToBox2DBody(rb2d.Type);
+			bodyDef.type = Utils::Rigidbody2DTypeToBox2DBody(rb2d.Type);
 			bodyDef.position.Set(transform.Translation.x, transform.Translation.y);
 			bodyDef.angle = transform.Rotation.z;
 

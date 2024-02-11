@@ -9,6 +9,8 @@
 #include "Crystal/Scene/Scene.h"
 #include "Crystal/Scene/Entity.h"
 
+#include "Crystal/Physics/Physics2D.h"
+
 #include <EditorLayer.h>
 
 #include "mono/metadata/object.h"
@@ -319,6 +321,18 @@ namespace Crystal {
 		*outLinearVelocity = glm::vec2(body->GetLinearVelocity().x, body->GetLinearVelocity().y);
 	}
 
+	static void Rigidbody2DComponent_GetAngularVelocity(UUID entityID, float* outAngularVelocity)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		*outAngularVelocity = body->GetAngularVelocity();
+	}
+
 	static void Rigidbody2DComponent_ApplyLinearImpulse(UUID entityID, glm::vec2* impulse, glm::vec2* point, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -377,6 +391,42 @@ namespace Crystal {
 		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
 		b2Body* body = (b2Body*)rb2d.RuntimeBody;
 		body->ApplyForceToCenter(b2Vec2(Force->x, Force->y), wake);
+	}
+
+	static Rigidbody2DComponent::BodyType Rigidbody2DComponent_GetType(UUID entityID)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		return Utils::Rigidbody2DTypeFromBox2DBody(body->GetType());
+	}
+
+	static void Rigidbody2DComponent_SetType(UUID entityID, Rigidbody2DComponent::BodyType bodyType)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		body->SetType(Utils::Rigidbody2DTypeToBox2DBody(bodyType));
+	}
+
+	static void Rigidbody2DComponent_SetFixedRotation(UUID entityID, bool flag)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		body->SetFixedRotation(flag);
 	}
 
 	static void SpriteRendererComponent_GetColor(UUID entityID, glm::vec4* outColor)
@@ -572,6 +622,8 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForce);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyForceToCenter);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetLinearVelocity);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetType);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_SetType);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsKeyDown);
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsMouseDown);

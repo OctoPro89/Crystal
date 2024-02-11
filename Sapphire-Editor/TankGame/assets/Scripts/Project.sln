@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project", "Project.csproj", "{5C2CF323-C80B-72BF-D123-FD953D82D820}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crystal", "Crystal", "{0EF1328A-7AB1-AEC0-43EC-F73DAF6BF39C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crystal-ScriptCore", "..\..\..\..\Crystal-ScriptCore\Crystal-ScriptCore.csproj", "{9212DE66-7EF6-9EBC-E756-990FD359893E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Dist|x64 = Dist|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Debug|x64.ActiveCfg = Debug|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Debug|x64.Build.0 = Debug|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Dist|x64.ActiveCfg = Dist|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Dist|x64.Build.0 = Dist|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Release|x64.ActiveCfg = Release|x64
+		{5C2CF323-C80B-72BF-D123-FD953D82D820}.Release|x64.Build.0 = Release|x64
+		{9212DE66-7EF6-9EBC-E756-990FD359893E}.Debug|x64.ActiveCfg = Debug|x64
+		{9212DE66-7EF6-9EBC-E756-990FD359893E}.Debug|x64.Build.0 = Debug|x64
+		{9212DE66-7EF6-9EBC-E756-990FD359893E}.Dist|x64.ActiveCfg = Dist|x64
+		{9212DE66-7EF6-9EBC-E756-990FD359893E}.Dist|x64.Build.0 = Dist|x64
+		{9212DE66-7EF6-9EBC-E756-990FD359893E}.Release|x64.ActiveCfg = Release|x64
+		{9212DE66-7EF6-9EBC-E756-990FD359893E}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9212DE66-7EF6-9EBC-E756-990FD359893E} = {0EF1328A-7AB1-AEC0-43EC-F73DAF6BF39C}
+	EndGlobalSection
+EndGlobal
