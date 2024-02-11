@@ -15,7 +15,7 @@ namespace Sandbox
 
 		void OnCreate()
 		{
-			player = FindEntityByName("Player");
+			player = FindEntityByName("Tank1");
 		}
 		
 		void OnUpdate(float ts)
@@ -26,7 +26,7 @@ namespace Sandbox
 			}
 			else if (player == null)
 			{
-				Console.Write("Check that there is an entity named \"Player\"!");
+				Console.Write("Check that there is an entity named \"Tank1\"!");
 			}
 		}
 	}

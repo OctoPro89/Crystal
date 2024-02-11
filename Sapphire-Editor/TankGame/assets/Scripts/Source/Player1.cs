@@ -25,7 +25,9 @@ class Player1 : TankController
 		tempXOff = XOff;
 		m_Audio = GetComponent<AudioComponent>();
 		turret = FindEntityByName("Tank1Turret");
-		this.Create();
+
+		Rigidbody2DComponent wheelRB = FindEntityByName("Wheel2").GetComponent<Rigidbody2DComponent>();
+		this.Create(wheelRB);
 	}
 
 	void TurretShoot()

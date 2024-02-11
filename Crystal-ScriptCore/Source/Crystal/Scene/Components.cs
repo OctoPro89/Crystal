@@ -205,7 +205,7 @@ namespace Crystal
 			InternalCalls.Rigidbody2DComponent_ApplyForce(Entity.ID, ref force, ref point, wake);
 		}
 
-		public void ApplyForceToCenter(Vector2 force, bool wake)
+		public void ApplyForce(Vector2 force, bool wake)
 		{
 			InternalCalls.Rigidbody2DComponent_ApplyForceToCenter(Entity.ID, ref force, wake);
 		}
