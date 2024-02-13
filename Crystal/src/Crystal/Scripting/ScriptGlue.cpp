@@ -78,7 +78,7 @@ namespace Crystal {
 	static void Scene_CreateEntity(UUID* outUUID)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->CreateEntity();
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -88,7 +88,7 @@ namespace Crystal {
 	static void Scene_DestroyEntity(UUID entityID)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -98,7 +98,7 @@ namespace Crystal {
 	static void TransformComponent_GetTranslation(UUID entityID, glm::vec3* outTranslation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -108,7 +108,7 @@ namespace Crystal {
 	static void TransformComponent_SetTranslation(UUID entityID, glm::vec3* translation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -118,7 +118,7 @@ namespace Crystal {
 	static void TransformComponent_GetRotation(UUID entityID, glm::vec3* outRotation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -128,7 +128,7 @@ namespace Crystal {
 	static void TransformComponent_SetRotation(UUID entityID, glm::vec3* rotation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -138,7 +138,7 @@ namespace Crystal {
 	static void TransformComponent_GetScale(UUID entityID, glm::vec3* outScale)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -148,7 +148,7 @@ namespace Crystal {
 	static void TransformComponent_SetScale(UUID entityID, glm::vec3* scale)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -158,7 +158,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetSize(UUID entityID, glm::vec2* outSize)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -169,7 +169,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetSize(UUID entityID, glm::vec2* size)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -180,7 +180,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetFriction(UUID entityID, float* outFriction)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -191,7 +191,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetFriction(UUID entityID, float friction)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -202,7 +202,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetDensity(UUID entityID, float* outDensity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -213,7 +213,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetDensity(UUID entityID, float density)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -224,7 +224,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetGravityScale(UUID entityID, float* outGravity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -235,7 +235,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetGravityScale(UUID entityID, float gravityScale)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -246,7 +246,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetOffset(UUID entityID, glm::vec2* offset)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -257,7 +257,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetOffset(UUID entityID, glm::vec2* outOffset)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -268,7 +268,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetRestitution(UUID entityID, float restitution)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -279,7 +279,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetRestitution(UUID entityID, float* outRestitution)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -290,7 +290,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_SetRestitutionThreshold(UUID entityID, float restitutionThreshold)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -301,7 +301,7 @@ namespace Crystal {
 	static void BoxCollider2DComponent_GetRestitutionThreshold(UUID entityID, float* outRestitutionThreshold)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -312,7 +312,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_GetLinearVelocity(UUID entityID, glm::vec2* outLinearVelocity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -324,7 +324,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_GetAngularVelocity(UUID entityID, float* outAngularVelocity)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -336,7 +336,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_ApplyLinearImpulse(UUID entityID, glm::vec2* impulse, glm::vec2* point, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -348,7 +348,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_ApplyLinearImpulseToCenter(UUID entityID, glm::vec2* impulse, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -360,7 +360,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_ApplyTorque(UUID entityID, float Torque, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -372,7 +372,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_ApplyForce(UUID entityID, glm::vec2* Force, glm::vec2* point, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -384,7 +384,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_ApplyForceToCenter(UUID entityID, glm::vec2* Force, bool wake)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -396,7 +396,7 @@ namespace Crystal {
 	static Rigidbody2DComponent::BodyType Rigidbody2DComponent_GetType(UUID entityID)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return Rigidbody2DComponent::BodyType::Static; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -408,7 +408,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_SetType(UUID entityID, Rigidbody2DComponent::BodyType bodyType)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -420,7 +420,7 @@ namespace Crystal {
 	static void Rigidbody2DComponent_SetFixedRotation(UUID entityID, bool flag)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -432,27 +432,31 @@ namespace Crystal {
 	static void SpriteRendererComponent_GetColor(UUID entityID, glm::vec4* outColor)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
 		*outColor = entity.GetComponent<SpriteRendererComponent>().Color;
+
+		*outColor = glm::vec4(outColor->x * 255, outColor->y * 255, outColor->z * 255, outColor->w * 255); /* Convert from 1-0 to 255-0 */
 	}
 
-	static void SpriteRendererComponent_SetColor(UUID entityID, glm::vec4* outColor)
+	static void SpriteRendererComponent_SetColor(UUID entityID, glm::vec4* color)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
-		entity.GetComponent<SpriteRendererComponent>().Color = *outColor;
+		*color = glm::vec4(color->x / 255, color->y / 255, color->z / 255, color->w / 255); /* Convert from 255-0 to 1-0 */
+
+		entity.GetComponent<SpriteRendererComponent>().Color = *color;
 	}
 
 	static void SpriteRendererComponent_SetTexIndex(UUID entityID, glm::vec2* index)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -463,7 +467,7 @@ namespace Crystal {
 	static void SpriteRendererComponent_GetTexIndex(UUID entityID, glm::vec2* outTexIndex)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 		*outTexIndex = *entity.GetComponent<SpriteRendererComponent>().SubTex->GetTexCoords();
@@ -534,16 +538,25 @@ namespace Crystal {
 	static void AudioComponent_PlayAudio(UUID entityID)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 		entity.GetComponent<AudioComponent>().Play();
 	}
 
+	static void AudioComponent_Stop(UUID entityID)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { CRYSTAL_CORE_INFO("LOL"); return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+		entity.GetComponent<AudioComponent>().Stop();
+	}
+
 	static void AudioComponent_SetVolumeMultiplier(UUID entityID, float volumeMultiplier)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 		entity.GetComponent<AudioComponent>().volumeMultiplier = volumeMultiplier;
@@ -633,6 +646,7 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Input_GetMouseScroll);
 
 		CRYSTAL_ADD_INTERNAL_CALL(AudioComponent_PlayAudio);
+		CRYSTAL_ADD_INTERNAL_CALL(AudioComponent_Stop);
 		CRYSTAL_ADD_INTERNAL_CALL(AudioComponent_SetVolumeMultiplier);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Editor_ConsoleLog);

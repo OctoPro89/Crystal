@@ -212,11 +212,18 @@ namespace Crystal
 		float volumeMultiplier = 1.0f;
 		AudioComponent() = default;
 		AudioComponent(const AudioComponent&) = default;
+
 		void Play()
 		{
 			SetVolume();
 			SoundSystem::PlayAudio(audioFilePath.c_str());
 		}
+
+		void Stop()
+		{
+			SoundSystem::Stop();
+		}
+
 		void SetVolume()
 		{
 			SoundSystem::SetVolumeMultiplier(volumeMultiplier);

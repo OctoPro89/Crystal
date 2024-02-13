@@ -60,10 +60,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Camera.cs" />
+    <Compile Include="Source\GameManager.cs" />
     <Compile Include="Source\MouseTest.cs" />
     <Compile Include="Source\Player1.cs" />
+    <Compile Include="Source\Player2.cs" />
     <Compile Include="Source\RigidbodyController.cs" />
     <Compile Include="Source\TankController.cs" />
+    <Compile Include="Source\TankVisual.cs" />
     <Compile Include="Source\TransformMove.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -135,6 +135,9 @@ namespace Crystal
 		internal extern static void AudioComponent_PlayAudio(ulong entityID);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void AudioComponent_Stop(ulong entityID);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void AudioComponent_SetVolumeMultiplier(ulong entityID, float volumeMultiplier);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]

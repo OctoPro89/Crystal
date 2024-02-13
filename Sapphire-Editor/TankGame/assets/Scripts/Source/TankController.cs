@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 public abstract class TankController : Entity
 {
 	public Rigidbody2DComponent rb;
+	public int playerNum = 1;
+
 
 	public void Create(Rigidbody2DComponent WheelRB)
 	{
@@ -18,25 +20,32 @@ public abstract class TankController : Entity
 	{
 		Vector2 velocity = Vector2.Zero;
 
-		if (Input.IsKeyDown(KeyCode.A))
+		if (playerNum == 1)
 		{
-			velocity.X = -1.0f;
-		}
+			if (Input.IsKeyDown(KeyCode.A))
+			{
+				velocity.X = -1.0f;
+			}
 
-		if (Input.IsKeyDown(KeyCode.D))
+			if (Input.IsKeyDown(KeyCode.D))
+			{
+				velocity.X = 1.0f;
+			}
+		}
+		else if (playerNum == 2)
 		{
-			velocity.X = 1.0f;
+			if (Input.IsKeyDown(KeyCode.Left))
+			{
+				velocity.X = -1.0f;
+			}
+
+			if (Input.IsKeyDown(KeyCode.Right))
+			{
+				velocity.X = 1.0f;
+			}
 		}
 
 		velocity *= (speed * ts);
-
-		Editor.ClearConsole();
-		Editor.Log($"{rb.LinearVelocity.X}, {rb.LinearVelocity.Y}");
-
-		if (rb.LinearVelocity.X > 10.0f)
-		{
-			rb.LinearVelocity = 10.0f;
-		}
 
 		rb.ApplyLinearImpulse(velocity, true);
 	}

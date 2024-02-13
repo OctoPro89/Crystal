@@ -74,6 +74,7 @@ namespace Crystal
 			float magnitude = Magnitude(vector);
 			return new Vector3(vector.X / magnitude, vector.Y / magnitude, vector.Z / magnitude);
 		}
+
 		public static float Angle(Vector3 from, Vector3 to)
 		{
 			return (float)Math.Acos(Dot(from, to) / (Magnitude(from) * Magnitude(to)));

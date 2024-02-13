@@ -61,9 +61,10 @@ namespace Crystal
 
 		public T GetComponent<T>() where T : Component, new()
 		{
+			Type componentType = typeof(T);
 			if (!HasComponent<T>())
 			{
-				Editor.Error("NullReferenceException: Rigidbody2D Component is null!");
+				Editor.Error($"NullReferenceException: {componentType.Name} is null!");
 				return null;
 			}
 

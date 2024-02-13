@@ -248,6 +248,11 @@ namespace Crystal
 			InternalCalls.AudioComponent_PlayAudio(Entity.ID);
 		}
 
+		public void Stop()
+		{
+			InternalCalls.AudioComponent_Stop(Entity.ID);
+		}
+
 		public void SetVolume(float volumeMultiplier)
 		{
 			InternalCalls.AudioComponent_SetVolumeMultiplier(Entity.ID, volumeMultiplier);

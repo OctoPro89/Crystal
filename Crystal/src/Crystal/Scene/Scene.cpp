@@ -206,6 +206,7 @@ namespace Crystal {
 		OnPhysics2DStop();
 
 		ScriptEngine::OnRuntimeStop();
+		SoundSystem::Stop(); /* Stop all the sounds that were playing before*/
 	}
 
 	void Scene::OnSimulationStart()
