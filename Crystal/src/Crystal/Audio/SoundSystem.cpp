@@ -7,16 +7,16 @@
 
 static ma_result result;
 static ma_engine engine;
-static std::vector<ma_sound*> playingSounds;
+static float originalVolume;
 
 namespace Crystal
 {
 	void SoundSystem::Init()
 	{
 		result = ma_engine_init(NULL, &engine);
-		if (result != MA_SUCCESS) {
+		if (result != MA_SUCCESS)
 			CRYSTAL_CORE_ASSERT(false, "Audio System Failed to initialize!");
-		}
+		originalVolume = ma_engine_get_volume(&engine);
 	}
 
 	void SoundSystem::PlayAudio(const char* fileLocation)
@@ -37,7 +37,7 @@ namespace Crystal
 
 	void SoundSystem::SetVolumeMultiplier(float volumeMultiplier)
 	{
-		ma_engine_set_volume(&engine, ma_engine_get_volume(&engine) * volumeMultiplier);
+		ma_engine_set_volume(&engine, originalVolume * volumeMultiplier);
 	}
 
 	void SoundSystem::Shutdown()

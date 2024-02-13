@@ -547,7 +547,7 @@ namespace Crystal {
 	static void AudioComponent_Stop(UUID entityID)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		if (!scene) { CRYSTAL_CORE_INFO("LOL"); return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 		entity.GetComponent<AudioComponent>().Stop();

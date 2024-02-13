@@ -145,17 +145,17 @@ Entities:
           Data: 0.850000024
         - Name: speed
           Type: Float
-          Data: 190
+          Data: 250
     AudioComponent:
       AudioFile: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\Sounds\shotgun-firing-4-6746.mp3
-      VolumeMultiplier: 1
+      VolumeMultiplier: 0.5
   - Entity: 9908631549385460237
     TagComponent:
       Tag: Bullet
     TransformComponent:
-      Translation: [-4.31492424, -53.0633202, 0]
+      Translation: [-23.5179291, -22.0834389, 0]
       Rotation: [0, 0, 0]
-      Scale: [6.5, 6.5, 6.5]
+      Scale: [3.2974503, 3.2974503, 3.2974503]
     SpriteRendererComponent:
       Color: [1, 0.999989986, 0.999989986, 1]
       TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\Bullet.png
@@ -164,7 +164,7 @@ Entities:
     TagComponent:
       Tag: Floor Copy
     TransformComponent:
-      Translation: [-59.1568604, 3.51487947, 0]
+      Translation: [10.65166, 2.96602964, 0]
       Rotation: [0, 0, -0.16048938]
       Scale: [22.1899776, 1, 1]
     Rigidbody2DComponent:
@@ -332,17 +332,17 @@ Entities:
           Data: 0.850000024
         - Name: speed
           Type: Float
-          Data: 190
+          Data: 250
     AudioComponent:
       AudioFile: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\Sounds\shotgun-firing-4-6746.mp3
-      VolumeMultiplier: 1
+      VolumeMultiplier: 0.800000012
   - Entity: 15518958469964055817
     TagComponent:
       Tag: Floor
     TransformComponent:
-      Translation: [-11.1248922, 3.38441229, 0]
-      Rotation: [0, 0, -0.102008753]
-      Scale: [22.1900158, 0.999999285, 1]
+      Translation: [-11.1344967, 4.57079792, 0]
+      Rotation: [0, 0, 0.00809702557]
+      Scale: [22.1913204, 0.999999523, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -361,9 +361,9 @@ Entities:
     TagComponent:
       Tag: Floor
     TransformComponent:
-      Translation: [-35.8887787, 3.10437846, 0]
-      Rotation: [0, 0, 0.103215776]
-      Scale: [28.148407, 0.999994397, 1]
+      Translation: [-30.5539093, 5.29464674, -7.62939453e-06]
+      Rotation: [0, 0, -0.0996588692]
+      Scale: [19.1200008, 0.999997318, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
@@ -382,9 +382,9 @@ Entities:
     TagComponent:
       Tag: Floor Copy
     TransformComponent:
-      Translation: [22.3299713, 5.15556669, 0]
-      Rotation: [0, 0, 0.12275587]
-      Scale: [46.9782448, 1, 1]
+      Translation: [-57.6202545, 4.35870123, 0]
+      Rotation: [0, 0, 0.104992807]
+      Scale: [35.6162186, 0.999910712, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
