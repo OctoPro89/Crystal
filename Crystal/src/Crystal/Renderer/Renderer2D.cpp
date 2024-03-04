@@ -523,6 +523,18 @@ namespace Crystal {
 		s_Data.LineVertexCount += 2;
 	}
 
+	void Renderer2D::DrawLine(const glm::mat4& transform, const glm::vec4& color, int entityID /*= -1*/)
+	{
+		glm::vec3 lineVertices[2];
+		glm::vec4 lineVertexPositions[2];
+		lineVertexPositions[0] = { -0.5f, 0.0f, 0.0f, 1.0f };
+		lineVertexPositions[1] = {  0.5f, 0.0f, 0.0f, 1.0f };
+		
+		for (size_t i = 0; i < 2; i++)
+			lineVertices[i] = transform * lineVertexPositions[i];
+
+		DrawLine(lineVertices[0], lineVertices[1], color, entityID);
+	}
 
 	void Renderer2D::DrawRect(const glm::mat4& transform, const glm::vec4& color, int entityID /*= -1*/)
 	{
@@ -536,7 +548,6 @@ namespace Crystal {
 		DrawLine(lineVertices[2], lineVertices[3], color, entityID);
 		DrawLine(lineVertices[3], lineVertices[0], color, entityID);
 	}
-
 
 	void Renderer2D::DrawRect(const glm::vec3& position, const glm::vec3& size, const glm::vec4& color, int entityID /*= -1*/)
 	{
@@ -564,7 +575,6 @@ namespace Crystal {
 		else
 			DrawQuad(transform, src.Color, entityID);
 	}
-
 
 	float Renderer2D::GetLineWidth()
 	{

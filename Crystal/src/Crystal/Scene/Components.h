@@ -30,6 +30,7 @@ namespace Crystal
 		TagComponent(const std::string& tag)
 			: Tag(tag) {}
 	};
+
 	struct TransformComponent
 	{
 		glm::vec3 Translation = { 0.0f, 0.0f, 0.0f };
@@ -230,12 +231,24 @@ namespace Crystal
 		}
 	};
 
+	struct LineRendererComponent
+	{
+		glm::vec4 Color = { 1.0f,1.0f,1.0f,1.0f };
+		float Thickness = 1.0f;
+		float Length = 1.0f;
+
+		LineRendererComponent() = default;
+		LineRendererComponent(const LineRendererComponent&) = default;
+		LineRendererComponent(const glm::vec4& color)
+			: Color(color) {}
+	};
+
 	template<typename... Component>
 	struct ComponentGroup
 	{
 
 	};
-	using AllComponents = ComponentGroup<TransformComponent, SpriteRendererComponent, CameraComponent,
+	using AllComponents = ComponentGroup<TransformComponent, SpriteRendererComponent, LineRendererComponent, CameraComponent,
 		Rigidbody2DComponent, BoxCollider2DComponent, CircleCollider2DComponent, CircleRendererComponent,
 		NativeScriptComponent, ScriptComponent, AudioComponent, DistanceJoint2DComponent, HingeJoint2DComponent>;
 }

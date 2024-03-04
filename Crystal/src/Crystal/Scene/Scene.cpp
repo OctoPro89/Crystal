@@ -313,6 +313,17 @@ namespace Crystal {
 					Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
 				}
 			}
+			
+			// Draw Lines
+			{
+				auto view = m_Registry.view<TransformComponent, LineRendererComponent>();
+				for (auto entity : view)
+				{
+					auto [transform, line] = view.get<TransformComponent, LineRendererComponent>(entity);
+
+					Renderer2D::DrawLine(transform.Translation, glm::vec3(transform.Translation.x + 10, transform.Translation.y, transform.Translation.z), line.Color, (int)entity);
+				}
+			}
 
 			Renderer2D::EndScene();
 		}
@@ -649,6 +660,11 @@ namespace Crystal {
 
 	template<>
 	void Scene::OnComponentAdded<HingeJoint2DComponent>(Entity entity, HingeJoint2DComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<LineRendererComponent>(Entity entity, LineRendererComponent& component)
 	{
 	}
 }
