@@ -5,7 +5,9 @@
 #include "Components.h"
 #include <Crystal/Scripting/ScriptEngine.h>
 #include <Crystal/Projects/Project.h>
-#include <EditorLayer.h>
+
+// #define CRYSTAL_NO_EDITOR
+#include <Helpers/EditorHelper.h>
 
 #include <fstream>
 
@@ -591,8 +593,8 @@ namespace Crystal {
 						Ref<ScriptClass> entityClass = ScriptEngine::GetEntityClass(sc.ClassName);
 						if (!entityClass)
 						{
-							CRYSTAL_CORE_WARN("No Entity Class Found For Script Fields (Probably Invalid Class Name)");
-							EditorLayer::GetEditorLayer()->GetConsole()->Warn("No Entity Class Found For Script Fields (Probably Invalid Class Name) On Entity: " + deserializedEntity.GetName());
+							CRYSTAL_CORE_WARN("No Entity Class Found For Script Fields (Probably Invalid Class Name) On Entity: {}" + deserializedEntity.GetName());
+							EDITOR_WARN("No Entity Class Found For Script Fields (Probably Invalid Class Name) On Entity: " + deserializedEntity.GetName());
 						}
 						else 
 						{

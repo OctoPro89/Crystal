@@ -93,14 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CrystalLauncher.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\LauncherLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\CrystalLauncher.h" />
-    <ClInclude Include="src\Utils\PlatformUtils.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\LauncherLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

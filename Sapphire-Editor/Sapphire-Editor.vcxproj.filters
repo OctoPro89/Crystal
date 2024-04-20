@@ -16,6 +16,7 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h">
       <Filter>Panels</Filter>
     </ClInclude>
+    <ClInclude Include="src\Helpers\EditorHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EditorLayer.cpp" />
@@ -29,8 +30,5 @@
       <Filter>Panels</Filter>
     </ClCompile>
     <ClCompile Include="src\SapphireEditorApp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="TankGame\TankGame.cryproj" />
   </ItemGroup>
 </Project>

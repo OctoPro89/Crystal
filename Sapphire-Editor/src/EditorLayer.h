@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Crystal.h"
-#include "Crystal/Renderer/ParticleSystem.h"
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/ConsolePanel.h"
@@ -59,7 +58,7 @@ namespace Crystal {
 
 		void SerializeScene(Ref<Scene> scene, const std::string& path);
 
-		// Ui Panels
+		// UI Panels
 		void UI_Toolbar();
 		void UI_Preferences();
 	private:
@@ -81,9 +80,6 @@ namespace Crystal {
 		bool m_ViewportHovered = false;
 		bool preferencesWindow = false;
 		bool shouldReloadAssemblies = false;
-
-		Ref<SubTexture2D> m_SubTex;
-		Ref<Texture2D> m_Player;
 
 		EditorCamera m_EditorCamera;
 

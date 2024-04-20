@@ -43,6 +43,8 @@ project "Crystal"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.mono}",
+		"%{IncludeDir.msdfgen}",
+		"%{IncludeDir.msdf_atlas_gen}",
 		"%{IncludeDir.yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
 		"%{IncludeDir.VulkanSDK}",
@@ -55,6 +57,7 @@ project "Crystal"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"msdf_atlas_gen",
 		"yaml-cpp",
 		"opengl32.lib",
 		"%{Library.mono}"

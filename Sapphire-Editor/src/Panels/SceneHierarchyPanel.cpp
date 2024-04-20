@@ -201,10 +201,13 @@ namespace Crystal {
 			bool removeComponent = false;
 			if (ImGui::BeginPopup("ComponentSettings"))
 			{
-				if (ImGui::MenuItem("Remove component"))
-					removeComponent = true;
+				//if (T != TransformComponent)
+				{
+					if (ImGui::MenuItem("Remove component"))
+						removeComponent = true;
 
-				ImGui::EndPopup();
+					ImGui::EndPopup();
+				}
 			}
 
 			if (open)
@@ -368,8 +371,8 @@ namespace Crystal {
 		DrawComponent<LineRendererComponent>("Line Renderer", entity, [](auto& component)
 		{
 			ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
-			ImGui::DragFloat("Thickness", &component.Thickness, 0.025f, 0.0f, 1.0f);
-			ImGui::DragFloat("Length", &component.Length, 0.025f, 0.0f, 1.0f);
+			DrawVec3Control("Position 1", component.Pos1);
+			DrawVec3Control("Position 2", component.Pos2);
 		});
 
 		DrawComponent<ScriptComponent>("Script", entity, [entity, scene = m_Context](auto& component) mutable

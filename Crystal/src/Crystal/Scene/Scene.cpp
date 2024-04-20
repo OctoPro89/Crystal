@@ -321,7 +321,7 @@ namespace Crystal {
 				{
 					auto [transform, line] = view.get<TransformComponent, LineRendererComponent>(entity);
 
-					Renderer2D::DrawLine(transform.Translation, glm::vec3(transform.Translation.x + 10, transform.Translation.y, transform.Translation.z), line.Color, (int)entity);
+					Renderer2D::DrawLine(line.Pos1, line.Pos2, line.Color, (int)entity);
 				}
 			}
 
@@ -579,6 +579,17 @@ namespace Crystal {
 				auto [transform, circle] = view.get<TransformComponent, CircleRendererComponent>(entity);
 
 				Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
+			}
+		}
+
+		// Draw Lines
+		{
+			auto view = m_Registry.view<TransformComponent, LineRendererComponent>();
+			for (auto entity : view)
+			{
+				auto [transform, line] = view.get<TransformComponent, LineRendererComponent>(entity);
+
+				Renderer2D::DrawLine(line.Pos1, line.Pos2, line.Color, (int)entity);
 			}
 		}
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Crystal/Core/Core.h>
+
 #include <filesystem>
 
 namespace Crystal
@@ -10,8 +12,9 @@ namespace Crystal
 	{
 	public:
 		Font(const std::filesystem::path& filepath);
+		~Font();
 
 	private:
-		std::unique_ptr<MSDFData> m_Glyphs;
+		MSDFData* m_Data;
 	};
 }

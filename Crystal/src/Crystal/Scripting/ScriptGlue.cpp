@@ -11,7 +11,8 @@
 
 #include "Crystal/Physics/Physics2D.h"
 
-#include <EditorLayer.h>
+// #define CRYSTAL_NO_EDITOR
+#include <Helpers/EditorHelper.h>
 
 #include "mono/metadata/object.h"
 #include "mono/metadata/reflection.h"
@@ -473,6 +474,30 @@ namespace Crystal {
 		*outTexIndex = *entity.GetComponent<SpriteRendererComponent>().SubTex->GetTexCoords();
 	}
 
+	static void LineRendererComponent_GetColor(UUID entityID, glm::vec4* outColor)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outColor = entity.GetComponent<LineRendererComponent>().Color;
+
+		*outColor = glm::vec4(outColor->x * 255, outColor->y * 255, outColor->z * 255, outColor->w * 255); /* Convert from 1-0 to 255-0 */
+	}
+
+	static void LineRendererComponent_SetColor(UUID entityID, glm::vec4* color)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*color = glm::vec4(color->x / 255, color->y / 255, color->z / 255, color->w / 255); /* Convert from 255-0 to 1-0 */
+
+		entity.GetComponent<LineRendererComponent>().Color = *color;
+	}
+
 	static bool Input_IsKeyDown(KeyCode keycode)
 	{
 		return Input::IsKeyPressed(keycode);
@@ -509,7 +534,7 @@ namespace Crystal {
 		std::string& msg = std::string(cStr);
 		mono_free(cStr);
 
-		EditorLayer::GetEditorLayer()->GetConsole()->Log(msg);
+		EDITOR_LOG(msg);
 	}
 
 	static void Editor_ConsoleWarn(MonoString* message)
@@ -518,7 +543,7 @@ namespace Crystal {
 		std::string& msg = std::string(cStr);
 		mono_free(cStr);
 	
-		EditorLayer::GetEditorLayer()->GetConsole()->Warn(msg);
+		EDITOR_WARN(msg);
 	}
 
 	static void Editor_ConsoleError(MonoString* message)
@@ -527,12 +552,12 @@ namespace Crystal {
 		std::string& msg = std::string(cStr);
 		mono_free(cStr);
 		
-		EditorLayer::GetEditorLayer()->GetConsole()->Error(msg);
+		EDITOR_ERROR(msg);
 	}
 
 	static void Editor_ConsoleClear()
 	{
-		EditorLayer::GetEditorLayer()->GetConsole()->Clear();
+		EDITOR_CLEAR();
 	}
 
 	static void AudioComponent_PlayAudio(UUID entityID)

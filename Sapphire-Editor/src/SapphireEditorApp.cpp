@@ -1,7 +1,9 @@
 #include <Crystal.h>
 #include <Crystal/Core/EntryPoint.h>
-#include "imgui/imgui.h"
+
+#include <imgui/imgui.h>
 #include <glm/ext/matrix_transform.hpp>
+
 #include "EditorLayer.h"
 
 namespace Crystal {

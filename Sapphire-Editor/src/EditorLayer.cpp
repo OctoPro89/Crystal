@@ -7,6 +7,7 @@
 #include <Crystal/Utils/PlatformUtils.h>
 #include <Crystal/Math/Math.h>
 #include <Crystal/Scripting/ScriptEngine.h>
+#include <Crystal/Renderer/Font.h>
 
 namespace Crystal {
 	EditorLayer* EditorLayer::s_Instance = nullptr;
@@ -390,11 +391,11 @@ namespace Crystal {
 
 	void EditorLayer::OnEvent(Event& e)
 	{
-		m_EditorCamera.OnEvent(e);
-		if (m_SceneState == SceneState::Edit)
+		if (m_SceneState == SceneState::Edit || m_SceneState == SceneState::Simulate)
 		{
 			m_EditorCamera.OnEvent(e);
 		}
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
 		dispatcher.Dispatch<MouseButtonPressedEvent>(CRYSTAL_BIND_EVENT_FN(EditorLayer::OnMouseButtonPressed));
@@ -544,7 +545,8 @@ namespace Crystal {
 			}
 		}
 		// Draw outline
-		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) {
+		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) 
+		{
 			const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
 			Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences.EntityOutlineColor);
 		}

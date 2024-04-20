@@ -234,8 +234,8 @@ namespace Crystal
 	struct LineRendererComponent
 	{
 		glm::vec4 Color = { 1.0f,1.0f,1.0f,1.0f };
-		float Thickness = 1.0f;
-		float Length = 1.0f;
+		glm::vec3 Pos1 = glm::vec3(0.0f);
+		glm::vec3 Pos2 = glm::vec3(0.0f);
 
 		LineRendererComponent() = default;
 		LineRendererComponent(const LineRendererComponent&) = default;

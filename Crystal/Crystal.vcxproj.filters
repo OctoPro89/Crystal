@@ -25,6 +25,9 @@
     <Filter Include="src\Crystal\Math">
       <UniqueIdentifier>{37F2B313-23EB-D265-4C1D-B8EA3875B271}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Crystal\Physics">
+      <UniqueIdentifier>{10FC49D7-7C5D-27E5-05CB-6D97712B5EA4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Crystal\Projects">
       <UniqueIdentifier>{D73957AA-C3C8-E073-6CE7-F46E5855F119}</UniqueIdentifier>
     </Filter>
@@ -153,6 +156,9 @@
     <ClInclude Include="src\Crystal\Math\Math.h">
       <Filter>src\Crystal\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\Physics\Physics2D.h">
+      <Filter>src\Crystal\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="src\Crystal\Projects\Project.h">
       <Filter>src\Crystal\Projects</Filter>
     </ClInclude>
@@ -166,6 +172,9 @@
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\EditorCamera.h">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crystal\Renderer\Font.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\FrameBuffer.h">
@@ -1524,7 +1533,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Physics\Physics2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp">
@@ -1570,6 +1578,9 @@
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\EditorCamera.cpp">
+      <Filter>src\Crystal\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crystal\Renderer\Font.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\FrameBuffer.cpp">

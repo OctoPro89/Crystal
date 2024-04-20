@@ -75,7 +75,10 @@ namespace Crystal
 
 		if (ImGui::Begin("Crystal Launcher"))
 		{
-
+			ImGui::Text("Welcome");
+			ImGui::Separator();
+			
+			if (ImGui::Button("New Project")) { shouldCreateProject = true; }
 		}
 
 		ImGui::End();
@@ -86,6 +89,11 @@ namespace Crystal
 		{
 			m_FrameBuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+		}
+
+		if (shouldCreateProject)
+		{
+			UI_CreateNewProject();
 		}
 
 		ImGui::End();
@@ -109,5 +117,36 @@ namespace Crystal
 	}
 
 	void LauncherLayer::OnEvent(Event& e)
-	{}
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(CRYSTAL_BIND_EVENT_FN(LauncherLayer::OnKeyPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(CRYSTAL_BIND_EVENT_FN(LauncherLayer::OnMouseButtonPressed));
+	}
+
+	bool LauncherLayer::OnKeyPressed(KeyPressedEvent & e)
+	{
+		return false;
+	}
+
+	bool LauncherLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+	{
+		return false;
+	}
+
+	void LauncherLayer::OnOverlayRender()
+	{
+
+	}
+
+	bool LauncherLayer::UI_CreateNewProject()
+	{
+		if (ImGui::Begin("New Project"))
+		{
+			ImGui::InputText("Project Name", crntProjectNameBuf, 100, 0);
+		}
+
+		ImGui::End();
+
+		return true;
+	}
 }

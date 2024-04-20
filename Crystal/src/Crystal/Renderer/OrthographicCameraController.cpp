@@ -10,6 +10,7 @@ namespace Crystal
 	{
 
 	}
+
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
 		CRYSTAL_PROFILE_FUNCTION();
@@ -72,6 +73,7 @@ namespace Crystal
 		CalculateView();
 		return false;
 	}
+
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
 		CRYSTAL_PROFILE_FUNCTION();

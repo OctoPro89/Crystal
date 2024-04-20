@@ -2,8 +2,6 @@
 
 // For use by Crystal applications
 
-#include "Crystal/Core/Core.h"
-
 #include "Crystal/Core/Application.h"
 #include "Crystal/Core/Layer.h"
 #include "Crystal/Core/Log.h"
@@ -13,7 +11,6 @@
 #include "Crystal/Core/Input.h"
 #include "Crystal/Core/KeyCodes.h"
 #include "Crystal/Core/MouseCodes.h"
-#include "Crystal/Renderer/OrthographicCameraController.h"
 
 #include "Crystal/ImGui/ImGuiLayer.h"
 
@@ -25,6 +22,7 @@
 #include "Crystal/Projects/Project.h"
 
 /* --- Renderer --- */
+
 #include "Crystal/Renderer/Renderer.h"
 #include "Crystal/Renderer/Renderer2D.h"
 #include "Crystal/Renderer/RenderCommand.h"

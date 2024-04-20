@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Crystal.h"
+#include <Crystal.h>
 #include <glm/glm/vec2.hpp>
 
 namespace Crystal
@@ -24,9 +24,15 @@ namespace Crystal
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		void OnOverlayRender();
 
+		bool UI_CreateNewProject();
+
 	private:
 		Ref<FrameBuffer> m_FrameBuffer;
 
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+
+		bool shouldCreateProject = false;
+
+		char crntProjectNameBuf[100];
 	};
 }

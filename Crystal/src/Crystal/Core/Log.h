@@ -21,14 +21,14 @@ namespace Crystal
 	};
 }
 
-//Core Log Macros
+/* Core Log Macros */
 #define CRYSTAL_CORE_FATAL(...) ::Crystal::Log::GetCoreLogger()->critical(__VA_ARGS__)
 #define CRYSTAL_CORE_ERROR(...) ::Crystal::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define CRYSTAL_CORE_WARN(...)  ::Crystal::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define CRYSTAL_CORE_INFO(...)  ::Crystal::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define CRYSTAL_CORE_TRACE(...) ::Crystal::Log::GetCoreLogger()->trace(__VA_ARGS__)
 
-//Client Log Macros
+/* Client Log Macros */
 #define CRYSTAL_FATAL(...)		::Crystal::Log::GetClientLogger()->critical(__VA_ARGS__)
 #define CRYSTAL_ERROR(...)		::Crystal::Log::GetClientLogger()->error(__VA_ARGS__)
 #define CRYSTAL_WARN(...)		::Crystal::Log::GetClientLogger()->warn(__VA_ARGS__)

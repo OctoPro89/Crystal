@@ -5,12 +5,14 @@
 #include <FileWatch.hpp>
 #include <box2d/b2_contact.h>
 
-#include <EditorLayer.h>
-
 #include <Crystal/Core/Timer.h>
 #include <Crystal/Scene/Entity.h>
 #include <Crystal/Core/Application.h>
 #include <Crystal/Core/FileSystem.h>
+#include <Crystal/Projects/Project.h>
+
+// #define CRYSTAL_NO_EDITOR
+#include <Helpers/EditorHelper.h>
 
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
@@ -280,8 +282,7 @@ namespace Crystal {
 
 	void ScriptEngine::ReloadAssembly()
 	{
-		if (EditorLayer::GetEditorLayer()->IsPlaying())
-			EditorLayer::GetEditorLayer()->StopSceneForReload();
+		EditorHelper::StopEditorForReload();
 
 		mono_domain_set(mono_get_root_domain(), false);
 		mono_domain_unload(s_Data->AppDomain);
@@ -322,7 +323,7 @@ namespace Crystal {
 		}
 		else
 		{
-			EditorLayer::GetEditorLayer()->GetConsole()->Error("Could Not Find Script Class: \"" + sc.ClassName + "\" On Object: " + entity.GetName());
+			EDITOR_ERROR("Could Not Find Script Class: \"" + sc.ClassName + "\" On Object: " + entity.GetName());
 			return;
 		}
 	}
@@ -339,7 +340,7 @@ namespace Crystal {
 		{
 			CRYSTAL_CORE_ERROR("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
 
-			EditorLayer::GetEditorLayer()->GetConsole()->Error("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
+			EDITOR_ERROR("Could Not Find Script Class: \"" + entity.GetComponent<ScriptComponent>().ClassName + "\" On Object: " + entity.GetName());
 			return;
 		}
 	}
