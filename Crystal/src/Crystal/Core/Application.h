@@ -21,7 +21,7 @@ namespace Crystal {
 
 		const char* operator[](int index) const /* override operator */
 		{
-			CRYSTAL_CORE_ASSERT(index < Count, "index smaller than count in command line args"); /* Assert index < Count*/
+			CRYSTAL_CORE_ASSERT(index < Count, "index smaller than count in command line args"); /* Assert index < Count */
 			return Args[index]; /* return the Arguments at the index */
 		}
 	};
@@ -52,9 +52,9 @@ namespace Crystal {
 
 		static Application& Get() { return *s_Instance; } /* A static function which return a reference to the application class */
 
-		const ApplicationSpecification& GetSpecification() const { return m_Specification; } /* A funciton that returns a const */
+		const ApplicationSpecification& GetSpecification() const { return m_Specification; } /* A function that returns a const */
 
-		void SubmitToMainThread(const std::function<void()>& func);
+		void SubmitToMainThread(const std::function<void()>& func); /* A function to submit a task to the main thread queue */
 	private:
 		void Run(); /* the main run function */
 		bool OnWindowClose(WindowCloseEvent& e); /* An event callback function which returns a bool that takes in a WindowCloseEvent Reference */

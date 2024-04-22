@@ -3,6 +3,7 @@
 #include "Crystal/Scene/SceneCamera.h"
 #include "Crystal/Renderer/Texture.h"
 #include "Crystal/Renderer/SubTexture2D.h"
+#include "Crystal/Renderer/Font.h"
 #include "Crystal/Audio/SoundSystem.h"
 #include "Crystal/Core/UUID.h"
 #include <glm/glm.hpp>
@@ -75,6 +76,15 @@ namespace Crystal
 
 		CircleRendererComponent() = default;
 		CircleRendererComponent(const CircleRendererComponent&) = default;
+	};
+
+	struct TextRendererComponent
+	{
+		std::string TextString;
+		float Kerning = 0.0f;
+		Ref<Font> FontAsset = Font::GetDefaultFont(); /* Add asset font */
+		float LineSpacing = 0.0f;
+		glm::vec4 Color = glm::vec4(1.0f);
 	};
 
 	struct CameraComponent
@@ -249,6 +259,6 @@ namespace Crystal
 
 	};
 	using AllComponents = ComponentGroup<TransformComponent, SpriteRendererComponent, LineRendererComponent, CameraComponent,
-		Rigidbody2DComponent, BoxCollider2DComponent, CircleCollider2DComponent, CircleRendererComponent,
+		Rigidbody2DComponent, BoxCollider2DComponent, CircleCollider2DComponent, CircleRendererComponent, TextRendererComponent,
 		NativeScriptComponent, ScriptComponent, AudioComponent, DistanceJoint2DComponent, HingeJoint2DComponent>;
 }

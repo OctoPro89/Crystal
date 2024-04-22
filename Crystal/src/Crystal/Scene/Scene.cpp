@@ -325,6 +325,17 @@ namespace Crystal {
 				}
 			}
 
+			// Draw Text
+			{
+				auto view = m_Registry.view<TransformComponent, TextRendererComponent>();
+				for (auto entity : view)
+				{
+					auto [transform, text] = view.get<TransformComponent, TextRendererComponent>(entity);
+
+					Renderer2D::DrawString(transform.GetTransform(), text);
+				}
+			}
+
 			Renderer2D::EndScene();
 		}
 
@@ -593,6 +604,17 @@ namespace Crystal {
 			}
 		}
 
+		// Draw Text
+		{
+			auto view = m_Registry.view<TransformComponent, TextRendererComponent>();
+			for (auto entity : view)
+			{
+				auto [transform, text] = view.get<TransformComponent, TextRendererComponent>(entity);
+
+				Renderer2D::DrawString(transform.GetTransform(), text);
+			}
+		}
+
 		Renderer2D::EndScene();
 	}
 
@@ -603,7 +625,22 @@ namespace Crystal {
 	}
 
 	template<>
+	void Scene::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component)
+	{
+	}
+
+	template<>
 	void Scene::OnComponentAdded<IDComponent>(Entity entity, IDComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<ScriptComponent>(Entity entity, ScriptComponent& component)
 	{
 	}
 
@@ -620,11 +657,6 @@ namespace Crystal {
 	}
 
 	template<>
-	void Scene::OnComponentAdded<ScriptComponent>(Entity entity, ScriptComponent& component)
-	{
-	}
-
-	template<>
 	void Scene::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
 	{
 	}
@@ -635,12 +667,12 @@ namespace Crystal {
 	}
 
 	template<>
-	void Scene::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component)
+	void Scene::OnComponentAdded<LineRendererComponent>(Entity entity, LineRendererComponent& component)
 	{
 	}
 
 	template<>
-	void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	void Scene::OnComponentAdded<TextRendererComponent>(Entity entity, TextRendererComponent& component)
 	{
 	}
 
@@ -660,11 +692,6 @@ namespace Crystal {
 	}
 
 	template<>
-	void Scene::OnComponentAdded<AudioComponent>(Entity entity, AudioComponent& component)
-	{
-	}
-
-	template<>
 	void Scene::OnComponentAdded<DistanceJoint2DComponent>(Entity entity, DistanceJoint2DComponent& component)
 	{
 	}
@@ -675,7 +702,7 @@ namespace Crystal {
 	}
 
 	template<>
-	void Scene::OnComponentAdded<LineRendererComponent>(Entity entity, LineRendererComponent& component)
+	void Scene::OnComponentAdded<AudioComponent>(Entity entity, AudioComponent& component)
 	{
 	}
 }

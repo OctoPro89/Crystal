@@ -15,7 +15,7 @@ public:
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(Crystal::Event& e) override;
 private:
-	Crystal::OrthographicCameraController m_CameraController;
+	Crystal::OrthographicCamera m_Camera;
 
 	// Temp
 	Crystal::Ref<Crystal::VertexArray> m_SquareVA;

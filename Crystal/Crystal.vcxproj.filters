@@ -189,9 +189,6 @@
     <ClInclude Include="src\Crystal\Renderer\OrthographicCameraController.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h">
-      <Filter>src\Crystal\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Crystal\Renderer\RenderCommand.h">
       <Filter>src\Crystal\Renderer</Filter>
     </ClInclude>
@@ -1533,6 +1530,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Crystal\UI\MSDFData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp">
@@ -1593,9 +1591,6 @@
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\OrthographicCameraController.cpp">
-      <Filter>src\Crystal\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp">
       <Filter>src\Crystal\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp">

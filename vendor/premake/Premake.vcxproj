@@ -83,6 +83,8 @@
     <None Include="..\..\Crystal\vendor\GLFW\premake5.lua" />
     <None Include="..\..\Crystal\vendor\Glad\premake5.lua" />
     <None Include="..\..\Crystal\vendor\imgui\premake5.lua" />
+    <None Include="..\..\Crystal\vendor\msdf-atlas-gen\msdfgen\premake5.lua" />
+    <None Include="..\..\Crystal\vendor\msdf-atlas-gen\premake5.lua" />
     <None Include="..\..\Crystal\vendor\yaml\premake5.lua" />
     <None Include="..\..\Sandbox\premake5.lua" />
     <None Include="..\..\Sapphire-Editor\premake5.lua" />

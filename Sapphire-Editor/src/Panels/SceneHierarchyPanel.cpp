@@ -1,10 +1,15 @@
 #include "SceneHierarchyPanel.h"
+
 #include <Crystal/Scripting/ScriptEngine.h>
-#include <Crystal/UI/UI.h>
-#include <imgui/imgui.h>
 #include <Crystal/Scene/Components.h>
+#include <Crystal/UI/UI.h>
+
+#include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
+#include <imgui/misc/cpp/imgui_stdlib.h>
+
 #include <glm/gtc/type_ptr.hpp>
+
 #include <filesystem>
 #include <cstring>
 #include <fstream>
@@ -248,6 +253,7 @@ namespace Crystal {
 			DisplayAddComponentEntry<SpriteRendererComponent>("Sprite Renderer");
 			DisplayAddComponentEntry<CircleRendererComponent>("Circle Renderer");
 			DisplayAddComponentEntry<LineRendererComponent>("Line Renderer");
+			DisplayAddComponentEntry<TextRendererComponent>("Text Renderer");
 			DisplayAddComponentEntry<Rigidbody2DComponent>("Rigidbody 2D");
 			DisplayAddComponentEntry<BoxCollider2DComponent>("Box Collider 2D");
 			DisplayAddComponentEntry<CircleCollider2DComponent>("Circle Collider 2D");
@@ -373,6 +379,13 @@ namespace Crystal {
 			ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
 			DrawVec3Control("Position 1", component.Pos1);
 			DrawVec3Control("Position 2", component.Pos2);
+		});
+		DrawComponent<TextRendererComponent>("Text Renderer", entity, [](auto& component)
+		{
+			ImGui::InputTextMultiline("Text", &component.TextString);
+			ImGui::ColorEdit4("Color", glm::value_ptr(component.Color));
+			ImGui::DragFloat("Kerning", &component.Kerning, 0.025f, 0.0f);
+			ImGui::DragFloat("Line Spacing", &component.LineSpacing, 0.025f, 0.0f);
 		});
 
 		DrawComponent<ScriptComponent>("Script", entity, [entity, scene = m_Context](auto& component) mutable

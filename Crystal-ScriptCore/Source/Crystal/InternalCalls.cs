@@ -60,9 +60,6 @@ namespace Crystal
 		internal extern static void Rigidbody2DComponent_SetType(ulong entityID, Rigidbody2DComponent.BodyType bodyType);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		internal extern static void Rigidbody2DComponent_GetType(ulong entityID, out float velocity);
-
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void SpriteRendererComponent_GetColor(ulong entityID, out Vector4 color);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
@@ -115,6 +112,12 @@ namespace Crystal
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static void BoxCollider2DComponent_GetRestitutionThreshold(ulong entityID, out float restitutionThreshold);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void LineRendererComponent_GetColor(ulong entityID, out Vector4 color);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		internal extern static void LineRendererComponent_SetColor(ulong entityID, ref Vector4 color);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
 		internal extern static bool Input_IsKeyDown(KeyCode keycode);

@@ -182,7 +182,6 @@
     <ClInclude Include="src\Crystal\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Crystal\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\Crystal\Renderer\OrthographicCameraController.h" />
-    <ClInclude Include="src\Crystal\Renderer\ParticleSystem.h" />
     <ClInclude Include="src\Crystal\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Crystal\Renderer\Renderer.h" />
     <ClInclude Include="src\Crystal\Renderer\Renderer2D.h" />
@@ -200,6 +199,7 @@
     <ClInclude Include="src\Crystal\Scene\ScriptableEntity.h" />
     <ClInclude Include="src\Crystal\Scripting\ScriptEngine.h" />
     <ClInclude Include="src\Crystal\Scripting\ScriptGlue.h" />
+    <ClInclude Include="src\Crystal\UI\MSDFData.h" />
     <ClInclude Include="src\Crystal\UI\UI.h" />
     <ClInclude Include="src\Crystal\Utils\PlatformUtils.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
@@ -652,7 +652,6 @@
     <ClCompile Include="src\Crystal\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Crystal\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Crystal\Renderer\OrthographicCameraController.cpp" />
-    <ClCompile Include="src\Crystal\Renderer\ParticleSystem.cpp" />
     <ClCompile Include="src\Crystal\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Crystal\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Crystal\Renderer\Renderer2D.cpp" />

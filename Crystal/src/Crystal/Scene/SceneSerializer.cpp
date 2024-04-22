@@ -402,7 +402,7 @@ namespace Crystal {
 		if (entity.HasComponent<HingeJoint2DComponent>())
 		{
 			out << YAML::Key << "HingeJoint2DComponent";
-			out << YAML::BeginMap; /* HingeJoint2DComponent */
+			out << YAML::BeginMap; // HingeJoint2DComponent
 			auto& hingeJointComponent = entity.GetComponent<HingeJoint2DComponent>();
 
 			out << YAML::Key << "AnchorOffset1" << YAML::Value << hingeJointComponent.AnchorOffset1;
@@ -421,7 +421,21 @@ namespace Crystal {
 			out << YAML::Key << "MotorSpeed" << YAML::Value << hingeJointComponent.MotorSpeed;
 			out << YAML::Key << "MaxMotorTorque" << YAML::Value << hingeJointComponent.MaxMotorTorque;
 
-			out << YAML::EndMap; /* HingeJoint2DComponent */
+			out << YAML::EndMap; // HingeJoint2DComponent
+		}
+
+		if (entity.HasComponent<TextRendererComponent>())
+		{
+			out << YAML::Key << "TextRendererComponent";
+			out << YAML::BeginMap; // TextRendererComponent
+			auto& textRendererComponent = entity.GetComponent<TextRendererComponent>();
+
+			out << YAML::Key << "TextString" << YAML::Value << textRendererComponent.TextString;
+			out << YAML::Key << "Color" << YAML::Value << textRendererComponent.Color;
+			out << YAML::Key << "Kerning" << YAML::Value << textRendererComponent.Kerning;
+			out << YAML::Key << "LineSpacing" << YAML::Value << textRendererComponent.LineSpacing;
+
+			out << YAML::EndMap; // TextRendererComponent
 		}
 
 		out << YAML::EndMap; // Entity
@@ -661,6 +675,17 @@ namespace Crystal {
 					hjc.UpperLimitAngle = hingeJointComponent["UpperLimitAngle"].as<float>();
 					hjc.MotorSpeed = hingeJointComponent["MotorSpeed"].as<float>();
 					hjc.MaxMotorTorque = hingeJointComponent["MaxMotorTorque"].as<float>();
+				}
+
+				auto textRendererComponent = entity["TextRendererComponent"];
+				if (textRendererComponent)
+				{
+					auto& trc = deserializedEntity.AddComponent<TextRendererComponent>();
+					trc.TextString = textRendererComponent["TextString"].as<std::string>();
+					trc.FontAsset = Font::GetDefaultFont(); // TODO
+					trc.Color = textRendererComponent["Color"].as<glm::vec4>();
+					trc.Kerning = textRendererComponent["Kerning"].as<float>();
+					trc.LineSpacing = textRendererComponent["LineSpacing"].as<float>();
 				}
 			}
 		}

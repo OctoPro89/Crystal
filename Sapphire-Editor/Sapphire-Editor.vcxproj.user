@@ -14,8 +14,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>
-    </LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>D:/Programming/C++/Crystal/Sapphire-Editor/SandboxProj/SandboxProj.cryproj</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "Crystal/Renderer/OrthographicCamera.h"
 #include "Crystal/Renderer/Camera.h"
 #include "Crystal/Renderer/EditorCamera.h"
-
+#include <Crystal/Renderer/Font.h>
 #include "Crystal/Scene/Components.h"
 
 namespace Crystal {
@@ -16,7 +16,7 @@ namespace Crystal {
 
 		static void BeginScene(const Camera& camera, const glm::mat4& transform);
 		static void BeginScene(const EditorCamera& camera);
-		static void BeginScene(const OrthographicCamera& camera); // TODO: Remove
+		static void BeginScene(const OrthographicCamera& camera);
 		static void EndScene();
 		static void Flush();
 
@@ -44,6 +44,17 @@ namespace Crystal {
 		static void DrawRect(const glm::vec3& position, const glm::vec3& size, const glm::vec4& color, int entityID = -1);
 
 		static void DrawSprite(const glm::mat4& transform, SpriteRendererComponent& src, int entityID);
+
+		struct TextConfig
+		{
+			glm::vec4 Color = glm::vec4(1.0f);
+			float Kerning = 0.0f;
+			float LineSpacing = 0.0f;
+		};
+
+		static void DrawString(const glm::mat4& transform, const TextRendererComponent& component);
+		static void DrawString(const glm::mat4& transform, const std::string& string, const TextRendererComponent& component);
+		static void DrawString(const glm::mat4& transform, const std::string& string, Ref<Font> font, const TextConfig& config);
 
 		static float GetLineWidth();
 		static void SetLineWidth(float width);

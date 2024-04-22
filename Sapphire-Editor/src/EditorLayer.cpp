@@ -9,13 +9,17 @@
 #include <Crystal/Scripting/ScriptEngine.h>
 #include <Crystal/Renderer/Font.h>
 
-namespace Crystal {
+namespace Crystal 
+{
 	EditorLayer* EditorLayer::s_Instance = nullptr;
+	static Ref<Font> s_Font;
 
 	EditorLayer::EditorLayer()
 		: Layer("EditorLayer")
 	{
 		s_Instance = this;
+
+		s_Font = Font::GetDefaultFont();
 	}
 
 	void EditorLayer::OnAttach()
@@ -38,15 +42,16 @@ namespace Crystal {
 		m_ActiveScene = m_EditorScene;
 
 		auto commandLineArgs = Application::Get().GetSpecification().CommandLineArgs;
+
+		/* This is broken... */
 		if (commandLineArgs.Count > 1)
 		{
 			auto projectFilePath = commandLineArgs[1];
 			OpenProject(projectFilePath);
-			m_ContentBrowserPanel = CreateScope<ContentBrowserPanel>();
 		}
 		else
 		{
-			/* TODO HERE USE LAUNCHER */
+			/* TODO: HERE USE LAUNCHER */
 			if (!OpenProject())
 			{
 				Application::Get().Close();
@@ -252,6 +257,9 @@ namespace Crystal {
 		if (settingsWindow)
 		{
 			ImGui::Begin("Settings");
+
+			ImGui::Image((ImTextureID)(uint32_t)s_Font->GetAtlasTexture()->GetRendererID(), { 512, 512 }, { 0, 1 }, { 1, 0 });
+
 			ImGui::End();
 		}
 
@@ -450,6 +458,8 @@ namespace Crystal {
 				OnDuplicateEntity();
 				break;
 			}
+
+			break;
 		}
 		if (Application::Get().GetImGuiLayer()->GetActiveWidgetID() == 0) /* Check if we are not using a menu */
 		{
@@ -508,7 +518,9 @@ namespace Crystal {
 		}
 		else
 			Renderer2D::BeginScene(m_EditorCamera);
-		if (CrntPreferences.ShowPhysicsColliders) {
+
+		if (CrntPreferences.ShowPhysicsColliders) 
+		{
 			// Circle Collider
 			{
 				auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, CircleCollider2DComponent>();
@@ -544,12 +556,22 @@ namespace Crystal {
 				}
 			}
 		}
+
 		// Draw outline
 		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) 
 		{
 			const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
 			Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences.EntityOutlineColor);
 		}
+
+		// Camera Icon
+		// auto view = m_ActiveScene->GetAllEntitiesWith<TransformComponent, CameraComponent>();
+		// for (auto entity : view)
+		// {
+		// 	auto [tc, cc] = view.get<TransformComponent, CameraComponent>(entity);
+		// 
+		// 	Ref<Texture2D> cameraIcon = Texture2D::Create("Resources/Icons/Camera.png");
+		// }
 
 		Renderer2D::EndScene();
 	}

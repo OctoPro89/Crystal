@@ -22,6 +22,12 @@
     <Filter Include="..\Crystal\vendor\imgui">
       <UniqueIdentifier>{994E01E7-0586-497E-0E90-ADA17A467077}</UniqueIdentifier>
     </Filter>
+    <Filter Include="..\Crystal\vendor\msdf-atlas-gen">
+      <UniqueIdentifier>{F1EF2E03-DD40-1A45-06A5-0807F254ADAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\Crystal\vendor\msdf-atlas-gen\msdfgen">
+      <UniqueIdentifier>{64C90262-5046-F6A4-79C3-F6B8659F9238}</UniqueIdentifier>
+    </Filter>
     <Filter Include="..\Crystal\vendor\yaml">
       <UniqueIdentifier>{F1DB00E8-DDD5-293A-C642-C04AB2DB8FA6}</UniqueIdentifier>
     </Filter>
@@ -53,6 +59,12 @@
     </None>
     <None Include="..\..\Crystal\vendor\imgui\premake5.lua">
       <Filter>..\Crystal\vendor\imgui</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\msdf-atlas-gen\msdfgen\premake5.lua">
+      <Filter>..\Crystal\vendor\msdf-atlas-gen\msdfgen</Filter>
+    </None>
+    <None Include="..\..\Crystal\vendor\msdf-atlas-gen\premake5.lua">
+      <Filter>..\Crystal\vendor\msdf-atlas-gen</Filter>
     </None>
     <None Include="..\..\Crystal\vendor\yaml\premake5.lua">
       <Filter>..\Crystal\vendor\yaml</Filter>

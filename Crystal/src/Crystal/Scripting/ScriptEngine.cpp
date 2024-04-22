@@ -523,6 +523,8 @@ namespace Crystal {
 	MonoObject* ScriptClass::InvokeMethod(MonoObject* instance, MonoMethod* method, void** params)
 	{
 		MonoObject* exception = nullptr;
+		CRYSTAL_CORE_ASSERT(instance, "Instance does not exist!"); // Todo: figure out what's wrong
+		CRYSTAL_CORE_ASSERT(method, "Method does not exist!");
 		return mono_runtime_invoke(method, instance, params, &exception);
 	}
 

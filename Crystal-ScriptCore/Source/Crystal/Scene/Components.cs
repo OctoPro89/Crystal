@@ -41,6 +41,22 @@ namespace Crystal
 		}
 	}
 
+	public class LineRendererComponent : Component
+	{
+		public Vector4 Color
+		{
+			get
+			{
+				InternalCalls.LineRendererComponent_GetColor(Entity.ID, out Vector4 color);
+				return color;
+			}
+			set
+			{
+				InternalCalls.LineRendererComponent_SetColor(Entity.ID, ref value);
+			}
+		}
+	}
+
 	public class BoxCollider2DComponent : Component
 	{
 		public float Density

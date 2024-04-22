@@ -1,4 +1,4 @@
-// Basic Texture Shader
+// Renderer2D Line Shader
 
 #type vertex
 #version 450 core
@@ -32,7 +32,7 @@ void main()
 #version 450 core
 
 layout(location = 0) out vec4 color;
-layout(location = 1) out int color2;
+layout(location = 1) out int o_EntityID;
 
 struct VertexOutput
 {
@@ -48,5 +48,5 @@ void main()
 {
 	color = Input.Color;
 
-	color2 = v_EntityID;
+	o_EntityID = v_EntityID;
 }

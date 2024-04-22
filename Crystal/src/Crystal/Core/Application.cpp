@@ -23,7 +23,7 @@ namespace Crystal {
 
 		// Set working directory
 		if(!m_Specification.WorkingDirectory.empty()) /* See if the working directory is not changed/empty */
-			std::filesystem::current_path(m_Specification.WorkingDirectory); /* If so change the working directory*/
+			std::filesystem::current_path(m_Specification.WorkingDirectory); /* If so change the working directory */
 
 		m_Window = Window::Create(WindowProps(m_Specification.Name)); /* Create a window using the abstracted window class */
 		m_Window->SetEventCallback(CRYSTAL_BIND_EVENT_FN(Application::OnEvent)); /* Set the Application Event Callbacks */
