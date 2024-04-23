@@ -1,5 +1,0 @@
-Project:
-  Name: TankGame
-  StartScene: "Scenes/Main.crystal"
-  AssetDirectory: "assets"
-  ScriptModulePath: "Scripts/Binaries/Project.dll"
