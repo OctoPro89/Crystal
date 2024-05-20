@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace Crystal
 {
@@ -48,6 +47,11 @@ namespace Crystal
 		public static Vector3 operator *(Vector3 vector, float scalar)
 		{
 			return new Vector3(vector.X * scalar, vector.Y * scalar, vector.Z * scalar);
+		}
+
+		public static Vector3 operator *(Vector3 vector, Vector3 vector2)
+		{
+			return new Vector3(vector.X * vector2.X, vector.Y * vector2.Y, vector.Z * vector2.Z);
 		}
 
 		public static Vector3 Cross(Vector3 a, Vector3 b)

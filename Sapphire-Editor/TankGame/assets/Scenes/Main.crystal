@@ -1,0 +1,528 @@
+Scene: Untitled
+Entities:
+  - Entity: 1866732517479618403
+    TagComponent:
+      Tag: GameManager
+    TransformComponent:
+      Translation: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    ScriptComponent:
+      ClassName: GameManager
+    AudioComponent:
+      AudioFile: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\Sounds\Unity-TheFatRat.wav
+      VolumeMultiplier: 1
+  - Entity: 10150527792915070997
+    TagComponent:
+      Tag: Wheel1 Copy
+    TransformComponent:
+      Translation: [-0.574340343, 5.51999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      GravityScale: 10
+      Friction: 0.349999994
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    HingeJoint2DComponent:
+      AnchorOffset1: [1.29999995, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 5796644562762171224
+      AttachedStr: Wheel2 Copy
+      ShouldBodiesCollide: true
+      EnableLimit: false
+      EnableMotor: false
+      LowerLimitAngle: 0
+      UpperLimitAngle: 0
+      MotorSpeed: 0
+      MaxMotorTorque: 0
+  - Entity: 5796644562762171224
+    TagComponent:
+      Tag: Wheel2 Copy
+    TransformComponent:
+      Translation: [-1.68210888, 5.51999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.819999993, 0.5]
+      Density: 1
+      GravityScale: 15
+      Friction: 0.0399999991
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 3816222864708821949
+      AttachedStr: Tank2
+      Damping: 0
+      MaxDistance: 1.95200002
+      MinDistance: 1.95000005
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0
+  - Entity: 15022586831784585728
+    TagComponent:
+      Tag: Wheel3 Copy
+    TransformComponent:
+      Translation: [-2.84012938, 5.51999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      GravityScale: 10
+      Friction: 0.349999994
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    HingeJoint2DComponent:
+      AnchorOffset1: [-1.29999995, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 5796644562762171224
+      AttachedStr: Wheel2 Copy
+      ShouldBodiesCollide: true
+      EnableLimit: false
+      EnableMotor: false
+      LowerLimitAngle: 0
+      UpperLimitAngle: 0
+      MotorSpeed: 0
+      MaxMotorTorque: 0
+  - Entity: 11592976749895500022
+    TagComponent:
+      Tag: Tank2Turret
+    TransformComponent:
+      Translation: [-2.36368847, 8.52000046, -0.00999999978]
+      Rotation: [0, 0, -3.14159226]
+      Scale: [5.77529097, 5.77529097, 5.77529955]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\TankTurret.png
+      TilingFactor: 1
+  - Entity: 3816222864708821949
+    TagComponent:
+      Tag: Tank2
+    TransformComponent:
+      Translation: [-1.74530268, 7.63999987, 0.100000083]
+      Rotation: [0, 0, 0]
+      Scale: [8, 6.5, 6.5]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, -0.620000005]
+      Size: [0.310000002, 0.129999995]
+      Density: 1
+      GravityScale: 0.100000001
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [1, 0.999989986, 0.999989986, 1]
+      TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\Tank.png
+      TilingFactor: 1
+    LineRendererComponent:
+      Color: [1, 1, 1, 1]
+      Pos1: [0, -50, 0]
+      Pos2: [0, -50, 0]
+    ScriptComponent:
+      ClassName: Player2
+      ScriptFields:
+        - Name: XOff
+          Type: Float
+          Data: -0.300000012
+        - Name: YOff
+          Type: Float
+          Data: 0.850000024
+        - Name: speed
+          Type: Float
+          Data: 250
+    AudioComponent:
+      AudioFile: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\Sounds\shotgun-firing-4-6746.mp3
+      VolumeMultiplier: 0.100000001
+  - Entity: 14543285984831618737
+    TagComponent:
+      Tag: Wall Right
+    TransformComponent:
+      Translation: [30, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 75, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.282352954, 0.282352954, 0.282352954, 1]
+      TilingFactor: 1
+  - Entity: 16822805867139252885
+    TagComponent:
+      Tag: Floor Copy
+    TransformComponent:
+      Translation: [10.8571997, 2.93275642, -1.16415322e-10]
+      Rotation: [0, 0, -0.16048938]
+      Scale: [22.1899776, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1
+  - Entity: 12204340929060559681
+    TagComponent:
+      Tag: Wheel1
+    TransformComponent:
+      Translation: [-62.2780342, 5.51999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      GravityScale: 10
+      Friction: 0.349999994
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    HingeJoint2DComponent:
+      AnchorOffset1: [1.29999995, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 1210124683691084937
+      AttachedStr: Wheel2
+      ShouldBodiesCollide: true
+      EnableLimit: false
+      EnableMotor: false
+      LowerLimitAngle: 0
+      UpperLimitAngle: 0
+      MotorSpeed: 0
+      MaxMotorTorque: 0
+  - Entity: 2072787415782845549
+    TagComponent:
+      Tag: Wheel3
+    TransformComponent:
+      Translation: [-59.6618996, 5.51999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    CircleCollider2DComponent:
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      GravityScale: 10
+      Friction: 0.349999994
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    HingeJoint2DComponent:
+      AnchorOffset1: [-1.29999995, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 1210124683691084937
+      AttachedStr: Wheel2
+      ShouldBodiesCollide: true
+      EnableLimit: false
+      EnableMotor: false
+      LowerLimitAngle: 0
+      UpperLimitAngle: 0
+      MotorSpeed: 0
+      MaxMotorTorque: 0
+  - Entity: 1210124683691084937
+    TagComponent:
+      Tag: Wheel2
+    TransformComponent:
+      Translation: [-61.0098228, 5.51999998, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.819999993, 0.5]
+      Density: 1
+      GravityScale: 15
+      Friction: 0.0399999991
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    DistanceJoint2DComponent:
+      AnchorOffset1: [0, 0]
+      AnchorOffset2: [0, 0]
+      Attached: 7346605253046478200
+      AttachedStr: Tank1
+      Damping: 0
+      MaxDistance: 1.95200002
+      MinDistance: 1.95000005
+      RestLength: 0
+      ShouldBodiesCollide: true
+      Stiffness: 0
+  - Entity: 12375703778946699878
+    TagComponent:
+      Tag: Tank1Turret
+    TransformComponent:
+      Translation: [-60.3880501, 8.52000046, -0.00999999978]
+      Rotation: [0, 0, 0]
+      Scale: [5.77529097, 5.77529097, 5.77529955]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\TankTurret.png
+      TilingFactor: 1
+  - Entity: 443500982112873463
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Translation: [-16, 0, 60]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 0
+        PerspectiveFOV: 1.22173047
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false
+  - Entity: 7346605253046478200
+    TagComponent:
+      Tag: Tank1
+    TransformComponent:
+      Translation: [-61.0313683, 7.63999987, 0.0999991894]
+      Rotation: [0, 0, 0]
+      Scale: [8, 6.5, 6.5]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, -0.620000005]
+      Size: [0.310000002, 0.129999995]
+      Density: 1
+      GravityScale: 0.100000001
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]
+      TexturePath: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\textures\Tank.png
+      TilingFactor: 1
+    LineRendererComponent:
+      Color: [1, 1, 1, 1]
+      Pos1: [0, -50, 0]
+      Pos2: [0, -50, 0]
+    ScriptComponent:
+      ClassName: Player1
+      ScriptFields:
+        - Name: XOff
+          Type: Float
+          Data: 0
+        - Name: YOff
+          Type: Float
+          Data: 0.850000024
+        - Name: speed
+          Type: Float
+          Data: 250
+    AudioComponent:
+      AudioFile: D:\Programming\C++\Crystal\Sapphire-Editor\TankGame\assets\Sounds\shotgun-firing-4-6746.mp3
+      VolumeMultiplier: 0.100000001
+  - Entity: 15518958469964055817
+    TagComponent:
+      Tag: Floor
+    TransformComponent:
+      Translation: [-11.1344967, 4.57079792, 0]
+      Rotation: [0, 0, 0.00809702557]
+      Scale: [22.1913204, 0.999999523, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1
+  - Entity: 8558952043911400180
+    TagComponent:
+      Tag: Floor
+    TransformComponent:
+      Translation: [-30.5539093, 5.29464674, -7.62939453e-06]
+      Rotation: [0, 0, -0.0996588692]
+      Scale: [19.1200008, 0.999997318, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1
+  - Entity: 16320810590908975789
+    TagComponent:
+      Tag: Floor Copy
+    TransformComponent:
+      Translation: [-57.6202545, 4.35870123, 0]
+      Rotation: [0, 0, 0.104992807]
+      Scale: [35.6162186, 0.999910712, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.281853259, 0.281850427, 0.281850427, 1]
+      TilingFactor: 1
+  - Entity: 4344249366088854018
+    TagComponent:
+      Tag: Wall Left
+    TransformComponent:
+      Translation: [-80, 9.53674316e-07, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 75, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.282352954, 0.282352954, 0.282352954, 1]
+      TilingFactor: 1
+  - Entity: 5319183105625323560
+    TagComponent:
+      Tag: Wall Bottom
+    TransformComponent:
+      Translation: [-25, -37, 0]
+      Rotation: [0, 0, 0]
+      Scale: [110, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.282352954, 0.282352954, 0.282352954, 1]
+      TilingFactor: 1
+  - Entity: 15343677410482089946
+    TagComponent:
+      Tag: Wall Top
+    TransformComponent:
+      Translation: [-25, 37, 0]
+      Rotation: [0, 0, 0]
+      Scale: [110, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    SpriteRendererComponent:
+      Color: [0.282352954, 0.282352954, 0.282352954, 1]
+      TilingFactor: 1
+  - Entity: 13138322857704277773
+    TagComponent:
+      Tag: Player1Health
+    TransformComponent:
+      Translation: [-78, -35, 0]
+      Rotation: [0, 0, 0]
+      Scale: [6, 6, 6]
+    TextRendererComponent:
+      TextString: "Player 1 Health:"
+      Color: [1, 1, 1, 1]
+      Kerning: 0
+      LineSpacing: 0
+  - Entity: 9275752847619756527
+    TagComponent:
+      Tag: Player2Health
+    TransformComponent:
+      Translation: [-13.0732203, -35, 0]
+      Rotation: [0, 0, 0]
+      Scale: [6, 6, 6]
+    TextRendererComponent:
+      TextString: "Player 2 Health:"
+      Color: [1, 1, 1, 1]
+      Kerning: 0
+      LineSpacing: 0
+  - Entity: 10634906471550315279
+    TagComponent:
+      Tag: Bullet
+    TransformComponent:
+      Translation: [-7.4505806e-09, -50, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: true
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      GravityScale: 0
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
+    ScriptComponent:
+      ClassName: RuntimeBullet
+      ScriptFields:
+        []

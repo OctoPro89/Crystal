@@ -290,7 +290,7 @@ Entities:
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [37.7609787, -26.296917, 67.3209763]
+      Translation: [37.7609787, -13.3000002, 67.3209763]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -305,6 +305,16 @@ Entities:
       Primary: true
       FixedAspectRatio: false
     ScriptComponent:
-      ClassName: Sandbox.Camera
-      ScriptFields:
-        []
+      ClassName: FollowCamera
+  - Entity: 2620654705067147189
+    TagComponent:
+      Tag: Velocity
+    TransformComponent:
+      Translation: [27.9911194, -40.9196396, 1.52587891e-05]
+      Rotation: [0, 0, 0]
+      Scale: [5.21000004, 5.21000004, 5.21000004]
+    TextRendererComponent:
+      TextString: "Velocity: 0.00, 0.00"
+      Color: [1, 1, 1, 1]
+      Kerning: 0
+      LineSpacing: 0

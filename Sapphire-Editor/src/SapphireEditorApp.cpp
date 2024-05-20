@@ -3,7 +3,6 @@
 
 #include <imgui/imgui.h>
 #include <glm/ext/matrix_transform.hpp>
-
 #include "EditorLayer.h"
 
 namespace Crystal {

@@ -79,7 +79,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CRYSTAL_DEBUG;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Crystal\vendor\spdlog\include;..\Crystal\src;..\Crystal\vendor;..\Crystal\vendor\glm;..\Crystal\vendor\filewatch;..\Crystal\vendor\entt;..\Crystal\vendor\ImGuizmo;..\Crystal\vendor\miniaudio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -87,10 +86,13 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalIncludeDirectories>D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\OctoNetHpp;D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\include;D:\Programming\C++\Crystal\Crystal-OnlineCore\src;D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\vector;..\Crystal\vendor\spdlog\include;..\Crystal\src;..\Crystal\vendor;..\Crystal\vendor\glm;..\Crystal\vendor\filewatch;..\Crystal\vendor\entt;..\Crystal\vendor\ImGuizmo;..\Crystal\vendor\miniaudio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>OctoNet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Programming\C\OctoNet-Crystal\OctoNet\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -98,7 +100,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CRYSTAL_RELEASE;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\src;..\Crystal\vendor\spdlog\include;..\Crystal\src;..\Crystal\vendor;..\Crystal\vendor\glm;..\Crystal\vendor\filewatch;..\Crystal\vendor\entt;..\Crystal\vendor\ImGuizmo;..\Crystal\vendor\miniaudio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -108,11 +109,14 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalIncludeDirectories>D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\OctoNetHpp;D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\include;D:\Programming\C++\Crystal\Crystal-OnlineCore\src;D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\vector;..\Crystal\vendor\spdlog\include;..\Crystal\src;..\Crystal\vendor;..\Crystal\vendor\glm;..\Crystal\vendor\filewatch;..\Crystal\vendor\entt;..\Crystal\vendor\ImGuizmo;..\Crystal\vendor\miniaudio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>OctoNet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Programming\C\OctoNet-Crystal\OctoNet\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -120,7 +124,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>CRYSTAL_DIST;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Crystal\vendor\spdlog\include;..\Crystal\src;..\Crystal\vendor;..\Crystal\vendor\glm;..\Crystal\vendor\filewatch;..\Crystal\vendor\entt;..\Crystal\vendor\ImGuizmo;..\Crystal\vendor\miniaudio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -130,11 +133,14 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalIncludeDirectories>D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\OctoNetHpp;D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\include;D:\Programming\C++\Crystal\Crystal-OnlineCore\src;D:\Programming\C\OctoNet-Crystal\OctoNet\OctoNet\vector;..\Crystal\vendor\spdlog\include;..\Crystal\src;..\Crystal\vendor;..\Crystal\vendor\glm;..\Crystal\vendor\filewatch;..\Crystal\vendor\entt;..\Crystal\vendor\ImGuizmo;..\Crystal\vendor\miniaudio;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>OctoNet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Programming\C\OctoNet-Crystal\OctoNet\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -33,6 +33,7 @@ namespace Crystal
 
 		bool shouldCreateProject = false;
 
-		char crntProjectNameBuf[100];
+		std::string crntProjectName;
+		std::string crntProjectDirectory;
 	};
 }

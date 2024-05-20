@@ -15,6 +15,7 @@ extern "C" {
 	typedef struct _MonoMethod MonoMethod;
 	typedef struct _MonoAssembly MonoAssembly;
 	typedef struct _MonoImage MonoImage;
+	typedef struct _MonoString MonoString;
 	typedef struct _MonoClassField MonoClassField;
 }
 
@@ -25,6 +26,7 @@ namespace Crystal {
 		None = 0,
 		Float, Double, 
 		Vector2, Vector3, Vector4,
+		Color3, Color4,
 		Bool, Char,
 		Int, UInt, UShort, Short, Long, ULong,
 		Byte, SByte,
@@ -142,6 +144,8 @@ namespace Crystal {
 		friend struct ScriptFieldInstance;
 	};
 
+	struct ScriptEngineData;
+
 	class ScriptEngine
 	{
 	public:
@@ -166,6 +170,8 @@ namespace Crystal {
 		static std::unordered_map<std::string, Ref<ScriptClass>> GetEntityClasses();
 		static ScriptFieldMap& GetScriptFieldMap(Entity entity);
 		static Ref<ScriptInstance> GetEntityScriptInstance(UUID uuid);
+
+		static MonoString* MonoStringCreate(const char* string);
 
 		static MonoImage* GetCoreAssemblyImage();
 
@@ -199,6 +205,8 @@ namespace Crystal {
 			case Crystal::ScriptFieldType::UShort:		return "UShort";  break;
 			case Crystal::ScriptFieldType::UInt:		return "UInt";	  break;
 			case Crystal::ScriptFieldType::ULong:		return "ULong";	  break;
+			case Crystal::ScriptFieldType::Color3:		return "Color3"; break;
+			case Crystal::ScriptFieldType::Color4:		return "Color4"; break;
 			case Crystal::ScriptFieldType::Vector2:		return "Vector2"; break;
 			case Crystal::ScriptFieldType::Vector3:		return "Vector3"; break;
 			case Crystal::ScriptFieldType::Vector4:		return "Vector4"; break;
@@ -223,6 +231,8 @@ namespace Crystal {
 			if (type == "UShort")	return Crystal::ScriptFieldType::UShort;
 			if (type == "UInt")		return Crystal::ScriptFieldType::UInt;
 			if (type == "ULong")	return Crystal::ScriptFieldType::ULong;
+			if (type == "Color3")	return Crystal::ScriptFieldType::Color3;
+			if (type == "Color4")	return Crystal::ScriptFieldType::Color4;
 			if (type == "Vector2")	return Crystal::ScriptFieldType::Vector2;
 			if (type == "Vector3")	return Crystal::ScriptFieldType::Vector3;
 			if (type == "Vector4")	return Crystal::ScriptFieldType::Vector4;

@@ -37,6 +37,9 @@ namespace Crystal {
 		{ "System.UInt32", ScriptFieldType::UInt },
 		{ "System.UInt64", ScriptFieldType::ULong },
 
+		{ "Crystal.Color3", ScriptFieldType::Color3 },
+		{ "Crystal.Color4", ScriptFieldType::Color4 },
+
 		{ "Crystal.Vector2", ScriptFieldType::Vector2 },
 		{ "Crystal.Vector3", ScriptFieldType::Vector3 },
 		{ "Crystal.Vector4", ScriptFieldType::Vector4 },
@@ -75,6 +78,9 @@ namespace Crystal {
 					mono_debug_open_image_from_memory(image, pdbFileData.As<const mono_byte>(), (int)pdbFileData.Size);
 
 					CRYSTAL_CORE_INFO("Loaded PDB: {0}", pdbPath);
+
+					/* Release the data */
+					pdbFileData.Release();
 
 					/* Release the data */
 					fileData.Release();
@@ -142,9 +148,9 @@ namespace Crystal {
 		std::unordered_map<UUID, ScriptFieldMap> EntityScriptFields;
 
 		Scope<filewatch::FileWatch<std::string>> AppAssemblyFileWatcher;
-		bool AssemblyReloadPending;
+		bool AssemblyReloadPending = false;
 
-		bool EnableDebugging = true;
+		bool EnableDebugging = false;
 
 		// Runtime
 		Scene* SceneContext = nullptr;
@@ -310,6 +316,7 @@ namespace Crystal {
 		if (ScriptEngine::EntityClassExists(sc.ClassName))
 		{
 			UUID entityID = entity.GetUUID();
+
 			Ref<ScriptInstance> instance = CreateRef<ScriptInstance>(s_Data->EntityClasses[sc.ClassName], entity);
 			s_Data->EntityInstances[entityID] = instance;
 
@@ -352,16 +359,11 @@ namespace Crystal {
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
 		Ref<ScriptInstance> instance2 = s_Data->EntityInstances[entityUUID2];
-		if (instance && instance2) 
-		{
-			instance->InvokeOnCollisionEnter(entity2, contact);
-			instance->InvokeOnCollisionEnter(entity, contact);
-		}
-		else if (instance)
+		if (instance)
 		{
 			instance->InvokeOnCollisionEnter(entity2, contact);
 		}
-		else if (instance2)
+		if (instance2)
 		{
 			instance2->InvokeOnCollisionEnter(entity, contact);
 		}
@@ -371,20 +373,14 @@ namespace Crystal {
 	{
 		UUID entityUUID = entity.GetUUID();
 		UUID entityUUID2 = entity2.GetUUID();
-		//CRYSTAL_CORE_ASSERT(s_Data->EntityInstances.find(entityUUID) != s_Data->EntityInstances.end(), "OnCollisionEnter Scripting not working right!");
 
 		Ref<ScriptInstance> instance = s_Data->EntityInstances[entityUUID];
 		Ref<ScriptInstance> instance2 = s_Data->EntityInstances[entityUUID2];
-		if (instance && instance2)
-		{
-			instance->InvokeOnCollisionExit(entity2, contact);
-			instance->InvokeOnCollisionExit(entity, contact);
-		}
-		else if (instance)
+		if (instance)
 		{
 			instance->InvokeOnCollisionExit(entity2, contact);
 		}
-		else if (instance2)
+		if (instance2)
 		{
 			instance2->InvokeOnCollisionExit(entity, contact);
 		}
@@ -430,6 +426,11 @@ namespace Crystal {
 			return nullptr;
 
 		return it->second;
+	}
+
+	MonoString* ScriptEngine::MonoStringCreate(const char* string)
+	{
+		return mono_string_new(s_Data->AppDomain, string);
 	}
 
 	void ScriptEngine::LoadAssemblyClasses()
@@ -523,8 +524,6 @@ namespace Crystal {
 	MonoObject* ScriptClass::InvokeMethod(MonoObject* instance, MonoMethod* method, void** params)
 	{
 		MonoObject* exception = nullptr;
-		CRYSTAL_CORE_ASSERT(instance, "Instance does not exist!"); // Todo: figure out what's wrong
-		CRYSTAL_CORE_ASSERT(method, "Method does not exist!");
 		return mono_runtime_invoke(method, instance, params, &exception);
 	}
 

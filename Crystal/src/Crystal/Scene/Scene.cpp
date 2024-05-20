@@ -37,7 +37,6 @@ namespace Crystal {
 			UUID entityID_B = (UUID)bodyData2.pointer;
 
 			// Now, you can use the entity IDs to identify the entities involved in the collision
-			// Implement your collision handling logic here
 			Scene* scene = ScriptEngine::GetSceneContext();
 			CRYSTAL_CORE_ASSERT(scene, "No Scene");
 			Entity entity = scene->GetEntityByUUID(entityID_A);
@@ -206,7 +205,7 @@ namespace Crystal {
 		OnPhysics2DStop();
 
 		ScriptEngine::OnRuntimeStop();
-		SoundSystem::Stop(); /* Stop all the sounds that were playing before*/
+		SoundSystem::Stop(); /* Stop all the sounds that were playing before */
 	}
 
 	void Scene::OnSimulationStart()
@@ -230,21 +229,26 @@ namespace Crystal {
 				for (auto e : view)
 				{
 					Entity entity = { e, this };
+
+					auto name = entity.GetName();
+
+					CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
 					ScriptEngine::OnUpdateEntity(entity, ts);
 				}
 
 				m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+				{
+					// TODO: Move to Scene::OnScenePlay
+					if (!nsc.Instance)
 					{
-						// TODO: Move to Scene::OnScenePlay
-						if (!nsc.Instance)
-						{
-							nsc.Instance = nsc.InstantiateScript();
-							nsc.Instance->m_Entity = Entity{ entity, this };
-							nsc.Instance->OnCreate();
-						}
+						nsc.Instance = nsc.InstantiateScript();
+						nsc.Instance->m_Entity = Entity{ entity, this };
+						nsc.Instance->OnCreate();
+					}
 
-						nsc.Instance->OnUpdate(ts);
-					});
+					nsc.Instance->OnUpdate(ts);
+				});
 			}
 
 			// Physics
@@ -332,7 +336,7 @@ namespace Crystal {
 				{
 					auto [transform, text] = view.get<TransformComponent, TextRendererComponent>(entity);
 
-					Renderer2D::DrawString(transform.GetTransform(), text);
+					Renderer2D::DrawString(transform.GetTransform(), text, (int)entity);
 				}
 			}
 
@@ -411,7 +415,6 @@ namespace Crystal {
 	void Scene::Step(int frames)
 	{
 		m_StepFrames = frames;
-
 	}
 
 	Entity Scene::DuplicateEntity(Entity entity)
@@ -435,17 +438,16 @@ namespace Crystal {
 		{
 			const TagComponent& tc = view.get<TagComponent>(entity);
 			if (tc.Tag == name)
-				return Entity{ entity,this };
+				return Entity{ entity, this };
 		}
 		return {};
 	}
 
 	Entity Scene::GetEntityByUUID(UUID uuid)
 	{
-		if (m_EntityMap.find(uuid) != m_EntityMap.end())
-			return { m_EntityMap.at(uuid), this };
-
-		return {};
+		CRYSTAL_CORE_ASSERT(m_EntityMap.find(uuid) != m_EntityMap.end(), "Failed to retrieve entity!");
+			
+		return { m_EntityMap.at(uuid), this };
 	}
 
 	void Scene::OnPhysics2DStart()
@@ -611,7 +613,7 @@ namespace Crystal {
 			{
 				auto [transform, text] = view.get<TransformComponent, TextRendererComponent>(entity);
 
-				Renderer2D::DrawString(transform.GetTransform(), text);
+				Renderer2D::DrawString(transform.GetTransform(), text, (int)entity);
 			}
 		}
 

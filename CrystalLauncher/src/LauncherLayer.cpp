@@ -1,13 +1,14 @@
 #include "LauncherLayer.h"
 
+#include "Utils/LauncherUtils.h"
+
 #include <imgui/imgui.h>
+#include <imgui/misc/cpp/imgui_stdlib.h>
 
 namespace Crystal
 {
 	LauncherLayer::LauncherLayer()
-	{
-
-	}
+	{}
 
 	void LauncherLayer::OnAttach()
 	{
@@ -142,11 +143,54 @@ namespace Crystal
 	{
 		if (ImGui::Begin("New Project"))
 		{
-			ImGui::InputText("Project Name", crntProjectNameBuf, 100, 0);
+			ImGui::InputText("Project Name", &crntProjectName);
+
+			ImGui::InputText("Project Directory", &crntProjectDirectory);
+
+			ImGui::Text("Project type:");
+			if (ImGui::RadioButton("2D", true))
+			{
+
+			}
+
+			if (ImGui::RadioButton("3D (Coming Soon)", false))
+			{
+
+			}
+
+			ImGui::Separator();
+
+			if (ImGui::Button("Create Project"))
+			{
+
+				if (crntProjectName.empty())
+				{
+					CRYSTAL_ERROR("Failed to create project because Project Name is empty!");
+
+					ImGui::End();
+					return false;
+				}
+
+				if (crntProjectDirectory.empty())
+				{
+					CRYSTAL_ERROR("Failed to create project because Project Name is empty!");
+
+					ImGui::End();
+					return false;
+				}
+
+				Utils::LauncherUtils::CopyDirectory("Resources/BlankProject", crntProjectDirectory + "/" + crntProjectName, Utils::Platform::Windows);
+			}
+
+			if (ImGui::Button("Open in Crystal2D"))
+			{
+				Utils::LauncherUtils::SetWorkingDirectory("D:\\Programming\\C++\\Crystal\\Sapphire-Editor"); /* Set working directory so it doesn't complain about filepaths */
+				Utils::LauncherUtils::OpenSapphireEditor(crntProjectDirectory + "/" + crntProjectName + "/Project.cryproj"); /* Open the editor with the created project */
+				shouldCreateProject = false;
+			}
 		}
 
 		ImGui::End();
-
 		return true;
 	}
 }

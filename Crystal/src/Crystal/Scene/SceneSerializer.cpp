@@ -310,6 +310,19 @@ namespace Crystal {
 			out << YAML::EndMap; // SpriteRendererComponent
 		}
 
+		if (entity.HasComponent<LineRendererComponent>())
+		{
+			out << YAML::Key << "LineRendererComponent";
+			out << YAML::BeginMap; // LineRendererComponent
+
+			auto& lineRendererComponent = entity.GetComponent<LineRendererComponent>();
+			out << YAML::Key << "Color" << lineRendererComponent.Color;
+			out << YAML::Key << "Pos1" << lineRendererComponent.Pos1;
+			out << YAML::Key << "Pos2" << lineRendererComponent.Pos2;
+
+			out << YAML::EndMap; // LineRendererComponent
+		}
+
 		if (entity.HasComponent<ScriptComponent>())
 		{
 			auto& scriptComponent = entity.GetComponent<ScriptComponent>();
@@ -550,6 +563,16 @@ namespace Crystal {
 					}
 					if(spriteRendererComponent["TilingFactor"])
 						src.TilingFactor = spriteRendererComponent["TilingFactor"].as<float>();
+				}
+
+				auto lineRendererComponent = entity["LineRendererComponent"];
+				if (lineRendererComponent)
+				{
+					auto& lrc = deserializedEntity.AddComponent<LineRendererComponent>();
+
+					lrc.Color = lineRendererComponent["Color"].as<glm::vec4>();
+					lrc.Pos1 = lineRendererComponent["Pos1"].as<glm::vec3>();
+					lrc.Pos2 = lineRendererComponent["Pos2"].as<glm::vec3>();
 				}
 
 				auto circleRendererComponent = entity["CircleRendererComponent"];

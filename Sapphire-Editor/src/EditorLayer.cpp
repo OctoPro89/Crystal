@@ -1,8 +1,11 @@
-#include "EditorLayer.h"
+#include <crtdbg.h>
+
 #include <imgui/imgui.h>
 #include <ImGuizmo.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "EditorLayer.h"
 #include <Crystal/Scene/SceneSerializer.h>
 #include <Crystal/Utils/PlatformUtils.h>
 #include <Crystal/Math/Math.h>
@@ -25,7 +28,6 @@ namespace Crystal
 	void EditorLayer::OnAttach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
-
 		m_IconPlay = Texture2D::Create("Resources/Icons/Play.png");
 		m_IconPause = Texture2D::Create("Resources/Icons/Pause.png");
 		m_IconStep = Texture2D::Create("Resources/Icons/Step.png");
@@ -66,10 +68,14 @@ namespace Crystal
 	void EditorLayer::OnDetach()
 	{
 		CRYSTAL_PROFILE_FUNCTION();
+
+		ScriptEngine::Shutdown();
 	}
 
 	void EditorLayer::OnUpdate(Timestep ts)
 	{
+		//UpdateNet();
+
 		CRYSTAL_PROFILE_FUNCTION();
 		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		if (FrameBufferSpecification spec = m_FrameBuffer->GetSpecification();
@@ -258,7 +264,7 @@ namespace Crystal
 		{
 			ImGui::Begin("Settings");
 
-			ImGui::Image((ImTextureID)(uint32_t)s_Font->GetAtlasTexture()->GetRendererID(), { 512, 512 }, { 0, 1 }, { 1, 0 });
+			ImGui::Image((ImTextureID)(uint64_t)s_Font->GetAtlasTexture()->GetRendererID(), { 512, 512 }, { 0, 1 }, { 1, 0 });
 
 			ImGui::End();
 		}

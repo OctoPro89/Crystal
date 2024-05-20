@@ -55,6 +55,45 @@ namespace Crystal
 				InternalCalls.LineRendererComponent_SetColor(Entity.ID, ref value);
 			}
 		}
+
+		public Vector3 Position1
+		{
+			get
+			{
+				InternalCalls.LineRendererComponent_GetPosition(Entity.ID, out Vector3 position1, out Vector3 position2);
+				return Position1;
+			}
+		}
+
+		public Vector3 Position2
+		{
+			get
+			{
+				InternalCalls.LineRendererComponent_GetPosition(Entity.ID, out Vector3 position1, out Vector3 position2);
+				return Position2;
+			}
+		}
+
+		public void SetPositions(Vector3 position1, Vector3 position2)
+		{
+			InternalCalls.LineRendererComponent_SetPosition(Entity.ID, ref position1, ref position2);
+		}
+	}
+
+	public class TextRendererComponent : Component
+	{
+		public string Text
+		{
+			get
+			{
+				InternalCalls.TextRendererComponent_GetText(Entity.ID, out string text);
+				return text;
+			}
+			set
+			{
+				InternalCalls.TextRendererComponent_SetText(Entity.ID, value);
+			}
+		}
 	}
 
 	public class BoxCollider2DComponent : Component
@@ -156,6 +195,7 @@ namespace Crystal
 		{
 			get
 			{
+
 				InternalCalls.TransformComponent_GetTranslation(Entity.ID, out Vector3 translation);
 				return translation;
 			}
@@ -254,6 +294,11 @@ namespace Crystal
 				InternalCalls.Rigidbody2DComponent_GetAngularVelocity(Entity.ID, out float Velocity);
 				return Velocity;
 			}
+		}
+
+		public void SetPosition(Vector3 position, float angle)
+		{
+			InternalCalls.Rigidbody2DComponent_SetPosition(Entity.ID, ref position, angle);
 		}
 	}
 

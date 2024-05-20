@@ -6,6 +6,7 @@ namespace Sandbox
 	public class RigidbodyController : Entity
 	{
 		private Rigidbody2DComponent m_Rigidbody;
+		private TextRendererComponent m_TextRenderer;
 
 		public float speed;
 		public float torque;
@@ -13,11 +14,12 @@ namespace Sandbox
 		void OnCreate()
 		{
 			m_Rigidbody = GetComponent<Rigidbody2DComponent>();
+			m_TextRenderer = FindEntityByName("Velocity").GetComponent<TextRendererComponent>();
+			Console.WriteLine("Player ID: " + this.ID);
 		}
 
 		void OnUpdate(float ts)
 		{
-
 			Vector3 velocity = Vector3.Zero;
 			if (Input.IsKeyDown(KeyCode.W) || Input.IsKeyDown(KeyCode.Up))
 			{
@@ -47,6 +49,8 @@ namespace Sandbox
 
 			Vector2 rbVelocity = m_Rigidbody.LinearVelocity;
 			Editor.Log($"{rbVelocity.X}, {rbVelocity.Y}");
+
+			m_TextRenderer.Text = $"Velocity: {rbVelocity.X.ToString("0.00")}, {rbVelocity.Y.ToString("0.00")}"; /* Format the string */
 
 			m_Rigidbody.ApplyLinearImpulse(velocity.XY, true);
 		}

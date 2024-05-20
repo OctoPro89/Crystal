@@ -23,6 +23,8 @@ namespace Crystal
 			}
 			set
 			{
+				if (ID == 0)
+					Console.WriteLine("?");
 				InternalCalls.TransformComponent_SetTranslation(ID, ref value);
 			}
 		}

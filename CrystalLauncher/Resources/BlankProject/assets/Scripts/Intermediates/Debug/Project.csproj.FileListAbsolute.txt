@@ -1,0 +1,9 @@
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Binaries\Project.dll
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Binaries\Project.pdb
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Binaries\Crystal-ScriptCore.dll
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Binaries\Crystal-ScriptCore.pdb
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Intermediates\Debug\Project.csproj.AssemblyReference.cache
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Intermediates\Debug\Project.csproj.CoreCompileInputs.cache
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Intermediates\Debug\Project.csproj.CopyComplete
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Intermediates\Debug\Project.dll
+D:\Programming\C++\Crystal\Sapphire-Editor\SandboxProj\assets\Scripts\Intermediates\Debug\Project.pdb

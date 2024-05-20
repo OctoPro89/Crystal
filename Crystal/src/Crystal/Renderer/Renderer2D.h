@@ -52,9 +52,9 @@ namespace Crystal {
 			float LineSpacing = 0.0f;
 		};
 
-		static void DrawString(const glm::mat4& transform, const TextRendererComponent& component);
-		static void DrawString(const glm::mat4& transform, const std::string& string, const TextRendererComponent& component);
-		static void DrawString(const glm::mat4& transform, const std::string& string, Ref<Font> font, const TextConfig& config);
+		static void DrawString(const glm::mat4& transform, const TextRendererComponent& component, int entityID);
+		static void DrawString(const glm::mat4& transform, const std::string& string, const TextRendererComponent& component, int entityID);
+		static void DrawString(const glm::mat4& transform, const std::string& string, Ref<Font> font, const TextConfig& config, int entityID);
 
 		static float GetLineWidth();
 		static void SetLineWidth(float width);

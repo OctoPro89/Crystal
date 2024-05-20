@@ -39,7 +39,7 @@ namespace Crystal {
 	Application::~Application()
 	{
 		CRYSTAL_PROFILE_FUNCTION(); /* Profile the function */
-		ScriptEngine::Shutdown(); /* Shutdown the ScriptEngine */
+		// ScriptEngine::Shutdown(); Do Instead in OnDetach /* Shutdown the ScriptEngine */
 		Renderer::Shutdown(); /* Shutdown the renderer */
 		SoundSystem::Shutdown(); /* Shutdown the audio system */
 	}

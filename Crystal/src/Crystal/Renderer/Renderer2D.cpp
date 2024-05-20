@@ -629,17 +629,17 @@ namespace Crystal {
 			DrawQuad(transform, src.Color, entityID);
 	}
 
-	void Renderer2D::DrawString(const glm::mat4& transform, const TextRendererComponent& component)
+	void Renderer2D::DrawString(const glm::mat4& transform, const TextRendererComponent& component, int entityID)
 	{
-		DrawString(transform, component.TextString, component.FontAsset, { component.Color, component.Kerning, component.LineSpacing });
+		DrawString(transform, component.TextString, component.FontAsset, { component.Color, component.Kerning, component.LineSpacing }, entityID);
 	}
 
-	void Renderer2D::DrawString(const glm::mat4& transform, const std::string& string, const TextRendererComponent& component)
+	void Renderer2D::DrawString(const glm::mat4& transform, const std::string& string, const TextRendererComponent& component, int entityID)
 	{
-		DrawString(transform, string, component.FontAsset, { component.Color, component.Kerning, component.LineSpacing });
+		DrawString(transform, string, component.FontAsset, { component.Color, component.Kerning, component.LineSpacing }, entityID);
 	}
 
-	void Renderer2D::DrawString(const glm::mat4& transform, const std::string& string, Ref<Font> font, const TextConfig& config)
+	void Renderer2D::DrawString(const glm::mat4& transform, const std::string& string, Ref<Font> font, const TextConfig& config, int entityID)
 	{
 		const auto& fontGeometry = font->GetMSDFData()->Geometry;
 		const auto& metrics = fontGeometry.getMetrics();
@@ -716,25 +716,25 @@ namespace Crystal {
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = config.Color;
 			s_Data.TextVertexBufferPtr->TexCoord = texCoordMin;
-			s_Data.TextVertexBufferPtr->EntityID = 0;
+			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
 
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin.x, quadMax.y, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = config.Color;
 			s_Data.TextVertexBufferPtr->TexCoord = { texCoordMin.x, texCoordMax.y };
-			s_Data.TextVertexBufferPtr->EntityID = 0;
+			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
 
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = config.Color;
 			s_Data.TextVertexBufferPtr->TexCoord = texCoordMax;
-			s_Data.TextVertexBufferPtr->EntityID = 0;
+			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
 
 			s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax.x, quadMin.y, 0.0f, 1.0f);
 			s_Data.TextVertexBufferPtr->Color = config.Color;
 			s_Data.TextVertexBufferPtr->TexCoord = { texCoordMax.x, texCoordMin.y };
-			s_Data.TextVertexBufferPtr->EntityID = 0;
+			s_Data.TextVertexBufferPtr->EntityID = entityID;
 			s_Data.TextVertexBufferPtr++;
 
 			s_Data.TextIndexCount += 6;

@@ -99,7 +99,7 @@ namespace Crystal {
 	static void TransformComponent_GetTranslation(UUID entityID, glm::vec3* outTranslation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -109,7 +109,7 @@ namespace Crystal {
 	static void TransformComponent_SetTranslation(UUID entityID, glm::vec3* translation)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
-		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		if(!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene");
 		Entity entity = scene->GetEntityByUUID(entityID);
 		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
 
@@ -430,6 +430,18 @@ namespace Crystal {
 		body->SetFixedRotation(flag);
 	}
 
+	static void Rigidbody2DComponent_SetPosition(UUID entityID, glm::vec2* position, float angle)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		auto& rb2d = entity.GetComponent<Rigidbody2DComponent>();
+		b2Body* body = (b2Body*)rb2d.RuntimeBody;
+		body->SetTransform(b2Vec2(position->x, position->y), angle);
+	}
+
 	static void SpriteRendererComponent_GetColor(UUID entityID, glm::vec4* outColor)
 	{
 		Scene* scene = ScriptEngine::GetSceneContext();
@@ -496,6 +508,52 @@ namespace Crystal {
 		*color = glm::vec4(color->x / 255, color->y / 255, color->z / 255, color->w / 255); /* Convert from 255-0 to 1-0 */
 
 		entity.GetComponent<LineRendererComponent>().Color = *color;
+	}
+
+	static void LineRendererComponent_GetPosition(UUID entityID, glm::vec3* outPosition1, glm::vec3* outPosition2)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outPosition1 = entity.GetComponent<LineRendererComponent>().Pos1;
+		*outPosition2 = entity.GetComponent<LineRendererComponent>().Pos2;
+	}
+
+	static void LineRendererComponent_SetPosition(UUID entityID, glm::vec3* position1, glm::vec3* position2)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		entity.GetComponent<LineRendererComponent>().Pos1 = *position1;
+		entity.GetComponent<LineRendererComponent>().Pos2 = *position2;
+	}
+
+	static void TextRendererComponent_GetText(UUID entityID, MonoString** outString)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		*outString = ScriptEngine::MonoStringCreate(entity.GetComponent<TextRendererComponent>().TextString.c_str());
+	}
+
+	static void TextRendererComponent_SetText(UUID entityID, MonoString* string)
+	{
+		Scene* scene = ScriptEngine::GetSceneContext();
+		if (!scene) { return; } //CRYSTAL_CORE_ASSERT(scene, "No Scene"); 
+		Entity entity = scene->GetEntityByUUID(entityID);
+		CRYSTAL_CORE_ASSERT(entity, "No Entity!");
+
+		char* cStr = mono_string_to_utf8(string);
+		std::string& str = std::string(cStr);
+		mono_free(cStr);
+
+		entity.GetComponent<TextRendererComponent>().TextString = str;
 	}
 
 	static bool Input_IsKeyDown(KeyCode keycode)
@@ -627,6 +685,7 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Entity_HasComponent);
 		CRYSTAL_ADD_INTERNAL_CALL(Entity_FindEntityByName);
 		CRYSTAL_ADD_INTERNAL_CALL(GetScriptInstance);
+
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetTranslation);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_SetTranslation);
 		CRYSTAL_ADD_INTERNAL_CALL(TransformComponent_GetRotation);
@@ -653,6 +712,14 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetColor);
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_GetTexIndex);
 		CRYSTAL_ADD_INTERNAL_CALL(SpriteRendererComponent_SetTexIndex);
+
+		CRYSTAL_ADD_INTERNAL_CALL(LineRendererComponent_GetColor);
+		CRYSTAL_ADD_INTERNAL_CALL(LineRendererComponent_SetColor);
+		CRYSTAL_ADD_INTERNAL_CALL(LineRendererComponent_GetPosition);
+		CRYSTAL_ADD_INTERNAL_CALL(LineRendererComponent_SetPosition);
+
+		CRYSTAL_ADD_INTERNAL_CALL(TextRendererComponent_GetText);
+		CRYSTAL_ADD_INTERNAL_CALL(TextRendererComponent_SetText);
 		
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulse);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_ApplyLinearImpulseToCenter);
@@ -662,6 +729,7 @@ namespace Crystal {
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetLinearVelocity);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_GetType);
 		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_SetType);
+		CRYSTAL_ADD_INTERNAL_CALL(Rigidbody2DComponent_SetPosition);
 
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsKeyDown);
 		CRYSTAL_ADD_INTERNAL_CALL(Input_IsMouseDown);
