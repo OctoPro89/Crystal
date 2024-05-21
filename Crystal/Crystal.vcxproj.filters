@@ -1531,6 +1531,9 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Crystal\UI\MSDFData.h" />
+    <ClInclude Include="src\Crystal\Projects\PreferenceSerializer.h" />
+    <ClInclude Include="src\Crystal\Utils\Preferences.h" />
+    <ClInclude Include="src\Crystal\Utils\YAMLUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp">
@@ -1680,5 +1683,7 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Crystal\Projects\PreferenceSerializer.cpp" />
+    <ClCompile Include="src\Crystal\Utils\YAMLUtils.cpp" />
   </ItemGroup>
 </Project>

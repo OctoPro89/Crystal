@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Crystal.h"
+#include <Crystal.h>
+#include <Crystal/Utils/Preferences.h>
+
 #include "Panels/SceneHierarchyPanel.h"
 #include "Panels/ContentBrowserPanel.h"
 #include "Panels/ConsolePanel.h"
@@ -97,23 +99,6 @@ namespace Crystal {
 		// Editor Resources
 		Ref<Texture2D> m_IconPlay, m_IconPause, m_IconStop, m_IconSimulate, m_IconStep;
 
-		// Preferences
-		struct Preferences
-		{
-			enum Font
-			{
-				Default, DefaultLight, DefaultDark, Dark, Monochrome
-			};
-
-			glm::vec4 SphereColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-			glm::vec4 QuadColliderColor = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-			glm::vec4 EntityOutlineColor = glm::vec4(1, 0, 0, 1);
-			float LineThickness = 3.0f;
-			RendererAPI::API RenderingAPI;
-			bool VSync = false;
-			bool ShowPhysicsColliders = false;
-		};
-
-		Preferences CrntPreferences;
+		Ref<Preferences> CrntPreferences;
 	};
 }

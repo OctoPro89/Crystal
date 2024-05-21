@@ -147,6 +147,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Crystal\Projects\PreferenceSerializer.h" />
     <ClInclude Include="src\Crystal.h" />
     <ClInclude Include="src\Crystal\Audio\SoundSystem.h" />
     <ClInclude Include="src\Crystal\Core\Application.h" />
@@ -202,6 +203,8 @@
     <ClInclude Include="src\Crystal\UI\MSDFData.h" />
     <ClInclude Include="src\Crystal\UI\UI.h" />
     <ClInclude Include="src\Crystal\Utils\PlatformUtils.h" />
+    <ClInclude Include="src\Crystal\Utils\Preferences.h" />
+    <ClInclude Include="src\Crystal\Utils\YAMLUtils.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
@@ -632,6 +635,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Crystal\Projects\PreferenceSerializer.cpp" />
     <ClCompile Include="src\Crystal\Audio\SoundSystem.cpp" />
     <ClCompile Include="src\Crystal\Core\Application.cpp" />
     <ClCompile Include="src\Crystal\Core\Filesystem.cpp" />
@@ -667,6 +671,7 @@
     <ClCompile Include="src\Crystal\Scene\SceneSerializer.cpp" />
     <ClCompile Include="src\Crystal\Scripting\ScriptEngine.cpp" />
     <ClCompile Include="src\Crystal\Scripting\ScriptGlue.cpp" />
+    <ClCompile Include="src\Crystal\Utils\YAMLUtils.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />

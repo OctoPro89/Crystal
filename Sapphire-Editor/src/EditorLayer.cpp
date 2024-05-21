@@ -8,6 +8,7 @@
 #include "EditorLayer.h"
 #include <Crystal/Scene/SceneSerializer.h>
 #include <Crystal/Utils/PlatformUtils.h>
+#include <Crystal/Projects/PreferenceSerializer.h>
 #include <Crystal/Math/Math.h>
 #include <Crystal/Scripting/ScriptEngine.h>
 #include <Crystal/Renderer/Font.h>
@@ -42,10 +43,11 @@ namespace Crystal
 
 		m_EditorScene = CreateRef<Scene>();
 		m_ActiveScene = m_EditorScene;
+		
+		CrntPreferences = CreateRef<Preferences>();
 
 		auto commandLineArgs = Application::Get().GetSpecification().CommandLineArgs;
 
-		/* This is broken... */
 		if (commandLineArgs.Count > 1)
 		{
 			auto projectFilePath = commandLineArgs[1];
@@ -525,7 +527,7 @@ namespace Crystal
 		else
 			Renderer2D::BeginScene(m_EditorCamera);
 
-		if (CrntPreferences.ShowPhysicsColliders) 
+		if (CrntPreferences->ShowPhysicsColliders) 
 		{
 			// Circle Collider
 			{
@@ -558,7 +560,7 @@ namespace Crystal
 						* glm::translate(glm::mat4(1.0f), glm::vec3(bc2d.Offset, 0.001f))
 						* glm::scale(glm::mat4(1.0f), scale);
 
-					Renderer2D::DrawRect(transform, CrntPreferences.QuadColliderColor);
+					Renderer2D::DrawRect(transform, CrntPreferences->QuadColliderColor);
 				}
 			}
 		}
@@ -567,7 +569,7 @@ namespace Crystal
 		if (Entity selectedEntity = m_SceneHierarchyPanel.GetSelectedEntity()) 
 		{
 			const TransformComponent& transform = selectedEntity.GetComponent<TransformComponent>();
-			Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences.EntityOutlineColor);
+			Renderer2D::DrawRect(transform.GetTransform(), CrntPreferences->EntityOutlineColor);
 		}
 
 		// Camera Icon
@@ -816,16 +818,16 @@ namespace Crystal
 		ImGui::Begin("Preferences");
 		if (ImGui::TreeNodeEx("Display"))
 		{
-			if (ImGui::Checkbox("Use V-Sync", &CrntPreferences.VSync))
+			if (ImGui::Checkbox("Use V-Sync", &CrntPreferences->VSync))
 			{
-				Application::Get().GetWindow().SetVSync(CrntPreferences.VSync);
+				Application::Get().GetWindow().SetVSync(CrntPreferences->VSync);
 			}
 
 			if (ImGui::TreeNodeEx("Rendering"))
 			{
-				if (ImGui::DragFloat("Line Thickness", &CrntPreferences.LineThickness, 0.01f, 0.0f, 10.0f))
+				if (ImGui::DragFloat("Line Thickness", &CrntPreferences->LineThickness, 0.01f, 0.0f, 10.0f))
 				{
-					Renderer2D::SetLineWidth(CrntPreferences.LineThickness);
+					Renderer2D::SetLineWidth(CrntPreferences->LineThickness);
 				}
 
 				if (ImGui::TreeNodeEx("Rendering API"))
@@ -840,87 +842,212 @@ namespace Crystal
 
 				if (ImGui::TreeNodeEx("Image Minification and Maxification"))
 				{
-					if (ImGui::MenuItem("Linear")) { Renderer2D::SetFilteringMode(false); }
-					if (ImGui::MenuItem("Nearest")) { Renderer2D::SetFilteringMode(true); }
+					if (ImGui::MenuItem("Linear")) { Renderer2D::SetFilteringMode(false); CrntPreferences->NearestFiltering = false; }
+					if (ImGui::MenuItem("Nearest")) { Renderer2D::SetFilteringMode(true); CrntPreferences->NearestFiltering = true; }
 
 					ImGui::TreePop();
 				}
 			}
+
 			ImGui::TreePop();
 		}
+
 		if (ImGui::TreeNodeEx("Fonts"))
 		{
 			if (ImGui::MenuItem("Open Sans"))
 			{
 				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[5];
+				CrntPreferences->editorFont = Preferences::EditorFont::OpenSans;
 			}
+
 			if (ImGui::MenuItem("Open Sans Bold"))
 			{
 				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[4];
+				CrntPreferences->editorFont = Preferences::EditorFont::OpenSansBold;
 			}
+
 			if (ImGui::MenuItem("Roboto"))
 			{
 				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[3];
+				CrntPreferences->editorFont = Preferences::EditorFont::Roboto;
 			}
+
 			if (ImGui::MenuItem("Roboto Bold"))
 			{
 				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[2];
+				CrntPreferences->editorFont = Preferences::EditorFont::RobotoBold;
 			}
+
 			if (ImGui::MenuItem("Kalam"))
 			{
 				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[1];
+				CrntPreferences->editorFont = Preferences::EditorFont::Kalam;
 			}
+
 			if (ImGui::MenuItem("Kalam Bold"))
 			{
 				auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[0];
+				CrntPreferences->editorFont = Preferences::EditorFont::KalamBold;
 			}
+
 			ImGui::TreePop();
 		}
+
 		if (ImGui::TreeNodeEx("Themes"))
 		{
 			if (ImGui::MenuItem("Default"))
 			{
 				Application::Get().GetImGuiLayer()->SetDefaultThemeColors();
-				CrntPreferences.Font::Default;
+				CrntPreferences->colorScheme = Preferences::ColorScheme::Default;
 			}
+
 			if (ImGui::MenuItem("Default Light"))
 			{
 				Application::Get().GetImGuiLayer()->SetDefaultLightColors();
-				CrntPreferences.Font::DefaultLight;
+				CrntPreferences->colorScheme = Preferences::ColorScheme::DefaultLight;
 			}
+
 			if (ImGui::MenuItem("Default Dark"))
 			{
 				Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
-				CrntPreferences.Font::DefaultDark;
+				CrntPreferences->colorScheme = Preferences::ColorScheme::DefaultDark;
 			}
+
 			if (ImGui::MenuItem("Dark Blue"))
 			{
 				Application::Get().GetImGuiLayer()->SetDarkThemeColors();
-				CrntPreferences.Font::Dark;
+				CrntPreferences->colorScheme = Preferences::ColorScheme::Dark;
 			}
+
 			if (ImGui::MenuItem("Monochrome"))
 			{
 				Application::Get().GetImGuiLayer()->SetMonochromeTheme();
-				CrntPreferences.Font::Monochrome;
+				CrntPreferences->colorScheme = Preferences::ColorScheme::Monochrome;
 			}
+
 			ImGui::TreePop();
 		}
+
 		if (ImGui::TreeNodeEx("Components"))
 		{
 			if (ImGui::TreeNodeEx("Physics Colliders"))
 			{
-				ImGui::ColorEdit4("Sphere Collider Outline", glm::value_ptr(CrntPreferences.SphereColliderColor));
-				ImGui::ColorEdit4("Box Collider Outline", glm::value_ptr(CrntPreferences.QuadColliderColor));
-				ImGui::Checkbox("Show Physics Colliders", &CrntPreferences.ShowPhysicsColliders);
+				ImGui::ColorEdit4("Sphere Collider Outline", glm::value_ptr(CrntPreferences->SphereColliderColor));
+				ImGui::ColorEdit4("Box Collider Outline", glm::value_ptr(CrntPreferences->QuadColliderColor));
+				ImGui::Checkbox("Show Physics Colliders", &CrntPreferences->ShowPhysicsColliders);
 				ImGui::TreePop();
 			}
+
 			ImGui::TreePop();
 		}
+
 		if (ImGui::TreeNodeEx("Entities"))
 		{
-			ImGui::ColorEdit4("Entity outline color", glm::value_ptr(CrntPreferences.EntityOutlineColor));
+			ImGui::ColorEdit4("Entity outline color", glm::value_ptr(CrntPreferences->EntityOutlineColor));
 			ImGui::TreePop();
 		}
+
+		if (ImGui::Button("Save"))
+		{
+			PreferenceSerializer serializer(CrntPreferences);
+			
+			serializer.Serialize("./.editorpref");
+		}
+		
+		if (ImGui::Button("Load"))
+		{
+			PreferenceSerializer serializer(CrntPreferences);
+
+			serializer.Deserialize("./.editorpref");
+
+			Application::Get().GetWindow().SetVSync(CrntPreferences->VSync);
+			Renderer2D::SetLineWidth(CrntPreferences->LineThickness);
+			Renderer2D::SetFilteringMode(CrntPreferences->NearestFiltering);
+
+			switch (CrntPreferences->colorScheme)
+			{
+				case Preferences::ColorScheme::Default:
+				{
+					Application::Get().GetImGuiLayer()->SetDefaultThemeColors();
+
+					break;
+				}
+
+				case Preferences::ColorScheme::DefaultLight:
+				{
+					Application::Get().GetImGuiLayer()->SetDefaultLightColors();
+
+					break;
+				}
+
+				case Preferences::ColorScheme::DefaultDark:
+				{
+					Application::Get().GetImGuiLayer()->SetDefaultDarkColors();
+
+					break;
+				}
+
+				case Preferences::ColorScheme::Dark:
+				{
+					Application::Get().GetImGuiLayer()->SetDarkThemeColors();
+
+					break;
+				}
+
+				case Preferences::ColorScheme::Monochrome:
+				{
+					Application::Get().GetImGuiLayer()->SetMonochromeTheme();
+
+					break;
+				}
+			}
+
+			switch (CrntPreferences->editorFont)
+			{
+				case Preferences::EditorFont::OpenSans:
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[5];
+
+					break;
+				}
+
+				case Preferences::EditorFont::OpenSansBold:
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[4];
+
+					break;
+				}
+
+				case Preferences::EditorFont::Roboto:
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[3];
+
+					break;
+				}
+
+				case Preferences::EditorFont::RobotoBold:
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[2];
+
+					break;
+				}
+
+				case Preferences::EditorFont::Kalam:
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[1];
+
+					break;
+				}
+
+				case Preferences::EditorFont::KalamBold:
+				{
+					auto& io = ImGui::GetIO(); io.FontDefault = io.Fonts->Fonts[0];
+
+					break;
+				}
+			}
+		}
+
 		ImGui::End();
 	}
 }

@@ -1,6 +1,9 @@
 #include "crystalpch.h"
 #include "ContentBrowserPanel.h"
+
 #include <Crystal/Projects/Project.h>
+#include <Crystal/Utils/PlatformUtils.h>
+
 #include <imgui/imgui.h>
 
 namespace Crystal
@@ -91,7 +94,19 @@ namespace Crystal
  			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
  			{
 				if (directoryEntry.is_directory())
- 					m_CurrentDirectory /= path.filename();
+				{
+					m_CurrentDirectory /= path.filename();
+				}
+				else
+				{
+					if (extension == ".cs")
+					{
+						/* Open the C# file in Visual Studio 2022 */
+						//std::string command = "\"\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe\" \"" + path.string() + "\"\"";
+						//system(command.c_str());
+						FileDialogs::OpenVSSolutionAndFile("D:/CrystalGames/Proj/assets/Scripts/Project.sln", path.string().c_str());
+					}
+				}
  			}
  			ImGui::TextWrapped(filenameString.c_str());
  			ImGui::NextColumn();

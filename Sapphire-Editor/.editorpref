@@ -1,0 +1,11 @@
+Preferences:
+  SphereColliderColor: [0, 1, 0, 1]
+  QuadColliderColor: [0, 1, 0, 1]
+  EntityOutlineColor: [1, 0, 0, 1]
+  LineThickness: 3
+  RenderingAPI: 0
+  ColorScheme: 3
+  EditorFont: 0
+  VSync: false
+  ShowPhysicsColliders: false
+  NearestFiltering: true
